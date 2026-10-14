@@ -53,6 +53,8 @@ set(LOKYS_SOURCES
     src/aerodynamics/AerodynamicsSystem.cpp
     src/input/InputSystem.cpp
     src/propulsion/PropulsionSystem.cpp
+    src/avionics/AvionicsSystem.cpp
+    src/graphics/AvionicsRenderer.cpp
 )
 
 set(LOKYS_HEADERS
@@ -69,6 +71,9 @@ set(LOKYS_HEADERS
     include/LokYS/graphics/GltfTypes.hpp
     include/LokYS/graphics/GltfModel.hpp
     include/LokYS/graphics/AircraftModelGenerator.hpp
+    include/LokYS/graphics/AvionicsRenderer.hpp
+    include/LokYS/avionics/AvionicsTypes.hpp
+    include/LokYS/avionics/AvionicsSystem.hpp
     include/LokYS/math/Units.hpp
     include/LokYS/math/Vector3.hpp
     include/LokYS/math/Matrix3x3.hpp
@@ -197,6 +202,19 @@ target_link_libraries(LokYSGltfTests PRIVATE
 )
 
 add_test(NAME GltfModelTests COMMAND LokYSGltfTests)
+
+add_executable(LokYSAvionicsTests
+    tests/unit/AvionicsTests.cpp
+    src/avionics/AvionicsSystem.cpp
+    src/physics/RigidBody.cpp
+    ${LOKYS_HEADERS}
+)
+
+target_include_directories(LokYSAvionicsTests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+add_test(NAME SixPackAvionicsTests COMMAND LokYSAvionicsTests)
 
 
 

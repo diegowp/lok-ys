@@ -48,6 +48,10 @@ f64 InputSystem::ApplyAxisShaping(f64 rawValue, bool invert) const noexcept {
 void InputSystem::Poll(f64 dt) noexcept {
     m_cameraToggleTriggered = false;
     m_resetTriggered = false;
+    m_panelToggleTriggered = false;
+    m_avionicsAlignTriggered = false;
+    m_kollsmanDelta = 0.0;
+    m_headingBugDelta = 0.0;
 
     // Hardware joystick polling
     if (m_joystickConnected) {
@@ -206,6 +210,36 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
         m_resetTriggered = true;
     }
     m_prevResetKey = rDown;
+
+    // Instrument Panel Toggle: 'H' key
+    bool hDown = IsDown('H');
+    if (hDown && !m_prevPanelKey) {
+        m_panelToggleTriggered = true;
+    }
+    m_prevPanelKey = hDown;
+
+    // Avionics Align Gyro: 'B' key
+    bool bDown = IsDown('B');
+    if (bDown && !m_prevAlignKey) {
+        m_avionicsAlignTriggered = true;
+    }
+    m_prevAlignKey = bDown;
+
+    // Kollsman Barometric Adjustment: '[' (decrease) and ']' (increase)
+    if (IsDown(VK_OEM_4)) { // '['
+        m_kollsmanDelta -= 0.05 * dt;
+    }
+    if (IsDown(VK_OEM_6)) { // ']'
+        m_kollsmanDelta += 0.05 * dt;
+    }
+
+    // Heading Bug Adjustment: ',' (decrease) and '.' (increase)
+    if (IsDown(VK_OEM_COMMA)) {
+        m_headingBugDelta -= 20.0 * dt;
+    }
+    if (IsDown(VK_OEM_PERIOD)) {
+        m_headingBugDelta += 20.0 * dt;
+    }
 }
 
 

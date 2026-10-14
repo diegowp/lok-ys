@@ -1,10 +1,10 @@
-Start testing: Oct 14 01:05 Hora oficial do Brasil
+Start testing: Oct 14 01:32 Hora oficial do Brasil
 ----------------------------------------------------------
-1/6 Testing: AerospaceMathTests
-1/6 Test: AerospaceMathTests
+1/7 Testing: AerospaceMathTests
+1/7 Test: AerospaceMathTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSMathTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"AerospaceMathTests" start time: Oct 14 01:05 Hora oficial do Brasil
+"AerospaceMathTests" start time: Oct 14 01:32 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ========================================
@@ -16,18 +16,18 @@ Tests Passed: 62
 Tests Failed: 0
 ----------------------------------------
 <end of output>
-Test time =   0.02 sec
+Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"AerospaceMathTests" end time: Oct 14 01:05 Hora oficial do Brasil
+"AerospaceMathTests" end time: Oct 14 01:32 Hora oficial do Brasil
 "AerospaceMathTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-2/6 Testing: SixDofPhysicsTests
-2/6 Test: SixDofPhysicsTests
+2/7 Testing: SixDofPhysicsTests
+2/7 Test: SixDofPhysicsTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSPhysicsTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"SixDofPhysicsTests" start time: Oct 14 01:05 Hora oficial do Brasil
+"SixDofPhysicsTests" start time: Oct 14 01:32 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ========================================
@@ -42,15 +42,15 @@ Tests Failed: 0
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"SixDofPhysicsTests" end time: Oct 14 01:05 Hora oficial do Brasil
+"SixDofPhysicsTests" end time: Oct 14 01:32 Hora oficial do Brasil
 "SixDofPhysicsTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-3/6 Testing: AeroInputTests
-3/6 Test: AeroInputTests
+3/7 Testing: AeroInputTests
+3/7 Test: AeroInputTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSAeroInputTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"AeroInputTests" start time: Oct 14 01:05 Hora oficial do Brasil
+"AeroInputTests" start time: Oct 14 01:32 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ========================================
@@ -65,15 +65,15 @@ Tests Failed: 0
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"AeroInputTests" end time: Oct 14 01:05 Hora oficial do Brasil
+"AeroInputTests" end time: Oct 14 01:32 Hora oficial do Brasil
 "AeroInputTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-4/6 Testing: GroundReactionsTests
-4/6 Test: GroundReactionsTests
+4/7 Testing: GroundReactionsTests
+4/7 Test: GroundReactionsTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSGroundReactionsTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"GroundReactionsTests" start time: Oct 14 01:05 Hora oficial do Brasil
+"GroundReactionsTests" start time: Oct 14 01:32 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ========================================
@@ -88,15 +88,15 @@ Tests Failed: 0
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"GroundReactionsTests" end time: Oct 14 01:05 Hora oficial do Brasil
+"GroundReactionsTests" end time: Oct 14 01:32 Hora oficial do Brasil
 "GroundReactionsTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-5/6 Testing: PropulsionTests
-5/6 Test: PropulsionTests
+5/7 Testing: PropulsionTests
+5/7 Test: PropulsionTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSPropulsionTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"PropulsionTests" start time: Oct 14 01:05 Hora oficial do Brasil
+"PropulsionTests" start time: Oct 14 01:32 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ========================================
@@ -111,15 +111,15 @@ Tests Failed: 0
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"PropulsionTests" end time: Oct 14 01:05 Hora oficial do Brasil
+"PropulsionTests" end time: Oct 14 01:32 Hora oficial do Brasil
 "PropulsionTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-6/6 Testing: GltfModelTests
-6/6 Test: GltfModelTests
+6/7 Testing: GltfModelTests
+6/7 Test: GltfModelTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSGltfTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"GltfModelTests" start time: Oct 14 01:05 Hora oficial do Brasil
+"GltfModelTests" start time: Oct 14 01:32 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ========================================
@@ -131,11 +131,44 @@ Tests Passed: 47
 Tests Failed: 0
 ----------------------------------------
 <end of output>
-Test time =   0.04 sec
+Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"GltfModelTests" end time: Oct 14 01:05 Hora oficial do Brasil
+"GltfModelTests" end time: Oct 14 01:32 Hora oficial do Brasil
 "GltfModelTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Oct 14 01:05 Hora oficial do Brasil
+7/7 Testing: SixPackAvionicsTests
+7/7 Test: SixPackAvionicsTests
+Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSAvionicsTests.exe"
+Directory: C:/Users/diego/Documents/Projetos/LokYS/build
+"SixPackAvionicsTests" start time: Oct 14 01:32 Hora oficial do Brasil
+Output:
+----------------------------------------------------------
+====================================================
+LokYS Analog Six-Pack Avionics Test Suite (Milestone M14)
+====================================================
+[RUNNING] TestAirspeedIndicator...
+[PASSED] TestAirspeedIndicator
+[RUNNING] TestAttitudeIndicator...
+[PASSED] TestAttitudeIndicator
+[RUNNING] TestAltimeter...
+[PASSED] TestAltimeter
+[RUNNING] TestTurnCoordinator...
+[PASSED] TestTurnCoordinator
+[RUNNING] TestHeadingIndicator...
+[PASSED] TestHeadingIndicator
+[RUNNING] TestVerticalSpeedIndicator...
+[PASSED] TestVerticalSpeedIndicator
+====================================================
+ALL AVIONICS TEST SUITES PASSED (6/6 Instruments Verified)
+====================================================
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"SixPackAvionicsTests" end time: Oct 14 01:32 Hora oficial do Brasil
+"SixPackAvionicsTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 14 01:32 Hora oficial do Brasil

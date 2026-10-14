@@ -49,6 +49,10 @@ public:
 
     [[nodiscard]] bool WasCameraToggleTriggered() const noexcept { return m_cameraToggleTriggered; }
     [[nodiscard]] bool WasResetTriggered() const noexcept { return m_resetTriggered; }
+    [[nodiscard]] bool WasPanelToggleTriggered() const noexcept { return m_panelToggleTriggered; }
+    [[nodiscard]] bool WasAvionicsAlignTriggered() const noexcept { return m_avionicsAlignTriggered; }
+    [[nodiscard]] f64 GetKollsmanDelta() const noexcept { return m_kollsmanDelta; }
+    [[nodiscard]] f64 GetHeadingBugDelta() const noexcept { return m_headingBugDelta; }
 
     // Manual control setters for automation / autopilot
     void SetControls(const FlightControls& controls) noexcept { m_controls = controls; }
@@ -72,8 +76,14 @@ private:
     bool m_prevFlapDownKey{ false };
     bool m_prevCameraKey{ false };
     bool m_prevResetKey{ false };
+    bool m_prevPanelKey{ false };
+    bool m_prevAlignKey{ false };
     bool m_cameraToggleTriggered{ false };
     bool m_resetTriggered{ false };
+    bool m_panelToggleTriggered{ false };
+    bool m_avionicsAlignTriggered{ false };
+    f64 m_kollsmanDelta{ 0.0 };
+    f64 m_headingBugDelta{ 0.0 };
 };
 
 

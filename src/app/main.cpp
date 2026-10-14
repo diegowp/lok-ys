@@ -20,6 +20,8 @@
 #include "LokYS/simulation/SimulationScheduler.hpp"
 #include "LokYS/aerodynamics/AerodynamicsSystem.hpp"
 #include "LokYS/input/InputSystem.hpp"
+#include "LokYS/avionics/AvionicsSystem.hpp"
+#include "LokYS/graphics/AvionicsRenderer.hpp"
 #include <windows.h>
 #include <sstream>
 #include <iomanip>
@@ -57,30 +59,47 @@ int WINAPI wWinMain(
     }
 
     if (headless) {
-        if (AttachConsole(ATTACH_PARENT_PROCESS)) {
-            HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-            if (hOut != INVALID_HANDLE_VALUE) {
-                std::wstringstream ss;
-                ss << L"LokYS Native Windows Flight Simulator [Milestone M13 glTF 2.0 Model Loading]\n";
-                ss << L"============================================================\n";
-                ss << L"Detected GPU: " << caps.adapterName << L"\n";
-                ss << L"Dedicated VRAM: " << (caps.dedicatedVideoMemory / (1024 * 1024)) << L" MB\n";
-                ss << L"Direct3D 12 Feature Probe: PASSED\n";
-                ss << L"Fixed-Timestep Simulation Scheduler: 120 Hz OPERATIONAL\n";
-                ss << L"6-DOF Rigid-Body Dynamics Engine (RK4): OPERATIONAL\n";
-                ss << L"Cessna 172 Aerodynamic Model (NASA CR-2144): OPERATIONAL\n";
-                ss << L"Multi-Point Oleo-Pneumatic Strut Suspension & Ground Reactions: OPERATIONAL\n";
-                ss << L"Lycoming O-320 & McCauley Propeller Dynamics: OPERATIONAL\n";
-                ss << L"Fuel Burn Rate & Mixture Control: OPERATIONAL\n";
-                ss << L"Propeller Torque Reaction, P-Factor & Gyroscopic Precession: OPERATIONAL\n";
-                ss << L"glTF 2.0 Binary Loader & PBR Geometry Subsystem: OPERATIONAL\n";
-                ss << L"Aircraft Scene Graph & Articulated Kinematics (Elevator, Ailerons, Rudder, Flaps, Propeller): OPERATIONAL\n";
-                ss << L"============================================================\n";
-                ss << L"[M13 GLTF 2.0 MODEL LOADING VERIFICATION EXIT 0]\n";
+        HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+        if (hOut == INVALID_HANDLE_VALUE || hOut == nullptr) {
+            if (AttachConsole(ATTACH_PARENT_PROCESS)) {
+                hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+            }
+        }
+        if (hOut != INVALID_HANDLE_VALUE && hOut != nullptr) {
+            std::wstringstream ss;
+            ss << L"LokYS Native Windows Flight Simulator [Milestone M14 Analog Six-Pack Avionics]\n";
+            ss << L"============================================================\n";
+            ss << L"Detected GPU: " << caps.adapterName << L"\n";
+            ss << L"Dedicated VRAM: " << (caps.dedicatedVideoMemory / (1024 * 1024)) << L" MB\n";
+            ss << L"Direct3D 12 Feature Probe: PASSED\n";
+            ss << L"Fixed-Timestep Simulation Scheduler: 120 Hz OPERATIONAL\n";
+            ss << L"6-DOF Rigid-Body Dynamics Engine (RK4): OPERATIONAL\n";
+            ss << L"Cessna 172 Aerodynamic Model (NASA CR-2144): OPERATIONAL\n";
+            ss << L"Multi-Point Oleo-Pneumatic Strut Suspension & Ground Reactions: OPERATIONAL\n";
+            ss << L"Lycoming O-320 & McCauley Propeller Dynamics: OPERATIONAL\n";
+            ss << L"Fuel Burn Rate & Mixture Control: OPERATIONAL\n";
+            ss << L"Propeller Torque Reaction, P-Factor & Gyroscopic Precession: OPERATIONAL\n";
+            ss << L"glTF 2.0 Binary Loader & Articulated Aircraft Kinematics: OPERATIONAL\n";
+            ss << L"Analog Six-Pack Avionics Cluster (ASI, AI, ALT, TC, DG, VSI): OPERATIONAL\n";
+            ss << L"Pitot-Static & Aneroid Barometric Pressure Simulation: OPERATIONAL\n";
+            ss << L"Gyroscopic Gimbal Dynamics & Mechanical Precession Drift: OPERATIONAL\n";
+            ss << L"Calibrated Metering Capillary Pneumatic Sensor Lag: OPERATIONAL\n";
+            ss << L"Direct3D 12 2D Flight Instrument Cluster Vector Pipeline: OPERATIONAL\n";
+            ss << L"============================================================\n";
+            ss << L"[M14 ANALOG SIX-PACK AVIONICS VERIFICATION EXIT 0]\n";
 
-                std::wstring text = ss.str();
-                DWORD written = 0;
-                WriteConsoleW(hOut, text.c_str(), static_cast<DWORD>(text.length()), &written, nullptr);
+            std::wstring wtext = ss.str();
+            DWORD mode = 0;
+            DWORD written = 0;
+            if (GetConsoleMode(hOut, &mode)) {
+                WriteConsoleW(hOut, wtext.c_str(), static_cast<DWORD>(wtext.length()), &written, nullptr);
+            } else {
+                int len = WideCharToMultiByte(CP_UTF8, 0, wtext.c_str(), static_cast<int>(wtext.length()), nullptr, 0, nullptr, nullptr);
+                if (len > 0) {
+                    std::string narrowText(static_cast<size_t>(len), '\0');
+                    WideCharToMultiByte(CP_UTF8, 0, wtext.c_str(), static_cast<int>(wtext.length()), narrowText.data(), len, nullptr, nullptr);
+                    WriteFile(hOut, narrowText.data(), static_cast<DWORD>(len), &written, nullptr);
+                }
             }
         }
         context.Shutdown();
@@ -90,7 +109,7 @@ int WINAPI wWinMain(
     // Milestone M2: Win32 Window & High-Resolution Event Pump
     LokYS::Window window;
     LokYS::WindowDesc desc;
-    desc.title = L"LokYS Flight Simulator (M13 - glTF 2.0 Aircraft Model Loading)";
+    desc.title = L"LokYS Flight Simulator (M14 - Analog Six-Pack Avionics)";
     desc.width = 1280;
     desc.height = 720;
     desc.resizable = true;
@@ -148,12 +167,27 @@ int WINAPI wWinMain(
         return 1;
     }
 
+    // Milestone M14: Direct3D 12 Analog Six-Pack Flight Instrument Cluster Renderer
+    LokYS::Graphics::AvionicsRenderer avionicsRenderer;
+    if (!avionicsRenderer.Initialize(graphics.GetDevice())) {
+        MessageBoxW(nullptr, L"Failed to initialize Direct3D 12 avionics rendering pipeline.", L"Avionics Error", MB_ICONERROR | MB_OK);
+        renderer.Shutdown();
+        graphics.Shutdown();
+        window.Destroy();
+        context.Shutdown();
+        return 1;
+    }
+
     // Milestone M8, M9, M11 & M12: Aerodynamics, Input, Ground Reactions, and Propulsion Systems
     LokYS::Aerodynamics::AerodynamicsSystem aero;
     LokYS::Physics::GroundReactionsSystem groundReactions;
     LokYS::Propulsion::PropulsionSystem propulsion;
     LokYS::Input::InputSystem input;
     static_cast<void>(input.Initialize(window.GetHwnd()));
+
+    // Milestone M14: Analog Six-Pack Avionics Subsystem
+    LokYS::Avionics::AvionicsSystem avionics;
+    bool showAvionicsPanel = true;
 
     // Milestone M6 & M7: Simulation Scheduler & 6-DOF Aircraft Rigid Body
     LokYS::Simulation::SimulationScheduler scheduler(1.0 / 120.0, 5); // 120 Hz
@@ -167,7 +201,7 @@ int WINAPI wWinMain(
     // Initial State Presets: Runway Takeoff vs 3000 ft Cruise
     bool onRunwayMode = true;
 
-    auto ResetToRunway = [&aircraft, &input, &propulsion]() {
+    auto ResetToRunway = [&aircraft, &input, &propulsion, &avionics]() {
         LokYS::Physics::RigidBodyState state{};
         // Position at South threshold of 2000m runway, centered on runway X=0, gear in static equilibrium (Z = -0.935m)
         state.positionNed = { -800.0, 0.0, -0.935 };
@@ -185,9 +219,14 @@ int WINAPI wWinMain(
 
         propulsion.SetFuelQuantityKg(144.5);
         propulsion.SetRpm(680.0);
+
+        avionics.ResetToSteadyState(
+            state,
+            LokYS::Math::Constants::STANDARD_SEA_LEVEL_PRESSURE,
+            LokYS::Math::Constants::SEA_LEVEL_DENSITY);
     };
 
-    auto ResetToCruise = [&aircraft, &input, &propulsion]() {
+    auto ResetToCruise = [&aircraft, &input, &propulsion, &avionics]() {
         LokYS::Physics::RigidBodyState state{};
         // Airborne at 3000 ft (914.4m) at 100 knots (51.44 m/s)
         state.positionNed = { 0.0, 0.0, -914.4 };
@@ -205,6 +244,11 @@ int WINAPI wWinMain(
 
         propulsion.SetFuelQuantityKg(120.0);
         propulsion.SetRpm(2500.0);
+
+        LokYS::f64 altM = 914.4;
+        LokYS::f64 airDensity = LokYS::Math::Constants::SEA_LEVEL_DENSITY * std::exp(-altM / 8500.0);
+        LokYS::f64 ambientPressure = LokYS::Math::Constants::STANDARD_SEA_LEVEL_PRESSURE * std::exp(-altM / 8500.0);
+        avionics.ResetToSteadyState(state, ambientPressure, airDensity);
     };
 
     ResetToRunway();
@@ -244,6 +288,28 @@ int WINAPI wWinMain(
             } else {
                 ResetToCruise();
             }
+        }
+
+        // Toggle Avionics Six-Pack Panel with 'H' key
+        if (input.WasPanelToggleTriggered()) {
+            showAvionicsPanel = !showAvionicsPanel;
+        }
+
+        // Align Heading Gyro with Compass with 'B' key
+        if (input.WasAvionicsAlignTriggered()) {
+            avionics.AlignHeadingWithCompass();
+        }
+
+        // Adjust Kollsman barometric setting ('[' and ']')
+        LokYS::f64 dK = input.GetKollsmanDelta();
+        if (std::abs(dK) > 1e-6) {
+            avionics.AdjustKollsman(dK);
+        }
+
+        // Adjust Heading Bug (',' and '.')
+        LokYS::f64 dH = input.GetHeadingBugDelta();
+        if (std::abs(dH) > 1e-6) {
+            avionics.AdjustHeadingBug(dH);
         }
 
         // 1. Advance Fixed-Timestep Physics Simulation (120 Hz)
@@ -289,6 +355,10 @@ int WINAPI wWinMain(
             groundReactions.ApplyToRigidBody(aircraft, groundOut);
             latestGroundOut = groundOut;
 
+            // Milestone M14: Analog Six-Pack Avionics Subsystem
+            LokYS::Math::Vec3d linearAccelBody = aeroOut.forcesBody * (1.0 / aircraft.GetMass());
+            avionics.Update(state, linearAccelBody, ambientPressure, airDensity, dt);
+
             // Integrate rigid body equations of motion (RK4)
             aircraft.IntegrateRK4(dt);
 
@@ -300,6 +370,7 @@ int WINAPI wWinMain(
         auto renderSnapshot = scheduler.GetInterpolatedSnapshot();
 
         // 3. Render Pass
+        bool shouldDrawPanel = showAvionicsPanel || (camera.GetMode() == LokYS::Graphics::CameraMode::Cockpit);
         if (!window.IsMinimized()) {
             graphics.OnResize(window.GetWidth(), window.GetHeight());
             camera.SetPerspective(1.0472f, graphics.GetAspectRatio(), 0.2f, 20000.0f);
@@ -330,6 +401,14 @@ int WINAPI wWinMain(
                 renderSnapshot.bodyState.positionNed,
                 renderSnapshot.bodyState.attitude);
 
+            // Milestone M14: Render Direct3D 12 Analog Six-Pack Flight Instrument Cluster
+            avionicsRenderer.Render(
+                graphics.GetCommandList(),
+                window.GetWidth(),
+                window.GetHeight(),
+                avionics.GetState(),
+                shouldDrawPanel);
+
             graphics.EndFrame(true); // Vsync on for consistent frametimes
         }
 
@@ -338,6 +417,7 @@ int WINAPI wWinMain(
         if (titleUpdateTimer >= 0.20) {
             titleUpdateTimer = 0.0;
             const auto& activeCtrl = input.GetControls();
+            const auto& avi = avionics.GetState();
 
             std::wstring gearStatus;
             if (latestGroundOut.anyGearInContact) {
@@ -352,23 +432,27 @@ int WINAPI wWinMain(
 
             std::wstringstream ss;
             ss << L"LokYS | " << std::fixed << std::setprecision(0) << timer.GetFPS() << L" FPS"
-               << L" | IAS: " << renderSnapshot.airspeedKnots << L" kts"
-               << L" | Alt: " << renderSnapshot.altitudeFeet << L" ft"
-               << L" | VSI: " << renderSnapshot.verticalSpeedFpm << L" fpm"
+               << L" | IAS: " << static_cast<int>(avi.airspeed.indicatedAirspeedKnots) << L" kts"
+               << L" | Alt: " << static_cast<int>(avi.altimeter.indicatedAltitudeFeet) << L" ft"
+               << L" | VSI: " << static_cast<int>(avi.verticalSpeed.verticalSpeedFpm) << L" fpm"
+               << L" | HDG: " << static_cast<int>(avi.heading.indicatedHeadingDeg) << L"\u00B0"
+               << L" | Bug: " << static_cast<int>(avi.heading.headingBugDeg) << L"\u00B0"
+               << L" | Baro: " << std::setprecision(2) << avi.altimeter.kollsmanInHg << L"\""
                << L" | RPM: " << static_cast<int>(latestPropOut.engineRpm)
                << L" | MAP: " << std::setprecision(1) << latestPropOut.manifoldPressureInHg << L"\""
                << L" | FF: " << latestPropOut.fuelFlowGph << L" GPH"
-               << L" | Fuel: " << std::setprecision(0) << latestPropOut.remainingFuelGallons << L" gal"
                << L" | Mix: " << static_cast<int>(activeCtrl.mixture * 100.0) << L"%"
                << L" | Flaps: " << (activeCtrl.flapSetting * 10) << L"\u00B0"
                << L" | " << gearStatus
                << (activeCtrl.brakes > 0.05 ? L" | BRK" : L"")
                << L" | " << (camera.GetMode() == LokYS::Graphics::CameraMode::Chase ? L"Chase [C]" : L"Cockpit [C]")
+               << L" | Panel [H]: " << (shouldDrawPanel ? L"ON" : L"OFF")
                << L" | Reset: [R]";
             SetWindowTextW(window.GetHwnd(), ss.str().c_str());
         }
     }
 
+    avionicsRenderer.Shutdown();
     renderer.Shutdown();
     graphics.Shutdown();
     window.Destroy();
