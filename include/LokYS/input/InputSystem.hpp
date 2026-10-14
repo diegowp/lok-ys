@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LokYS/core/Types.hpp"
+#include "LokYS/serial/SerialTypes.hpp"
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -60,6 +61,11 @@ public:
 
     // Manual control setters for automation / autopilot
     void SetControls(const FlightControls& controls) noexcept { m_controls = controls; }
+
+    /// @brief Ingests hardware serial controls from microcontroller panel.
+    void ApplySerialControls(
+        const Serial::InboundFlightControlsPayload& controls,
+        const Serial::InboundNavControlsPayload& nav) noexcept;
 
 private:
     void PollKeyboard(f64 dt) noexcept;

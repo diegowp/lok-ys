@@ -9,5 +9,6 @@ C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSGroundReactionsTes
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSAvionicsTests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSAudioTests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSRadioNavTests.dir
+C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSSerialInterfaceTests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/edit_cache.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/rebuild_cache.dir

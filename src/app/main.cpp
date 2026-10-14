@@ -24,6 +24,7 @@
 #include "LokYS/graphics/AvionicsRenderer.hpp"
 #include "LokYS/audio/AudioSystem.hpp"
 #include "LokYS/navigation/RadioNavSystem.hpp"
+#include "LokYS/serial/SerialInterfaceSystem.hpp"
 #include <windows.h>
 #include <sstream>
 #include <iomanip>
@@ -69,7 +70,7 @@ int WINAPI wWinMain(
         }
         if (hOut != INVALID_HANDLE_VALUE && hOut != nullptr) {
             std::wstringstream ss;
-            ss << L"LokYS Native Windows Flight Simulator [Milestone M16 Radio Navigation Systems]\n";
+            ss << L"LokYS Native Windows Flight Simulator [Milestone M17 Serial Cockpit Hardware Interface]\n";
             ss << L"============================================================\n";
             ss << L"Detected GPU: " << caps.adapterName << L"\n";
             ss << L"Dedicated VRAM: " << (caps.dedicatedVideoMemory / (1024 * 1024)) << L" MB\n";
@@ -89,8 +90,9 @@ int WINAPI wWinMain(
             ss << L"Direct3D 12 2D Flight Instrument Cluster Vector Pipeline: OPERATIONAL\n";
             ss << L"XAudio2 & X3DAudio Spatial Sound Subsystem (Engine, Wind, Ground): OPERATIONAL\n";
             ss << L"VHF Radio Navigation & Instrument Landing Subsystem (VOR, ILS, DME, Markers): OPERATIONAL\n";
+            ss << L"Serial Cockpit Hardware Interface (Win32 COM Overlapped I/O & Microcontroller Ingestion): OPERATIONAL\n";
             ss << L"============================================================\n";
-            ss << L"[M16 RADIO NAVIGATION SYSTEMS VERIFICATION EXIT 0]\n";
+            ss << L"[M17 SERIAL COCKPIT HARDWARE INTERFACE VERIFICATION EXIT 0]\n";
 
             std::wstring wtext = ss.str();
             DWORD mode = 0;
@@ -113,7 +115,7 @@ int WINAPI wWinMain(
     // Milestone M2: Win32 Window & High-Resolution Event Pump
     LokYS::Window window;
     LokYS::WindowDesc desc;
-    desc.title = L"LokYS Flight Simulator (M16 - Radio Navigation Systems)";
+    desc.title = L"LokYS Flight Simulator (M17 - Serial Cockpit Hardware Interface)";
     desc.width = 1280;
     desc.height = 720;
     desc.resizable = true;
@@ -275,6 +277,15 @@ int WINAPI wWinMain(
     LokYS::Navigation::RadioNavSystem radioNav;
     radioNav.Initialize();
 
+    // Milestone M17: Serial Cockpit Hardware Interface (Async Overlapped COM I/O)
+    LokYS::Serial::SerialConfig serialConfig{};
+    serialConfig.portName = L"COM3";
+    serialConfig.baudRate = 115200;
+    serialConfig.mockLoopback = false;
+    LokYS::Serial::SerialInterfaceSystem serialInterface;
+    serialInterface.Initialize(serialConfig);
+    LokYS::f64 serialTelemetryTimer = 0.0;
+
     LokYS::Timer timer;
     LokYS::f64 propellerAngleRad = 0.0;
     LokYS::f64 titleUpdateTimer = 0.0;
@@ -342,6 +353,13 @@ int WINAPI wWinMain(
         LokYS::f64 dFreq = input.GetNavFrequencyDelta();
         if (std::abs(dFreq) > 1e-6) {
             radioNav.AdjustNav1StandbyFrequency(dFreq);
+        }
+
+        // Milestone M17: Ingest Inbound Hardware Controls from Microcontroller Panel
+        if (serialInterface.HasHardwareControls()) {
+            auto hwCtrl = serialInterface.GetLatestFlightControls();
+            auto hwNav = serialInterface.ConsumeNavControls();
+            input.ApplySerialControls(hwCtrl, hwNav);
         }
 
         // 1. Advance Fixed-Timestep Physics Simulation (120 Hz)
@@ -503,6 +521,50 @@ int WINAPI wWinMain(
             windAudio,
             groundAudio);
 
+        // Milestone M17: Outbound Serial Telemetry Streaming (~30 Hz)
+        serialTelemetryTimer += timer.GetDeltaTime();
+        if (serialTelemetryTimer >= 0.033) {
+            serialTelemetryTimer = 0.0;
+            if (serialInterface.IsConnected()) {
+                const auto& aviState = avionics.GetState();
+                LokYS::Serial::TelemetryFlightDataPayload flightData{};
+                flightData.indicatedAirspeedKnots = static_cast<float>(aviState.airspeed.indicatedAirspeedKnots);
+                flightData.pressureAltitudeFeet = static_cast<float>(aviState.altimeter.indicatedAltitudeFeet);
+                flightData.pitchDeg = static_cast<float>(aviState.attitude.pitchDeg);
+                flightData.rollDeg = static_cast<float>(aviState.attitude.rollDeg);
+                flightData.headingDeg = static_cast<float>(aviState.heading.indicatedHeadingDeg);
+                flightData.verticalSpeedFpm = static_cast<float>(aviState.verticalSpeed.verticalSpeedFpm);
+                flightData.turnRateDps = static_cast<float>(aviState.turnCoordinator.turnRateDps);
+                flightData.slipSkidBall = static_cast<float>(aviState.turnCoordinator.slipSkidBallPosition);
+                serialInterface.SendFlightData(flightData);
+
+                LokYS::Serial::TelemetryEnginePayload engineData{};
+                engineData.engineRpm = static_cast<float>(latestPropOut.engineRpm);
+                engineData.manifoldPressureInHg = static_cast<float>(latestPropOut.manifoldPressureInHg);
+                engineData.fuelFlowGph = static_cast<float>(latestPropOut.fuelFlowGph);
+                engineData.remainingFuelKg = static_cast<float>(latestPropOut.remainingFuelKg);
+                engineData.magnetosState = 3;
+                serialInterface.SendEngine(engineData);
+
+                LokYS::Serial::TelemetryNavPayload navData{};
+                const auto& activeNav1 = radioNav.GetNav1();
+                navData.nav1ActiveFreqMhz = static_cast<float>(activeNav1.activeFrequencyMhz);
+                navData.nav1StandbyFreqMhz = static_cast<float>(activeNav1.standbyFrequencyMhz);
+                navData.nav1ObsDeg = static_cast<float>(activeNav1.cdi.obsDeg);
+                navData.cdiDeviationDots = static_cast<float>(activeNav1.cdi.courseDeviationDots);
+                navData.gsDeviationDots = static_cast<float>(activeNav1.cdi.glideslopeDeviationDots);
+                navData.dmeDistanceNm = static_cast<float>(activeNav1.dme.slantRangeNm);
+                navData.dmeSpeedKnots = static_cast<float>(activeNav1.dme.groundSpeedKnots);
+                navData.flags = (activeNav1.cdi.toFlag ? 0x01 : 0) | (activeNav1.cdi.fromFlag ? 0x02 : 0) |
+                                (activeNav1.cdi.navFlag ? 0x04 : 0) | (activeNav1.cdi.gsFlag ? 0x08 : 0) |
+                                (activeNav1.dme.hasSignal ? 0x10 : 0);
+                navData.markerFlags = (activeNav1.marker.lightBlue ? 0x01 : 0) |
+                                      (activeNav1.marker.lightAmber ? 0x02 : 0) |
+                                      (activeNav1.marker.lightWhite ? 0x04 : 0);
+                serialInterface.SendNav(navData);
+            }
+        }
+
         // 4. Update telemetry in window title every 200ms
         titleUpdateTimer += timer.GetDeltaTime();
         if (titleUpdateTimer >= 0.20) {
@@ -550,6 +612,7 @@ int WINAPI wWinMain(
                << L" | Flaps: " << (activeCtrl.flapSetting * 10) << L"\u00B0"
                << L" | " << gearStatus
                << (activeCtrl.brakes > 0.05 ? L" | BRK" : L"")
+               << L" | COM: " << (serialInterface.IsConnected() ? L"LIVE" : L"OFF")
                << L" | " << (camera.GetMode() == LokYS::Graphics::CameraMode::Chase ? L"Chase [C]" : L"Cockpit [C]")
                << L" | Panel [H]: " << (shouldDrawPanel ? L"ON" : L"OFF")
                << L" | Reset: [R]";
@@ -557,6 +620,7 @@ int WINAPI wWinMain(
         }
     }
 
+    serialInterface.Shutdown();
     audioSystem.Shutdown();
     avionicsRenderer.Shutdown();
     renderer.Shutdown();

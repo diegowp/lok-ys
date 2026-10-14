@@ -276,5 +276,48 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
     }
 }
 
+void InputSystem::ApplySerialControls(
+    const Serial::InboundFlightControlsPayload& controls,
+    const Serial::InboundNavControlsPayload& nav) noexcept
+{
+    // Convert 16-bit integer ADC axes into normalized floating point
+    if (controls.validAxesMask & (1 << 0)) { // Pitch
+        m_controls.pitch = std::clamp(static_cast<f64>(controls.pitchAxis) / 32767.0, -1.0, 1.0);
+    }
+    if (controls.validAxesMask & (1 << 1)) { // Roll
+        m_controls.roll = std::clamp(static_cast<f64>(controls.rollAxis) / 32767.0, -1.0, 1.0);
+    }
+    if (controls.validAxesMask & (1 << 2)) { // Yaw
+        m_controls.yaw = std::clamp(static_cast<f64>(controls.yawAxis) / 32767.0, -1.0, 1.0);
+    }
+    if (controls.validAxesMask & (1 << 3)) { // Throttle
+        m_controls.throttle = std::clamp(static_cast<f64>(controls.throttleAxis) / 65535.0, 0.0, 1.0);
+    }
+    if (controls.validAxesMask & (1 << 4)) { // Mixture
+        m_controls.mixture = std::clamp(static_cast<f64>(controls.mixtureAxis) / 65535.0, 0.0, 1.0);
+    }
+    if (controls.validAxesMask & (1 << 5)) { // Brakes
+        f64 maxBrake = std::max(
+            static_cast<f64>(controls.leftBrake) / 65535.0,
+            static_cast<f64>(controls.rightBrake) / 65535.0);
+        m_controls.brakes = std::clamp(maxBrake, 0.0, 1.0);
+    }
+    if (controls.validAxesMask & (1 << 6)) { // Flaps
+        m_controls.flapSetting = static_cast<u32>(std::clamp(static_cast<int>(controls.flapSetting), 0, 3));
+    }
+
+    if (nav.navSwapTriggered) {
+        m_navSwapTriggered = true;
+    }
+    if (nav.navIdentTriggered) {
+        m_navIdentTriggered = true;
+    }
+    if (nav.obsDeltaTicks != 0) {
+        m_obsDelta += static_cast<f64>(nav.obsDeltaTicks);
+    }
+    if (nav.freqDeltaTicks != 0) {
+        m_navFreqDelta += static_cast<f64>(nav.freqDeltaTicks) * 0.05; // 50 kHz steps
+    }
+}
 
 } // namespace LokYS::Input

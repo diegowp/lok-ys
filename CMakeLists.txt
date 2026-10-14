@@ -58,6 +58,8 @@ set(LOKYS_SOURCES
     src/audio/AudioSystem.cpp
     src/navigation/NavDatabase.cpp
     src/navigation/RadioNavSystem.cpp
+    src/serial/SerialPort.cpp
+    src/serial/SerialInterfaceSystem.cpp
 )
 
 set(LOKYS_HEADERS
@@ -96,6 +98,10 @@ set(LOKYS_HEADERS
     include/LokYS/navigation/NavTypes.hpp
     include/LokYS/navigation/NavDatabase.hpp
     include/LokYS/navigation/RadioNavSystem.hpp
+    include/LokYS/serial/SerialTypes.hpp
+    include/LokYS/serial/SerialProtocol.hpp
+    include/LokYS/serial/SerialPort.hpp
+    include/LokYS/serial/SerialInterfaceSystem.hpp
 )
 
 add_executable(LokYSFlightSimulator WIN32
@@ -256,5 +262,20 @@ target_include_directories(LokYSRadioNavTests PRIVATE
 
 add_test(NAME RadioNavTests COMMAND LokYSRadioNavTests)
 
+add_executable(LokYSSerialInterfaceTests
+    tests/unit/SerialInterfaceTests.cpp
+    src/serial/SerialPort.cpp
+    src/serial/SerialInterfaceSystem.cpp
+    src/input/InputSystem.cpp
+    ${LOKYS_HEADERS}
+)
 
+target_include_directories(LokYSSerialInterfaceTests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 
+target_link_libraries(LokYSSerialInterfaceTests PRIVATE
+    winmm.lib
+)
+
+add_test(NAME SerialInterfaceTests COMMAND LokYSSerialInterfaceTests)
