@@ -315,6 +315,8 @@ bool TestInputSystemHardwareControlMerging() {
 } // namespace
 
 int main() {
+    std::cout << std::unitbuf;
+    std::cerr << std::unitbuf;
     std::cout << "============================================================\n";
     std::cout << "LokYS Native Windows Flight Simulator — Serial Hardware Tests\n";
     std::cout << "============================================================\n";

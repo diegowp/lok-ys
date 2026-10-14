@@ -55,6 +55,11 @@ void InputSystem::Poll(f64 dt) noexcept {
     m_weatherToggleTriggered = false;
     m_fogToggleTriggered = false;
     m_networkToggleTriggered = false;
+    m_apToggleTriggered = false;
+    m_fdToggleTriggered = false;
+    m_apLateralCycleTriggered = false;
+    m_apVerticalCycleTriggered = false;
+    m_altitudeBugDelta = 0.0;
     m_kollsmanDelta = 0.0;
     m_headingBugDelta = 0.0;
     m_obsDelta = 0.0;
@@ -298,6 +303,42 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
         m_networkToggleTriggered = true;
     }
     m_prevNetworkKey = nDown;
+
+    // Milestone M21 Autopilot Master Toggle: 'Z' key
+    bool zDown = IsDown('Z');
+    if (zDown && !m_prevApKey) {
+        m_apToggleTriggered = true;
+    }
+    m_prevApKey = zDown;
+
+    // Flight Director Toggle: 'J' key
+    bool jDown = IsDown('J');
+    if (jDown && !m_prevFdKey) {
+        m_fdToggleTriggered = true;
+    }
+    m_prevFdKey = jDown;
+
+    // Autopilot Lateral Mode Cycle: 'X' key
+    bool xDown = IsDown('X');
+    if (xDown && !m_prevApLateralKey) {
+        m_apLateralCycleTriggered = true;
+    }
+    m_prevApLateralKey = xDown;
+
+    // Autopilot Vertical Mode Cycle: 'M' key
+    bool mDown = IsDown('M');
+    if (mDown && !m_prevApVerticalKey) {
+        m_apVerticalCycleTriggered = true;
+    }
+    m_prevApVerticalKey = mDown;
+
+    // Target Altitude Bug Adjustment: 'O' (decrease 100 ft) and 'P' (increase 100 ft)
+    if (IsDown('O')) {
+        m_altitudeBugDelta -= 200.0 * dt;
+    }
+    if (IsDown('P')) {
+        m_altitudeBugDelta += 200.0 * dt;
+    }
 }
 
 void InputSystem::ApplySerialControls(

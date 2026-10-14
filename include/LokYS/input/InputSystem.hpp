@@ -57,6 +57,11 @@ public:
     [[nodiscard]] bool WasWeatherToggleTriggered() const noexcept { return m_weatherToggleTriggered; }
     [[nodiscard]] bool WasFogToggleTriggered() const noexcept { return m_fogToggleTriggered; }
     [[nodiscard]] bool WasNetworkToggleTriggered() const noexcept { return m_networkToggleTriggered; }
+    [[nodiscard]] bool WasApToggleTriggered() const noexcept { return m_apToggleTriggered; }
+    [[nodiscard]] bool WasFdToggleTriggered() const noexcept { return m_fdToggleTriggered; }
+    [[nodiscard]] bool WasApLateralCycleTriggered() const noexcept { return m_apLateralCycleTriggered; }
+    [[nodiscard]] bool WasApVerticalCycleTriggered() const noexcept { return m_apVerticalCycleTriggered; }
+    [[nodiscard]] f64 GetAltitudeBugDelta() const noexcept { return m_altitudeBugDelta; }
     [[nodiscard]] f64 GetKollsmanDelta() const noexcept { return m_kollsmanDelta; }
     [[nodiscard]] f64 GetHeadingBugDelta() const noexcept { return m_headingBugDelta; }
     [[nodiscard]] f64 GetObsDelta() const noexcept { return m_obsDelta; }
@@ -109,6 +114,15 @@ private:
     bool m_fogToggleTriggered{ false };
     bool m_prevNetworkKey{ false };
     bool m_networkToggleTriggered{ false };
+    bool m_prevApKey{ false };
+    bool m_apToggleTriggered{ false };
+    bool m_prevFdKey{ false };
+    bool m_fdToggleTriggered{ false };
+    bool m_prevApLateralKey{ false };
+    bool m_apLateralCycleTriggered{ false };
+    bool m_prevApVerticalKey{ false };
+    bool m_apVerticalCycleTriggered{ false };
+    f64 m_altitudeBugDelta{ 0.0 };
 };
 
 

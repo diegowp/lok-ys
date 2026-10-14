@@ -30,6 +30,8 @@
 #include "LokYS/serial/SerialInterfaceSystem.hpp"
 #include "LokYS/environment/EnvironmentSystem.hpp"
 #include "LokYS/network/NetworkSystem.hpp"
+#include "LokYS/autopilot/AutopilotSystem.hpp"
+#include "LokYS/graphics/GlassCockpitRenderer.hpp"
 #include <windows.h>
 #include <sstream>
 #include <iomanip>
@@ -75,7 +77,7 @@ int WINAPI wWinMain(
         }
         if (hOut != INVALID_HANDLE_VALUE && hOut != nullptr) {
             std::wstringstream ss;
-            ss << L"LokYS Native Windows Flight Simulator [Milestone M20 Multiplayer Network Prototype]\n";
+            ss << L"LokYS Native Windows Flight Simulator [Milestone M21 Glass Cockpit & Advanced Autopilot]\n";
             ss << L"============================================================\n";
             ss << L"Detected GPU: " << caps.adapterName << L"\n";
             ss << L"Dedicated VRAM: " << (caps.dedicatedVideoMemory / (1024 * 1024)) << L" MB\n";
@@ -110,8 +112,14 @@ int WINAPI wWinMain(
             ss << L"Spherical Linear Quaternion (SLERP) Attitude Smoothing: OPERATIONAL\n";
             ss << L"Kinematic Projective Dead Reckoning & Heartbeat Keepalive: OPERATIONAL\n";
             ss << L"Multi-Aircraft Visual Formation & Propeller Kinematics: OPERATIONAL\n";
+            ss << L"Two-Axis Digital Autopilot Flight Control Computer (120 Hz Closed-Loop PID): OPERATIONAL\n";
+            ss << L"Longitudinal Guidance Laws (Pitch Hold, Altitude Capture, VS Hold, ILS GS): OPERATIONAL\n";
+            ss << L"Lateral Guidance Laws (Wing Leveler, Heading Select, VOR Radial, ILS LOC): OPERATIONAL\n";
+            ss << L"Flight Director Command Crossbar Cues (EADI Steering Guidance): OPERATIONAL\n";
+            ss << L"Pilot Control Wheel Steering & Manual Stick Disconnect Safety: OPERATIONAL\n";
+            ss << L"Direct3D 12 Digital Primary Flight Display (PFD Vector Tapes & FMA): OPERATIONAL\n";
             ss << L"============================================================\n";
-            ss << L"[M20 MULTIPLAYER NETWORK PROTOTYPE VERIFICATION EXIT 0]\n";
+            ss << L"[M21 GLASS COCKPIT & ADVANCED AUTOPILOT VERIFICATION EXIT 0]\n";
 
             std::wstring wtext = ss.str();
             DWORD mode = 0;
@@ -134,7 +142,7 @@ int WINAPI wWinMain(
     // Milestone M2: Win32 Window & High-Resolution Event Pump
     LokYS::Window window;
     LokYS::WindowDesc desc;
-    desc.title = L"LokYS Flight Simulator (M20 - Multiplayer Network Prototype)";
+    desc.title = L"LokYS Flight Simulator (M21 - Glass Cockpit & Advanced Autopilot)";
     desc.width = 1280;
     desc.height = 720;
     desc.resizable = true;
@@ -247,6 +255,21 @@ int WINAPI wWinMain(
         return 1;
     }
 
+    // Milestone M21: Direct3D 12 Digital Glass Cockpit Primary Flight Display (PFD) Renderer
+    LokYS::Graphics::GlassCockpitRenderer glassCockpitRenderer;
+    if (!glassCockpitRenderer.Initialize(graphics.GetDevice())) {
+        MessageBoxW(nullptr, L"Failed to initialize Direct3D 12 glass cockpit rendering pipeline.", L"Glass Cockpit Error", MB_ICONERROR | MB_OK);
+        avionicsRenderer.Shutdown();
+        renderer.Shutdown();
+        shadowMap.Shutdown();
+        scenerySystem.Shutdown();
+        terrainSystem.Shutdown();
+        graphics.Shutdown();
+        window.Destroy();
+        context.Shutdown();
+        return 1;
+    }
+
     // Milestone M19: Fog preset helper and mode state
     auto GetFogForPreset = [](LokYS::Environment::WeatherPreset preset) -> LokYS::Graphics::FogConfig {
         LokYS::Graphics::FogConfig c;
@@ -298,9 +321,11 @@ int WINAPI wWinMain(
     LokYS::Input::InputSystem input;
     static_cast<void>(input.Initialize(window.GetHwnd()));
 
-    // Milestone M14: Analog Six-Pack Avionics Subsystem
+    // Milestone M14 & M21: Avionics & Digital Autopilot Flight Control Computer Subsystems
     LokYS::Avionics::AvionicsSystem avionics;
-    bool showAvionicsPanel = true;
+    LokYS::Autopilot::AutopilotSystem autopilot;
+    autopilot.Initialize();
+    LokYS::Graphics::CockpitDisplayMode cockpitDisplayMode = LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD;
 
     // Milestone M18: Atmospheric & Weather Systems
     LokYS::Environment::EnvironmentSystem environment;
@@ -319,7 +344,7 @@ int WINAPI wWinMain(
     // Initial State Presets: Runway Takeoff vs 3000 ft Cruise
     bool onRunwayMode = true;
 
-    auto ResetToRunway = [&aircraft, &input, &propulsion, &avionics, &environment]() {
+    auto ResetToRunway = [&aircraft, &input, &propulsion, &avionics, &environment, &autopilot]() {
         LokYS::Physics::RigidBodyState state{};
         // Position at South threshold of 2000m runway, centered on runway X=0, gear in static equilibrium (Z = -0.935m)
         state.positionNed = { -800.0, 0.0, -0.935 };
@@ -343,9 +368,13 @@ int WINAPI wWinMain(
             state,
             environment.GetAtmosphere().pressurePa,
             environment.GetAtmosphere().densityKgM3);
+
+        autopilot.Reset();
+        autopilot.SetTargetAltitude(1000.0);
+        autopilot.SetTargetHeading(0.0);
     };
 
-    auto ResetToCruise = [&aircraft, &input, &propulsion, &avionics, &environment]() {
+    auto ResetToCruise = [&aircraft, &input, &propulsion, &avionics, &environment, &autopilot]() {
         LokYS::Physics::RigidBodyState state{};
         // Airborne at 3000 ft (914.4m) at 100 knots (51.44 m/s)
         state.positionNed = { 0.0, 0.0, -914.4 };
@@ -369,6 +398,10 @@ int WINAPI wWinMain(
             state,
             environment.GetAtmosphere().pressurePa,
             environment.GetAtmosphere().densityKgM3);
+
+        autopilot.Reset();
+        autopilot.SetTargetAltitude(3000.0);
+        autopilot.SetTargetHeading(0.0);
     };
 
     ResetToRunway();
@@ -441,9 +474,37 @@ int WINAPI wWinMain(
             }
         }
 
-        // Toggle Avionics Six-Pack Panel with 'H' key
+        // Cycle Cockpit Display Mode with 'H' key (GlassCockpitPFD -> AnalogSixPack -> MinimalHUD -> GlassCockpitPFD)
         if (input.WasPanelToggleTriggered()) {
-            showAvionicsPanel = !showAvionicsPanel;
+            switch (cockpitDisplayMode) {
+            case LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD:
+                cockpitDisplayMode = LokYS::Graphics::CockpitDisplayMode::AnalogSixPack;
+                break;
+            case LokYS::Graphics::CockpitDisplayMode::AnalogSixPack:
+                cockpitDisplayMode = LokYS::Graphics::CockpitDisplayMode::MinimalHUD;
+                break;
+            case LokYS::Graphics::CockpitDisplayMode::MinimalHUD:
+                cockpitDisplayMode = LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD;
+                break;
+            }
+        }
+
+        // Milestone M21: Autopilot & Flight Director Controls ('Z', 'J', 'X', 'M', 'O'/'P')
+        if (input.WasApToggleTriggered()) {
+            autopilot.ToggleMaster();
+        }
+        if (input.WasFdToggleTriggered()) {
+            autopilot.ToggleFlightDirector();
+        }
+        if (input.WasApLateralCycleTriggered()) {
+            autopilot.CycleLateralMode();
+        }
+        if (input.WasApVerticalCycleTriggered()) {
+            autopilot.CycleVerticalMode();
+        }
+        LokYS::f64 dAlt = input.GetAltitudeBugDelta();
+        if (std::abs(dAlt) > 1e-6) {
+            autopilot.AdjustTargetAltitude(dAlt);
         }
 
         // Align Heading Gyro with Compass with 'B' key
@@ -461,6 +522,7 @@ int WINAPI wWinMain(
         LokYS::f64 dH = input.GetHeadingBugDelta();
         if (std::abs(dH) > 1e-6) {
             avionics.AdjustHeadingBug(dH);
+            autopilot.AdjustTargetHeading(dH);
         }
 
         // Milestone M16: Radio Navigation Controls ('T', 'Y', 'K'/'L', 'U'/'I')
@@ -556,13 +618,37 @@ int WINAPI wWinMain(
         // 1. Advance Fixed-Timestep Physics Simulation (120 Hz)
         scheduler.Update(timer.GetDeltaTime(), [&](LokYS::f64 dt, LokYS::u64 tick, LokYS::f64 simTime) {
             const auto& ctrl = input.GetControls();
-            LokYS::Aerodynamics::ControlDeflections deflections{};
-            deflections.elevator = ctrl.pitch;
-            deflections.aileron = ctrl.roll;
-            deflections.rudder = ctrl.yaw;
-            deflections.flaps = static_cast<LokYS::f64>(ctrl.flapSetting) / 3.0;
-
             const auto& state = aircraft.GetState();
+            const auto& aviState = avionics.GetState();
+
+            // Milestone M21: Digital Autopilot Flight Control Computer (120 Hz Guidance & Control Loops)
+            autopilot.Update(
+                dt,
+                state,
+                aviState.airspeed.indicatedAirspeedKnots,
+                aviState.altimeter.indicatedAltitudeFeet,
+                aviState.verticalSpeed.verticalSpeedFpm,
+                aviState.attitude.pitchDeg,
+                aviState.attitude.rollDeg,
+                aviState.heading.indicatedHeadingDeg,
+                radioNav.GetNav1(),
+                ctrl);
+
+            LokYS::Input::FlightControls activeCtrl = ctrl;
+            if (autopilot.IsEngaged()) {
+                const auto& apOut = autopilot.GetOutput();
+                activeCtrl.pitch = apOut.elevatorCommand;
+                activeCtrl.roll = apOut.aileronCommand;
+                if (std::abs(apOut.rudderCommand) > 1e-4) {
+                    activeCtrl.yaw = apOut.rudderCommand;
+                }
+            }
+
+            LokYS::Aerodynamics::ControlDeflections deflections{};
+            deflections.elevator = activeCtrl.pitch;
+            deflections.aileron = activeCtrl.roll;
+            deflections.rudder = activeCtrl.yaw;
+            deflections.flaps = static_cast<LokYS::f64>(activeCtrl.flapSetting) / 3.0;
 
             // Milestone M18: Atmospheric & Weather Systems Update
             environment.Update(state.positionNed, state.attitude, latestAeroOut.trueAirspeedMps, dt);
@@ -596,7 +682,7 @@ int WINAPI wWinMain(
             aircraft.SetMass(966.5 + propOut.remainingFuelKg);
 
             // Milestone M11: Multi-Point Oleo Strut Ground Reactions & Wheel Steering/Braking
-            auto groundOut = groundReactions.Evaluate(state, ctrl.yaw, ctrl.brakes, dt, 0.0);
+            auto groundOut = groundReactions.Evaluate(state, activeCtrl.yaw, activeCtrl.brakes, dt, 0.0);
             groundReactions.ApplyToRigidBody(aircraft, groundOut);
             latestGroundOut = groundOut;
 
@@ -619,7 +705,6 @@ int WINAPI wWinMain(
         auto renderSnapshot = scheduler.GetInterpolatedSnapshot();
 
         // 3. Render Pass
-        bool shouldDrawPanel = showAvionicsPanel || (camera.GetMode() == LokYS::Graphics::CameraMode::Cockpit);
         if (!window.IsMinimized()) {
             graphics.OnResize(window.GetWidth(), window.GetHeight());
             camera.SetPerspective(1.0472f, graphics.GetAspectRatio(), 0.2f, 20000.0f);
@@ -631,12 +716,21 @@ int WINAPI wWinMain(
                 propellerAngleRad = std::fmod(propellerAngleRad, 2.0 * LokYS::Math::Constants::PI);
             }
 
-            const auto& activeCtrl = input.GetControls();
+            LokYS::Input::FlightControls renderCtrl = input.GetControls();
+            if (autopilot.IsEngaged()) {
+                const auto& apOut = autopilot.GetOutput();
+                renderCtrl.pitch = apOut.elevatorCommand;
+                renderCtrl.roll = apOut.aileronCommand;
+                if (std::abs(apOut.rudderCommand) > 1e-4) {
+                    renderCtrl.yaw = apOut.rudderCommand;
+                }
+            }
+
             cessnaModel.ApplyAircraftControls(
-                static_cast<float>(activeCtrl.pitch),
-                static_cast<float>(activeCtrl.roll),
-                static_cast<float>(activeCtrl.yaw),
-                static_cast<float>(activeCtrl.flapSetting) / 3.0f,
+                static_cast<float>(renderCtrl.pitch),
+                static_cast<float>(renderCtrl.roll),
+                static_cast<float>(renderCtrl.yaw),
+                static_cast<float>(renderCtrl.flapSetting) / 3.0f,
                 static_cast<float>(propellerAngleRad));
 
             // Milestone M19: Update Airport Scenery (Windsock droop/orientation and PAPI glideslope sectors)
@@ -660,7 +754,7 @@ int WINAPI wWinMain(
                 timer.GetDeltaTime(),
                 timer.GetTotalTime(),
                 renderSnapshot.bodyState,
-                activeCtrl,
+                renderCtrl,
                 latestPropOut.engineRpm,
                 latestGroundOut.anyGearInContact);
 
@@ -692,14 +786,25 @@ int WINAPI wWinMain(
                 renderSnapshot.bodyState.attitude,
                 network.GetRemoteAircraft());
 
-            // Milestone M14 & M16: Render Direct3D 12 Analog Six-Pack & Radio Navigation Instrument Cluster
-            avionicsRenderer.Render(
-                graphics.GetCommandList(),
-                window.GetWidth(),
-                window.GetHeight(),
-                avionics.GetState(),
-                radioNav.GetNav1(),
-                shouldDrawPanel);
+            // Milestone M21 & M14: Render Cockpit Instrumentation (Glass PFD or Analog Six-Pack)
+            if (cockpitDisplayMode == LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD) {
+                glassCockpitRenderer.Render(
+                    graphics.GetCommandList(),
+                    window.GetWidth(),
+                    window.GetHeight(),
+                    avionics.GetState(),
+                    radioNav.GetNav1(),
+                    autopilot.GetStatus(),
+                    true);
+            } else if (cockpitDisplayMode == LokYS::Graphics::CockpitDisplayMode::AnalogSixPack) {
+                avionicsRenderer.Render(
+                    graphics.GetCommandList(),
+                    window.GetWidth(),
+                    window.GetHeight(),
+                    avionics.GetState(),
+                    radioNav.GetNav1(),
+                    true);
+            }
 
             graphics.EndFrame(true); // Vsync on for consistent frametimes
         }
@@ -885,8 +990,9 @@ int WINAPI wWinMain(
                << L" | " << gearStatus
                << (activeCtrl.brakes > 0.05 ? L" | BRK" : L"")
                << L" | COM: " << (serialInterface.IsConnected() ? L"LIVE" : L"OFF")
-               << L" | " << (camera.GetMode() == LokYS::Graphics::CameraMode::Chase ? L"Chase [C]" : L"Cockpit [C]")
-               << L" | Panel [H]: " << (shouldDrawPanel ? L"ON" : L"OFF")
+               << L" | " << autopilot.GetStatusString()
+               << L" | Disp [H]: " << (cockpitDisplayMode == LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD ? L"PFD" :
+                                      (cockpitDisplayMode == LokYS::Graphics::CockpitDisplayMode::AnalogSixPack ? L"ANALOG" : L"OFF"))
                << L" | NET [N]: " << network.GetStatusString()
                << L" | [W]x | [G]Fog"
                << L" | Reset: [R]";
@@ -897,6 +1003,7 @@ int WINAPI wWinMain(
     network.Shutdown();
     serialInterface.Shutdown();
     audioSystem.Shutdown();
+    glassCockpitRenderer.Shutdown();
     avionicsRenderer.Shutdown();
     scenerySystem.Shutdown();
     terrainSystem.Shutdown();

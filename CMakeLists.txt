@@ -69,6 +69,8 @@ set(LOKYS_SOURCES
     src/network/UdpSocket.cpp
     src/network/RemoteAircraft.cpp
     src/network/NetworkSystem.cpp
+    src/autopilot/AutopilotSystem.cpp
+    src/graphics/GlassCockpitRenderer.cpp
 )
 
 set(LOKYS_HEADERS
@@ -123,6 +125,10 @@ set(LOKYS_HEADERS
     include/LokYS/network/UdpSocket.hpp
     include/LokYS/network/RemoteAircraft.hpp
     include/LokYS/network/NetworkSystem.hpp
+    include/LokYS/autopilot/AutopilotTypes.hpp
+    include/LokYS/autopilot/PidController.hpp
+    include/LokYS/autopilot/AutopilotSystem.hpp
+    include/LokYS/graphics/GlassCockpitRenderer.hpp
 )
 
 add_executable(LokYSFlightSimulator WIN32
@@ -358,4 +364,18 @@ target_link_libraries(LokYSNetworkMultiplayerTests PRIVATE
 )
 
 add_test(NAME NetworkMultiplayerTests COMMAND LokYSNetworkMultiplayerTests)
+
+add_executable(LokYSGlassCockpitAutopilotTests
+    tests/unit/GlassCockpitAutopilotTests.cpp
+    src/autopilot/AutopilotSystem.cpp
+    src/physics/RigidBody.cpp
+    src/aerodynamics/AerodynamicsSystem.cpp
+    ${LOKYS_HEADERS}
+)
+
+target_include_directories(LokYSGlassCockpitAutopilotTests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+add_test(NAME GlassCockpitAutopilotTests COMMAND LokYSGlassCockpitAutopilotTests)
 
