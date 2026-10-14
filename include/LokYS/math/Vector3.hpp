@@ -105,6 +105,12 @@ struct Vector4 {
     constexpr Vector4() noexcept = default;
     constexpr Vector4(T x_, T y_, T z_, T w_) noexcept : x(x_), y(y_), z(z_), w(w_) {}
 
+    [[nodiscard]] constexpr Vector4 operator+(const Vector4& rhs) const noexcept {
+        return { x + rhs.x, y + rhs.y, z + rhs.z, w + rhs.w };
+    }
+    [[nodiscard]] constexpr Vector4 operator-(const Vector4& rhs) const noexcept {
+        return { x - rhs.x, y - rhs.y, z - rhs.z, w - rhs.w };
+    }
     [[nodiscard]] constexpr Vector4 operator*(T scalar) const noexcept {
         return { x * scalar, y * scalar, z * scalar, w * scalar };
     }

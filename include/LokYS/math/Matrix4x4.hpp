@@ -204,6 +204,123 @@ struct Mat4f {
             0.0f,    0.0f,    0.0f,    1.0f
         };
     }
+
+    // Direct3D 12 Left-Handed Orthographic Projection Matrix
+    [[nodiscard]] static Mat4f OrthographicLH(
+        f32 width,
+        f32 height,
+        f32 nearZ,
+        f32 farZ) noexcept
+    {
+        f32 range = farZ - nearZ;
+        return Mat4f{
+            2.0f / width, 0.0f,          0.0f,         0.0f,
+            0.0f,         2.0f / height, 0.0f,         0.0f,
+            0.0f,         0.0f,          1.0f / range, 0.0f,
+            0.0f,         0.0f,         -nearZ / range, 1.0f
+        };
+    }
+
+    [[nodiscard]] static Mat4f OrthographicOffCenterLH(
+        f32 left,
+        f32 right,
+        f32 bottom,
+        f32 top,
+        f32 nearZ,
+        f32 farZ) noexcept
+    {
+        f32 w = right - left;
+        f32 h = top - bottom;
+        f32 d = farZ - nearZ;
+
+        return Mat4f{
+            2.0f / w,           0.0f,               0.0f,           0.0f,
+            0.0f,               2.0f / h,           0.0f,           0.0f,
+            0.0f,               0.0f,               1.0f / d,       0.0f,
+            -(right + left) / w, -(top + bottom) / h, -nearZ / d,    1.0f
+        };
+    }
+};
+
+struct FrustumPlane {
+    Vec3f normal{ 0.0f, 0.0f, 0.0f };
+    f32 distance{ 0.0f };
+
+    void Normalize() noexcept {
+        f32 len = normal.Length();
+        if (len > 1e-6f) {
+            f32 inv = 1.0f / len;
+            normal = normal * inv;
+            distance *= inv;
+        }
+    }
+
+    [[nodiscard]] f32 SignedDistance(const Vec3f& point) const noexcept {
+        return normal.Dot(point) + distance;
+    }
+};
+
+struct Frustum {
+    FrustumPlane planes[6]; // Left, Right, Bottom, Top, Near, Far
+
+    [[nodiscard]] static Frustum FromViewProj(const Mat4f& vp) noexcept {
+        Frustum f;
+
+        // Left plane: (vp._14 + vp._11, vp._24 + vp._21, vp._34 + vp._31, vp._44 + vp._41)
+        f.planes[0].normal = { vp.m[0][3] + vp.m[0][0], vp.m[1][3] + vp.m[1][0], vp.m[2][3] + vp.m[2][0] };
+        f.planes[0].distance = vp.m[3][3] + vp.m[3][0];
+
+        // Right plane: (vp._14 - vp._11, vp._24 - vp._21, vp._34 - vp._31, vp._44 - vp._41)
+        f.planes[1].normal = { vp.m[0][3] - vp.m[0][0], vp.m[1][3] - vp.m[1][0], vp.m[2][3] - vp.m[2][0] };
+        f.planes[1].distance = vp.m[3][3] - vp.m[3][0];
+
+        // Bottom plane: (vp._14 + vp._12, vp._24 + vp._21, vp._34 + vp._32, vp._44 + vp._42)
+        f.planes[2].normal = { vp.m[0][3] + vp.m[0][1], vp.m[1][3] + vp.m[1][1], vp.m[2][3] + vp.m[2][1] };
+        f.planes[2].distance = vp.m[3][3] + vp.m[3][1];
+
+        // Top plane: (vp._14 - vp._12, vp._24 - vp._21, vp._34 - vp._32, vp._44 - vp._42)
+        f.planes[3].normal = { vp.m[0][3] - vp.m[0][1], vp.m[1][3] - vp.m[1][1], vp.m[2][3] - vp.m[2][1] };
+        f.planes[3].distance = vp.m[3][3] - vp.m[3][1];
+
+        // Near plane: (vp._13, vp._23, vp._33, vp._43)
+        f.planes[4].normal = { vp.m[0][2], vp.m[1][2], vp.m[2][2] };
+        f.planes[4].distance = vp.m[3][2];
+
+        // Far plane: (vp._14 - vp._13, vp._24 - vp._23, vp._34 - vp._33, vp._44 - vp._43)
+        f.planes[5].normal = { vp.m[0][3] - vp.m[0][2], vp.m[1][3] - vp.m[1][2], vp.m[2][3] - vp.m[2][2] };
+        f.planes[5].distance = vp.m[3][3] - vp.m[3][2];
+
+        for (int i = 0; i < 6; ++i) {
+            f.planes[i].Normalize();
+        }
+
+        return f;
+    }
+
+    [[nodiscard]] bool IntersectsSphere(const Vec3f& center, f32 radius) const noexcept {
+        for (int i = 0; i < 6; ++i) {
+            if (planes[i].SignedDistance(center) < -radius) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    [[nodiscard]] bool IntersectsAABB(const Vec3f& minBounds, const Vec3f& maxBounds) const noexcept {
+        for (int i = 0; i < 6; ++i) {
+            // Find most positive vertex (p-vertex) along normal
+            Vec3f p{
+                (planes[i].normal.x >= 0.0f) ? maxBounds.x : minBounds.x,
+                (planes[i].normal.y >= 0.0f) ? maxBounds.y : minBounds.y,
+                (planes[i].normal.z >= 0.0f) ? maxBounds.z : minBounds.z
+            };
+
+            if (planes[i].SignedDistance(p) < 0.0f) {
+                return false;
+            }
+        }
+        return true;
+    }
 };
 
 } // namespace LokYS::Math

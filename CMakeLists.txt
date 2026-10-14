@@ -63,6 +63,9 @@ set(LOKYS_SOURCES
     src/environment/AtmosphereModel.cpp
     src/environment/WindModel.cpp
     src/environment/EnvironmentSystem.cpp
+    src/graphics/ShadowMap.cpp
+    src/graphics/TerrainSystem.cpp
+    src/graphics/ScenerySystem.cpp
 )
 
 set(LOKYS_HEADERS
@@ -109,6 +112,9 @@ set(LOKYS_HEADERS
     include/LokYS/environment/AtmosphereModel.hpp
     include/LokYS/environment/WindModel.hpp
     include/LokYS/environment/EnvironmentSystem.hpp
+    include/LokYS/graphics/ShadowMap.hpp
+    include/LokYS/graphics/TerrainSystem.hpp
+    include/LokYS/graphics/ScenerySystem.hpp
 )
 
 add_executable(LokYSFlightSimulator WIN32
@@ -300,3 +306,29 @@ target_include_directories(LokYSAtmosphereWeatherTests PRIVATE
 )
 
 add_test(NAME AtmosphereWeatherTests COMMAND LokYSAtmosphereWeatherTests)
+
+add_executable(LokYSGraphicsOptimizationTests
+    tests/unit/GraphicsOptimizationTests.cpp
+    src/graphics/ShadowMap.cpp
+    src/graphics/TerrainSystem.cpp
+    src/graphics/ScenerySystem.cpp
+    src/graphics/Mesh.cpp
+    src/graphics/Camera.cpp
+    src/environment/AtmosphereModel.cpp
+    src/environment/WindModel.cpp
+    src/environment/EnvironmentSystem.cpp
+    ${LOKYS_HEADERS}
+)
+
+target_include_directories(LokYSGraphicsOptimizationTests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_link_libraries(LokYSGraphicsOptimizationTests PRIVATE
+    d3d12.lib
+    dxgi.lib
+    d3dcompiler.lib
+)
+
+add_test(NAME GraphicsOptimizationTests COMMAND LokYSGraphicsOptimizationTests)
+

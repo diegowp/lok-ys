@@ -12,6 +12,9 @@
 #include "LokYS/graphics/Camera.hpp"
 #include "LokYS/graphics/Mesh.hpp"
 #include "LokYS/graphics/Renderer3D.hpp"
+#include "LokYS/graphics/ShadowMap.hpp"
+#include "LokYS/graphics/TerrainSystem.hpp"
+#include "LokYS/graphics/ScenerySystem.hpp"
 #include "LokYS/graphics/GltfModel.hpp"
 #include "LokYS/graphics/AircraftModelGenerator.hpp"
 #include "LokYS/physics/RigidBody.hpp"
@@ -71,7 +74,7 @@ int WINAPI wWinMain(
         }
         if (hOut != INVALID_HANDLE_VALUE && hOut != nullptr) {
             std::wstringstream ss;
-            ss << L"LokYS Native Windows Flight Simulator [Milestone M18 Atmospheric & Weather Systems]\n";
+            ss << L"LokYS Native Windows Flight Simulator [Milestone M19 Graphics Optimization & Visual FX]\n";
             ss << L"============================================================\n";
             ss << L"Detected GPU: " << caps.adapterName << L"\n";
             ss << L"Dedicated VRAM: " << (caps.dedicatedVideoMemory / (1024 * 1024)) << L" MB\n";
@@ -93,8 +96,15 @@ int WINAPI wWinMain(
             ss << L"VHF Radio Navigation & Instrument Landing Subsystem (VOR, ILS, DME, Markers): OPERATIONAL\n";
             ss << L"Serial Cockpit Hardware Interface (Win32 COM Overlapped I/O & Microcontroller Ingestion): OPERATIONAL\n";
             ss << L"Atmospheric & Weather Systems (ISA Lapse, Wind Shear, Dryden Turbulence, Runway Crosswinds): OPERATIONAL\n";
+            ss << L"Directional Cascaded Shadow Mapping (2048x2048 D3D12 Depth Pass & 3x3 PCF): OPERATIONAL\n";
+            ss << L"Atmospheric Distance Fog & Forward Mie Scattering Aerial Perspective: OPERATIONAL\n";
+            ss << L"Concentric Multi-LOD Procedural Terrain System with Airport Mesa Flattening: OPERATIONAL\n";
+            ss << L"Camera View-Frustum Culling (6-Plane Extraction & AABB Testing): OPERATIONAL\n";
+            ss << L"Instanced Airfield Scenery, Runways, Taxiways, Hangars & Control Tower: OPERATIONAL\n";
+            ss << L"Precision Approach Path Indicator (PAPI 3.0-Deg Glideslope Sector Optics): OPERATIONAL\n";
+            ss << L"Aeronautical Windsock Dynamic Physics (Wind Orientation & Droop Sag): OPERATIONAL\n";
             ss << L"============================================================\n";
-            ss << L"[M18 ATMOSPHERIC & WEATHER SYSTEMS VERIFICATION EXIT 0]\n";
+            ss << L"[M19 GRAPHICS OPTIMIZATION & VISUAL FX VERIFICATION EXIT 0]\n";
 
             std::wstring wtext = ss.str();
             DWORD mode = 0;
@@ -117,7 +127,7 @@ int WINAPI wWinMain(
     // Milestone M2: Win32 Window & High-Resolution Event Pump
     LokYS::Window window;
     LokYS::WindowDesc desc;
-    desc.title = L"LokYS Flight Simulator (M18 - Atmospheric & Weather Systems)";
+    desc.title = L"LokYS Flight Simulator (M19 - Graphics Optimization & Visual FX)";
     desc.width = 1280;
     desc.height = 720;
     desc.resizable = true;
@@ -141,8 +151,40 @@ int WINAPI wWinMain(
     LokYS::Graphics::Camera camera;
     camera.SetPerspective(1.0472f, graphics.GetAspectRatio(), 0.2f, 20000.0f);
 
-    LokYS::Graphics::Mesh terrainMesh = LokYS::Graphics::Mesh::CreateTerrain(graphics.GetDevice());
     LokYS::Graphics::Mesh runwayMesh = LokYS::Graphics::Mesh::CreateRunway(graphics.GetDevice());
+
+    // Milestone M19: Multi-LOD Procedural Terrain System with Airport Mesa Flattening
+    LokYS::Graphics::TerrainSystem terrainSystem;
+    if (!terrainSystem.Initialize(graphics.GetDevice())) {
+        MessageBoxW(nullptr, L"Failed to initialize multi-LOD terrain system.", L"Terrain Error", MB_ICONERROR | MB_OK);
+        graphics.Shutdown();
+        window.Destroy();
+        context.Shutdown();
+        return 1;
+    }
+
+    // Milestone M19: Instanced Airfield Scenery & Visual Lighting FX (Buildings, Lights, PAPI, Windsock)
+    LokYS::Graphics::ScenerySystem scenerySystem;
+    if (!scenerySystem.Initialize(graphics.GetDevice())) {
+        MessageBoxW(nullptr, L"Failed to initialize airfield scenery and lighting subsystem.", L"Scenery Error", MB_ICONERROR | MB_OK);
+        terrainSystem.Shutdown();
+        graphics.Shutdown();
+        window.Destroy();
+        context.Shutdown();
+        return 1;
+    }
+
+    // Milestone M19: Directional Cascaded Shadow Map (2048x2048 Depth-Only Pass)
+    LokYS::Graphics::ShadowMap shadowMap(2048);
+    if (!shadowMap.Initialize(graphics.GetDevice())) {
+        MessageBoxW(nullptr, L"Failed to initialize 2048x2048 directional shadow map.", L"Shadow Error", MB_ICONERROR | MB_OK);
+        scenerySystem.Shutdown();
+        terrainSystem.Shutdown();
+        graphics.Shutdown();
+        window.Destroy();
+        context.Shutdown();
+        return 1;
+    }
 
     // Milestone M13: glTF 2.0 Aircraft Model Loading & Articulated Hierarchy
     LokYS::Graphics::GltfModel cessnaModel;
@@ -152,6 +194,9 @@ int WINAPI wWinMain(
         if (!LokYS::Graphics::AircraftModelGenerator::SaveCessna172Glb(glbPath) ||
             !cessnaModel.LoadFromGlbFile(glbPath, &gltfErr)) {
             MessageBoxW(nullptr, L"Failed to load or generate glTF aircraft model.", L"glTF Error", MB_ICONERROR | MB_OK);
+            shadowMap.Shutdown();
+            scenerySystem.Shutdown();
+            terrainSystem.Shutdown();
             graphics.Shutdown();
             window.Destroy();
             context.Shutdown();
@@ -160,6 +205,9 @@ int WINAPI wWinMain(
     }
     if (!cessnaModel.CreateGPUResources(graphics.GetDevice())) {
         MessageBoxW(nullptr, L"Failed to create Direct3D 12 GPU resources for glTF aircraft model.", L"D3D12 Error", MB_ICONERROR | MB_OK);
+        shadowMap.Shutdown();
+        scenerySystem.Shutdown();
+        terrainSystem.Shutdown();
         graphics.Shutdown();
         window.Destroy();
         context.Shutdown();
@@ -169,6 +217,9 @@ int WINAPI wWinMain(
     LokYS::Graphics::Renderer3D renderer;
     if (!renderer.Initialize(graphics.GetDevice())) {
         MessageBoxW(nullptr, L"Failed to initialize Direct3D 12 3D mesh rendering pipeline.", L"Renderer Error", MB_ICONERROR | MB_OK);
+        shadowMap.Shutdown();
+        scenerySystem.Shutdown();
+        terrainSystem.Shutdown();
         graphics.Shutdown();
         window.Destroy();
         context.Shutdown();
@@ -180,11 +231,58 @@ int WINAPI wWinMain(
     if (!avionicsRenderer.Initialize(graphics.GetDevice())) {
         MessageBoxW(nullptr, L"Failed to initialize Direct3D 12 avionics rendering pipeline.", L"Avionics Error", MB_ICONERROR | MB_OK);
         renderer.Shutdown();
+        shadowMap.Shutdown();
+        scenerySystem.Shutdown();
+        terrainSystem.Shutdown();
         graphics.Shutdown();
         window.Destroy();
         context.Shutdown();
         return 1;
     }
+
+    // Milestone M19: Fog preset helper and mode state
+    auto GetFogForPreset = [](LokYS::Environment::WeatherPreset preset) -> LokYS::Graphics::FogConfig {
+        LokYS::Graphics::FogConfig c;
+        c.enabled = true;
+        c.heightDecay = 0.0015f;
+        switch (preset) {
+        case LokYS::Environment::WeatherPreset::ClearCalm:
+            c.density = 0.00004f;
+            c.startDistance = 50.0f;
+            c.endDistance = 35000.0f;
+            break;
+        case LokYS::Environment::WeatherPreset::StandardDay:
+            c.density = 0.00008f;
+            c.startDistance = 50.0f;
+            c.endDistance = 25000.0f;
+            break;
+        case LokYS::Environment::WeatherPreset::CrosswindRunway36:
+            c.density = 0.00015f;
+            c.startDistance = 30.0f;
+            c.endDistance = 15000.0f;
+            break;
+        case LokYS::Environment::WeatherPreset::GustyTurbulence:
+            c.density = 0.00025f;
+            c.startDistance = 10.0f;
+            c.endDistance = 8000.0f;
+            break;
+        case LokYS::Environment::WeatherPreset::HotAndHigh:
+            c.density = 0.00010f;
+            c.startDistance = 50.0f;
+            c.endDistance = 20000.0f;
+            break;
+        }
+        return c;
+    };
+
+    enum class FogMode {
+        Auto,
+        Off,
+        Light,
+        Moderate,
+        Dense
+    };
+    FogMode fogMode = FogMode::Auto;
 
     // Milestone M8, M9, M11 & M12: Aerodynamics, Input, Ground Reactions, and Propulsion Systems
     LokYS::Aerodynamics::AerodynamicsSystem aero;
@@ -200,6 +298,7 @@ int WINAPI wWinMain(
     // Milestone M18: Atmospheric & Weather Systems
     LokYS::Environment::EnvironmentSystem environment;
     environment.Initialize();
+    renderer.SetFog(GetFogForPreset(environment.GetActivePreset()));
 
     // Milestone M6 & M7: Simulation Scheduler & 6-DOF Aircraft Rigid Body
     LokYS::Simulation::SimulationScheduler scheduler(1.0 / 120.0, 5); // 120 Hz
@@ -363,9 +462,66 @@ int WINAPI wWinMain(
             radioNav.AdjustNav1StandbyFrequency(dFreq);
         }
 
-        // Milestone M18: Cycle Weather Presets with 'W' key
+        // Milestone M18 & M19: Cycle Weather Presets with 'W' key & Fog coupling
         if (input.WasWeatherToggleTriggered()) {
             environment.CyclePreset();
+            if (fogMode == FogMode::Auto) {
+                renderer.SetFog(GetFogForPreset(environment.GetActivePreset()));
+            }
+        }
+
+        // Milestone M19: Cycle Atmospheric Fog Modes with 'G' key (Auto -> Off -> Light -> Moderate -> Dense)
+        if (input.WasFogToggleTriggered()) {
+            switch (fogMode) {
+            case FogMode::Auto:
+                fogMode = FogMode::Off;
+                {
+                    auto f = renderer.GetFog();
+                    f.enabled = false;
+                    renderer.SetFog(f);
+                }
+                break;
+            case FogMode::Off:
+                fogMode = FogMode::Light;
+                {
+                    LokYS::Graphics::FogConfig f;
+                    f.enabled = true;
+                    f.density = 0.00004f;
+                    f.heightDecay = 0.0010f;
+                    f.startDistance = 50.0f;
+                    f.endDistance = 35000.0f;
+                    renderer.SetFog(f);
+                }
+                break;
+            case FogMode::Light:
+                fogMode = FogMode::Moderate;
+                {
+                    LokYS::Graphics::FogConfig f;
+                    f.enabled = true;
+                    f.density = 0.00010f;
+                    f.heightDecay = 0.0015f;
+                    f.startDistance = 30.0f;
+                    f.endDistance = 20000.0f;
+                    renderer.SetFog(f);
+                }
+                break;
+            case FogMode::Moderate:
+                fogMode = FogMode::Dense;
+                {
+                    LokYS::Graphics::FogConfig f;
+                    f.enabled = true;
+                    f.density = 0.00030f;
+                    f.heightDecay = 0.0020f;
+                    f.startDistance = 10.0f;
+                    f.endDistance = 8000.0f;
+                    renderer.SetFog(f);
+                }
+                break;
+            case FogMode::Dense:
+                fogMode = FogMode::Auto;
+                renderer.SetFog(GetFogForPreset(environment.GetActivePreset()));
+                break;
+            }
         }
 
         // Milestone M17: Ingest Inbound Hardware Controls from Microcontroller Panel
@@ -461,13 +617,45 @@ int WINAPI wWinMain(
                 static_cast<float>(activeCtrl.flapSetting) / 3.0f,
                 static_cast<float>(propellerAngleRad));
 
+            // Milestone M19: Update Airport Scenery (Windsock droop/orientation and PAPI glideslope sectors)
+            const auto& envState = environment.GetState();
+            LokYS::f64 windSpeedMps = std::sqrt(envState.totalWindNed.x * envState.totalWindNed.x + envState.totalWindNed.y * envState.totalWindNed.y);
+            LokYS::f64 windDirDeg = 0.0;
+            if (windSpeedMps > 0.05) {
+                windDirDeg = std::fmod(std::atan2(-envState.totalWindNed.y, -envState.totalWindNed.x) * (180.0 / LokYS::Math::Constants::PI) + 360.0, 360.0);
+            } else {
+                windDirDeg = environment.GetWindModel().GetWindConfig().surfaceDirectionDeg;
+            }
+            scenerySystem.Update(camera.GetCameraPosGfx(), windSpeedMps, windDirDeg, graphics.GetDevice());
+
+            // Milestone M19: Update Cascaded Directional Shadow Map Matrix focused on Aircraft
+            LokYS::Math::Vec3f sunDir = renderer.GetLighting().sunDirection;
+            LokYS::Math::Vec3f aircraftGfx = LokYS::Math::CoordinateFrames::NedToGraphics(renderSnapshot.bodyState.positionNed);
+            shadowMap.UpdateLightMatrix(sunDir, aircraftGfx, 120.0f);
+
             graphics.BeginFrame(clearSkyColor);
 
+            // Milestone M19 Pass 1: Depth-Only Shadow Pass for Dynamic Aircraft Shadows
+            shadowMap.Begin(graphics.GetCommandList());
+            renderer.RenderShadowPass(
+                graphics.GetCommandList(),
+                shadowMap,
+                cessnaModel,
+                renderSnapshot.bodyState.positionNed,
+                renderSnapshot.bodyState.attitude);
+            shadowMap.End(graphics.GetCommandList());
+
+            // Milestone M19 Pass 2: Restore Main Backbuffer & Depth-Stencil Render Target
+            graphics.BindMainRenderTarget();
+
+            // Milestone M19 Pass 3: Main Forward Pass with Multi-LOD Terrain, Scenery, Runway & CSM PCF Shadows
             renderer.Render(
                 graphics.GetCommandList(),
                 camera,
-                terrainMesh,
+                &shadowMap,
+                terrainSystem,
                 runwayMesh,
+                scenerySystem,
                 cessnaModel,
                 renderSnapshot.bodyState.positionNed,
                 renderSnapshot.bodyState.attitude);
@@ -623,8 +811,28 @@ int WINAPI wWinMain(
             }
             wxSs << L" | DA: " << static_cast<int>(envState.atmosphere.densityAltitudeFt) << L"ft";
 
+            std::wstring fogStr;
+            switch (fogMode) {
+            case FogMode::Auto:     fogStr = L"Auto"; break;
+            case FogMode::Off:      fogStr = L"OFF"; break;
+            case FogMode::Light:    fogStr = L"Light"; break;
+            case FogMode::Moderate: fogStr = L"Mod"; break;
+            case FogMode::Dense:    fogStr = L"Dense"; break;
+            }
+
+            const auto& papi = scenerySystem.GetPapiStatus();
+            std::wstring papiStr = L"[";
+            for (int i = 0; i < 4; ++i) {
+                papiStr += (papi.lights[i] == LokYS::Graphics::PapiColor::White ? L"W" : L"R");
+            }
+            papiStr += L"]";
+
             std::wstringstream ss;
             ss << L"LokYS | " << std::fixed << std::setprecision(0) << timer.GetFPS() << L" FPS"
+               << L" | CSM"
+               << L" | Terr: " << terrainSystem.GetRenderedChunkCount() << L"/" << terrainSystem.GetTotalChunkCount()
+               << L" | PAPI: " << papiStr
+               << L" | Fog [G]: " << fogStr
                << L" | IAS: " << static_cast<int>(avi.airspeed.indicatedAirspeedKnots) << L" kts"
                << L" | Alt: " << static_cast<int>(avi.altimeter.indicatedAltitudeFeet) << L" ft"
                << L" | VSI: " << static_cast<int>(avi.verticalSpeed.verticalSpeedFpm) << L" fpm"
@@ -647,7 +855,7 @@ int WINAPI wWinMain(
                << L" | COM: " << (serialInterface.IsConnected() ? L"LIVE" : L"OFF")
                << L" | " << (camera.GetMode() == LokYS::Graphics::CameraMode::Chase ? L"Chase [C]" : L"Cockpit [C]")
                << L" | Panel [H]: " << (shouldDrawPanel ? L"ON" : L"OFF")
-               << L" | [W]x"
+               << L" | [W]x | [G]Fog"
                << L" | Reset: [R]";
             SetWindowTextW(window.GetHwnd(), ss.str().c_str());
         }
@@ -656,6 +864,9 @@ int WINAPI wWinMain(
     serialInterface.Shutdown();
     audioSystem.Shutdown();
     avionicsRenderer.Shutdown();
+    scenerySystem.Shutdown();
+    terrainSystem.Shutdown();
+    shadowMap.Shutdown();
     renderer.Shutdown();
     graphics.Shutdown();
     window.Destroy();

@@ -55,6 +55,7 @@ public:
     [[nodiscard]] bool WasNavSwapTriggered() const noexcept { return m_navSwapTriggered; }
     [[nodiscard]] bool WasNavIdentTriggered() const noexcept { return m_navIdentTriggered; }
     [[nodiscard]] bool WasWeatherToggleTriggered() const noexcept { return m_weatherToggleTriggered; }
+    [[nodiscard]] bool WasFogToggleTriggered() const noexcept { return m_fogToggleTriggered; }
     [[nodiscard]] f64 GetKollsmanDelta() const noexcept { return m_kollsmanDelta; }
     [[nodiscard]] f64 GetHeadingBugDelta() const noexcept { return m_headingBugDelta; }
     [[nodiscard]] f64 GetObsDelta() const noexcept { return m_obsDelta; }
@@ -103,6 +104,8 @@ private:
     f64 m_headingBugDelta{ 0.0 };
     f64 m_obsDelta{ 0.0 };
     f64 m_navFreqDelta{ 0.0 };
+    bool m_prevFogKey{ false };
+    bool m_fogToggleTriggered{ false };
 };
 
 

@@ -32,6 +32,15 @@ public:
         const std::vector<Vertex3D>& vertices,
         const std::vector<u32>& indices);
 
+    void Destroy() noexcept {
+        m_vertexBuffer.Reset();
+        m_indexBuffer.Reset();
+        m_vbView = {};
+        m_ibView = {};
+        m_vertexCount = 0;
+        m_indexCount = 0;
+    }
+
     void Draw(ID3D12GraphicsCommandList* cmdList) const noexcept;
 
     [[nodiscard]] u32 GetIndexCount() const noexcept { return m_indexCount; }

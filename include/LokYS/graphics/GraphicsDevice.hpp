@@ -36,6 +36,7 @@ public:
 
     void BeginFrame(const f32 clearColor[4]);
     void EndFrame(bool vsync = true);
+    void BindMainRenderTarget();
     void OnResize(u32 width, u32 height);
 
     void WaitForGpu();
