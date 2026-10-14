@@ -218,36 +218,60 @@ int WINAPI wWinMain(
     }
 
     // Milestone M13 & M22: glTF 2.0 Multi-Archetype Aircraft Model Loading & GPU Resources
-    LokYS::Graphics::GltfModel cessnaModel;
-    std::string glbPath = "assets/models/cessna172.glb";
-    std::string gltfErr;
-    if (!cessnaModel.LoadFromGlbFile(glbPath, &gltfErr)) {
-        if (!LokYS::Graphics::AircraftModelGenerator::SaveCessna172Glb(glbPath) ||
-            !cessnaModel.LoadFromGlbFile(glbPath, &gltfErr)) {
-            // Fallback non-fatal
+    auto LoadOrGenerateModel = [&](LokYS::Graphics::GltfModel& model,
+                                   const std::string& filename,
+                                   bool (*saveFunc)(const std::string&),
+                                   std::vector<LokYS::u8> (*genFunc)()) {
+        std::vector<std::string> searchPaths = {
+            "assets/models/" + filename,
+            "build/assets/models/" + filename,
+            "../assets/models/" + filename
+        };
+        std::string gltfErr;
+        for (const auto& path : searchPaths) {
+            if (model.LoadFromGlbFile(path, &gltfErr)) {
+                (void)model.CreateGPUResources(graphics.GetDevice());
+                return;
+            }
         }
-    }
-    (void)cessnaModel.CreateGPUResources(graphics.GetDevice());
+        // Save to disk in primary paths for future launches
+        saveFunc("assets/models/" + filename);
+        saveFunc("build/assets/models/" + filename);
+        for (const auto& path : searchPaths) {
+            if (model.LoadFromGlbFile(path, &gltfErr)) {
+                (void)model.CreateGPUResources(graphics.GetDevice());
+                return;
+            }
+        }
+        // Direct In-Memory Binary Fallback (Guaranteed 100% success without filesystem dependency)
+        std::vector<LokYS::u8> memGlb = genFunc();
+        if (!memGlb.empty()) {
+            if (model.LoadFromGlbMemory(memGlb.data(), memGlb.size(), &gltfErr)) {
+                (void)model.CreateGPUResources(graphics.GetDevice());
+            }
+        }
+    };
+
+    LokYS::Graphics::GltfModel cessnaModel;
+    LoadOrGenerateModel(
+        cessnaModel,
+        "cessna172.glb",
+        static_cast<bool (*)(const std::string&)>(&LokYS::Graphics::AircraftModelGenerator::SaveCessna172Glb),
+        &LokYS::Graphics::AircraftModelGenerator::GenerateCessna172Glb);
 
     LokYS::Graphics::GltfModel baronModel;
-    std::string b58Path = "assets/models/baron58.glb";
-    if (!baronModel.LoadFromGlbFile(b58Path, &gltfErr)) {
-        if (!LokYS::Graphics::AircraftModelGenerator::SaveBaron58Glb(b58Path) ||
-            !baronModel.LoadFromGlbFile(b58Path, &gltfErr)) {
-            // Fallback non-fatal
-        }
-    }
-    (void)baronModel.CreateGPUResources(graphics.GetDevice());
+    LoadOrGenerateModel(
+        baronModel,
+        "baron58.glb",
+        static_cast<bool (*)(const std::string&)>(&LokYS::Graphics::AircraftModelGenerator::SaveBaron58Glb),
+        &LokYS::Graphics::AircraftModelGenerator::GenerateBaron58Glb);
 
     LokYS::Graphics::GltfModel extraModel;
-    std::string e330Path = "assets/models/extra330.glb";
-    if (!extraModel.LoadFromGlbFile(e330Path, &gltfErr)) {
-        if (!LokYS::Graphics::AircraftModelGenerator::SaveExtra330Glb(e330Path) ||
-            !extraModel.LoadFromGlbFile(e330Path, &gltfErr)) {
-            // Fallback non-fatal
-        }
-    }
-    (void)extraModel.CreateGPUResources(graphics.GetDevice());
+    LoadOrGenerateModel(
+        extraModel,
+        "extra330.glb",
+        static_cast<bool (*)(const std::string&)>(&LokYS::Graphics::AircraftModelGenerator::SaveExtra330Glb),
+        &LokYS::Graphics::AircraftModelGenerator::GenerateExtra330Glb);
 
     // Milestone M22: Approach Lighting System (ALSF-1 720m array + Sequenced Strobes + REIL)
     LokYS::Graphics::ApproachLightingSystem approachLights;
@@ -398,7 +422,7 @@ int WINAPI wWinMain(
         ctrl.throttle = 0.0;
         ctrl.mixture = 1.0;
         ctrl.flapSetting = 0;
-        ctrl.brakes = 1.0; // Parking brake held initially
+        ctrl.brakes = 0.0; // Disengaged initially for clean taxi / rollout
         input.SetControls(ctrl);
 
         propulsion.SetFuelQuantityKg(cfg.mass.defaultFuelKg);
@@ -700,11 +724,16 @@ int WINAPI wWinMain(
 
             LokYS::Input::FlightControls activeCtrl = ctrl;
             if (autopilot.IsEngaged()) {
-                const auto& apOut = autopilot.GetOutput();
-                activeCtrl.pitch = apOut.elevatorCommand;
-                activeCtrl.roll = apOut.aileronCommand;
-                if (std::abs(apOut.rudderCommand) > 1e-4) {
-                    activeCtrl.yaw = apOut.rudderCommand;
+                // Control Wheel Steering safety: if pilot manually moves pitch or roll stick, disengage AP immediately
+                if (std::abs(ctrl.pitch) > 0.25 || std::abs(ctrl.roll) > 0.25) {
+                    autopilot.SetMasterEngaged(false);
+                } else {
+                    const auto& apOut = autopilot.GetOutput();
+                    activeCtrl.pitch = apOut.elevatorCommand;
+                    activeCtrl.roll = apOut.aileronCommand;
+                    if (std::abs(apOut.rudderCommand) > 1e-4) {
+                        activeCtrl.yaw = apOut.rudderCommand;
+                    }
                 }
             }
 
@@ -1133,17 +1162,20 @@ int WINAPI wWinMain(
                << L" | MAP: " << std::setprecision(1) << latestPropOut.manifoldPressureInHg << L"\""
                << L" | FF: " << latestPropOut.fuelFlowGph << L" GPH"
                << L" | Mix: " << static_cast<int>(activeCtrl.mixture * 100.0) << L"%"
-               << L" | Flaps: " << (activeCtrl.flapSetting * 10) << L"\u00B0"
+               << L" | Flaps [F/V]: " << (activeCtrl.flapSetting * 10) << L"\u00B0"
                << L" | " << gearStatus
                << (activeCtrl.brakes > 0.05 ? L" | BRK" : L"")
                << L" | COM: " << (serialInterface.IsConnected() ? L"LIVE" : L"OFF")
                << L" | " << autopilot.GetStatusString()
+               << L" | Cam [C]: " << (camera.GetMode() == LokYS::Graphics::CameraMode::Chase ? L"CHASE 3D" : L"COCKPIT")
                << L" | Disp [H]: " << (cockpitDisplayMode == LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD ? (camera.GetMode() == LokYS::Graphics::CameraMode::Cockpit ? L"PFD" : L"PFD-MINI") :
                                        (cockpitDisplayMode == LokYS::Graphics::CockpitDisplayMode::TransparentHUD ? L"HUD" :
                                        (cockpitDisplayMode == LokYS::Graphics::CockpitDisplayMode::AnalogSixPack ? L"ANALOG" : L"OFF")))
                << L" | NET [N]: " << network.GetStatusString()
-               << L" | Cycle: [V] | Gear: [U]"
-               << L" | [W]x | [G]Fog"
+               << L" | Plane [Shift+V]: " << acName
+               << (aircraftRegistry.GetActiveConfig().hasRetractableGear ? (aircraftRegistry.IsGearExtended() ? L" | Gear [U]: DN" : L" | Gear [U]: UP") : L"")
+               << L" | Wx [F8]: " << environment.GetPresetName()
+               << L" | Fog [G]: " << fogStr
                << L" | Reset: [R]";
             SetWindowTextW(window.GetHwnd(), ss.str().c_str());
         }

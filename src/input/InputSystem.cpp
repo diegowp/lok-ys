@@ -168,10 +168,10 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
         }
     }
 
-    // Throttle controls: PageUp (increase), PageDown (decrease), '0' (100%), '-' (idle)
-    if (IsDown(VK_PRIOR)) { // Page Up
+    // Throttle controls: Shift (increase), Ctrl (decrease), PageUp (increase), PageDown (decrease), '0' (100%), '-' (idle)
+    if ((IsDown(VK_SHIFT) && !IsDown('F') && !IsDown('V') && !IsDown('U') && !IsDown('W')) || IsDown(VK_PRIOR)) {
         m_controls.throttle = std::min(1.0, m_controls.throttle + 0.5 * dt);
-    } else if (IsDown(VK_NEXT)) { // Page Down
+    } else if (IsDown(VK_CONTROL) || IsDown(VK_NEXT)) {
         m_controls.throttle = std::max(0.0, m_controls.throttle - 0.5 * dt);
     } else if (IsDown('0')) {
         m_controls.throttle = 1.0;
@@ -186,8 +186,7 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
         m_controls.mixture = std::max(0.0, m_controls.mixture - 0.5 * dt);
     }
 
-
-    // Flaps: F (extend one notch, or Shift+F to retract one notch)
+    // Flaps: 'F' (extend one notch) or 'V' / Shift+'F' (retract one notch)
     bool fDown = IsDown('F');
     if (fDown && !m_prevFlapDownKey) {
         if (IsDown(VK_SHIFT)) {
@@ -202,12 +201,20 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
     }
     m_prevFlapDownKey = fDown;
 
-    // Aircraft Archetype Cycle: 'V' key (Cessna 172 -> Baron 58 -> Extra 330)
-    bool vDown = IsDown('V');
-    if (vDown && !m_prevAircraftCycleKey) {
+    bool vDown = IsDown('V') && !IsDown(VK_SHIFT);
+    if (vDown && !m_prevFlapUpKey) {
+        if (m_controls.flapSetting > 0) {
+            m_controls.flapSetting--;
+        }
+    }
+    m_prevFlapUpKey = vDown;
+
+    // Aircraft Archetype Cycle: Shift+'V' or F9 key (Cessna 172 -> Baron 58 -> Extra 330)
+    bool acCycleDown = (IsDown('V') && IsDown(VK_SHIFT)) || IsDown(VK_F9);
+    if (acCycleDown && !m_prevAircraftCycleKey) {
         m_aircraftCycleTriggered = true;
     }
-    m_prevAircraftCycleKey = vDown;
+    m_prevAircraftCycleKey = acCycleDown;
 
     // Retractable Landing Gear Toggle: 'U' key (Baron 58)
     bool uDown = IsDown('U') && !IsDown(VK_SHIFT);
@@ -216,7 +223,7 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
     }
     m_prevGearToggleKey = uDown;
 
-    // Wheel Brakes: Spacebar
+    // Wheel Brakes: Spacebar (held) or auto-release when forward throttle is applied
     if (IsDown(VK_SPACE)) {
         m_controls.brakes = 1.0;
     } else if (!m_joystickConnected) {
@@ -297,8 +304,8 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
         m_navFreqDelta += 0.5 * dt;
     }
 
-    // Weather Preset Toggle: 'W' key
-    bool wDown = IsDown('W');
+    // Weather Preset Toggle: F8 key or Shift+'W'
+    bool wDown = IsDown(VK_F8) || (IsDown('W') && IsDown(VK_SHIFT));
     if (wDown && !m_prevWeatherKey) {
         m_weatherToggleTriggered = true;
     }
