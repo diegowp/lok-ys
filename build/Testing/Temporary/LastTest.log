@@ -1,0 +1,118 @@
+Start testing: Oct 14 00:40 Hora oficial do Brasil
+----------------------------------------------------------
+1/5 Testing: AerospaceMathTests
+1/5 Test: AerospaceMathTests
+Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSMathTests.exe"
+Directory: C:/Users/diego/Documents/Projetos/LokYS/build
+"AerospaceMathTests" start time: Oct 14 00:40 Hora oficial do Brasil
+Output:
+----------------------------------------------------------
+========================================
+ LokYS Aerospace Math & Units Test Suite
+========================================
+
+----------------------------------------
+Tests Passed: 62
+Tests Failed: 0
+----------------------------------------
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"AerospaceMathTests" end time: Oct 14 00:40 Hora oficial do Brasil
+"AerospaceMathTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/5 Testing: SixDofPhysicsTests
+2/5 Test: SixDofPhysicsTests
+Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSPhysicsTests.exe"
+Directory: C:/Users/diego/Documents/Projetos/LokYS/build
+"SixDofPhysicsTests" start time: Oct 14 00:40 Hora oficial do Brasil
+Output:
+----------------------------------------------------------
+========================================
+ LokYS 6-DOF Physics & Scheduler Tests  
+========================================
+
+----------------------------------------
+Tests Passed: 19
+Tests Failed: 0
+----------------------------------------
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"SixDofPhysicsTests" end time: Oct 14 00:40 Hora oficial do Brasil
+"SixDofPhysicsTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/5 Testing: AeroInputTests
+3/5 Test: AeroInputTests
+Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSAeroInputTests.exe"
+Directory: C:/Users/diego/Documents/Projetos/LokYS/build
+"AeroInputTests" start time: Oct 14 00:40 Hora oficial do Brasil
+Output:
+----------------------------------------------------------
+========================================
+ LokYS Aerodynamics & Input Test Suite  
+========================================
+
+----------------------------------------
+Tests Passed: 20
+Tests Failed: 0
+----------------------------------------
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"AeroInputTests" end time: Oct 14 00:40 Hora oficial do Brasil
+"AeroInputTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/5 Testing: GroundReactionsTests
+4/5 Test: GroundReactionsTests
+Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSGroundReactionsTests.exe"
+Directory: C:/Users/diego/Documents/Projetos/LokYS/build
+"GroundReactionsTests" start time: Oct 14 00:40 Hora oficial do Brasil
+Output:
+----------------------------------------------------------
+========================================
+ LokYS Ground Reactions & Strut Tests   
+========================================
+
+----------------------------------------
+Tests Passed: 25
+Tests Failed: 0
+----------------------------------------
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"GroundReactionsTests" end time: Oct 14 00:40 Hora oficial do Brasil
+"GroundReactionsTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/5 Testing: PropulsionTests
+5/5 Test: PropulsionTests
+Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSPropulsionTests.exe"
+Directory: C:/Users/diego/Documents/Projetos/LokYS/build
+"PropulsionTests" start time: Oct 14 00:40 Hora oficial do Brasil
+Output:
+----------------------------------------------------------
+========================================
+ LokYS Propulsion & Fuel Subsystem Tests
+========================================
+
+----------------------------------------
+Tests Passed: 20
+Tests Failed: 0
+----------------------------------------
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"PropulsionTests" end time: Oct 14 00:40 Hora oficial do Brasil
+"PropulsionTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 14 00:40 Hora oficial do Brasil
