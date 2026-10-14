@@ -51,8 +51,12 @@ public:
     [[nodiscard]] bool WasResetTriggered() const noexcept { return m_resetTriggered; }
     [[nodiscard]] bool WasPanelToggleTriggered() const noexcept { return m_panelToggleTriggered; }
     [[nodiscard]] bool WasAvionicsAlignTriggered() const noexcept { return m_avionicsAlignTriggered; }
+    [[nodiscard]] bool WasNavSwapTriggered() const noexcept { return m_navSwapTriggered; }
+    [[nodiscard]] bool WasNavIdentTriggered() const noexcept { return m_navIdentTriggered; }
     [[nodiscard]] f64 GetKollsmanDelta() const noexcept { return m_kollsmanDelta; }
     [[nodiscard]] f64 GetHeadingBugDelta() const noexcept { return m_headingBugDelta; }
+    [[nodiscard]] f64 GetObsDelta() const noexcept { return m_obsDelta; }
+    [[nodiscard]] f64 GetNavFrequencyDelta() const noexcept { return m_navFreqDelta; }
 
     // Manual control setters for automation / autopilot
     void SetControls(const FlightControls& controls) noexcept { m_controls = controls; }
@@ -78,12 +82,18 @@ private:
     bool m_prevResetKey{ false };
     bool m_prevPanelKey{ false };
     bool m_prevAlignKey{ false };
+    bool m_prevNavSwapKey{ false };
+    bool m_prevNavIdentKey{ false };
     bool m_cameraToggleTriggered{ false };
     bool m_resetTriggered{ false };
     bool m_panelToggleTriggered{ false };
     bool m_avionicsAlignTriggered{ false };
+    bool m_navSwapTriggered{ false };
+    bool m_navIdentTriggered{ false };
     f64 m_kollsmanDelta{ 0.0 };
     f64 m_headingBugDelta{ 0.0 };
+    f64 m_obsDelta{ 0.0 };
+    f64 m_navFreqDelta{ 0.0 };
 };
 
 

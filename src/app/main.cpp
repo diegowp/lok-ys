@@ -23,6 +23,7 @@
 #include "LokYS/avionics/AvionicsSystem.hpp"
 #include "LokYS/graphics/AvionicsRenderer.hpp"
 #include "LokYS/audio/AudioSystem.hpp"
+#include "LokYS/navigation/RadioNavSystem.hpp"
 #include <windows.h>
 #include <sstream>
 #include <iomanip>
@@ -68,7 +69,7 @@ int WINAPI wWinMain(
         }
         if (hOut != INVALID_HANDLE_VALUE && hOut != nullptr) {
             std::wstringstream ss;
-            ss << L"LokYS Native Windows Flight Simulator [Milestone M15 Spatial Audio Subsystem]\n";
+            ss << L"LokYS Native Windows Flight Simulator [Milestone M16 Radio Navigation Systems]\n";
             ss << L"============================================================\n";
             ss << L"Detected GPU: " << caps.adapterName << L"\n";
             ss << L"Dedicated VRAM: " << (caps.dedicatedVideoMemory / (1024 * 1024)) << L" MB\n";
@@ -87,8 +88,9 @@ int WINAPI wWinMain(
             ss << L"Calibrated Metering Capillary Pneumatic Sensor Lag: OPERATIONAL\n";
             ss << L"Direct3D 12 2D Flight Instrument Cluster Vector Pipeline: OPERATIONAL\n";
             ss << L"XAudio2 & X3DAudio Spatial Sound Subsystem (Engine, Wind, Ground): OPERATIONAL\n";
+            ss << L"VHF Radio Navigation & Instrument Landing Subsystem (VOR, ILS, DME, Markers): OPERATIONAL\n";
             ss << L"============================================================\n";
-            ss << L"[M15 SPATIAL AUDIO SUBSYSTEM VERIFICATION EXIT 0]\n";
+            ss << L"[M16 RADIO NAVIGATION SYSTEMS VERIFICATION EXIT 0]\n";
 
             std::wstring wtext = ss.str();
             DWORD mode = 0;
@@ -111,7 +113,7 @@ int WINAPI wWinMain(
     // Milestone M2: Win32 Window & High-Resolution Event Pump
     LokYS::Window window;
     LokYS::WindowDesc desc;
-    desc.title = L"LokYS Flight Simulator (M14 - Analog Six-Pack Avionics)";
+    desc.title = L"LokYS Flight Simulator (M16 - Radio Navigation Systems)";
     desc.width = 1280;
     desc.height = 720;
     desc.resizable = true;
@@ -269,6 +271,10 @@ int WINAPI wWinMain(
     audioConfig.masterVolume = 0.85f;
     audioSystem.Initialize(audioConfig);
 
+    // Milestone M16: Radio Navigation Systems (VOR, ILS, DME, Markers)
+    LokYS::Navigation::RadioNavSystem radioNav;
+    radioNav.Initialize();
+
     LokYS::Timer timer;
     LokYS::f64 propellerAngleRad = 0.0;
     LokYS::f64 titleUpdateTimer = 0.0;
@@ -322,6 +328,22 @@ int WINAPI wWinMain(
             avionics.AdjustHeadingBug(dH);
         }
 
+        // Milestone M16: Radio Navigation Controls ('T', 'Y', 'K'/'L', 'U'/'I')
+        if (input.WasNavSwapTriggered()) {
+            radioNav.SwapNav1Frequencies();
+        }
+        if (input.WasNavIdentTriggered()) {
+            radioNav.ToggleNav1AudioIdent();
+        }
+        LokYS::f64 dObs = input.GetObsDelta();
+        if (std::abs(dObs) > 1e-6) {
+            radioNav.AdjustNav1Obs(dObs);
+        }
+        LokYS::f64 dFreq = input.GetNavFrequencyDelta();
+        if (std::abs(dFreq) > 1e-6) {
+            radioNav.AdjustNav1StandbyFrequency(dFreq);
+        }
+
         // 1. Advance Fixed-Timestep Physics Simulation (120 Hz)
         scheduler.Update(timer.GetDeltaTime(), [&](LokYS::f64 dt, LokYS::u64 tick, LokYS::f64 simTime) {
             const auto& ctrl = input.GetControls();
@@ -370,6 +392,10 @@ int WINAPI wWinMain(
             LokYS::Math::Vec3d linearAccelBody = aeroOut.forcesBody * (1.0 / aircraft.GetMass());
             avionics.Update(state, linearAccelBody, ambientPressure, airDensity, dt);
 
+            // Milestone M16: Radio Navigation Systems
+            LokYS::Math::Vec3d velocityNed = state.attitude.Rotate(state.velocityBody);
+            radioNav.Update(state.positionNed, velocityNed, dt);
+
             // Integrate rigid body equations of motion (RK4)
             aircraft.IntegrateRK4(dt);
 
@@ -412,12 +438,13 @@ int WINAPI wWinMain(
                 renderSnapshot.bodyState.positionNed,
                 renderSnapshot.bodyState.attitude);
 
-            // Milestone M14: Render Direct3D 12 Analog Six-Pack Flight Instrument Cluster
+            // Milestone M14 & M16: Render Direct3D 12 Analog Six-Pack & Radio Navigation Instrument Cluster
             avionicsRenderer.Render(
                 graphics.GetCommandList(),
                 window.GetWidth(),
                 window.GetHeight(),
                 avionics.GetState(),
+                radioNav.GetNav1(),
                 shouldDrawPanel);
 
             graphics.EndFrame(true); // Vsync on for consistent frametimes
@@ -494,6 +521,15 @@ int WINAPI wWinMain(
                 gearStatus = L"AIR";
             }
 
+            const auto& nav1 = radioNav.GetNav1();
+
+            std::wstring dmeStr;
+            if (nav1.dme.hasSignal) {
+                std::wstringstream dmeSs;
+                dmeSs << L" DME: " << std::fixed << std::setprecision(1) << nav1.dme.slantRangeNm << L"NM";
+                dmeStr = dmeSs.str();
+            }
+
             std::wstringstream ss;
             ss << L"LokYS | " << std::fixed << std::setprecision(0) << timer.GetFPS() << L" FPS"
                << L" | IAS: " << static_cast<int>(avi.airspeed.indicatedAirspeedKnots) << L" kts"
@@ -501,6 +537,11 @@ int WINAPI wWinMain(
                << L" | VSI: " << static_cast<int>(avi.verticalSpeed.verticalSpeedFpm) << L" fpm"
                << L" | HDG: " << static_cast<int>(avi.heading.indicatedHeadingDeg) << L"\u00B0"
                << L" | Bug: " << static_cast<int>(avi.heading.headingBugDeg) << L"\u00B0"
+               << L" | NAV1: " << std::fixed << std::setprecision(2) << nav1.activeFrequencyMhz
+               << (nav1.stationIdent.empty() ? L"" : (std::wstring(L" [") + std::wstring(nav1.stationIdent.begin(), nav1.stationIdent.end()) + L"]"))
+               << L" OBS: " << static_cast<int>(nav1.cdi.obsDeg) << L"\u00B0"
+               << (nav1.cdi.toFlag ? L" TO" : (nav1.cdi.fromFlag ? L" FR" : L""))
+               << dmeStr
                << L" | Baro: " << std::setprecision(2) << avi.altimeter.kollsmanInHg << L"\""
                << L" | RPM: " << static_cast<int>(latestPropOut.engineRpm)
                << L" | MAP: " << std::setprecision(1) << latestPropOut.manifoldPressureInHg << L"\""

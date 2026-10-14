@@ -261,6 +261,24 @@ build CMakeFiles\LokYSFlightSimulator.dir\src\audio\AudioSystem.cpp.obj: CXX_COM
   TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
   TARGET_PDB = LokYSFlightSimulator.pdb
 
+build CMakeFiles\LokYSFlightSimulator.dir\src\navigation\NavDatabase.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\navigation\NavDatabase.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\navigation
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\navigation\RadioNavSystem.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\navigation\RadioNavSystem.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\navigation
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target LokYSFlightSimulator
@@ -269,7 +287,7 @@ build CMakeFiles\LokYSFlightSimulator.dir\src\audio\AudioSystem.cpp.obj: CXX_COM
 #############################################
 # Link the executable LokYSFlightSimulator.exe
 
-build LokYSFlightSimulator.exe: CXX_EXECUTABLE_LINKER__LokYSFlightSimulator_Release CMakeFiles\LokYSFlightSimulator.dir\src\app\main.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\EngineContext.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\Timer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\platform\Window.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GraphicsDevice.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GpuCapabilities.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Camera.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Mesh.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Renderer3D.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GltfModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AircraftModelGenerator.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\RigidBody.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\GroundReactions.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\InputSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\propulsion\PropulsionSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\avionics\AvionicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AvionicsRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\audio\AudioSystem.cpp.obj
+build LokYSFlightSimulator.exe: CXX_EXECUTABLE_LINKER__LokYSFlightSimulator_Release CMakeFiles\LokYSFlightSimulator.dir\src\app\main.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\EngineContext.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\Timer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\platform\Window.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GraphicsDevice.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GpuCapabilities.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Camera.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Mesh.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Renderer3D.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GltfModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AircraftModelGenerator.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\RigidBody.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\GroundReactions.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\InputSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\propulsion\PropulsionSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\avionics\AvionicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AvionicsRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\audio\AudioSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\NavDatabase.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\RadioNavSystem.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:windows
   LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  user32.lib  gdi32.lib  shell32.lib  kernel32.lib  winmm.lib  xaudio2.lib  ole32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
@@ -667,6 +685,62 @@ build LokYSAudioTests.exe: CXX_EXECUTABLE_LINKER__LokYSAudioTests_Release CMakeF
   TARGET_IMPLIB = LokYSAudioTests.lib
   TARGET_PDB = LokYSAudioTests.pdb
 
+# =============================================================================
+# Object build statements for EXECUTABLE target LokYSRadioNavTests
+
+
+#############################################
+# Order-only phony target for LokYSRadioNavTests
+
+build cmake_object_order_depends_target_LokYSRadioNavTests: phony || CMakeFiles\LokYSRadioNavTests.dir
+
+build CMakeFiles\LokYSRadioNavTests.dir\tests\unit\RadioNavTests.cpp.obj: CXX_COMPILER__LokYSRadioNavTests_Release ..\tests\unit\RadioNavTests.cpp || cmake_object_order_depends_target_LokYSRadioNavTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSRadioNavTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSRadioNavTests.dir\tests\unit
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSRadioNavTests.dir\
+  TARGET_PDB = LokYSRadioNavTests.pdb
+
+build CMakeFiles\LokYSRadioNavTests.dir\src\navigation\NavDatabase.cpp.obj: CXX_COMPILER__LokYSRadioNavTests_Release ..\src\navigation\NavDatabase.cpp || cmake_object_order_depends_target_LokYSRadioNavTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSRadioNavTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSRadioNavTests.dir\src\navigation
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSRadioNavTests.dir\
+  TARGET_PDB = LokYSRadioNavTests.pdb
+
+build CMakeFiles\LokYSRadioNavTests.dir\src\navigation\RadioNavSystem.cpp.obj: CXX_COMPILER__LokYSRadioNavTests_Release ..\src\navigation\RadioNavSystem.cpp || cmake_object_order_depends_target_LokYSRadioNavTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSRadioNavTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSRadioNavTests.dir\src\navigation
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSRadioNavTests.dir\
+  TARGET_PDB = LokYSRadioNavTests.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target LokYSRadioNavTests
+
+
+#############################################
+# Link the executable LokYSRadioNavTests.exe
+
+build LokYSRadioNavTests.exe: CXX_EXECUTABLE_LINKER__LokYSRadioNavTests_Release CMakeFiles\LokYSRadioNavTests.dir\tests\unit\RadioNavTests.cpp.obj CMakeFiles\LokYSRadioNavTests.dir\src\navigation\NavDatabase.cpp.obj CMakeFiles\LokYSRadioNavTests.dir\src\navigation\RadioNavSystem.cpp.obj
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
+  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\LokYSRadioNavTests.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSRadioNavTests.dir\
+  TARGET_FILE = LokYSRadioNavTests.exe
+  TARGET_IMPLIB = LokYSRadioNavTests.lib
+  TARGET_PDB = LokYSRadioNavTests.pdb
+
 
 #############################################
 # Utility command for edit_cache
@@ -711,6 +785,8 @@ build LokYSPhysicsTests: phony LokYSPhysicsTests.exe
 
 build LokYSPropulsionTests: phony LokYSPropulsionTests.exe
 
+build LokYSRadioNavTests: phony LokYSRadioNavTests.exe
+
 # =============================================================================
 # Folder targets.
 
@@ -719,7 +795,7 @@ build LokYSPropulsionTests: phony LokYSPropulsionTests.exe
 #############################################
 # Folder: C:/Users/diego/Documents/Projetos/LokYS/build
 
-build all: phony LokYSPhysicsTests.exe LokYSFlightSimulator.exe LokYSMathTests.exe LokYSGltfTests.exe LokYSPropulsionTests.exe LokYSAeroInputTests.exe LokYSGroundReactionsTests.exe LokYSAvionicsTests.exe LokYSAudioTests.exe
+build all: phony LokYSPhysicsTests.exe LokYSFlightSimulator.exe LokYSMathTests.exe LokYSGltfTests.exe LokYSPropulsionTests.exe LokYSAeroInputTests.exe LokYSGroundReactionsTests.exe LokYSAvionicsTests.exe LokYSAudioTests.exe LokYSRadioNavTests.exe
 
 # =============================================================================
 # Built-in targets

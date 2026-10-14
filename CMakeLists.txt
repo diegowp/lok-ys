@@ -56,6 +56,8 @@ set(LOKYS_SOURCES
     src/avionics/AvionicsSystem.cpp
     src/graphics/AvionicsRenderer.cpp
     src/audio/AudioSystem.cpp
+    src/navigation/NavDatabase.cpp
+    src/navigation/RadioNavSystem.cpp
 )
 
 set(LOKYS_HEADERS
@@ -91,6 +93,9 @@ set(LOKYS_HEADERS
     include/LokYS/propulsion/PropulsionSystem.hpp
     include/LokYS/audio/AudioTypes.hpp
     include/LokYS/audio/AudioSystem.hpp
+    include/LokYS/navigation/NavTypes.hpp
+    include/LokYS/navigation/NavDatabase.hpp
+    include/LokYS/navigation/RadioNavSystem.hpp
 )
 
 add_executable(LokYSFlightSimulator WIN32
@@ -237,6 +242,19 @@ target_link_libraries(LokYSAudioTests PRIVATE
 )
 
 add_test(NAME SpatialAudioTests COMMAND LokYSAudioTests)
+
+add_executable(LokYSRadioNavTests
+    tests/unit/RadioNavTests.cpp
+    src/navigation/NavDatabase.cpp
+    src/navigation/RadioNavSystem.cpp
+    ${LOKYS_HEADERS}
+)
+
+target_include_directories(LokYSRadioNavTests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+add_test(NAME RadioNavTests COMMAND LokYSRadioNavTests)
 
 
 

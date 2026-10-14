@@ -239,6 +239,7 @@ void AvionicsRenderer::Render(
     u32 screenWidth,
     u32 screenHeight,
     const Avionics::SixPackState& state,
+    const Navigation::NavReceiverState& navState,
     bool visible,
     f32 panelScale) noexcept
 {
@@ -254,7 +255,7 @@ void AvionicsRenderer::Render(
     f32 panelCenterY = 0.0f;
     f32 dialRadius = 52.0f;
 
-    BuildPanelGeometry(panelCenterX, panelCenterY, dialRadius, state);
+    BuildPanelGeometry(panelCenterX, panelCenterY, dialRadius, state, navState);
 
     if (m_vertices.empty() || m_indices.empty()) {
         return;
@@ -304,14 +305,15 @@ void AvionicsRenderer::BuildPanelGeometry(
     f32 centerX,
     f32 centerY,
     f32 dialRadius,
-    const Avionics::SixPackState& state)
+    const Avionics::SixPackState& state,
+    const Navigation::NavReceiverState& navState)
 {
-    // Grid spacing between dial centers
-    f32 spacingX = dialRadius * 2.22f; // ~115.4 px
+    // Grid spacing between dial centers (4 columns x 2 rows)
+    f32 spacingX = dialRadius * 2.18f; // ~113.3 px
     f32 spacingY = dialRadius * 2.22f; // ~115.4 px
 
     // Background panel housing plate (dark cockpit glare shield & panel frame)
-    f32 panelHalfW = spacingX * 1.55f + 16.0f;
+    f32 panelHalfW = spacingX * 2.05f + 14.0f;
     f32 panelHalfH = spacingY * 1.05f + 14.0f;
     Math::Vec4f panelColor{ 0.10f, 0.10f, 0.11f, 0.94f };
     Math::Vec4f panelBorder{ 0.25f, 0.25f, 0.27f, 0.95f };
@@ -330,18 +332,20 @@ void AvionicsRenderer::BuildPanelGeometry(
     AddLine(centerX - panelHalfW, centerY - panelHalfH, centerX - panelHalfW, centerY + panelHalfH, 2.5f, panelBorder);
     AddLine(centerX + panelHalfW, centerY - panelHalfH, centerX + panelHalfW, centerY + panelHalfH, 2.5f, panelBorder);
 
-    // Instrument center coordinates:
+    // Instrument center coordinates across 4 columns:
     // Top Row (y = -spacingY * 0.5)
     f32 row0Y = centerY - spacingY * 0.5f;
-    f32 col0X = centerX - spacingX;      // Airspeed
-    f32 col1X = centerX;                 // Attitude
-    f32 col2X = centerX + spacingX;      // Altimeter
+    f32 col0X = centerX - spacingX * 1.5f; // Airspeed
+    f32 col1X = centerX - spacingX * 0.5f; // Attitude
+    f32 col2X = centerX + spacingX * 0.5f; // Altimeter
+    f32 col3X = centerX + spacingX * 1.5f; // Course Deviation Indicator (CDI / OBS)
 
     // Bottom Row (y = +spacingY * 0.5)
     f32 row1Y = centerY + spacingY * 0.5f;
-    f32 col3X = centerX - spacingX;      // Turn Coordinator
-    f32 col4X = centerX;                 // Heading
-    f32 col5X = centerX + spacingX;      // Vertical Speed
+    f32 col4X = centerX - spacingX * 1.5f; // Turn Coordinator
+    f32 col5X = centerX - spacingX * 0.5f; // Heading
+    f32 col6X = centerX + spacingX * 0.5f; // Vertical Speed
+    f32 col7X = centerX + spacingX * 1.5f; // Radio / DME / Marker Box
 
     // 1. Airspeed Indicator (ASI)
     DrawInstrumentHousing(col0X, row0Y, dialRadius);
@@ -355,17 +359,24 @@ void AvionicsRenderer::BuildPanelGeometry(
     DrawInstrumentHousing(col2X, row0Y, dialRadius);
     DrawAltimeter(col2X, row0Y, dialRadius, state.altimeter);
 
-    // 4. Turn Coordinator (TC)
-    DrawInstrumentHousing(col3X, row1Y, dialRadius);
-    DrawTurnCoordinator(col3X, row1Y, dialRadius, state.turnCoordinator);
+    // 4. Course Deviation Indicator (CDI / ILS)
+    DrawInstrumentHousing(col3X, row0Y, dialRadius);
+    DrawCdiInstrument(col3X, row0Y, dialRadius, navState.cdi);
 
-    // 5. Heading Indicator (DG)
+    // 5. Turn Coordinator (TC)
     DrawInstrumentHousing(col4X, row1Y, dialRadius);
-    DrawHeadingIndicator(col4X, row1Y, dialRadius, state.heading);
+    DrawTurnCoordinator(col4X, row1Y, dialRadius, state.turnCoordinator);
 
-    // 6. Vertical Speed Indicator (VSI)
+    // 6. Heading Indicator (DG)
     DrawInstrumentHousing(col5X, row1Y, dialRadius);
-    DrawVerticalSpeedIndicator(col5X, row1Y, dialRadius, state.verticalSpeed);
+    DrawHeadingIndicator(col5X, row1Y, dialRadius, state.heading);
+
+    // 7. Vertical Speed Indicator (VSI)
+    DrawInstrumentHousing(col6X, row1Y, dialRadius);
+    DrawVerticalSpeedIndicator(col6X, row1Y, dialRadius, state.verticalSpeed);
+
+    // 8. Radio Navigation & DME Head (NAV1 / DME / Marker)
+    DrawRadioDmeBox(col7X, row1Y, dialRadius, navState);
 }
 
 void AvionicsRenderer::DrawInstrumentHousing(f32 cx, f32 cy, f32 radius) {
@@ -848,6 +859,189 @@ void AvionicsRenderer::AddNeedle(
 
     AddTriangle(tip, rBase, lBase, col);
     AddTriangle(rBase, tail, lBase, col);
+}
+
+void AvionicsRenderer::DrawCdiInstrument(f32 cx, f32 cy, f32 r, const Navigation::CdiState& cdi) {
+    // 1. Dial background
+    AddCircleFill(cx, cy, r, 32, { 0.06f, 0.06f, 0.07f, 1.0f });
+
+    // 2. Rotating Azimuth Compass Rose (OBS card)
+    for (int deg = 0; deg < 360; deg += 10) {
+        f32 angleOnDial = static_cast<f32>(deg) - static_cast<f32>(cdi.obsDeg);
+        bool isMajor = (deg % 30 == 0);
+        f32 tickLen = isMajor ? 6.0f : 3.5f;
+        Math::Vec4f tickCol = isMajor ? Math::Vec4f{ 0.90f, 0.90f, 0.92f, 1.0f } : Math::Vec4f{ 0.60f, 0.60f, 0.65f, 0.9f };
+        AddTick(cx, cy, r - 3.0f, tickLen, angleOnDial, isMajor ? 1.5f : 1.0f, tickCol);
+    }
+
+    // Top Selected Course Index (Yellow pointer at 12 o'clock)
+    AddTriangle(
+        { cx - 4.5f, cy - r + 3.0f, 0.0f },
+        { cx + 4.5f, cy - r + 3.0f, 0.0f },
+        { cx, cy - r + 11.0f, 0.0f },
+        { 0.95f, 0.85f, 0.15f, 1.0f });
+
+    // Bottom Reciprocal Index
+    AddTriangle(
+        { cx - 3.5f, cy + r - 3.0f, 0.0f },
+        { cx + 3.5f, cy + r - 3.0f, 0.0f },
+        { cx, cy + r - 9.0f, 0.0f },
+        { 0.70f, 0.70f, 0.75f, 0.8f });
+
+    // 3. Central Dot Scale (5 dots left, 5 dots right; 5 dots up, 5 dots down)
+    f32 dotSpacing = (r - 20.0f) / 5.0f; // ~6.4 px per dot
+    Math::Vec4f dotCol{ 0.85f, 0.85f, 0.88f, 0.9f };
+
+    // Center reference ring
+    AddRing(cx, cy, 2.0f, 3.5f, 16, dotCol);
+
+    for (int i = 1; i <= 5; ++i) {
+        f32 d = static_cast<f32>(i) * dotSpacing;
+        // Horizontal scale (CDI)
+        AddCircleFill(cx - d, cy, 1.5f, 8, dotCol);
+        AddCircleFill(cx + d, cy, 1.5f, 8, dotCol);
+        // Vertical scale (Glideslope)
+        AddCircleFill(cx, cy - d, 1.5f, 8, dotCol);
+        AddCircleFill(cx, cy + d, 1.5f, 8, dotCol);
+    }
+
+    // 4. TO / FROM Flags
+    if (cdi.toFlag) {
+        // Upward pointing triangle above center
+        AddTriangle(
+            { cx - 4.5f, cy - 10.0f, 0.0f },
+            { cx + 4.5f, cy - 10.0f, 0.0f },
+            { cx, cy - 18.0f, 0.0f },
+            { 0.92f, 0.92f, 0.95f, 1.0f });
+    } else if (cdi.fromFlag) {
+        // Downward pointing triangle below center
+        AddTriangle(
+            { cx - 4.5f, cy + 10.0f, 0.0f },
+            { cx + 4.5f, cy + 10.0f, 0.0f },
+            { cx, cy + 18.0f, 0.0f },
+            { 0.92f, 0.92f, 0.95f, 1.0f });
+    }
+
+    // 5. Warning Flags
+    if (cdi.navFlag) {
+        // Red NAV warning flag (upper-left)
+        AddQuad(
+            { cx - r * 0.65f, cy - r * 0.45f, 0.0f },
+            { cx - r * 0.20f, cy - r * 0.45f, 0.0f },
+            { cx - r * 0.20f, cy - r * 0.25f, 0.0f },
+            { cx - r * 0.65f, cy - r * 0.25f, 0.0f },
+            { 0.85f, 0.15f, 0.15f, 0.95f });
+    }
+
+    if (cdi.gsFlag && cdi.isIls) {
+        // Red GS warning flag (right side)
+        AddQuad(
+            { cx + r * 0.25f, cy - r * 0.10f, 0.0f },
+            { cx + r * 0.65f, cy - r * 0.10f, 0.0f },
+            { cx + r * 0.65f, cy + r * 0.10f, 0.0f },
+            { cx + r * 0.25f, cy + r * 0.10f, 0.0f },
+            { 0.85f, 0.15f, 0.15f, 0.95f });
+    }
+
+    // 6. CDI Needle (Vertical)
+    if (!cdi.navFlag) {
+        f32 needleX = cx + static_cast<f32>(cdi.courseDeviationDots) * dotSpacing;
+        needleX = std::clamp(needleX, cx - 4.8f * dotSpacing, cx + 4.8f * dotSpacing);
+        AddLine(needleX, cy - r * 0.60f, needleX, cy + r * 0.60f, 2.2f, { 0.95f, 0.95f, 0.98f, 1.0f });
+    }
+
+    // 7. Glideslope Needle (Horizontal)
+    if (cdi.isIls && !cdi.gsFlag) {
+        f32 needleY = cy + static_cast<f32>(cdi.glideslopeDeviationDots) * dotSpacing;
+        needleY = std::clamp(needleY, cy - 4.8f * dotSpacing, cy + 4.8f * dotSpacing);
+        AddLine(cx - r * 0.60f, needleY, cx + r * 0.60f, needleY, 2.0f, { 0.98f, 0.85f, 0.20f, 1.0f });
+    }
+
+    // OBS Knob visual indicator (bottom-left)
+    AddCircleFill(cx - r * 0.70f, cy + r * 0.70f, 6.0f, 12, { 0.35f, 0.35f, 0.38f, 1.0f });
+    AddRing(cx - r * 0.70f, cy + r * 0.70f, 4.0f, 6.0f, 12, { 0.60f, 0.60f, 0.65f, 1.0f });
+}
+
+void AvionicsRenderer::DrawRadioDmeBox(f32 cx, f32 cy, f32 r, const Navigation::NavReceiverState& nav) {
+    // Rectangular avionics chassis
+    f32 boxW = r * 0.95f;
+    f32 boxH = r * 0.90f;
+
+    // Chassis background & metallic bevel
+    AddQuad(
+        { cx - boxW, cy - boxH, 0.0f },
+        { cx + boxW, cy - boxH, 0.0f },
+        { cx + boxW, cy + boxH, 0.0f },
+        { cx - boxW, cy + boxH, 0.0f },
+        { 0.12f, 0.12f, 0.14f, 1.0f });
+
+    AddLine(cx - boxW, cy - boxH, cx + boxW, cy - boxH, 2.0f, { 0.30f, 0.30f, 0.34f, 1.0f });
+    AddLine(cx - boxW, cy + boxH, cx + boxW, cy + boxH, 2.0f, { 0.30f, 0.30f, 0.34f, 1.0f });
+    AddLine(cx - boxW, cy - boxH, cx - boxW, cy + boxH, 2.0f, { 0.30f, 0.30f, 0.34f, 1.0f });
+    AddLine(cx + boxW, cy - boxH, cx + boxW, cy + boxH, 2.0f, { 0.30f, 0.30f, 0.34f, 1.0f });
+
+    // 1. Digital Display Screen (Dark amber/green background)
+    f32 dispW = boxW - 6.0f;
+    f32 dispH = boxH * 0.45f;
+    f32 dispY = cy - boxH * 0.45f;
+    AddQuad(
+        { cx - dispW, dispY - dispH, 0.0f },
+        { cx + dispW, dispY - dispH, 0.0f },
+        { cx + dispW, dispY + dispH, 0.0f },
+        { cx - dispW, dispY + dispH, 0.0f },
+        { 0.04f, 0.08f, 0.05f, 1.0f });
+
+    // Active Frequency Bar / Badge (Green)
+    AddQuad(
+        { cx - dispW + 4.0f, dispY - dispH + 4.0f, 0.0f },
+        { cx - 4.0f, dispY - dispH + 4.0f, 0.0f },
+        { cx - 4.0f, dispY - 4.0f, 0.0f },
+        { cx - dispW + 4.0f, dispY - 4.0f, 0.0f },
+        { 0.15f, 0.65f, 0.25f, 0.85f });
+
+    // Standby Frequency Bar (Muted Cyan)
+    AddQuad(
+        { cx + 4.0f, dispY - dispH + 4.0f, 0.0f },
+        { cx + dispW - 4.0f, dispY - dispH + 4.0f, 0.0f },
+        { cx + dispW - 4.0f, dispY - 4.0f, 0.0f },
+        { cx + 4.0f, dispY - 4.0f, 0.0f },
+        { 0.20f, 0.45f, 0.55f, 0.75f });
+
+    // Transfer arrow in center
+    AddTriangle(
+        { cx - 3.0f, dispY - dispH * 0.5f - 3.0f, 0.0f },
+        { cx - 3.0f, dispY - dispH * 0.5f + 3.0f, 0.0f },
+        { cx + 3.0f, dispY - dispH * 0.5f, 0.0f },
+        { 0.90f, 0.85f, 0.20f, 0.9f });
+
+    // DME Signal & Station Status Bar (lower section of display)
+    Math::Vec4f dmeColor = nav.dme.hasSignal ? Math::Vec4f{ 0.20f, 0.85f, 0.35f, 0.9f } : Math::Vec4f{ 0.50f, 0.20f, 0.20f, 0.8f };
+    AddQuad(
+        { cx - dispW + 4.0f, dispY + 2.0f, 0.0f },
+        { cx + dispW - 4.0f, dispY + 2.0f, 0.0f },
+        { cx + dispW - 4.0f, dispY + dispH - 4.0f, 0.0f },
+        { cx - dispW + 4.0f, dispY + dispH - 4.0f, 0.0f },
+        dmeColor);
+
+    // 2. Approach Marker Beacon Annunciators (Bottom row: Outer [Blue], Middle [Amber], Inner [White])
+    f32 lampY = cy + boxH * 0.50f;
+    f32 lampR = 8.0f;
+    f32 lampSpacing = boxW * 0.55f;
+
+    // Outer Marker (Blue)
+    Math::Vec4f omCol = nav.marker.lightBlue ? Math::Vec4f{ 0.20f, 0.55f, 1.0f, 1.0f } : Math::Vec4f{ 0.15f, 0.20f, 0.30f, 0.9f };
+    AddCircleFill(cx - lampSpacing, lampY, lampR, 16, omCol);
+    AddRing(cx - lampSpacing, lampY, lampR - 1.5f, lampR + 1.0f, 16, { 0.40f, 0.45f, 0.55f, 1.0f });
+
+    // Middle Marker (Amber)
+    Math::Vec4f mmCol = nav.marker.lightAmber ? Math::Vec4f{ 1.0f, 0.65f, 0.10f, 1.0f } : Math::Vec4f{ 0.30f, 0.22f, 0.12f, 0.9f };
+    AddCircleFill(cx, lampY, lampR, 16, mmCol);
+    AddRing(cx, lampY, lampR - 1.5f, lampR + 1.0f, 16, { 0.45f, 0.40f, 0.35f, 1.0f });
+
+    // Inner Marker (White)
+    Math::Vec4f imCol = nav.marker.lightWhite ? Math::Vec4f{ 0.95f, 0.95f, 0.98f, 1.0f } : Math::Vec4f{ 0.25f, 0.25f, 0.28f, 0.9f };
+    AddCircleFill(cx + lampSpacing, lampY, lampR, 16, imCol);
+    AddRing(cx + lampSpacing, lampY, lampR - 1.5f, lampR + 1.0f, 16, { 0.50f, 0.50f, 0.55f, 1.0f });
 }
 
 } // namespace LokYS::Graphics

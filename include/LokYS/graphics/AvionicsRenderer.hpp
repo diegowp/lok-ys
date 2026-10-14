@@ -16,6 +16,8 @@
 #include <wrl/client.h>
 #include <vector>
 
+#include "LokYS/navigation/NavTypes.hpp"
+
 namespace LokYS::Graphics {
 
 class AvionicsRenderer {
@@ -26,20 +28,26 @@ public:
     [[nodiscard]] bool Initialize(ID3D12Device* device);
     void Shutdown();
 
-    /// Renders the complete Analog Six-Pack instrument cluster overlay
-    /// @param cmdList Direct3D 12 graphics command list
-    /// @param screenWidth Viewport width in pixels
-    /// @param screenHeight Viewport height in pixels
-    /// @param state Current SixPackState telemetry
-    /// @param visible Whether the instrument panel is currently visible
-    /// @param panelScale Zoom / scaling factor for the panel (default 1.0)
+    /// Renders the complete Analog Six-Pack and Radio Navigation instrument cluster overlay
+    void Render(
+        ID3D12GraphicsCommandList* cmdList,
+        u32 screenWidth,
+        u32 screenHeight,
+        const Avionics::SixPackState& state,
+        const Navigation::NavReceiverState& navState,
+        bool visible,
+        f32 panelScale = 1.0f) noexcept;
+
     void Render(
         ID3D12GraphicsCommandList* cmdList,
         u32 screenWidth,
         u32 screenHeight,
         const Avionics::SixPackState& state,
         bool visible,
-        f32 panelScale = 1.0f) noexcept;
+        f32 panelScale = 1.0f) noexcept {
+        Navigation::NavReceiverState defaultNav{};
+        Render(cmdList, screenWidth, screenHeight, state, defaultNav, visible, panelScale);
+    }
 
     void SetPanelOpacity(f32 opacity) noexcept { m_opacity = opacity; }
     [[nodiscard]] f32 GetPanelOpacity() const noexcept { return m_opacity; }
@@ -53,7 +61,8 @@ private:
         f32 centerX,
         f32 centerY,
         f32 dialRadius,
-        const Avionics::SixPackState& state);
+        const Avionics::SixPackState& state,
+        const Navigation::NavReceiverState& navState);
 
     // Bezel & background plate
     void DrawInstrumentHousing(f32 cx, f32 cy, f32 radius);
@@ -65,6 +74,8 @@ private:
     void DrawTurnCoordinator(f32 cx, f32 cy, f32 r, const Avionics::TurnCoordinatorState& tc);
     void DrawHeadingIndicator(f32 cx, f32 cy, f32 r, const Avionics::HeadingIndicatorState& hdg);
     void DrawVerticalSpeedIndicator(f32 cx, f32 cy, f32 r, const Avionics::VerticalSpeedIndicatorState& vsi);
+    void DrawCdiInstrument(f32 cx, f32 cy, f32 r, const Navigation::CdiState& cdi);
+    void DrawRadioDmeBox(f32 cx, f32 cy, f32 r, const Navigation::NavReceiverState& nav);
 
     // Vector drawing primitives
     void AddQuad(const Math::Vec3f& p0, const Math::Vec3f& p1, const Math::Vec3f& p2, const Math::Vec3f& p3, const Math::Vec4f& col);

@@ -50,8 +50,12 @@ void InputSystem::Poll(f64 dt) noexcept {
     m_resetTriggered = false;
     m_panelToggleTriggered = false;
     m_avionicsAlignTriggered = false;
+    m_navSwapTriggered = false;
+    m_navIdentTriggered = false;
     m_kollsmanDelta = 0.0;
     m_headingBugDelta = 0.0;
+    m_obsDelta = 0.0;
+    m_navFreqDelta = 0.0;
 
     // Hardware joystick polling
     if (m_joystickConnected) {
@@ -239,6 +243,36 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
     }
     if (IsDown(VK_OEM_PERIOD)) {
         m_headingBugDelta += 20.0 * dt;
+    }
+
+    // NAV Frequency Swap: 'T' key
+    bool tDown = IsDown('T');
+    if (tDown && !m_prevNavSwapKey) {
+        m_navSwapTriggered = true;
+    }
+    m_prevNavSwapKey = tDown;
+
+    // NAV Audio Ident Toggle: 'Y' key
+    bool yDown = IsDown('Y');
+    if (yDown && !m_prevNavIdentKey) {
+        m_navIdentTriggered = true;
+    }
+    m_prevNavIdentKey = yDown;
+
+    // OBS Course Adjustment: 'K' (decrease) and 'L' (increase)
+    if (IsDown('K')) {
+        m_obsDelta -= 40.0 * dt;
+    }
+    if (IsDown('L')) {
+        m_obsDelta += 40.0 * dt;
+    }
+
+    // NAV Standby Frequency Adjustment: 'U' (decrease) and 'I' (increase)
+    if (IsDown('U')) {
+        m_navFreqDelta -= 0.5 * dt;
+    }
+    if (IsDown('I')) {
+        m_navFreqDelta += 0.5 * dt;
     }
 }
 
