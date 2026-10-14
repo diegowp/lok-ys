@@ -55,6 +55,7 @@ set(LOKYS_SOURCES
     src/propulsion/PropulsionSystem.cpp
     src/avionics/AvionicsSystem.cpp
     src/graphics/AvionicsRenderer.cpp
+    src/audio/AudioSystem.cpp
 )
 
 set(LOKYS_HEADERS
@@ -88,6 +89,8 @@ set(LOKYS_HEADERS
     include/LokYS/aerodynamics/AerodynamicsSystem.hpp
     include/LokYS/input/InputSystem.hpp
     include/LokYS/propulsion/PropulsionSystem.hpp
+    include/LokYS/audio/AudioTypes.hpp
+    include/LokYS/audio/AudioSystem.hpp
 )
 
 add_executable(LokYSFlightSimulator WIN32
@@ -99,7 +102,7 @@ target_include_directories(LokYSFlightSimulator PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-# Link essential Windows and Direct3D 12 libraries
+# Link essential Windows, Direct3D 12, and XAudio2 libraries
 target_link_libraries(LokYSFlightSimulator PRIVATE
     d3d12.lib
     dxgi.lib
@@ -109,6 +112,8 @@ target_link_libraries(LokYSFlightSimulator PRIVATE
     shell32.lib
     kernel32.lib
     winmm.lib
+    xaudio2.lib
+    ole32.lib
 )
 
 set_target_properties(LokYSFlightSimulator PROPERTIES
@@ -215,6 +220,23 @@ target_include_directories(LokYSAvionicsTests PRIVATE
 )
 
 add_test(NAME SixPackAvionicsTests COMMAND LokYSAvionicsTests)
+
+add_executable(LokYSAudioTests
+    tests/unit/AudioTests.cpp
+    src/audio/AudioSystem.cpp
+    ${LOKYS_HEADERS}
+)
+
+target_include_directories(LokYSAudioTests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_link_libraries(LokYSAudioTests PRIVATE
+    xaudio2.lib
+    ole32.lib
+)
+
+add_test(NAME SpatialAudioTests COMMAND LokYSAudioTests)
 
 
 

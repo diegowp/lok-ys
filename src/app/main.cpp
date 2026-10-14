@@ -22,6 +22,7 @@
 #include "LokYS/input/InputSystem.hpp"
 #include "LokYS/avionics/AvionicsSystem.hpp"
 #include "LokYS/graphics/AvionicsRenderer.hpp"
+#include "LokYS/audio/AudioSystem.hpp"
 #include <windows.h>
 #include <sstream>
 #include <iomanip>
@@ -67,7 +68,7 @@ int WINAPI wWinMain(
         }
         if (hOut != INVALID_HANDLE_VALUE && hOut != nullptr) {
             std::wstringstream ss;
-            ss << L"LokYS Native Windows Flight Simulator [Milestone M14 Analog Six-Pack Avionics]\n";
+            ss << L"LokYS Native Windows Flight Simulator [Milestone M15 Spatial Audio Subsystem]\n";
             ss << L"============================================================\n";
             ss << L"Detected GPU: " << caps.adapterName << L"\n";
             ss << L"Dedicated VRAM: " << (caps.dedicatedVideoMemory / (1024 * 1024)) << L" MB\n";
@@ -85,8 +86,9 @@ int WINAPI wWinMain(
             ss << L"Gyroscopic Gimbal Dynamics & Mechanical Precession Drift: OPERATIONAL\n";
             ss << L"Calibrated Metering Capillary Pneumatic Sensor Lag: OPERATIONAL\n";
             ss << L"Direct3D 12 2D Flight Instrument Cluster Vector Pipeline: OPERATIONAL\n";
+            ss << L"XAudio2 & X3DAudio Spatial Sound Subsystem (Engine, Wind, Ground): OPERATIONAL\n";
             ss << L"============================================================\n";
-            ss << L"[M14 ANALOG SIX-PACK AVIONICS VERIFICATION EXIT 0]\n";
+            ss << L"[M15 SPATIAL AUDIO SUBSYSTEM VERIFICATION EXIT 0]\n";
 
             std::wstring wtext = ss.str();
             DWORD mode = 0;
@@ -258,6 +260,14 @@ int WINAPI wWinMain(
 
     LokYS::Physics::GroundReactionsOutput latestGroundOut{};
     LokYS::Propulsion::PropulsionOutput latestPropOut{};
+    LokYS::Aerodynamics::AeroOutput latestAeroOut{};
+    bool wasAirborne = false;
+
+    // Milestone M15: Native Windows XAudio2 & X3DAudio Spatial Sound Subsystem
+    LokYS::AudioSystem audioSystem;
+    LokYS::AudioConfig audioConfig;
+    audioConfig.masterVolume = 0.85f;
+    audioSystem.Initialize(audioConfig);
 
     LokYS::Timer timer;
     LokYS::f64 propellerAngleRad = 0.0;
@@ -323,6 +333,7 @@ int WINAPI wWinMain(
 
             const auto& state = aircraft.GetState();
             auto aeroOut = aero.Evaluate(state.velocityBody, state.angularVelocityBody, deflections);
+            latestAeroOut = aeroOut;
 
             // Apply aerodynamic forces and moments
             aircraft.AddForceBody(aeroOut.forcesBody);
@@ -412,6 +423,59 @@ int WINAPI wWinMain(
             graphics.EndFrame(true); // Vsync on for consistent frametimes
         }
 
+        // Milestone M15: Spatial Audio Engine Update
+        LokYS::AudioListenerState listener{};
+        listener.inCockpit = (camera.GetMode() == LokYS::Graphics::CameraMode::Cockpit);
+        listener.position = camera.GetCameraPosGfx();
+        listener.forward = camera.GetForward();
+        listener.up = camera.GetUp();
+        listener.velocity = LokYS::Math::Vec3f(
+            static_cast<float>(renderSnapshot.bodyState.velocityBody.x),
+            static_cast<float>(renderSnapshot.bodyState.velocityBody.y),
+            static_cast<float>(renderSnapshot.bodyState.velocityBody.z));
+
+        LokYS::AudioEmitterState emitter{};
+        emitter.position = LokYS::Math::Vec3f(
+            static_cast<float>(renderSnapshot.bodyState.positionNed.x),
+            static_cast<float>(-renderSnapshot.bodyState.positionNed.z),
+            static_cast<float>(renderSnapshot.bodyState.positionNed.y));
+        emitter.forward = listener.forward;
+        emitter.up = listener.up;
+        emitter.velocity = listener.velocity;
+
+        LokYS::EngineAudioParams engineAudio{};
+        engineAudio.rpm = static_cast<float>(latestPropOut.engineRpm);
+        engineAudio.throttle = static_cast<float>(input.GetControls().throttle);
+        engineAudio.manifoldPressure = static_cast<float>(latestPropOut.manifoldPressureInHg);
+
+        LokYS::WindAudioParams windAudio{};
+        windAudio.dynamicPressure = static_cast<float>(latestAeroOut.dynamicPressurePa);
+        windAudio.trueAirspeed = static_cast<float>(latestAeroOut.trueAirspeedMps);
+
+        LokYS::GroundAudioParams groundAudio{};
+        groundAudio.groundSpeed = static_cast<float>(std::sqrt(
+            renderSnapshot.bodyState.velocityBody.x * renderSnapshot.bodyState.velocityBody.x +
+            renderSnapshot.bodyState.velocityBody.y * renderSnapshot.bodyState.velocityBody.y));
+        groundAudio.noseContact = latestGroundOut.noseInContact;
+        groundAudio.leftMainContact = latestGroundOut.leftMainInContact;
+        groundAudio.rightMainContact = latestGroundOut.rightMainInContact;
+        groundAudio.brakeFactor = static_cast<float>(input.GetControls().brakes);
+
+        bool isAirborne = !latestGroundOut.anyGearInContact;
+        if (wasAirborne && !isAirborne) {
+            groundAudio.touchdownEvent = true;
+            groundAudio.touchdownVelocity = groundAudio.groundSpeed;
+        }
+        wasAirborne = isAirborne;
+
+        audioSystem.Update(
+            static_cast<float>(timer.GetDeltaTime()),
+            listener,
+            emitter,
+            engineAudio,
+            windAudio,
+            groundAudio);
+
         // 4. Update telemetry in window title every 200ms
         titleUpdateTimer += timer.GetDeltaTime();
         if (titleUpdateTimer >= 0.20) {
@@ -452,6 +516,7 @@ int WINAPI wWinMain(
         }
     }
 
+    audioSystem.Shutdown();
     avionicsRenderer.Shutdown();
     renderer.Shutdown();
     graphics.Shutdown();
