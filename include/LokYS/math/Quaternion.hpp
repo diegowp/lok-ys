@@ -86,6 +86,13 @@ struct Quaternion {
         return q.Normalized();
     }
 
+    [[nodiscard]] static Quaternion FromAxisAngle(const Vector3<T>& axis, T angleRad) noexcept {
+        T halfAngle = angleRad * static_cast<T>(0.5);
+        T s = std::sin(halfAngle);
+        Vector3<T> normAxis = axis.Normalized();
+        return Quaternion(std::cos(halfAngle), normAxis.x * s, normAxis.y * s, normAxis.z * s).Normalized();
+    }
+
     // Extract Euler angles: yaw (psi), pitch (theta), roll (phi)
     void ToEuler(T& outYawRad, T& outPitchRad, T& outRollRad) const noexcept {
         // Roll (x-axis rotation)

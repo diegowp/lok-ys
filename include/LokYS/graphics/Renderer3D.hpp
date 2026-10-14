@@ -3,6 +3,7 @@
 #include "LokYS/core/Types.hpp"
 #include "LokYS/graphics/Camera.hpp"
 #include "LokYS/graphics/Mesh.hpp"
+#include "LokYS/graphics/GltfModel.hpp"
 #include "LokYS/math/Vector3.hpp"
 #include "LokYS/math/Quaternion.hpp"
 #include "LokYS/math/Matrix4x4.hpp"
@@ -42,6 +43,15 @@ public:
         const Mesh& terrain,
         const Mesh& runway,
         const Mesh& aircraft,
+        const Math::Vec3d& aircraftPosNed,
+        const Math::Quat4d& aircraftAttitude) const noexcept;
+
+    void Render(
+        ID3D12GraphicsCommandList* cmdList,
+        const Camera& camera,
+        const Mesh& terrain,
+        const Mesh& runway,
+        const GltfModel& aircraftModel,
         const Math::Vec3d& aircraftPosNed,
         const Math::Quat4d& aircraftAttitude) const noexcept;
 

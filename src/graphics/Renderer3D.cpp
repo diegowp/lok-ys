@@ -268,4 +268,70 @@ void Renderer3D::Render(
     aircraft.Draw(cmdList);
 }
 
+void Renderer3D::Render(
+    ID3D12GraphicsCommandList* cmdList,
+    const Camera& camera,
+    const Mesh& terrain,
+    const Mesh& runway,
+    const GltfModel& aircraftModel,
+    const Math::Vec3d& aircraftPosNed,
+    const Math::Quat4d& aircraftAttitude) const noexcept
+{
+    if (!cmdList || !m_initialized) {
+        return;
+    }
+
+    cmdList->SetGraphicsRootSignature(m_rootSignature.Get());
+    cmdList->SetPipelineState(m_pipelineState.Get());
+
+    const Math::Mat4f& viewProj = camera.GetViewProjMatrix();
+
+    struct RootConstants {
+        Math::Mat4f mvp;
+        Math::Vec4f sunDir;
+        Math::Vec4f sunColor;
+        Math::Vec4f ambientColor;
+    } constants;
+
+    constants.sunDir = Math::Vec4f(m_lighting.sunDirection.x, m_lighting.sunDirection.y, m_lighting.sunDirection.z, 0.0f);
+    constants.sunColor = m_lighting.sunColor;
+    constants.ambientColor = m_lighting.ambientColor;
+
+    // 1. Draw Terrain & Runway
+    const Math::Vec3f originRelGfx = Math::CoordinateFrames::NedToGraphics(-camera.GetCameraPosNed());
+    const Math::Mat4f worldModel = Math::Mat4f::Translation(originRelGfx);
+
+    constants.mvp = worldModel * viewProj;
+    cmdList->SetGraphicsRoot32BitConstants(0, 28, &constants, 0);
+
+    terrain.Draw(cmdList);
+    runway.Draw(cmdList);
+
+    // 2. Draw Articulated glTF Aircraft Model
+    const Math::Vec3f aircraftRelGfx = Math::CoordinateFrames::NedToGraphics(aircraftPosNed - camera.GetCameraPosNed());
+
+    const Math::Vec3d fwdNed = aircraftAttitude.Rotate(Math::Vec3d(1.0, 0.0, 0.0));
+    const Math::Vec3d rightNed = aircraftAttitude.Rotate(Math::Vec3d(0.0, 1.0, 0.0));
+    const Math::Vec3d upNed = aircraftAttitude.Rotate(Math::Vec3d(0.0, 0.0, -1.0));
+
+    const Math::Vec3f fwdGfx = Math::CoordinateFrames::NedToGraphics(fwdNed);
+    const Math::Vec3f rightGfx = Math::CoordinateFrames::NedToGraphics(rightNed);
+    const Math::Vec3f upGfx = Math::CoordinateFrames::NedToGraphics(upNed);
+
+    const Math::Mat4f rotModel{
+        rightGfx.x, rightGfx.y, rightGfx.z, 0.0f,
+        upGfx.x,    upGfx.y,    upGfx.z,    0.0f,
+        fwdGfx.x,   fwdGfx.y,   fwdGfx.z,   0.0f,
+        0.0f,       0.0f,       0.0f,       1.0f
+    };
+
+    const Math::Mat4f transModel = Math::Mat4f::Translation(aircraftRelGfx);
+    const Math::Mat4f aircraftRootTransform = rotModel * transModel;
+
+    // Prime lighting constants in shader
+    cmdList->SetGraphicsRoot32BitConstants(0, 28, &constants, 0);
+
+    aircraftModel.Draw(cmdList, aircraftRootTransform, viewProj, 0);
+}
+
 } // namespace LokYS::Graphics

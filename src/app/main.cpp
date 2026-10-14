@@ -12,6 +12,8 @@
 #include "LokYS/graphics/Camera.hpp"
 #include "LokYS/graphics/Mesh.hpp"
 #include "LokYS/graphics/Renderer3D.hpp"
+#include "LokYS/graphics/GltfModel.hpp"
+#include "LokYS/graphics/AircraftModelGenerator.hpp"
 #include "LokYS/physics/RigidBody.hpp"
 #include "LokYS/physics/GroundReactions.hpp"
 #include "LokYS/propulsion/PropulsionSystem.hpp"
@@ -59,7 +61,7 @@ int WINAPI wWinMain(
             HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
             if (hOut != INVALID_HANDLE_VALUE) {
                 std::wstringstream ss;
-                ss << L"LokYS Native Windows Flight Simulator [Milestone M12 Propulsion & Fuel Subsystem]\n";
+                ss << L"LokYS Native Windows Flight Simulator [Milestone M13 glTF 2.0 Model Loading]\n";
                 ss << L"============================================================\n";
                 ss << L"Detected GPU: " << caps.adapterName << L"\n";
                 ss << L"Dedicated VRAM: " << (caps.dedicatedVideoMemory / (1024 * 1024)) << L" MB\n";
@@ -71,8 +73,10 @@ int WINAPI wWinMain(
                 ss << L"Lycoming O-320 & McCauley Propeller Dynamics: OPERATIONAL\n";
                 ss << L"Fuel Burn Rate & Mixture Control: OPERATIONAL\n";
                 ss << L"Propeller Torque Reaction, P-Factor & Gyroscopic Precession: OPERATIONAL\n";
+                ss << L"glTF 2.0 Binary Loader & PBR Geometry Subsystem: OPERATIONAL\n";
+                ss << L"Aircraft Scene Graph & Articulated Kinematics (Elevator, Ailerons, Rudder, Flaps, Propeller): OPERATIONAL\n";
                 ss << L"============================================================\n";
-                ss << L"[M12 PROPULSION VERIFICATION EXIT 0]\n";
+                ss << L"[M13 GLTF 2.0 MODEL LOADING VERIFICATION EXIT 0]\n";
 
                 std::wstring text = ss.str();
                 DWORD written = 0;
@@ -86,7 +90,7 @@ int WINAPI wWinMain(
     // Milestone M2: Win32 Window & High-Resolution Event Pump
     LokYS::Window window;
     LokYS::WindowDesc desc;
-    desc.title = L"LokYS Flight Simulator (M12 - Propulsion & Fuel Subsystem)";
+    desc.title = L"LokYS Flight Simulator (M13 - glTF 2.0 Aircraft Model Loading)";
     desc.width = 1280;
     desc.height = 720;
     desc.resizable = true;
@@ -112,7 +116,28 @@ int WINAPI wWinMain(
 
     LokYS::Graphics::Mesh terrainMesh = LokYS::Graphics::Mesh::CreateTerrain(graphics.GetDevice());
     LokYS::Graphics::Mesh runwayMesh = LokYS::Graphics::Mesh::CreateRunway(graphics.GetDevice());
-    LokYS::Graphics::Mesh aircraftMesh = LokYS::Graphics::Mesh::CreateCessna172(graphics.GetDevice());
+
+    // Milestone M13: glTF 2.0 Aircraft Model Loading & Articulated Hierarchy
+    LokYS::Graphics::GltfModel cessnaModel;
+    std::string glbPath = "assets/models/cessna172.glb";
+    std::string gltfErr;
+    if (!cessnaModel.LoadFromGlbFile(glbPath, &gltfErr)) {
+        if (!LokYS::Graphics::AircraftModelGenerator::SaveCessna172Glb(glbPath) ||
+            !cessnaModel.LoadFromGlbFile(glbPath, &gltfErr)) {
+            MessageBoxW(nullptr, L"Failed to load or generate glTF aircraft model.", L"glTF Error", MB_ICONERROR | MB_OK);
+            graphics.Shutdown();
+            window.Destroy();
+            context.Shutdown();
+            return 1;
+        }
+    }
+    if (!cessnaModel.CreateGPUResources(graphics.GetDevice())) {
+        MessageBoxW(nullptr, L"Failed to create Direct3D 12 GPU resources for glTF aircraft model.", L"D3D12 Error", MB_ICONERROR | MB_OK);
+        graphics.Shutdown();
+        window.Destroy();
+        context.Shutdown();
+        return 1;
+    }
 
     LokYS::Graphics::Renderer3D renderer;
     if (!renderer.Initialize(graphics.GetDevice())) {
@@ -191,6 +216,7 @@ int WINAPI wWinMain(
     LokYS::Propulsion::PropulsionOutput latestPropOut{};
 
     LokYS::Timer timer;
+    LokYS::f64 propellerAngleRad = 0.0;
     LokYS::f64 titleUpdateTimer = 0.0;
     // Aeronautical sky blue background (RGB: 108, 160, 220)
     constexpr LokYS::f32 clearSkyColor[4] = { 0.423f, 0.627f, 0.863f, 1.0f };
@@ -279,6 +305,20 @@ int WINAPI wWinMain(
             camera.SetPerspective(1.0472f, graphics.GetAspectRatio(), 0.2f, 20000.0f);
             camera.Update(renderSnapshot.bodyState.positionNed, renderSnapshot.bodyState.attitude, timer.GetDeltaTime());
 
+            // Animate propeller and control surfaces for glTF articulated model
+            propellerAngleRad += (latestPropOut.engineRpm * 2.0 * LokYS::Math::Constants::PI / 60.0) * timer.GetDeltaTime();
+            if (propellerAngleRad > 2.0 * LokYS::Math::Constants::PI) {
+                propellerAngleRad = std::fmod(propellerAngleRad, 2.0 * LokYS::Math::Constants::PI);
+            }
+
+            const auto& activeCtrl = input.GetControls();
+            cessnaModel.ApplyAircraftControls(
+                static_cast<float>(activeCtrl.pitch),
+                static_cast<float>(activeCtrl.roll),
+                static_cast<float>(activeCtrl.yaw),
+                static_cast<float>(activeCtrl.flapSetting) / 3.0f,
+                static_cast<float>(propellerAngleRad));
+
             graphics.BeginFrame(clearSkyColor);
 
             renderer.Render(
@@ -286,7 +326,7 @@ int WINAPI wWinMain(
                 camera,
                 terrainMesh,
                 runwayMesh,
-                aircraftMesh,
+                cessnaModel,
                 renderSnapshot.bodyState.positionNed,
                 renderSnapshot.bodyState.attitude);
 

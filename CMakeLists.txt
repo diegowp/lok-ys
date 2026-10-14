@@ -35,7 +35,7 @@ endif()
 # Global include directory
 include_directories(include)
 
-# Source files for Milestones M1 - M12
+# Source files for Milestones M1 - M13
 set(LOKYS_SOURCES
     src/app/main.cpp
     src/core/EngineContext.cpp
@@ -46,6 +46,8 @@ set(LOKYS_SOURCES
     src/graphics/Camera.cpp
     src/graphics/Mesh.cpp
     src/graphics/Renderer3D.cpp
+    src/graphics/GltfModel.cpp
+    src/graphics/AircraftModelGenerator.cpp
     src/physics/RigidBody.cpp
     src/physics/GroundReactions.cpp
     src/aerodynamics/AerodynamicsSystem.cpp
@@ -57,12 +59,16 @@ set(LOKYS_HEADERS
     include/LokYS/core/EngineContext.hpp
     include/LokYS/core/Types.hpp
     include/LokYS/core/Timer.hpp
+    include/LokYS/core/JsonParser.hpp
     include/LokYS/platform/Window.hpp
     include/LokYS/graphics/GraphicsDevice.hpp
     include/LokYS/graphics/GpuCapabilities.hpp
     include/LokYS/graphics/Camera.hpp
     include/LokYS/graphics/Mesh.hpp
     include/LokYS/graphics/Renderer3D.hpp
+    include/LokYS/graphics/GltfTypes.hpp
+    include/LokYS/graphics/GltfModel.hpp
+    include/LokYS/graphics/AircraftModelGenerator.hpp
     include/LokYS/math/Units.hpp
     include/LokYS/math/Vector3.hpp
     include/LokYS/math/Matrix3x3.hpp
@@ -172,6 +178,25 @@ target_include_directories(LokYSPropulsionTests PRIVATE
 )
 
 add_test(NAME PropulsionTests COMMAND LokYSPropulsionTests)
+
+add_executable(LokYSGltfTests
+    tests/unit/GltfTests.cpp
+    src/graphics/GltfModel.cpp
+    src/graphics/AircraftModelGenerator.cpp
+    src/physics/RigidBody.cpp
+    ${LOKYS_HEADERS}
+)
+
+target_include_directories(LokYSGltfTests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_link_libraries(LokYSGltfTests PRIVATE
+    d3d12.lib
+    dxgi.lib
+)
+
+add_test(NAME GltfModelTests COMMAND LokYSGltfTests)
 
 
 

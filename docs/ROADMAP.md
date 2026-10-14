@@ -15,7 +15,7 @@
 | **M10** | First Integrated Flyable Prototype | **COMPLETED** | Cessna 172 3D mesh, 2000m runway & terrain, Chase & Cockpit camera modes, D3D12 HLSL pipeline with depth testing, runway takeoff, flight & landing loop. |
 | **M11** | Ground Reactions & Strut Physics | **COMPLETED** | Multi-point oleo strut kinematics (nose, left main, right main), progressive spring stiffness, hydraulic damping, tire scrub friction, nosewheel steering, wheel brakes, tailstrike & wingtip scrape protection. |
 | **M12** | Propulsion & Fuel Subsystem | **COMPLETED** | Lycoming O-320 160hp piston engine dynamics, McCauley fixed-pitch prop polars ($C_t, C_p$), torque balance rotational integrator, Gagg-Farrar naturally aspirated altitude lapse, idle stop governor, mixture control, P-Factor, gyroscopic precession, prop torque reaction, fuel burn rate & dynamic mass. |
-| **M13** | glTF 2.0 Aircraft Model Loading | PENDING | Exterior/interior meshes, PBR materials, articulated control surfaces. |
+| **M13** | glTF 2.0 Aircraft Model Loading | **COMPLETED** | Spec-compliant glTF 2.0 binary (.glb) loader, zero-dependency C++20 JSON parser/serializer, 12-node articulated scene graph (Fuselage, Wings, Ailerons, Elevator, Rudder, Flaps, Propeller, Cockpit, Gear), forward kinematics tree solver, control deflection mapping, D3D12 submesh rendering, and procedural Cessna 172 .glb generator. |
 | **M14** | Analog Six-Pack Avionics | PENDING | ASI, altimeter, attitude gyro, turn coordinator, DG, VSI with sensor lag. |
 | **M15** | Spatial Audio Subsystem | PENDING | XAudio2 3D listener, engine RPM audio pitch shifting, wind sound. |
 | **M16** | Radio Navigation Systems | PENDING | VOR radial reception, DME distance, ILS localizer & glide slope needles. |

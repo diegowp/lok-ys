@@ -1,9 +1,10 @@
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSPhysicsTests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSFlightSimulator.dir
-C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/edit_cache.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSMathTests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSAeroInputTests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/test.dir
+C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSGltfTests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSPropulsionTests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSGroundReactionsTests.dir
+C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/edit_cache.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/rebuild_cache.dir

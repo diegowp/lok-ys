@@ -1,6 +1,7 @@
-AerospaceMathTests 11 0.00101389
-SixDofPhysicsTests 9 0.00151794
-AeroInputTests 8 0.00123785
-GroundReactionsTests 5 0.00146822
-PropulsionTests 1 0.0647264
+AerospaceMathTests 12 0.00128028
+SixDofPhysicsTests 10 0.00139931
+AeroInputTests 9 0.000854544
+GroundReactionsTests 6 0.00213523
+PropulsionTests 2 0.00455355
+GltfModelTests 1 0.0409074
 ---
