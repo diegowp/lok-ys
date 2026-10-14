@@ -47,6 +47,58 @@ float4 PSMain(PSInput input) : SV_TARGET {
 constexpr f32 PI = 3.14159265358979323846f;
 constexpr f32 DEG_TO_RAD = PI / 180.0f;
 
+static bool ClipLineSegmentToRect(
+    f32& x0, f32& y0, f32& x1, f32& y1,
+    f32 minX, f32 maxX, f32 minY, f32 maxY)
+{
+    auto outCode = [&](f32 x, f32 y) -> int {
+        int code = 0;
+        if (x < minX) code |= 1;
+        else if (x > maxX) code |= 2;
+        if (y < minY) code |= 4;
+        else if (y > maxY) code |= 8;
+        return code;
+    };
+
+    int c0 = outCode(x0, y0);
+    int c1 = outCode(x1, y1);
+
+    for (int iter = 0; iter < 4; ++iter) {
+        if ((c0 | c1) == 0) {
+            return true;
+        }
+        if ((c0 & c1) != 0) {
+            return false;
+        }
+        int cOut = (c0 != 0) ? c0 : c1;
+        f32 x = 0.0f, y = 0.0f;
+        if (cOut & 8) {
+            x = x0 + (x1 - x0) * (maxY - y0) / (y1 - y0 + 1e-9f);
+            y = maxY;
+        } else if (cOut & 4) {
+            x = x0 + (x1 - x0) * (minY - y0) / (y1 - y0 + 1e-9f);
+            y = minY;
+        } else if (cOut & 2) {
+            y = y0 + (y1 - y0) * (maxX - x0) / (x1 - x0 + 1e-9f);
+            x = maxX;
+        } else if (cOut & 1) {
+            y = y0 + (y1 - y0) * (minX - x0) / (x1 - x0 + 1e-9f);
+            x = minX;
+        }
+
+        if (cOut == c0) {
+            x0 = x;
+            y0 = y;
+            c0 = outCode(x0, y0);
+        } else {
+            x1 = x;
+            y1 = y;
+            c1 = outCode(x1, y1);
+        }
+    }
+    return (c0 | c1) == 0;
+}
+
 } // anonymous namespace
 
 bool GlassCockpitRenderer::Initialize(ID3D12Device* device) {
@@ -228,6 +280,30 @@ void GlassCockpitRenderer::Render(
     bool visible,
     f32 panelScale) noexcept
 {
+    // Legacy pass-through with explicit scale override
+    RenderPfd(
+        cmdList,
+        screenWidth,
+        screenHeight,
+        avionics,
+        nav1,
+        apStatus,
+        visible,
+        PfdDockPosition::BottomCenter,
+        panelScale);
+}
+
+void GlassCockpitRenderer::RenderPfd(
+    ID3D12GraphicsCommandList* cmdList,
+    u32 screenWidth,
+    u32 screenHeight,
+    const Avionics::SixPackState& avionics,
+    const Navigation::NavReceiverState& nav1,
+    const Autopilot::AutopilotStatus& apStatus,
+    bool visible,
+    PfdDockPosition dockPos,
+    f32 scaleOverride) noexcept
+{
     if (!m_initialized || !visible || !cmdList || screenWidth == 0 || screenHeight == 0) return;
 
     m_vertices.clear();
@@ -237,10 +313,49 @@ void GlassCockpitRenderer::Render(
     f32 pfdW = 640.0f;
     f32 pfdH = 480.0f;
 
-    // Centered horizontally, anchored to cockpit instrument position
-    f32 pfdX = (static_cast<f32>(screenWidth) - pfdW * panelScale) * 0.5f;
-    f32 pfdY = static_cast<f32>(screenHeight) - (pfdH + 30.0f) * panelScale;
-    if (pfdY < 20.0f) pfdY = 20.0f;
+    f32 panelScale = scaleOverride;
+    if (panelScale <= 0.0f) {
+        if (dockPos == PfdDockPosition::CornerMini) {
+            // Unobtrusive corner mini display: ~26% of screen height
+            panelScale = (static_cast<f32>(screenHeight) * 0.26f) / pfdH;
+            panelScale = std::clamp(panelScale, 0.30f, 0.65f);
+        } else {
+            // Full PFD instrument dock: ~38% of screen height (leaving >60% windshield)
+            panelScale = (static_cast<f32>(screenHeight) * 0.38f) / pfdH;
+            panelScale = std::clamp(panelScale, 0.45f, 1.10f);
+        }
+    }
+
+    f32 pfdX = 0.0f;
+    f32 pfdY = 0.0f;
+
+    switch (dockPos) {
+    case PfdDockPosition::BottomLeft:
+        // Pilot seat PFD (Captain's side): anchored to bottom-left with margin
+        pfdX = 24.0f;
+        pfdY = static_cast<f32>(screenHeight) - (pfdH * panelScale + 18.0f);
+        break;
+
+    case PfdDockPosition::BottomCenter:
+        // Center dashboard: centered horizontally, docked to bottom
+        pfdX = (static_cast<f32>(screenWidth) - pfdW * panelScale) * 0.5f;
+        pfdY = static_cast<f32>(screenHeight) - (pfdH * panelScale + 18.0f);
+        break;
+
+    case PfdDockPosition::CornerMini:
+        // Compact corner display: docked tightly in bottom-left
+        pfdX = 16.0f;
+        pfdY = static_cast<f32>(screenHeight) - (pfdH * panelScale + 14.0f);
+        break;
+
+    case PfdDockPosition::Center:
+        // IFR test / instrument focus mode: centered
+        pfdX = (static_cast<f32>(screenWidth) - pfdW * panelScale) * 0.5f;
+        pfdY = (static_cast<f32>(screenHeight) - pfdH * panelScale) * 0.5f;
+        break;
+    }
+
+    if (pfdY < 10.0f) pfdY = 10.0f;
 
     BuildPfdGeometry(0.0f, 0.0f, pfdW, pfdH, avionics, nav1, apStatus);
 
@@ -276,6 +391,380 @@ void GlassCockpitRenderer::Render(
     cmdList->IASetVertexBuffers(0, 1, &m_vbView);
     cmdList->IASetIndexBuffer(&m_ibView);
     cmdList->DrawIndexedInstanced(static_cast<UINT>(idxCount), 1, 0, 0, 0);
+}
+
+void GlassCockpitRenderer::RenderTransparentHud(
+    ID3D12GraphicsCommandList* cmdList,
+    u32 screenWidth,
+    u32 screenHeight,
+    const Avionics::SixPackState& avionics,
+    const Navigation::NavReceiverState& nav1,
+    const Autopilot::AutopilotStatus& apStatus,
+    const Math::Vec3d& velocityBody,
+    bool visible) noexcept
+{
+    if (!m_initialized || !visible || !cmdList || screenWidth == 0 || screenHeight == 0) return;
+
+    m_vertices.clear();
+    m_indices.clear();
+
+    BuildTransparentHudGeometry(screenWidth, screenHeight, avionics, nav1, apStatus, velocityBody);
+
+    if (m_indices.empty()) return;
+
+    size_t vertCount = std::min(m_vertices.size(), MaxVertices);
+    size_t idxCount = std::min(m_indices.size(), MaxIndices);
+
+    memcpy(m_mappedVertices, m_vertices.data(), vertCount * sizeof(Vertex3D));
+    memcpy(m_mappedIndices, m_indices.data(), idxCount * sizeof(u32));
+
+    cmdList->SetGraphicsRootSignature(m_rootSignature.Get());
+    cmdList->SetPipelineState(m_pipelineState.Get());
+
+    struct {
+        float screenSize[2];
+        float panelPos[2];
+        float panelScale;
+        float opacity;
+        float padding[2];
+    } constants{};
+
+    constants.screenSize[0] = static_cast<float>(screenWidth);
+    constants.screenSize[1] = static_cast<float>(screenHeight);
+    constants.panelPos[0] = 0.0f;
+    constants.panelPos[1] = 0.0f;
+    constants.panelScale = 1.0f;
+    constants.opacity = m_opacity;
+
+    cmdList->SetGraphicsRoot32BitConstants(0, 8, &constants, 0);
+
+    cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    cmdList->IASetVertexBuffers(0, 1, &m_vbView);
+    cmdList->IASetIndexBuffer(&m_ibView);
+    cmdList->DrawIndexedInstanced(static_cast<UINT>(idxCount), 1, 0, 0, 0);
+}
+
+void GlassCockpitRenderer::AddClippedConvexPoly(
+    const std::vector<Math::Vec3f>& poly,
+    f32 minX, f32 maxX, f32 minY, f32 maxY,
+    const Math::Vec4f& col)
+{
+    if (poly.size() < 3) return;
+
+    struct P2 { f32 x, y; };
+    std::vector<P2> current;
+    current.reserve(poly.size() + 4);
+    for (const auto& v : poly) {
+        current.push_back({ v.x, v.y });
+    }
+
+    auto clipEdge = [](const std::vector<P2>& in, auto isInside, auto intersect) {
+        std::vector<P2> out;
+        if (in.empty()) return out;
+        P2 s = in.back();
+        for (const auto& p : in) {
+            bool pIn = isInside(p);
+            bool sIn = isInside(s);
+            if (pIn) {
+                if (!sIn) {
+                    out.push_back(intersect(s, p));
+                }
+                out.push_back(p);
+            } else if (sIn) {
+                out.push_back(intersect(s, p));
+            }
+            s = p;
+        }
+        return out;
+    };
+
+    // 1. Left plane: x >= minX
+    current = clipEdge(current,
+        [minX](const P2& p) { return p.x >= minX; },
+        [minX](const P2& a, const P2& b) -> P2 {
+            f32 dx = b.x - a.x;
+            f32 t = (std::abs(dx) > 1e-6f) ? (minX - a.x) / dx : 0.0f;
+            return { minX, a.y + t * (b.y - a.y) };
+        });
+
+    // 2. Right plane: x <= maxX
+    current = clipEdge(current,
+        [maxX](const P2& p) { return p.x <= maxX; },
+        [maxX](const P2& a, const P2& b) -> P2 {
+            f32 dx = b.x - a.x;
+            f32 t = (std::abs(dx) > 1e-6f) ? (maxX - a.x) / dx : 0.0f;
+            return { maxX, a.y + t * (b.y - a.y) };
+        });
+
+    // 3. Top plane: y >= minY
+    current = clipEdge(current,
+        [minY](const P2& p) { return p.y >= minY; },
+        [minY](const P2& a, const P2& b) -> P2 {
+            f32 dy = b.y - a.y;
+            f32 t = (std::abs(dy) > 1e-6f) ? (minY - a.y) / dy : 0.0f;
+            return { a.x + t * (b.x - a.x), minY };
+        });
+
+    // 4. Bottom plane: y <= maxY
+    current = clipEdge(current,
+        [maxY](const P2& p) { return p.y <= maxY; },
+        [maxY](const P2& a, const P2& b) -> P2 {
+            f32 dy = b.y - a.y;
+            f32 t = (std::abs(dy) > 1e-6f) ? (maxY - a.y) / dy : 0.0f;
+            return { a.x + t * (b.x - a.x), maxY };
+        });
+
+    if (current.size() < 3) return;
+
+    for (size_t i = 1; i + 1 < current.size(); ++i) {
+        AddTriangle(
+            { current[0].x, current[0].y, 0.0f },
+            { current[i].x, current[i].y, 0.0f },
+            { current[i + 1].x, current[i + 1].y, 0.0f },
+            col);
+    }
+}
+
+void GlassCockpitRenderer::BuildTransparentHudGeometry(
+    u32 screenWidth,
+    u32 screenHeight,
+    const Avionics::SixPackState& avi,
+    const Navigation::NavReceiverState& nav1,
+    const Autopilot::AutopilotStatus& ap,
+    const Math::Vec3d& velocityBody)
+{
+    f32 sw = static_cast<f32>(screenWidth);
+    f32 sh = static_cast<f32>(screenHeight);
+    f32 cx = sw * 0.5f;
+    f32 cy = sh * 0.5f;
+
+    Math::Vec4f colHudGreen{ 0.05f, 0.98f, 0.35f, 0.95f };
+    Math::Vec4f colHudCyan{ 0.0f, 0.88f, 1.0f, 0.95f };
+    Math::Vec4f colHudAmber{ 1.0f, 0.75f, 0.05f, 0.95f };
+    Math::Vec4f colHudMagenta{ 1.0f, 0.15f, 0.95f, 0.95f };
+
+    f32 pitchDeg = static_cast<f32>(avi.attitude.pitchDeg);
+    f32 rollDeg = static_cast<f32>(avi.attitude.rollDeg);
+    f32 iasKnots = static_cast<f32>(avi.airspeed.indicatedAirspeedKnots);
+    f32 altFeet = static_cast<f32>(avi.altimeter.indicatedAltitudeFeet);
+    f32 vsFpm = static_cast<f32>(avi.verticalSpeed.verticalSpeedFpm);
+    f32 hdgDeg = static_cast<f32>(avi.heading.indicatedHeadingDeg);
+
+    // 1. Center Aircraft Boresight / Waterline Symbol (Fuselage reference)
+    AddLine(cx - 30.0f, cy, cx - 10.0f, cy, 2.0f, colHudGreen);
+    AddLine(cx - 10.0f, cy, cx, cy - 6.0f, 2.0f, colHudGreen);
+    AddLine(cx, cy - 6.0f, cx + 10.0f, cy, 2.0f, colHudGreen);
+    AddLine(cx + 10.0f, cy, cx + 30.0f, cy, 2.0f, colHudGreen);
+
+    // 2. Flight Path Marker (Velocity Vector)
+    f32 speedMps = static_cast<f32>(std::sqrt(velocityBody.x * velocityBody.x + velocityBody.y * velocityBody.y + velocityBody.z * velocityBody.z));
+    f32 pxPerDeg = 4.2f;
+    f32 fpmCx = cx;
+    f32 fpmCy = cy;
+    if (speedMps > 10.0f) {
+        f32 alphaRad = static_cast<f32>(std::atan2(velocityBody.z, velocityBody.x));
+        f32 betaRad = static_cast<f32>(std::asin(std::clamp(velocityBody.y / speedMps, -1.0, 1.0)));
+        f32 alphaDeg = alphaRad * (180.0f / PI);
+        f32 betaDeg = betaRad * (180.0f / PI);
+        fpmCx = cx + std::clamp(betaDeg * pxPerDeg, -120.0f, 120.0f);
+        fpmCy = cy + std::clamp(alphaDeg * pxPerDeg, -120.0f, 120.0f);
+    }
+    AddRing(fpmCx, fpmCy, 5.0f, 6.5f, 16, colHudGreen);
+    AddLine(fpmCx - 14.0f, fpmCy, fpmCx - 6.5f, fpmCy, 2.0f, colHudGreen);
+    AddLine(fpmCx + 6.5f, fpmCy, fpmCx + 14.0f, fpmCy, 2.0f, colHudGreen);
+    AddLine(fpmCx, fpmCy - 6.5f, fpmCx, fpmCy - 12.0f, 2.0f, colHudGreen);
+
+    // 3. Collimated Horizon & Pitch Ladder
+    f32 rollRad = rollDeg * DEG_TO_RAD;
+    f32 cosR = std::cos(-rollRad);
+    f32 sinR = std::sin(-rollRad);
+    f32 pitchOffset = pitchDeg * pxPerDeg;
+
+    auto XformHud = [&](f32 lx, f32 ly) -> Math::Vec3f {
+        f32 rx = lx * cosR - ly * sinR;
+        f32 ry = lx * sinR + ly * cosR;
+        return { cx + rx, cy + pitchOffset + ry, 0.0f };
+    };
+
+    Math::Vec3f hzL0 = XformHud(-150.0f, 0.0f);
+    Math::Vec3f hzL1 = XformHud(-35.0f, 0.0f);
+    Math::Vec3f hzR0 = XformHud(+35.0f, 0.0f);
+    Math::Vec3f hzR1 = XformHud(+150.0f, 0.0f);
+    AddLine(hzL0.x, hzL0.y, hzL1.x, hzL1.y, 2.0f, colHudGreen);
+    AddLine(hzR0.x, hzR0.y, hzR1.x, hzR1.y, 2.0f, colHudGreen);
+
+    for (int p = -20; p <= 20; p += 5) {
+        if (p == 0) continue;
+        f32 rungY = -static_cast<f32>(p) * pxPerDeg;
+        f32 halfSpan = (std::abs(p) % 10 == 0) ? 36.0f : 20.0f;
+        f32 gap = 12.0f;
+
+        Math::Vec3f rL0 = XformHud(-halfSpan, rungY);
+        Math::Vec3f rL1 = XformHud(-gap, rungY);
+        AddLine(rL0.x, rL0.y, rL1.x, rL1.y, 1.8f, colHudGreen);
+
+        Math::Vec3f rR0 = XformHud(+gap, rungY);
+        Math::Vec3f rR1 = XformHud(+halfSpan, rungY);
+        AddLine(rR0.x, rR0.y, rR1.x, rR1.y, 1.8f, colHudGreen);
+
+        f32 tipLen = (p > 0) ? +5.0f : -5.0f;
+        Math::Vec3f tL = XformHud(-halfSpan, rungY + tipLen);
+        Math::Vec3f tR = XformHud(+halfSpan, rungY + tipLen);
+        AddLine(rL0.x, rL0.y, tL.x, tL.y, 1.8f, colHudGreen);
+        AddLine(rR0.x, rR0.y, tR.x, tR.y, 1.8f, colHudGreen);
+
+        if (std::abs(p) % 10 == 0) {
+            std::string pStr = std::to_string(std::abs(p));
+            Math::Vec3f lblPos = XformHud(-halfSpan - 16.0f, rungY - 4.0f);
+            DrawString(pStr, lblPos.x, lblPos.y, 9.0f, colHudGreen);
+        }
+    }
+
+    // 4. Roll arc & pointer
+    f32 rollRadius = 160.0f;
+    f32 rollCenterY = cy + 20.0f;
+    AddArcRing(cx, rollCenterY, rollRadius - 1.0f, rollRadius + 1.0f, 230.0f, 310.0f, 24, colHudGreen);
+    int hudRollTicks[] = { -45, -30, -20, -10, 0, 10, 20, 30, 45 };
+    for (int deg : hudRollTicks) {
+        f32 angleRad = (90.0f + static_cast<f32>(deg)) * DEG_TO_RAD;
+        f32 len = (deg == 0 || std::abs(deg) == 30) ? 8.0f : 4.0f;
+        f32 x0 = cx + (rollRadius - len) * std::cos(angleRad);
+        f32 y0 = rollCenterY - (rollRadius - len) * std::sin(angleRad);
+        f32 x1 = cx + rollRadius * std::cos(angleRad);
+        f32 y1 = rollCenterY - rollRadius * std::sin(angleRad);
+        AddLine(x0, y0, x1, y1, 1.5f, colHudGreen);
+    }
+    f32 ptrAngleRad = (90.0f - rollDeg) * DEG_TO_RAD;
+    f32 ptrTipX = cx + (rollRadius - 2.0f) * std::cos(ptrAngleRad);
+    f32 ptrTipY = rollCenterY - (rollRadius - 2.0f) * std::sin(ptrAngleRad);
+    f32 ptrBaseX0 = cx + (rollRadius - 8.0f) * std::cos(ptrAngleRad - 0.04f);
+    f32 ptrBaseY0 = rollCenterY - (rollRadius - 8.0f) * std::sin(ptrAngleRad - 0.04f);
+    f32 ptrBaseX1 = cx + (rollRadius - 8.0f) * std::cos(ptrAngleRad + 0.04f);
+    f32 ptrBaseY1 = rollCenterY - (rollRadius - 8.0f) * std::sin(ptrAngleRad + 0.04f);
+    AddTriangle({ ptrTipX, ptrTipY, 0.0f }, { ptrBaseX0, ptrBaseY0, 0.0f }, { ptrBaseX1, ptrBaseY1, 0.0f }, colHudGreen);
+
+    // 5. Left Airspeed Readout
+    f32 asX = cx - 210.0f;
+    f32 asY = cy;
+    AddLine(asX - 42.0f, asY - 14.0f, asX + 10.0f, asY - 14.0f, 2.0f, colHudGreen);
+    AddLine(asX + 10.0f, asY - 14.0f, asX + 22.0f, asY, 2.0f, colHudGreen);
+    AddLine(asX + 22.0f, asY, asX + 10.0f, asY + 14.0f, 2.0f, colHudGreen);
+    AddLine(asX + 10.0f, asY + 14.0f, asX - 42.0f, asY + 14.0f, 2.0f, colHudGreen);
+    AddLine(asX - 42.0f, asY + 14.0f, asX - 42.0f, asY - 14.0f, 2.0f, colHudGreen);
+
+    std::stringstream asSs;
+    asSs << static_cast<int>(iasKnots);
+    DrawString(asSs.str(), asX - 34.0f, asY - 6.0f, 13.0f, colHudGreen, 2.0f);
+    DrawString("KT", asX - 32.0f, asY - 26.0f, 9.0f, colHudCyan);
+
+    for (int k = -30; k <= 30; k += 10) {
+        if (k == 0) continue;
+        f32 tickY = asY - static_cast<f32>(k) * 2.2f;
+        AddLine(asX + 22.0f, tickY, asX + 30.0f, tickY, 1.5f, colHudGreen);
+        std::stringstream ssK;
+        ssK << static_cast<int>(iasKnots) + k;
+        DrawString(ssK.str(), asX + 34.0f, tickY - 4.0f, 8.0f, colHudGreen);
+    }
+
+    // 6. Right Altitude Readout
+    f32 altX = cx + 210.0f;
+    f32 altY = cy;
+    AddLine(altX - 10.0f, altY - 14.0f, altX + 46.0f, altY - 14.0f, 2.0f, colHudGreen);
+    AddLine(altX + 46.0f, altY - 14.0f, altX + 46.0f, altY + 14.0f, 2.0f, colHudGreen);
+    AddLine(altX + 46.0f, altY + 14.0f, altX - 10.0f, altY + 14.0f, 2.0f, colHudGreen);
+    AddLine(altX - 10.0f, altY + 14.0f, altX - 22.0f, altY, 2.0f, colHudGreen);
+    AddLine(altX - 22.0f, altY, altX - 10.0f, altY - 14.0f, 2.0f, colHudGreen);
+
+    std::stringstream altSs;
+    altSs << static_cast<int>(altFeet);
+    DrawString(altSs.str(), altX - 6.0f, altY - 6.0f, 13.0f, colHudGreen, 2.0f);
+    DrawString("FT", altX + 20.0f, altY - 26.0f, 9.0f, colHudCyan);
+
+    for (int a = -300; a <= 300; a += 100) {
+        if (a == 0) continue;
+        f32 tickY = altY - static_cast<f32>(a) * 0.22f;
+        AddLine(altX - 30.0f, tickY, altX - 22.0f, tickY, 1.5f, colHudGreen);
+        std::stringstream ssA;
+        ssA << static_cast<int>(altFeet) + a;
+        DrawString(ssA.str(), altX - 60.0f, tickY - 4.0f, 8.0f, colHudGreen);
+    }
+
+    if (ap.verticalMode == Autopilot::VerticalMode::ALT) {
+        std::stringstream tAltSs;
+        tAltSs << "SEL " << static_cast<int>(ap.targets.targetAltitudeFt);
+        DrawString(tAltSs.str(), altX - 10.0f, altY - 42.0f, 9.0f, colHudCyan);
+    }
+
+    std::stringstream vsSs;
+    vsSs << (vsFpm >= 0 ? "+" : "") << static_cast<int>(vsFpm) << " FPM";
+    DrawString(vsSs.str(), altX - 10.0f, altY + 22.0f, 9.0f, colHudGreen);
+
+    // 7. Heading Tape at Bottom
+    f32 hdgY = sh - 45.0f;
+    f32 hdgW = 280.0f;
+    AddLine(cx - hdgW * 0.5f, hdgY, cx + hdgW * 0.5f, hdgY, 1.8f, colHudGreen);
+    AddLine(cx - 20.0f, hdgY + 2.0f, cx + 20.0f, hdgY + 2.0f, 1.8f, colHudGreen);
+    AddLine(cx + 20.0f, hdgY + 2.0f, cx + 20.0f, hdgY + 22.0f, 1.8f, colHudGreen);
+    AddLine(cx + 20.0f, hdgY + 22.0f, cx - 20.0f, hdgY + 22.0f, 1.8f, colHudGreen);
+    AddLine(cx - 20.0f, hdgY + 22.0f, cx - 20.0f, hdgY + 2.0f, 1.8f, colHudGreen);
+    std::stringstream hdgBoxSs;
+    hdgBoxSs << std::setw(3) << std::setfill('0') << static_cast<int>(hdgDeg);
+    DrawString(hdgBoxSs.str(), cx - 14.0f, hdgY + 6.0f, 12.0f, colHudGreen, 2.0f);
+
+    f32 pxPerHdgDeg = 3.6f;
+    for (int d = -30; d <= 30; d += 5) {
+        if (d == 0) continue;
+        f32 tickX = cx + static_cast<f32>(d) * pxPerHdgDeg;
+        f32 tickLen = (d % 10 == 0) ? 8.0f : 4.0f;
+        AddLine(tickX, hdgY - tickLen, tickX, hdgY, 1.5f, colHudGreen);
+        if (d % 10 == 0) {
+            int lblDeg = (static_cast<int>(hdgDeg) + d + 360) % 360;
+            std::stringstream ssD;
+            ssD << lblDeg / 10;
+            DrawString(ssD.str(), tickX - 5.0f, hdgY - 20.0f, 9.0f, colHudGreen);
+        }
+    }
+
+    // Heading Bug Diamond
+    f32 bugDelta = static_cast<f32>(ap.targets.targetHeadingDeg - hdgDeg);
+    while (bugDelta > 180.0f) bugDelta -= 360.0f;
+    while (bugDelta < -180.0f) bugDelta += 360.0f;
+    if (std::abs(bugDelta) <= 35.0f) {
+        f32 bugX = cx + bugDelta * pxPerHdgDeg;
+        AddLine(bugX, hdgY - 10.0f, bugX - 5.0f, hdgY - 5.0f, 1.8f, colHudCyan);
+        AddLine(bugX - 5.0f, hdgY - 5.0f, bugX, hdgY, 1.8f, colHudCyan);
+        AddLine(bugX, hdgY, bugX + 5.0f, hdgY - 5.0f, 1.8f, colHudCyan);
+        AddLine(bugX + 5.0f, hdgY - 5.0f, bugX, hdgY - 10.0f, 1.8f, colHudCyan);
+    }
+
+    // 8. Flight Director Steering Cue
+    if (ap.flightDirectorActive) {
+        f32 fdPitchOffset = (pitchDeg - static_cast<f32>(ap.fdCues.commandPitchDeg)) * pxPerDeg;
+        f32 fdRollOffset = (rollDeg - static_cast<f32>(ap.fdCues.commandRollDeg)) * 1.8f;
+        f32 fdBarLen = 50.0f;
+        AddLine(cx - fdBarLen, cy + fdPitchOffset, cx + fdBarLen, cy + fdPitchOffset, 2.5f, colHudMagenta);
+        AddLine(cx + fdRollOffset, cy - 35.0f, cx + fdRollOffset, cy + 35.0f, 2.5f, colHudMagenta);
+    }
+
+    // 9. Autopilot Top Banner
+    f32 bannerY = 24.0f;
+    std::string apText = ap.masterEngaged ? "AP" : (ap.flightDirectorActive ? "FD" : "");
+    if (!apText.empty()) {
+        DrawString(apText, cx - 120.0f, bannerY, 13.0f, colHudGreen, 2.0f);
+    }
+    DrawString(LateralModeToString(ap.lateralMode), cx - 60.0f, bannerY, 11.0f, colHudGreen);
+    DrawString(VerticalModeToString(ap.verticalMode), cx + 20.0f, bannerY, 11.0f, colHudGreen);
+
+    if (!nav1.stationIdent.empty()) {
+        std::stringstream navSs;
+        navSs << "NAV1 " << nav1.stationIdent << " " << std::fixed << std::setprecision(2) << nav1.activeFrequencyMhz;
+        DrawString(navSs.str(), 25.0f, bannerY, 10.0f, colHudCyan);
+    }
+    if (nav1.dme.hasSignal) {
+        std::stringstream dmeSs;
+        dmeSs << "DME " << std::fixed << std::setprecision(1) << nav1.dme.slantRangeNm << " NM";
+        DrawString(dmeSs.str(), 25.0f, bannerY + 16.0f, 10.0f, colHudCyan);
+    }
 }
 
 void GlassCockpitRenderer::BuildPfdGeometry(
@@ -488,13 +977,19 @@ void GlassCockpitRenderer::DrawAttitudeDirectorIndicator(
     f32 pitchDeg, f32 rollDeg, f32 slipBall,
     const Autopilot::FlightDirectorCues& fd)
 {
-    Math::Vec4f colSky{ 0.0f, 0.45f, 0.85f, 1.0f };
-    Math::Vec4f colEarth{ 0.40f, 0.22f, 0.08f, 1.0f };
+    Math::Vec4f colSky{ 0.0f, 0.45f, 0.85f, m_eadiBgOpacity };
+    Math::Vec4f colEarth{ 0.40f, 0.22f, 0.08f, m_eadiBgOpacity };
     Math::Vec4f colHorizon{ 1.0f, 1.0f, 1.0f, 1.0f };
     Math::Vec4f colYellow{ 1.0f, 0.82f, 0.0f, 1.0f };
     Math::Vec4f colMagenta{ 1.0f, 0.1f, 0.95f, 1.0f };
+    Math::Vec4f colApertureBorder{ 0.35f, 0.38f, 0.42f, 1.0f };
 
     f32 halfW = w * 0.5f;
+    f32 halfH = h * 0.5f;
+    f32 minX = cx - halfW;
+    f32 maxX = cx + halfW;
+    f32 minY = cy - halfH;
+    f32 maxY = cy + halfH;
 
     // Pitch displacement: pixels per degree
     f32 pxPerDeg = 3.6f;
@@ -512,24 +1007,33 @@ void GlassCockpitRenderer::DrawAttitudeDirectorIndicator(
         return { cx + rx, cy + pitchOffset + ry, 0.0f };
     };
 
-    // Draw Sky (upper half) and Earth (lower half)
+    // Draw Sky (upper half) and Earth (lower half) strictly clipped to ADI window
     f32 ext = std::sqrt(w * w + h * h);
     Math::Vec3f pSkyTL = Xform(-ext, -ext);
     Math::Vec3f pSkyTR = Xform(+ext, -ext);
     Math::Vec3f pSkyBR = Xform(+ext, 0.0f);
     Math::Vec3f pSkyBL = Xform(-ext, 0.0f);
-    AddQuad(pSkyTL, pSkyTR, pSkyBR, pSkyBL, colSky);
+    std::vector<Math::Vec3f> skyPoly = { pSkyTL, pSkyTR, pSkyBR, pSkyBL };
+    AddClippedConvexPoly(skyPoly, minX, maxX, minY, maxY, colSky);
 
     Math::Vec3f pEarthTL = Xform(-ext, 0.0f);
     Math::Vec3f pEarthTR = Xform(+ext, 0.0f);
     Math::Vec3f pEarthBR = Xform(+ext, +ext);
     Math::Vec3f pEarthBL = Xform(-ext, +ext);
-    AddQuad(pEarthTL, pEarthTR, pEarthBR, pEarthBL, colEarth);
+    std::vector<Math::Vec3f> earthPoly = { pEarthTL, pEarthTR, pEarthBR, pEarthBL };
+    AddClippedConvexPoly(earthPoly, minX, maxX, minY, maxY, colEarth);
+
+    auto AddClippedLine = [&](f32 lx0, f32 ly0, f32 lx1, f32 ly1, f32 th, const Math::Vec4f& col) {
+        f32 rx0 = lx0, ry0 = ly0, rx1 = lx1, ry1 = ly1;
+        if (ClipLineSegmentToRect(rx0, ry0, rx1, ry1, minX, maxX, minY, maxY)) {
+            AddLine(rx0, ry0, rx1, ry1, th, col);
+        }
+    };
 
     // Horizon line
     Math::Vec3f h0 = Xform(-halfW * 0.95f, 0.0f);
     Math::Vec3f h1 = Xform(+halfW * 0.95f, 0.0f);
-    AddLine(h0.x, h0.y, h1.x, h1.y, 2.5f, colHorizon);
+    AddClippedLine(h0.x, h0.y, h1.x, h1.y, 2.5f, colHorizon);
 
     // Pitch Ladder rungs every 5 and 10 degrees
     for (int p = -25; p <= 25; p += 5) {
@@ -539,22 +1043,31 @@ void GlassCockpitRenderer::DrawAttitudeDirectorIndicator(
 
         Math::Vec3f r0 = Xform(-rungHalfW, rungY);
         Math::Vec3f r1 = Xform(+rungHalfW, rungY);
-        AddLine(r0.x, r0.y, r1.x, r1.y, 1.5f, colHorizon);
+        AddClippedLine(r0.x, r0.y, r1.x, r1.y, 1.5f, colHorizon);
 
         // Downward or upward tips
         f32 tipLen = (p > 0) ? +4.0f : -4.0f;
         Math::Vec3f t0 = Xform(-rungHalfW, rungY + tipLen);
         Math::Vec3f t1 = Xform(+rungHalfW, rungY + tipLen);
-        AddLine(r0.x, r0.y, t0.x, t0.y, 1.5f, colHorizon);
-        AddLine(r1.x, r1.y, t1.x, t1.y, 1.5f, colHorizon);
+        AddClippedLine(r0.x, r0.y, t0.x, t0.y, 1.5f, colHorizon);
+        AddClippedLine(r1.x, r1.y, t1.x, t1.y, 1.5f, colHorizon);
 
         // Pitch numeric labels on 10 and 20 degree lines
         if (std::abs(p) % 10 == 0) {
             std::string pStr = std::to_string(std::abs(p));
             Math::Vec3f textPos = Xform(-rungHalfW - 14.0f, rungY - 4.0f);
-            DrawString(pStr, textPos.x, textPos.y, 8.0f, colHorizon);
+            if (textPos.x >= minX + 2.0f && textPos.x <= maxX - 16.0f &&
+                textPos.y >= minY + 2.0f && textPos.y <= maxY - 12.0f) {
+                DrawString(pStr, textPos.x, textPos.y, 8.0f, colHorizon);
+            }
         }
     }
+
+    // Crisp aperture boundary around EADI
+    AddLine(minX, minY, maxX, minY, 1.5f, colApertureBorder);
+    AddLine(maxX, minY, maxX, maxY, 1.5f, colApertureBorder);
+    AddLine(maxX, maxY, minX, maxY, 1.5f, colApertureBorder);
+    AddLine(minX, maxY, minX, minY, 1.5f, colApertureBorder);
 
     // Roll scale arc and ticks
     f32 rollRadius = halfW * 0.75f;

@@ -535,16 +535,19 @@ int WINAPI wWinMain(
             }
         }
 
-        // Cycle Cockpit Display Mode with 'H' key (GlassCockpitPFD -> AnalogSixPack -> MinimalHUD -> GlassCockpitPFD)
+        // Cycle Cockpit Display Mode with 'H' key (PFD -> TransparentHUD -> AnalogSixPack -> Off -> PFD)
         if (input.WasPanelToggleTriggered()) {
             switch (cockpitDisplayMode) {
             case LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD:
+                cockpitDisplayMode = LokYS::Graphics::CockpitDisplayMode::TransparentHUD;
+                break;
+            case LokYS::Graphics::CockpitDisplayMode::TransparentHUD:
                 cockpitDisplayMode = LokYS::Graphics::CockpitDisplayMode::AnalogSixPack;
                 break;
             case LokYS::Graphics::CockpitDisplayMode::AnalogSixPack:
-                cockpitDisplayMode = LokYS::Graphics::CockpitDisplayMode::MinimalHUD;
+                cockpitDisplayMode = LokYS::Graphics::CockpitDisplayMode::Off;
                 break;
-            case LokYS::Graphics::CockpitDisplayMode::MinimalHUD:
+            case LokYS::Graphics::CockpitDisplayMode::Off:
                 cockpitDisplayMode = LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD;
                 break;
             }
@@ -888,24 +891,52 @@ int WINAPI wWinMain(
             approachLights.DrawStaticBars(graphics.GetCommandList());
             approachLights.DrawDynamicStrobes(graphics.GetCommandList());
 
-            // Milestone M21 & M14: Render Cockpit Instrumentation (Glass PFD or Analog Six-Pack)
-            if (cockpitDisplayMode == LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD) {
-                glassCockpitRenderer.Render(
+            // Milestone M21 & M14: Render Cockpit Instrumentation (Camera-Aware & Mode-Aware)
+            bool isCockpitView = (camera.GetMode() == LokYS::Graphics::CameraMode::Cockpit);
+
+            switch (cockpitDisplayMode) {
+            case LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD: {
+                auto dockPos = isCockpitView
+                    ? LokYS::Graphics::PfdDockPosition::BottomLeft
+                    : LokYS::Graphics::PfdDockPosition::CornerMini;
+                glassCockpitRenderer.RenderPfd(
                     graphics.GetCommandList(),
                     window.GetWidth(),
                     window.GetHeight(),
                     avionics.GetState(),
                     radioNav.GetNav1(),
                     autopilot.GetStatus(),
+                    true,
+                    dockPos);
+                break;
+            }
+            case LokYS::Graphics::CockpitDisplayMode::TransparentHUD: {
+                glassCockpitRenderer.RenderTransparentHud(
+                    graphics.GetCommandList(),
+                    window.GetWidth(),
+                    window.GetHeight(),
+                    avionics.GetState(),
+                    radioNav.GetNav1(),
+                    autopilot.GetStatus(),
+                    renderSnapshot.bodyState.velocityBody,
                     true);
-            } else if (cockpitDisplayMode == LokYS::Graphics::CockpitDisplayMode::AnalogSixPack) {
+                break;
+            }
+            case LokYS::Graphics::CockpitDisplayMode::AnalogSixPack: {
+                LokYS::f32 scale = isCockpitView ? 1.0f : 0.80f;
                 avionicsRenderer.Render(
                     graphics.GetCommandList(),
                     window.GetWidth(),
                     window.GetHeight(),
                     avionics.GetState(),
                     radioNav.GetNav1(),
-                    true);
+                    true,
+                    scale);
+                break;
+            }
+            case LokYS::Graphics::CockpitDisplayMode::Off:
+                // No cockpit instruments rendered (pure external / clean VFR window)
+                break;
             }
 
             graphics.EndFrame(true); // Vsync on for consistent frametimes
@@ -1107,8 +1138,9 @@ int WINAPI wWinMain(
                << (activeCtrl.brakes > 0.05 ? L" | BRK" : L"")
                << L" | COM: " << (serialInterface.IsConnected() ? L"LIVE" : L"OFF")
                << L" | " << autopilot.GetStatusString()
-               << L" | Disp [H]: " << (cockpitDisplayMode == LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD ? L"PFD" :
-                                       (cockpitDisplayMode == LokYS::Graphics::CockpitDisplayMode::AnalogSixPack ? L"ANALOG" : L"OFF"))
+               << L" | Disp [H]: " << (cockpitDisplayMode == LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD ? (camera.GetMode() == LokYS::Graphics::CameraMode::Cockpit ? L"PFD" : L"PFD-MINI") :
+                                       (cockpitDisplayMode == LokYS::Graphics::CockpitDisplayMode::TransparentHUD ? L"HUD" :
+                                       (cockpitDisplayMode == LokYS::Graphics::CockpitDisplayMode::AnalogSixPack ? L"ANALOG" : L"OFF")))
                << L" | NET [N]: " << network.GetStatusString()
                << L" | Cycle: [V] | Gear: [U]"
                << L" | [W]x | [G]Fog"

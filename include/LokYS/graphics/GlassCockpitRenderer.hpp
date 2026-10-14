@@ -22,9 +22,18 @@
 namespace LokYS::Graphics {
 
 enum class CockpitDisplayMode : u8 {
-    AnalogSixPack,    // Classic 2x3 electro-mechanical instrument cluster (M14)
     GlassCockpitPFD,  // Modern Primary Flight Display with synthetic vector tapes & FMA (M21)
-    MinimalHUD        // Minimal / Off
+    TransparentHUD,   // Collimated Head-Up Display overlay (zero solid background)
+    AnalogSixPack,    // Classic 2x3 electro-mechanical instrument cluster (M14)
+    Off,              // All cockpit instruments hidden (pure external / clean VFR window)
+    MinimalHUD = TransparentHUD // Backward compatibility alias
+};
+
+enum class PfdDockPosition : u8 {
+    BottomLeft,    // Captain / PIC instrument position (default cockpit dock)
+    BottomCenter,  // Center console / dashboard dock
+    CornerMini,    // Compact unobtrusive mini-display (chase view)
+    Center         // Full-screen centered (IFR focus)
 };
 
 class GlassCockpitRenderer {
@@ -35,7 +44,7 @@ public:
     [[nodiscard]] bool Initialize(ID3D12Device* device);
     void Shutdown();
 
-    /// @brief Renders the complete digital Primary Flight Display (PFD) with Autopilot FMA banner.
+    /// @brief Legacy Render entry point (for backward compatibility).
     void Render(
         ID3D12GraphicsCommandList* cmdList,
         u32 screenWidth,
@@ -46,8 +55,34 @@ public:
         bool visible,
         f32 panelScale = 1.0f) noexcept;
 
+    /// @brief Renders the PFD with explicit dock position and resolution-adaptive scale.
+    void RenderPfd(
+        ID3D12GraphicsCommandList* cmdList,
+        u32 screenWidth,
+        u32 screenHeight,
+        const Avionics::SixPackState& avionics,
+        const Navigation::NavReceiverState& nav1,
+        const Autopilot::AutopilotStatus& apStatus,
+        bool visible,
+        PfdDockPosition dockPos = PfdDockPosition::BottomLeft,
+        f32 scaleOverride = 0.0f) noexcept;
+
+    /// @brief Renders a collimated, zero-background transparent flight HUD.
+    void RenderTransparentHud(
+        ID3D12GraphicsCommandList* cmdList,
+        u32 screenWidth,
+        u32 screenHeight,
+        const Avionics::SixPackState& avionics,
+        const Navigation::NavReceiverState& nav1,
+        const Autopilot::AutopilotStatus& apStatus,
+        const Math::Vec3d& velocityBody,
+        bool visible) noexcept;
+
     void SetPanelOpacity(f32 opacity) noexcept { m_opacity = opacity; }
     [[nodiscard]] f32 GetPanelOpacity() const noexcept { return m_opacity; }
+
+    void SetEadiBackgroundOpacity(f32 opacity) noexcept { m_eadiBgOpacity = opacity; }
+    [[nodiscard]] f32 GetEadiBackgroundOpacity() const noexcept { return m_eadiBgOpacity; }
 
 private:
     bool CreateRootSignature(ID3D12Device* device);
@@ -96,6 +131,19 @@ private:
     void AddLine(f32 x0, f32 y0, f32 x1, f32 y1, f32 thickness, const Math::Vec4f& col);
     void AddTick(f32 cx, f32 cy, f32 radius, f32 length, f32 angleDeg, f32 thickness, const Math::Vec4f& col);
 
+    void BuildTransparentHudGeometry(
+        u32 screenWidth,
+        u32 screenHeight,
+        const Avionics::SixPackState& avi,
+        const Navigation::NavReceiverState& nav1,
+        const Autopilot::AutopilotStatus& ap,
+        const Math::Vec3d& velocityBody);
+
+    void AddClippedConvexPoly(
+        const std::vector<Math::Vec3f>& poly,
+        f32 minX, f32 maxX, f32 minY, f32 maxY,
+        const Math::Vec4f& col);
+
     // Vector procedural stroke font
     void DrawChar(char c, f32 x, f32 y, f32 size, const Math::Vec4f& col, f32 thickness = 1.5f);
     void DrawString(const std::string& str, f32 x, f32 y, f32 size, const Math::Vec4f& col, f32 thickness = 1.5f);
@@ -119,6 +167,7 @@ private:
 
     bool m_initialized{ false };
     f32 m_opacity{ 0.96f };
+    f32 m_eadiBgOpacity{ 0.85f };
 };
 
 } // namespace LokYS::Graphics

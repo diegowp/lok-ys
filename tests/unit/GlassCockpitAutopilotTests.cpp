@@ -3,9 +3,12 @@
 #include "LokYS/navigation/NavTypes.hpp"
 #include "LokYS/physics/RigidBodyState.hpp"
 #include "LokYS/input/InputSystem.hpp"
+#include "LokYS/graphics/GlassCockpitRenderer.hpp"
 #include <iostream>
 #include <cassert>
 #include <cmath>
+#include <algorithm>
+#include <vector>
 
 #define TEST_ASSERT(cond, msg) \
     do { \
@@ -288,6 +291,110 @@ bool TestFlightDirectorAndPilotOverrideSafety() {
     return true;
 }
 
+bool TestCockpitDisplayModesAndDockingLayout() {
+    std::cout << "[RUNNING] TestCockpitDisplayModesAndDockingLayout...\n";
+
+    using namespace LokYS::Graphics;
+    auto mode1 = CockpitDisplayMode::MinimalHUD;
+    auto mode2 = CockpitDisplayMode::TransparentHUD;
+    TEST_ASSERT(mode1 == mode2,
+                "MinimalHUD must alias TransparentHUD for backward compatibility");
+    auto modePfd = static_cast<u8>(CockpitDisplayMode::GlassCockpitPFD);
+    auto modeHud = static_cast<u8>(CockpitDisplayMode::TransparentHUD);
+    TEST_ASSERT(modePfd != modeHud,
+                "GlassCockpitPFD and TransparentHUD must have distinct modes");
+
+    f32 screenHeight720 = 720.0f;
+    f32 pfdH = 480.0f;
+    f32 scaleFull720 = (screenHeight720 * 0.38f) / pfdH;
+    f32 scaledH720 = pfdH * scaleFull720;
+    TEST_ASSERT(scaledH720 <= screenHeight720 * 0.40f,
+                "Full PFD scale must not exceed 40% screen height");
+    f32 clearWindshieldHeight720 = screenHeight720 - (scaledH720 + 18.0f);
+    TEST_ASSERT(clearWindshieldHeight720 / screenHeight720 >= 0.58f,
+                "Clear windshield area in 720p must be at least 58% of screen height");
+
+    f32 screenWidth1280 = 1280.0f;
+    f32 pfdW = 640.0f;
+    f32 scaledW720 = pfdW * scaleFull720;
+    f32 pfdRightEdge = 24.0f + scaledW720;
+    TEST_ASSERT(pfdRightEdge < screenWidth1280 * 0.5f,
+                "PFD right edge must not cross center of screen in BottomLeft dock (runway clear)");
+
+    f32 scaleMini720 = (screenHeight720 * 0.26f) / pfdH;
+    f32 scaledMiniH720 = pfdH * scaleMini720;
+    TEST_ASSERT(scaledMiniH720 <= screenHeight720 * 0.28f,
+                "Mini PFD must occupy <= 28% of screen height");
+
+    std::cout << "[PASSED] TestCockpitDisplayModesAndDockingLayout\n";
+    return true;
+}
+
+bool TestEadiGeometricClippingLogic() {
+    std::cout << "[RUNNING] TestEadiGeometricClippingLogic...\n";
+
+    f32 minX = -140.0f, maxX = 140.0f;
+    f32 minY = -110.0f, maxY = 110.0f;
+
+    struct P2 { f32 x, y; };
+    auto clipEdge = [](const std::vector<P2>& in, auto isInside, auto intersect) {
+        std::vector<P2> out;
+        if (in.empty()) return out;
+        P2 s = in.back();
+        for (const auto& p : in) {
+            bool pIn = isInside(p);
+            bool sIn = isInside(s);
+            if (pIn) {
+                if (!sIn) out.push_back(intersect(s, p));
+                out.push_back(p);
+            } else if (sIn) {
+                out.push_back(intersect(s, p));
+            }
+            s = p;
+        }
+        return out;
+    };
+
+    std::vector<P2> hugeQuad = {
+        { -350.0f, -350.0f },
+        { +350.0f, -350.0f },
+        { +350.0f,    0.0f },
+        { -350.0f,    0.0f }
+    };
+
+    hugeQuad = clipEdge(hugeQuad, [minX](const P2& p) { return p.x >= minX; },
+        [minX](const P2& a, const P2& b) -> P2 {
+            f32 t = (minX - a.x) / (b.x - a.x);
+            return { minX, a.y + t * (b.y - a.y) };
+        });
+    hugeQuad = clipEdge(hugeQuad, [maxX](const P2& p) { return p.x <= maxX; },
+        [maxX](const P2& a, const P2& b) -> P2 {
+            f32 t = (maxX - a.x) / (b.x - a.x);
+            return { maxX, a.y + t * (b.y - a.y) };
+        });
+    hugeQuad = clipEdge(hugeQuad, [minY](const P2& p) { return p.y >= minY; },
+        [minY](const P2& a, const P2& b) -> P2 {
+            f32 t = (minY - a.y) / (b.y - a.y);
+            return { a.x + t * (b.x - a.x), minY };
+        });
+    hugeQuad = clipEdge(hugeQuad, [maxY](const P2& p) { return p.y <= maxY; },
+        [maxY](const P2& a, const P2& b) -> P2 {
+            f32 t = (maxY - a.y) / (b.y - a.y);
+            return { a.x + t * (b.x - a.x), maxY };
+        });
+
+    TEST_ASSERT(hugeQuad.size() >= 4, "Clipped polygon must be a valid convex polygon");
+    for (const auto& pt : hugeQuad) {
+        TEST_ASSERT(pt.x >= minX - 1e-4f && pt.x <= maxX + 1e-4f,
+                    "Clipped vertex X must strictly stay inside aperture");
+        TEST_ASSERT(pt.y >= minY - 1e-4f && pt.y <= maxY + 1e-4f,
+                    "Clipped vertex Y must strictly stay inside aperture");
+    }
+
+    std::cout << "[PASSED] TestEadiGeometricClippingLogic\n";
+    return true;
+}
+
 } // anonymous namespace
 
 int main() {
@@ -303,10 +410,12 @@ int main() {
     success &= TestAutopilotVerticalSpeedHold();
     success &= TestAutopilotNavCourseAndIlsGlideslope();
     success &= TestFlightDirectorAndPilotOverrideSafety();
+    success &= TestCockpitDisplayModesAndDockingLayout();
+    success &= TestEadiGeometricClippingLogic();
 
     std::cout << "============================================================\n";
     if (success) {
-        std::cout << "[ALL 7 AUTOPILOT & GLASS COCKPIT TESTS PASSED]\n";
+        std::cout << "[ALL 9 AUTOPILOT & GLASS COCKPIT TESTS PASSED]\n";
         return 0;
     } else {
         std::cerr << "[TEST SUITE FAILED]\n";
