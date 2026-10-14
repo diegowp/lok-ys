@@ -2,6 +2,7 @@
 #include "LokYS/graphics/ShadowMap.hpp"
 #include "LokYS/graphics/TerrainSystem.hpp"
 #include "LokYS/graphics/ScenerySystem.hpp"
+#include "LokYS/network/RemoteAircraft.hpp"
 #include "LokYS/math/CoordinateFrames.hpp"
 #include <d3dcompiler.h>
 #include <algorithm>
@@ -441,6 +442,60 @@ void Renderer3D::Render(
 
     cmdList->SetGraphicsRoot32BitConstants(0, 56, &constants, 0);
     aircraftModel.Draw(cmdList, aircraftRootTransform, viewProj, 0);
+}
+
+void Renderer3D::Render(
+    ID3D12GraphicsCommandList* cmdList,
+    const Camera& camera,
+    const ShadowMap* shadowMap,
+    TerrainSystem& terrain,
+    const Mesh& runway,
+    const ScenerySystem& scenery,
+    GltfModel& aircraftModel,
+    const Math::Vec3d& aircraftPosNed,
+    const Math::Quat4d& aircraftAttitude,
+    const std::vector<Network::RemoteAircraft>& remotePeers) const noexcept
+{
+    // Draw terrain, scenery, runway, and local aircraft
+    Render(cmdList, camera, shadowMap, terrain, runway, scenery, aircraftModel, aircraftPosNed, aircraftAttitude);
+
+    if (remotePeers.empty() || !cmdList || !m_initialized) {
+        return;
+    }
+
+    const Math::Mat4f& viewProj = camera.GetViewProjMatrix();
+
+    // Draw each remote peer aircraft
+    for (const auto& peer : remotePeers) {
+        const Math::Vec3f peerRelGfx = Math::CoordinateFrames::NedToGraphics(peer.GetPositionNed() - camera.GetCameraPosNed());
+
+        const Math::Vec3d fwdNed = peer.GetAttitude().Rotate(Math::Vec3d(1.0, 0.0, 0.0));
+        const Math::Vec3d rightNed = peer.GetAttitude().Rotate(Math::Vec3d(0.0, 1.0, 0.0));
+        const Math::Vec3d upNed = peer.GetAttitude().Rotate(Math::Vec3d(0.0, 0.0, -1.0));
+
+        const Math::Vec3f fwdGfx = Math::CoordinateFrames::NedToGraphics(fwdNed);
+        const Math::Vec3f rightGfx = Math::CoordinateFrames::NedToGraphics(rightNed);
+        const Math::Vec3f upGfx = Math::CoordinateFrames::NedToGraphics(upNed);
+
+        const Math::Mat4f rotModel{
+            rightGfx.x, rightGfx.y, rightGfx.z, 0.0f,
+            upGfx.x,    upGfx.y,    upGfx.z,    0.0f,
+            fwdGfx.x,   fwdGfx.y,   fwdGfx.z,   0.0f,
+            0.0f,       0.0f,       0.0f,       1.0f
+        };
+
+        const Math::Mat4f transModel = Math::Mat4f::Translation(peerRelGfx);
+        const Math::Mat4f peerRootTransform = rotModel * transModel;
+
+        aircraftModel.ApplyAircraftControls(
+            peer.GetElevator(),
+            peer.GetAileron(),
+            peer.GetRudder(),
+            peer.GetFlaps(),
+            static_cast<float>(peer.GetPropellerAngleRad()));
+
+        aircraftModel.Draw(cmdList, peerRootTransform, viewProj, 0);
+    }
 }
 
 void Renderer3D::Render(

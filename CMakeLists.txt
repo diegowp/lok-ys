@@ -66,6 +66,9 @@ set(LOKYS_SOURCES
     src/graphics/ShadowMap.cpp
     src/graphics/TerrainSystem.cpp
     src/graphics/ScenerySystem.cpp
+    src/network/UdpSocket.cpp
+    src/network/RemoteAircraft.cpp
+    src/network/NetworkSystem.cpp
 )
 
 set(LOKYS_HEADERS
@@ -115,6 +118,11 @@ set(LOKYS_HEADERS
     include/LokYS/graphics/ShadowMap.hpp
     include/LokYS/graphics/TerrainSystem.hpp
     include/LokYS/graphics/ScenerySystem.hpp
+    include/LokYS/network/NetworkTypes.hpp
+    include/LokYS/network/NetworkProtocol.hpp
+    include/LokYS/network/UdpSocket.hpp
+    include/LokYS/network/RemoteAircraft.hpp
+    include/LokYS/network/NetworkSystem.hpp
 )
 
 add_executable(LokYSFlightSimulator WIN32
@@ -126,7 +134,7 @@ target_include_directories(LokYSFlightSimulator PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-# Link essential Windows, Direct3D 12, and XAudio2 libraries
+# Link essential Windows, Direct3D 12, XAudio2, and Winsock2 libraries
 target_link_libraries(LokYSFlightSimulator PRIVATE
     d3d12.lib
     dxgi.lib
@@ -138,6 +146,7 @@ target_link_libraries(LokYSFlightSimulator PRIVATE
     winmm.lib
     xaudio2.lib
     ole32.lib
+    ws2_32.lib
 )
 
 set_target_properties(LokYSFlightSimulator PROPERTIES
@@ -331,4 +340,22 @@ target_link_libraries(LokYSGraphicsOptimizationTests PRIVATE
 )
 
 add_test(NAME GraphicsOptimizationTests COMMAND LokYSGraphicsOptimizationTests)
+
+add_executable(LokYSNetworkMultiplayerTests
+    tests/unit/NetworkMultiplayerTests.cpp
+    src/network/UdpSocket.cpp
+    src/network/RemoteAircraft.cpp
+    src/network/NetworkSystem.cpp
+    ${LOKYS_HEADERS}
+)
+
+target_include_directories(LokYSNetworkMultiplayerTests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_link_libraries(LokYSNetworkMultiplayerTests PRIVATE
+    ws2_32.lib
+)
+
+add_test(NAME NetworkMultiplayerTests COMMAND LokYSNetworkMultiplayerTests)
 

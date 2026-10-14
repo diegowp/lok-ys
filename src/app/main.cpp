@@ -29,6 +29,7 @@
 #include "LokYS/navigation/RadioNavSystem.hpp"
 #include "LokYS/serial/SerialInterfaceSystem.hpp"
 #include "LokYS/environment/EnvironmentSystem.hpp"
+#include "LokYS/network/NetworkSystem.hpp"
 #include <windows.h>
 #include <sstream>
 #include <iomanip>
@@ -74,7 +75,7 @@ int WINAPI wWinMain(
         }
         if (hOut != INVALID_HANDLE_VALUE && hOut != nullptr) {
             std::wstringstream ss;
-            ss << L"LokYS Native Windows Flight Simulator [Milestone M19 Graphics Optimization & Visual FX]\n";
+            ss << L"LokYS Native Windows Flight Simulator [Milestone M20 Multiplayer Network Prototype]\n";
             ss << L"============================================================\n";
             ss << L"Detected GPU: " << caps.adapterName << L"\n";
             ss << L"Dedicated VRAM: " << (caps.dedicatedVideoMemory / (1024 * 1024)) << L" MB\n";
@@ -103,8 +104,14 @@ int WINAPI wWinMain(
             ss << L"Instanced Airfield Scenery, Runways, Taxiways, Hangars & Control Tower: OPERATIONAL\n";
             ss << L"Precision Approach Path Indicator (PAPI 3.0-Deg Glideslope Sector Optics): OPERATIONAL\n";
             ss << L"Aeronautical Windsock Dynamic Physics (Wind Orientation & Droop Sag): OPERATIONAL\n";
+            ss << L"Win32 Winsock2 UDP Non-Blocking Socket Engine: OPERATIONAL\n";
+            ss << L"Binary Flight Snapshot Framing & CRC-16-CCITT Integrity: OPERATIONAL\n";
+            ss << L"Hermite Cubic Spline Entity Position Interpolation: OPERATIONAL\n";
+            ss << L"Spherical Linear Quaternion (SLERP) Attitude Smoothing: OPERATIONAL\n";
+            ss << L"Kinematic Projective Dead Reckoning & Heartbeat Keepalive: OPERATIONAL\n";
+            ss << L"Multi-Aircraft Visual Formation & Propeller Kinematics: OPERATIONAL\n";
             ss << L"============================================================\n";
-            ss << L"[M19 GRAPHICS OPTIMIZATION & VISUAL FX VERIFICATION EXIT 0]\n";
+            ss << L"[M20 MULTIPLAYER NETWORK PROTOTYPE VERIFICATION EXIT 0]\n";
 
             std::wstring wtext = ss.str();
             DWORD mode = 0;
@@ -127,7 +134,7 @@ int WINAPI wWinMain(
     // Milestone M2: Win32 Window & High-Resolution Event Pump
     LokYS::Window window;
     LokYS::WindowDesc desc;
-    desc.title = L"LokYS Flight Simulator (M19 - Graphics Optimization & Visual FX)";
+    desc.title = L"LokYS Flight Simulator (M20 - Multiplayer Network Prototype)";
     desc.width = 1280;
     desc.height = 720;
     desc.resizable = true;
@@ -393,6 +400,16 @@ int WINAPI wWinMain(
     serialInterface.Initialize(serialConfig);
     LokYS::f64 serialTelemetryTimer = 0.0;
 
+    // Milestone M20: Multiplayer Network Subsystem (Win32 Winsock2 UDP)
+    LokYS::Network::NetworkSystem network;
+    if (network.Initialize() && pCmdLine) {
+        if (wcsstr(pCmdLine, L"--host")) {
+            network.StartServer(LokYS::Network::Constants::DEFAULT_PORT);
+        } else if (wcsstr(pCmdLine, L"--join")) {
+            network.Connect("127.0.0.1", LokYS::Network::Constants::DEFAULT_PORT, "N172SP");
+        }
+    }
+
     LokYS::Timer timer;
     LokYS::f64 propellerAngleRad = 0.0;
     LokYS::f64 titleUpdateTimer = 0.0;
@@ -524,6 +541,11 @@ int WINAPI wWinMain(
             }
         }
 
+        // Milestone M20: Cycle Multiplayer Network Role ('N' key: Offline -> Host -> Client -> Offline)
+        if (input.WasNetworkToggleTriggered()) {
+            network.CycleRole();
+        }
+
         // Milestone M17: Ingest Inbound Hardware Controls from Microcontroller Panel
         if (serialInterface.HasHardwareControls()) {
             auto hwCtrl = serialInterface.GetLatestFlightControls();
@@ -633,6 +655,15 @@ int WINAPI wWinMain(
             LokYS::Math::Vec3f aircraftGfx = LokYS::Math::CoordinateFrames::NedToGraphics(renderSnapshot.bodyState.positionNed);
             shadowMap.UpdateLightMatrix(sunDir, aircraftGfx, 120.0f);
 
+            // Milestone M20: Advance Multiplayer Network Replication & Peer Kinematics
+            network.Update(
+                timer.GetDeltaTime(),
+                timer.GetTotalTime(),
+                renderSnapshot.bodyState,
+                activeCtrl,
+                latestPropOut.engineRpm,
+                latestGroundOut.anyGearInContact);
+
             graphics.BeginFrame(clearSkyColor);
 
             // Milestone M19 Pass 1: Depth-Only Shadow Pass for Dynamic Aircraft Shadows
@@ -648,7 +679,7 @@ int WINAPI wWinMain(
             // Milestone M19 Pass 2: Restore Main Backbuffer & Depth-Stencil Render Target
             graphics.BindMainRenderTarget();
 
-            // Milestone M19 Pass 3: Main Forward Pass with Multi-LOD Terrain, Scenery, Runway & CSM PCF Shadows
+            // Milestone M19 & M20: Main Forward Pass with Multi-LOD Terrain, Scenery, Runway, CSM Shadows & Remote Peers
             renderer.Render(
                 graphics.GetCommandList(),
                 camera,
@@ -658,7 +689,8 @@ int WINAPI wWinMain(
                 scenerySystem,
                 cessnaModel,
                 renderSnapshot.bodyState.positionNed,
-                renderSnapshot.bodyState.attitude);
+                renderSnapshot.bodyState.attitude,
+                network.GetRemoteAircraft());
 
             // Milestone M14 & M16: Render Direct3D 12 Analog Six-Pack & Radio Navigation Instrument Cluster
             avionicsRenderer.Render(
@@ -855,12 +887,14 @@ int WINAPI wWinMain(
                << L" | COM: " << (serialInterface.IsConnected() ? L"LIVE" : L"OFF")
                << L" | " << (camera.GetMode() == LokYS::Graphics::CameraMode::Chase ? L"Chase [C]" : L"Cockpit [C]")
                << L" | Panel [H]: " << (shouldDrawPanel ? L"ON" : L"OFF")
+               << L" | NET [N]: " << network.GetStatusString()
                << L" | [W]x | [G]Fog"
                << L" | Reset: [R]";
             SetWindowTextW(window.GetHwnd(), ss.str().c_str());
         }
     }
 
+    network.Shutdown();
     serialInterface.Shutdown();
     audioSystem.Shutdown();
     avionicsRenderer.Shutdown();

@@ -54,6 +54,7 @@ void InputSystem::Poll(f64 dt) noexcept {
     m_navIdentTriggered = false;
     m_weatherToggleTriggered = false;
     m_fogToggleTriggered = false;
+    m_networkToggleTriggered = false;
     m_kollsmanDelta = 0.0;
     m_headingBugDelta = 0.0;
     m_obsDelta = 0.0;
@@ -290,6 +291,13 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
         m_fogToggleTriggered = true;
     }
     m_prevFogKey = gDown;
+
+    // Multiplayer Network Mode Toggle: 'N' key
+    bool nDown = IsDown('N');
+    if (nDown && !m_prevNetworkKey) {
+        m_networkToggleTriggered = true;
+    }
+    m_prevNetworkKey = nDown;
 }
 
 void InputSystem::ApplySerialControls(

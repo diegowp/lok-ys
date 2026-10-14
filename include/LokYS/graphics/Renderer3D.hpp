@@ -17,6 +17,11 @@
 #include <windows.h>
 #include <d3d12.h>
 #include <wrl/client.h>
+#include <vector>
+
+namespace LokYS::Network {
+class RemoteAircraft;
+}
 
 namespace LokYS::Graphics {
 
@@ -72,6 +77,19 @@ public:
         const GltfModel& aircraftModel,
         const Math::Vec3d& aircraftPosNed,
         const Math::Quat4d& aircraftAttitude) const noexcept;
+
+    /// @brief Main forward rendering pass with Multi-LOD Terrain, Scenery, and Multiplayer Peer Aircraft.
+    void Render(
+        ID3D12GraphicsCommandList* cmdList,
+        const Camera& camera,
+        const ShadowMap* shadowMap,
+        TerrainSystem& terrain,
+        const Mesh& runway,
+        const ScenerySystem& scenery,
+        GltfModel& aircraftModel,
+        const Math::Vec3d& aircraftPosNed,
+        const Math::Quat4d& aircraftAttitude,
+        const std::vector<Network::RemoteAircraft>& remotePeers) const noexcept;
 
     /// @brief Legacy forward rendering pass for fallback / simple mesh scenes.
     void Render(
