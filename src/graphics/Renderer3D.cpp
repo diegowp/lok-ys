@@ -49,7 +49,7 @@ PSInput VSMain(VSInput input)
     output.position = mul(pos, gWorldViewProj);
     output.normal = input.normal;
     output.color = input.color;
-    output.worldPos = (gCameraPos.w > 0.5f) ? (gCameraPos.xyz + input.position + float3(0.0f, -3.5f, 14.0f)) : input.position;
+    output.worldPos = input.position;
     output.shadowPos = mul(pos, gLightViewProj);
     return output;
 }
@@ -440,10 +440,7 @@ void Renderer3D::Render(
     const Math::Mat4f transModel = Math::Mat4f::Translation(aircraftRelGfx);
     const Math::Mat4f aircraftRootTransform = rotModel * transModel;
 
-    SceneConstantsBuffer aircraftConstants = constants;
-    aircraftConstants.cameraPos.w = 1.0f; // Flag aircraft draw call for accurate near-camera fog
-
-    cmdList->SetGraphicsRoot32BitConstants(0, 56, &aircraftConstants, 0);
+    cmdList->SetGraphicsRoot32BitConstants(0, 56, &constants, 0);
     aircraftModel.Draw(cmdList, aircraftRootTransform, viewProj, 0);
 }
 

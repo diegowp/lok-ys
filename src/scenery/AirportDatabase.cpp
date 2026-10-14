@@ -129,27 +129,44 @@ f32 AirportDatabase::SampleAirportElevationOffset(f32 xGfx, f32 zGfx, f32& outFl
 
     // Convert graphics (X, Z) into NED (X=North, Y=East)
     // Ned.X = Z_gfx, Ned.Y = -X_gfx
-    f64 nedX = static_cast<f64>(zGfx);
-    f64 nedY = static_cast<f64>(-xGfx);
+    const f64 nedX = static_cast<f64>(zGfx);
+    const f64 nedY = static_cast<f64>(-xGfx);
+
+    constexpr f64 DEG_TO_RAD = 3.14159265358979323846 / 180.0;
+    constexpr f64 BLEND_MARGIN = 1200.0; // Smooth 1.2km transition between airport plateau and regional terrain
 
     for (const auto& apt : m_airports) {
-        f64 dx = nedX - apt.locationNed.x;
-        f64 dy = nedY - apt.locationNed.y;
-        f64 dist = std::sqrt(dx * dx + dy * dy);
+        for (const auto& rwy : apt.runways) {
+            const f64 dxCenter = nedX - rwy.centerNed.x;
+            const f64 dyCenter = nedY - rwy.centerNed.y;
 
-        f64 flatRadius = (apt.icao == "KLOK") ? 400.0 : ((apt.icao == "KMES") ? 450.0 : 250.0);
-        f64 blendRadius = (apt.icao == "KLOK") ? 1800.0 : ((apt.icao == "KMES") ? 1400.0 : 800.0);
+            // Rotate coordinates into runway-aligned frame (u = along runway, v = across runway)
+            const f64 headingRad = rwy.headingDeg * DEG_TO_RAD;
+            const f64 cosH = std::cos(headingRad);
+            const f64 sinH = std::sin(headingRad);
 
-        if (dist <= flatRadius) {
-            outFlattenWeight = 1.0f;
-            return static_cast<f32>(apt.elevationM);
-        } else if (dist < blendRadius) {
-            f64 frac = (dist - flatRadius) / (blendRadius - flatRadius);
-            f64 w = 0.5 * (1.0 + std::cos(frac * 3.141592653589793));
-            f32 fw = static_cast<f32>(w);
-            if (fw > outFlattenWeight) {
-                outFlattenWeight = fw;
-                targetElev = static_cast<f32>(apt.elevationM);
+            const f64 uAlong = dxCenter * cosH + dyCenter * sinH;
+            const f64 vAcross = -dxCenter * sinH + dyCenter * cosH;
+
+            // Flat reservation box covers runway length + 500m overruns, and runway width + 350m taxiways/apron
+            const f64 halfLengthFlat = (rwy.lengthM * 0.5) + 500.0;
+            const f64 halfWidthFlat = std::max(350.0, (rwy.widthM * 0.5) + 250.0);
+
+            const f64 du = std::max(0.0, std::abs(uAlong) - halfLengthFlat);
+            const f64 dv = std::max(0.0, std::abs(vAcross) - halfWidthFlat);
+            const f64 distToBox = std::sqrt(du * du + dv * dv);
+
+            if (distToBox <= 0.0) {
+                outFlattenWeight = 1.0f;
+                return static_cast<f32>(rwy.elevationM);
+            } else if (distToBox < BLEND_MARGIN) {
+                const f64 frac = distToBox / BLEND_MARGIN;
+                const f64 w = 0.5 * (1.0 + std::cos(frac * 3.14159265358979323846));
+                const f32 fw = static_cast<f32>(w);
+                if (fw > outFlattenWeight) {
+                    outFlattenWeight = fw;
+                    targetElev = static_cast<f32>(rwy.elevationM);
+                }
             }
         }
     }

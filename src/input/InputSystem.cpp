@@ -168,14 +168,14 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
         }
     }
 
-    // Throttle controls: Shift (increase), Ctrl (decrease), PageUp (increase), PageDown (decrease), '0' (100%), '-' (idle)
-    if ((IsDown(VK_SHIFT) && !IsDown('F') && !IsDown('V') && !IsDown('U') && !IsDown('W')) || IsDown(VK_PRIOR)) {
+    // Throttle controls: Shift / F3 / PageUp (increase), Ctrl / F2 / PageDown (decrease), F4 / '0' (100%), F1 / '-' (idle)
+    if (IsDown(VK_F3) || IsDown(VK_PRIOR) || (IsDown(VK_SHIFT) && !IsDown('F') && !IsDown('V') && !IsDown('U'))) {
         m_controls.throttle = std::min(1.0, m_controls.throttle + 0.5 * dt);
-    } else if (IsDown(VK_CONTROL) || IsDown(VK_NEXT)) {
+    } else if (IsDown(VK_F2) || IsDown(VK_NEXT) || IsDown(VK_CONTROL)) {
         m_controls.throttle = std::max(0.0, m_controls.throttle - 0.5 * dt);
-    } else if (IsDown('0')) {
+    } else if (IsDown(VK_F4) || IsDown('0')) {
         m_controls.throttle = 1.0;
-    } else if (IsDown(VK_OEM_MINUS)) {
+    } else if (IsDown(VK_F1) || IsDown(VK_OEM_MINUS)) {
         m_controls.throttle = 0.0;
     }
 
@@ -304,8 +304,8 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
         m_navFreqDelta += 0.5 * dt;
     }
 
-    // Weather Preset Toggle: F8 key or Shift+'W'
-    bool wDown = IsDown(VK_F8) || (IsDown('W') && IsDown(VK_SHIFT));
+    // Weather Preset Toggle: F8 key
+    bool wDown = IsDown(VK_F8);
     if (wDown && !m_prevWeatherKey) {
         m_weatherToggleTriggered = true;
     }

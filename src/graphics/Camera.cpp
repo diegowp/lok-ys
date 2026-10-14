@@ -26,7 +26,7 @@ void Camera::Update(const Math::Vec3d& aircraftPosNed, const Math::Quat4d& aircr
         const Math::Vec3d chaseOffsetNed = aircraftAttitude.Rotate(chaseOffsetBody);
         const Math::Vec3d targetCamPosNed = aircraftPosNed + chaseOffsetNed;
 
-        if (m_firstUpdate) {
+        if (m_firstUpdate || (targetCamPosNed - m_smoothChasePosNed).Length() > 150.0) {
             m_smoothChasePosNed = targetCamPosNed;
             m_firstUpdate = false;
         } else {

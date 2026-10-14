@@ -406,7 +406,7 @@ int WINAPI wWinMain(
         propulsion.SetAircraftEngineConfig(cfg.propulsion);
     };
 
-    auto ResetToRunway = [&aircraft, &input, &propulsion, &avionics, &environment, &autopilot, &aircraftRegistry, &ApplyAircraftConfig]() {
+    auto ResetToRunway = [&aircraft, &input, &propulsion, &avionics, &environment, &autopilot, &aircraftRegistry, &ApplyAircraftConfig, &scheduler, &camera]() {
         const auto& cfg = aircraftRegistry.GetActiveConfig();
         ApplyAircraftConfig(cfg);
 
@@ -437,9 +437,15 @@ int WINAPI wWinMain(
         autopilot.Reset();
         autopilot.SetTargetAltitude(1000.0);
         autopilot.SetTargetHeading(0.0);
+
+        scheduler.Reset();
+        auto snap = LokYS::Simulation::SimulationSnapshot::CreateFromRigidBody(0, 0.0, state);
+        scheduler.PublishSnapshot(snap);
+        scheduler.PublishSnapshot(snap);
+        camera.Reset();
     };
 
-    auto ResetToCruise = [&aircraft, &input, &propulsion, &avionics, &environment, &autopilot, &aircraftRegistry, &ApplyAircraftConfig]() {
+    auto ResetToCruise = [&aircraft, &input, &propulsion, &avionics, &environment, &autopilot, &aircraftRegistry, &ApplyAircraftConfig, &scheduler, &camera]() {
         const auto& cfg = aircraftRegistry.GetActiveConfig();
         ApplyAircraftConfig(cfg);
 
@@ -470,12 +476,15 @@ int WINAPI wWinMain(
         autopilot.Reset();
         autopilot.SetTargetAltitude(3000.0);
         autopilot.SetTargetHeading(0.0);
+
+        scheduler.Reset();
+        auto snap = LokYS::Simulation::SimulationSnapshot::CreateFromRigidBody(0, 0.0, state);
+        scheduler.PublishSnapshot(snap);
+        scheduler.PublishSnapshot(snap);
+        camera.Reset();
     };
 
     ResetToRunway();
-
-    scheduler.PublishSnapshot(LokYS::Simulation::SimulationSnapshot::CreateFromRigidBody(
-        0, 0.0, aircraft.GetState()));
 
     LokYS::Physics::GroundReactionsOutput latestGroundOut{};
     LokYS::Propulsion::PropulsionOutput latestPropOut{};

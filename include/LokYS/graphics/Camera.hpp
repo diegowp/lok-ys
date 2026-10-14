@@ -24,6 +24,7 @@ public:
 
     void SetPerspective(f32 fovYRadians, f32 aspectRatio, f32 nearZ = 0.2f, f32 farZ = 20000.0f) noexcept;
     void Update(const Math::Vec3d& aircraftPosNed, const Math::Quat4d& aircraftAttitude, f64 dt) noexcept;
+    void Reset() noexcept { m_firstUpdate = true; }
 
     [[nodiscard]] const Math::Vec3d& GetCameraPosNed() const noexcept { return m_cameraPosNed; }
     [[nodiscard]] const Math::Vec3f& GetCameraPosGfx() const noexcept { return m_cameraPosGfx; }

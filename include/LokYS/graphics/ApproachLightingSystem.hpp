@@ -55,15 +55,14 @@ public:
 
 private:
     void BuildStaticBarsMesh(ID3D12Device* device);
-    void RebuildDynamicStrobesMesh(ID3D12Device* device);
+    void BuildDynamicStrobesMeshes(ID3D12Device* device);
 
     Mesh m_staticBarsMesh;
-    Mesh m_dynamicStrobesMesh;
+    Mesh m_rabbitStrobes[21];
+    Mesh m_reilStrobesMesh;
 
     AlsStrobeStatus m_status{};
     f64 m_simTime{ 0.0 };
-    int m_prevActiveIndex{ -1 };
-    bool m_prevReilFlashed{ false };
 
     bool m_initialized{ false };
 };

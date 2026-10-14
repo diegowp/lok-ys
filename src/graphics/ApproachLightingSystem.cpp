@@ -55,7 +55,7 @@ bool ApproachLightingSystem::Initialize(ID3D12Device* device) {
     if (!device) return false;
 
     BuildStaticBarsMesh(device);
-    RebuildDynamicStrobesMesh(device);
+    BuildDynamicStrobesMeshes(device);
 
     m_initialized = true;
     return true;
@@ -63,7 +63,10 @@ bool ApproachLightingSystem::Initialize(ID3D12Device* device) {
 
 void ApproachLightingSystem::Shutdown() {
     m_staticBarsMesh.Shutdown();
-    m_dynamicStrobesMesh.Shutdown();
+    for (auto& m : m_rabbitStrobes) {
+        m.Shutdown();
+    }
+    m_reilStrobesMesh.Shutdown();
     m_initialized = false;
 }
 
@@ -135,46 +138,35 @@ void ApproachLightingSystem::BuildStaticBarsMesh(ID3D12Device* device) {
     m_staticBarsMesh = Mesh::CreateFromVertices(device, verts, inds);
 }
 
-void ApproachLightingSystem::RebuildDynamicStrobesMesh(ID3D12Device* device) {
+void ApproachLightingSystem::BuildDynamicStrobesMeshes(ID3D12Device* device) {
     if (!device) return;
-
-    std::vector<Vertex3D> verts;
-    std::vector<u32> inds;
 
     Math::Vec4f colStrobe{ 1.0f, 1.0f, 1.0f, 1.0f }; // Pure high-intensity white strobe
 
-    // 1. Sequenced Flashing Strobe ("The Rabbit") along Runway 36 approach path
-    // 21 strobe units from Z = -1520m down to Z = -920m (spaced 30m)
-    // Only the currently active strobe fires each tick
-    if (m_status.activeRabbitIndex >= 0 && m_status.activeRabbitIndex < 21) {
-        // Flash moves from outer approach (-1520m) toward threshold (-920m)
-        f32 zStrobe = -1520.0f + static_cast<f32>(m_status.activeRabbitIndex * 30);
+    // 1. Prebuild each of the 21 "The Rabbit" sequenced strobe station meshes
+    for (int i = 0; i < 21; ++i) {
+        std::vector<Vertex3D> verts;
+        std::vector<u32> inds;
+        f32 zStrobe = -1520.0f + static_cast<f32>(i * 30);
         AddLightBox(verts, inds, { 0.0f, 0.75f, zStrobe }, 0.65f, colStrobe);
+        m_rabbitStrobes[i] = Mesh::CreateFromVertices(device, verts, inds);
     }
 
-    // 2. REIL (Runway End Identifier Lights) synchronized strobe flashes
-    if (m_status.reilFlashed) {
+    // 2. Prebuild REIL synchronized threshold strobe mesh (KLOK + KMES corners)
+    {
+        std::vector<Vertex3D> verts;
+        std::vector<u32> inds;
         // KLOK threshold corners
         AddLightBox(verts, inds, { -25.0f, 0.60f, -800.0f }, 0.50f, colStrobe);
         AddLightBox(verts, inds, { +25.0f, 0.60f, -800.0f }, 0.50f, colStrobe);
-
         // KMES threshold corners
         AddLightBox(verts, inds, { -8700.0f, 350.60f, 13982.0f }, 0.50f, colStrobe);
         AddLightBox(verts, inds, { -8700.0f, 350.60f, 14018.0f }, 0.50f, colStrobe);
+        m_reilStrobesMesh = Mesh::CreateFromVertices(device, verts, inds);
     }
-
-    // If empty (e.g. strobe gap), provide a degenerate dummy triangle to keep buffer valid
-    if (verts.empty()) {
-        verts.push_back({ { 0.0f, -100.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 0.0f, 0.0f, 0.0f } });
-        verts.push_back({ { 0.0f, -100.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 0.0f, 0.0f, 0.0f } });
-        verts.push_back({ { 0.0f, -100.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 0.0f, 0.0f, 0.0f } });
-        inds = { 0, 1, 2 };
-    }
-
-    m_dynamicStrobesMesh = Mesh::CreateFromVertices(device, verts, inds);
 }
 
-void ApproachLightingSystem::Update(f64 /*dt*/, f64 simTime, ID3D12Device* device) noexcept {
+void ApproachLightingSystem::Update(f64 /*dt*/, f64 simTime, ID3D12Device* /*device*/) noexcept {
     m_simTime = simTime;
 
     // "The Rabbit" sequenced strobe cycle: 1.0 second period
@@ -193,13 +185,6 @@ void ApproachLightingSystem::Update(f64 /*dt*/, f64 simTime, ID3D12Device* devic
 
     // REIL flashes at 1.0 Hz (100ms flash duration at start of second)
     m_status.reilFlashed = (cycleFrac < 0.10);
-
-    // Only rebuild dynamic GPU mesh when flash index or state changes
-    if (m_status.activeRabbitIndex != m_prevActiveIndex || m_status.reilFlashed != m_prevReilFlashed) {
-        m_prevActiveIndex = m_status.activeRabbitIndex;
-        m_prevReilFlashed = m_status.reilFlashed;
-        RebuildDynamicStrobesMesh(device);
-    }
 }
 
 void ApproachLightingSystem::DrawStaticBars(ID3D12GraphicsCommandList* cmdList) const noexcept {
@@ -209,8 +194,13 @@ void ApproachLightingSystem::DrawStaticBars(ID3D12GraphicsCommandList* cmdList) 
 }
 
 void ApproachLightingSystem::DrawDynamicStrobes(ID3D12GraphicsCommandList* cmdList) const noexcept {
-    if (cmdList && m_initialized) {
-        m_dynamicStrobesMesh.Draw(cmdList);
+    if (!cmdList || !m_initialized) return;
+
+    if (m_status.activeRabbitIndex >= 0 && m_status.activeRabbitIndex < 21) {
+        m_rabbitStrobes[m_status.activeRabbitIndex].Draw(cmdList);
+    }
+    if (m_status.reilFlashed) {
+        m_reilStrobesMesh.Draw(cmdList);
     }
 }
 
