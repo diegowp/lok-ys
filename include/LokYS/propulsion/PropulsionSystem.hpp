@@ -3,6 +3,7 @@
 #include "LokYS/core/Types.hpp"
 #include "LokYS/math/Vector3.hpp"
 #include "LokYS/math/Units.hpp"
+#include "LokYS/aircraft/AircraftTypes.hpp"
 #include <algorithm>
 #include <cmath>
 
@@ -60,6 +61,16 @@ public:
 
     void SetSpecs(const EngineSpecs& specs) noexcept { m_specs = specs; }
     [[nodiscard]] const EngineSpecs& GetSpecs() const noexcept { return m_specs; }
+
+    void SetAircraftEngineConfig(const Aircraft::AircraftEngineConfig& config) noexcept {
+        m_specs.maxRatedPowerHp = config.horsepowerPerEngine * static_cast<f64>(config.engineCount);
+        m_specs.maxRatedRpm = config.maxRatedRpm;
+        m_specs.idleRpm = config.idleRpm;
+        m_specs.propDiameterM = config.propDiameterM;
+        m_specs.propInertiaKgM2 = config.propInertiaKgM2;
+        m_specs.maxFuelCapacityKg = config.maxFuelCapacityKg;
+        m_fuelRemainingKg = std::min(m_fuelRemainingKg, m_specs.maxFuelCapacityKg);
+    }
 
     void SetFuelQuantityKg(f64 fuelKg) noexcept {
         m_fuelRemainingKg = std::clamp(fuelKg, 0.0, m_specs.maxFuelCapacityKg);

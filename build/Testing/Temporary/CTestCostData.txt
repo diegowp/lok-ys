@@ -1,11 +1,16 @@
-AerospaceMathTests 21 0.000378971
-SixDofPhysicsTests 19 0.000454716
-AeroInputTests 18 0.00309313
-GroundReactionsTests 15 0.000915293
-PropulsionTests 11 0.00119047
-GltfModelTests 10 0.00169212
-SixPackAvionicsTests 8 0.00189539
-SpatialAudioTests 5 0.00971058
-RadioNavTests 3 0.00267033
-SerialInterfaceTests 1 0.0077843
+AerospaceMathTests 30 0.00038628
+SixDofPhysicsTests 28 0.000433325
+AeroInputTests 27 0.000432567
+GroundReactionsTests 24 0.000362971
+PropulsionTests 20 0.0004445
+GltfModelTests 18 0.000721994
+SixPackAvionicsTests 17 0.000668518
+SpatialAudioTests 14 0.00357518
+RadioNavTests 12 0.000708367
+SerialInterfaceTests 8 0.00097435
+AtmosphereWeatherTests 8 0.00106242
+GraphicsOptimizationTests 6 0.00219798
+NetworkMultiplayerTests 5 0.00329234
+GlassCockpitAutopilotTests 4 0.00315348
+MultiAircraftSceneryTests 1 0.0174071
 ---

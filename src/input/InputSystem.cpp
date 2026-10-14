@@ -64,6 +64,8 @@ void InputSystem::Poll(f64 dt) noexcept {
     m_headingBugDelta = 0.0;
     m_obsDelta = 0.0;
     m_navFreqDelta = 0.0;
+    m_aircraftCycleTriggered = false;
+    m_gearToggleTriggered = false;
 
     // Hardware joystick polling
     if (m_joystickConnected) {
@@ -185,22 +187,34 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
     }
 
 
-    // Flaps: F (extend one notch), V (retract one notch)
+    // Flaps: F (extend one notch, or Shift+F to retract one notch)
     bool fDown = IsDown('F');
     if (fDown && !m_prevFlapDownKey) {
-        if (m_controls.flapSetting < 3) {
-            m_controls.flapSetting++;
+        if (IsDown(VK_SHIFT)) {
+            if (m_controls.flapSetting > 0) {
+                m_controls.flapSetting--;
+            }
+        } else {
+            if (m_controls.flapSetting < 3) {
+                m_controls.flapSetting++;
+            }
         }
     }
     m_prevFlapDownKey = fDown;
 
+    // Aircraft Archetype Cycle: 'V' key (Cessna 172 -> Baron 58 -> Extra 330)
     bool vDown = IsDown('V');
-    if (vDown && !m_prevFlapUpKey) {
-        if (m_controls.flapSetting > 0) {
-            m_controls.flapSetting--;
-        }
+    if (vDown && !m_prevAircraftCycleKey) {
+        m_aircraftCycleTriggered = true;
     }
-    m_prevFlapUpKey = vDown;
+    m_prevAircraftCycleKey = vDown;
+
+    // Retractable Landing Gear Toggle: 'U' key (Baron 58)
+    bool uDown = IsDown('U') && !IsDown(VK_SHIFT);
+    if (uDown && !m_prevGearToggleKey) {
+        m_gearToggleTriggered = true;
+    }
+    m_prevGearToggleKey = uDown;
 
     // Wheel Brakes: Spacebar
     if (IsDown(VK_SPACE)) {
@@ -275,8 +289,8 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
         m_obsDelta += 40.0 * dt;
     }
 
-    // NAV Standby Frequency Adjustment: 'U' (decrease) and 'I' (increase)
-    if (IsDown('U')) {
+    // NAV Standby Frequency Adjustment: Shift+'U' (decrease) and 'I' (increase)
+    if (IsDown('U') && IsDown(VK_SHIFT)) {
         m_navFreqDelta -= 0.5 * dt;
     }
     if (IsDown('I')) {

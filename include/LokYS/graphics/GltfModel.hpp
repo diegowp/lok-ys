@@ -47,6 +47,14 @@ public:
         f32 rollNorm,
         f32 yawNorm,
         f32 flapsNorm,
+        f32 propAngleRad,
+        bool gearExtended) noexcept;
+
+    void ApplyAircraftControls(
+        f32 pitchNorm,
+        f32 rollNorm,
+        f32 yawNorm,
+        f32 flapsNorm,
         f32 propAngleRad) noexcept;
 
     // Model inspection
@@ -93,6 +101,10 @@ private:
     i32 m_flapLeftNodeIdx{ -1 };
     i32 m_flapRightNodeIdx{ -1 };
     i32 m_propellerNodeIdx{ -1 };
+    i32 m_propellerRightNodeIdx{ -1 };
+    i32 m_gearNoseNodeIdx{ -1 };
+    i32 m_gearLeftNodeIdx{ -1 };
+    i32 m_gearRightNodeIdx{ -1 };
 
     bool m_isLoaded{ false };
 };

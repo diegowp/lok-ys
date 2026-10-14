@@ -71,6 +71,10 @@ set(LOKYS_SOURCES
     src/network/NetworkSystem.cpp
     src/autopilot/AutopilotSystem.cpp
     src/graphics/GlassCockpitRenderer.cpp
+    src/aircraft/AircraftRegistry.cpp
+    src/scenery/AirportDatabase.cpp
+    src/graphics/ApproachLightingSystem.cpp
+    src/graphics/TerrainStreamingSystem.cpp
 )
 
 set(LOKYS_HEADERS
@@ -129,6 +133,11 @@ set(LOKYS_HEADERS
     include/LokYS/autopilot/PidController.hpp
     include/LokYS/autopilot/AutopilotSystem.hpp
     include/LokYS/graphics/GlassCockpitRenderer.hpp
+    include/LokYS/aircraft/AircraftTypes.hpp
+    include/LokYS/aircraft/AircraftRegistry.hpp
+    include/LokYS/scenery/AirportDatabase.hpp
+    include/LokYS/graphics/ApproachLightingSystem.hpp
+    include/LokYS/graphics/TerrainStreamingSystem.hpp
 )
 
 add_executable(LokYSFlightSimulator WIN32
@@ -378,4 +387,27 @@ target_include_directories(LokYSGlassCockpitAutopilotTests PRIVATE
 )
 
 add_test(NAME GlassCockpitAutopilotTests COMMAND LokYSGlassCockpitAutopilotTests)
+
+add_executable(LokYSMultiAircraftSceneryTests
+    tests/unit/MultiAircraftSceneryTests.cpp
+    src/aircraft/AircraftRegistry.cpp
+    src/scenery/AirportDatabase.cpp
+    src/graphics/ApproachLightingSystem.cpp
+    src/graphics/TerrainStreamingSystem.cpp
+    src/graphics/Mesh.cpp
+    src/aerodynamics/AerodynamicsSystem.cpp
+    ${LOKYS_HEADERS}
+)
+
+target_include_directories(LokYSMultiAircraftSceneryTests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_link_libraries(LokYSMultiAircraftSceneryTests PRIVATE
+    d3d12.lib
+    dxgi.lib
+    d3dcompiler.lib
+)
+
+add_test(NAME MultiAircraftSceneryTests COMMAND LokYSMultiAircraftSceneryTests)
 

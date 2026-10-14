@@ -41,6 +41,20 @@ public:
         m_indexCount = 0;
     }
 
+    void Shutdown() noexcept {
+        Destroy();
+    }
+
+    [[nodiscard]] static Mesh CreateFromVertices(
+        ID3D12Device* device,
+        const std::vector<Vertex3D>& vertices,
+        const std::vector<u32>& indices)
+    {
+        Mesh m;
+        (void)m.Create(device, vertices, indices);
+        return m;
+    }
+
     void Draw(ID3D12GraphicsCommandList* cmdList) const noexcept;
 
     [[nodiscard]] u32 GetIndexCount() const noexcept { return m_indexCount; }

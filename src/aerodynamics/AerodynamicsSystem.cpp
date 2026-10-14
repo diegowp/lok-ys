@@ -9,6 +9,47 @@ AerodynamicsSystem::AerodynamicsSystem(const AircraftGeometry& geometry)
 {
 }
 
+void AerodynamicsSystem::SetConfig(
+    const Aircraft::AircraftGeometryConfig& geo,
+    const Aircraft::AeroDerivativesConfig& aero,
+    bool gearExtended) noexcept
+{
+    m_geometry.wingAreaM2 = geo.wingAreaM2;
+    m_geometry.wingspanM = geo.wingspanM;
+    m_geometry.meanChordM = geo.meanChordM;
+    m_geometry.aspectRatio = geo.aspectRatio;
+    m_geometry.oswaldEfficiency = geo.oswaldEfficiency;
+
+    m_CL0 = aero.CL0;
+    m_CLa = aero.CLa;
+    m_CLq = aero.CLq;
+    m_CLde = aero.CLde;
+    m_CLdf = aero.CLdf;
+    m_stallAlphaRad = aero.stallAlphaRad;
+
+    m_CD0 = gearExtended ? aero.CD0_gearDown : aero.CD0;
+    m_CDdf = aero.CDdf;
+
+    m_CYb = aero.CYb;
+    m_CYdr = aero.CYdr;
+
+    m_Clb = aero.Clb;
+    m_Clp = aero.Clp;
+    m_Clr = aero.Clr;
+    m_Clda = aero.Clda;
+
+    m_Cm0 = aero.Cm0;
+    m_Cma = aero.Cma;
+    m_Cmq = aero.Cmq;
+    m_Cmde = aero.Cmde;
+    m_Cmdf = aero.Cmdf;
+
+    m_Cnb = aero.Cnb;
+    m_Cnr = aero.Cnr;
+    m_Cnp = aero.Cnp;
+    m_Cndr = aero.Cndr;
+}
+
 AeroOutput AerodynamicsSystem::Evaluate(
     const Math::Vec3d& relativeWindBody,
     const Math::Vec3d& angularVelocityBody,

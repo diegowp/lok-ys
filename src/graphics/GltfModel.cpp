@@ -549,6 +549,17 @@ void GltfModel::AutoDetectArticulations() noexcept {
     m_propellerNodeIdx = FindNodeIndex("Propeller");
     if (m_propellerNodeIdx < 0) m_propellerNodeIdx = FindNodeIndex("propeller");
     if (m_propellerNodeIdx < 0) m_propellerNodeIdx = FindNodeIndex("prop");
+    if (m_propellerNodeIdx < 0) m_propellerNodeIdx = FindNodeIndex("Propeller_L");
+
+    m_propellerRightNodeIdx = FindNodeIndex("Propeller_R");
+    if (m_propellerRightNodeIdx < 0) m_propellerRightNodeIdx = FindNodeIndex("propeller_r");
+
+    m_gearNoseNodeIdx = FindNodeIndex("Gear_Nose");
+    if (m_gearNoseNodeIdx < 0) m_gearNoseNodeIdx = FindNodeIndex("gear_nose");
+    m_gearLeftNodeIdx = FindNodeIndex("Gear_L");
+    if (m_gearLeftNodeIdx < 0) m_gearLeftNodeIdx = FindNodeIndex("gear_l");
+    m_gearRightNodeIdx = FindNodeIndex("Gear_R");
+    if (m_gearRightNodeIdx < 0) m_gearRightNodeIdx = FindNodeIndex("gear_r");
 
     // Configure articulation hinge axes and pivot points
     if (m_elevatorNodeIdx >= 0) {
@@ -591,6 +602,12 @@ void GltfModel::AutoDetectArticulations() noexcept {
         auto& node = m_nodes[static_cast<size_t>(m_propellerNodeIdx)];
         node.articulationType = ArticulationType::Propeller;
         node.hingeAxis = Math::Vec3f(0.0f, 0.0f, 1.0f); // Thrust / Roll axis (+Z in graphics)
+    }
+
+    if (m_propellerRightNodeIdx >= 0) {
+        auto& node = m_nodes[static_cast<size_t>(m_propellerRightNodeIdx)];
+        node.articulationType = ArticulationType::Propeller;
+        node.hingeAxis = Math::Vec3f(0.0f, 0.0f, 1.0f);
     }
 }
 
@@ -655,10 +672,10 @@ void GltfModel::ApplyAircraftControls(
     f32 rollNorm,
     f32 yawNorm,
     f32 flapsNorm,
-    f32 propAngleRad) noexcept
+    f32 propAngleRad,
+    bool gearExtended) noexcept
 {
-    // Cessna 172 standard control surface travels:
-    // Elevator: +28 deg up (-pitchNorm), -26 deg down
+    // Elevator deflection: +28 deg up (-pitchNorm), -26 deg down
     if (m_elevatorNodeIdx >= 0) {
         constexpr f32 maxElevatorRad = 28.0f * (3.14159265f / 180.0f);
         m_nodes[static_cast<size_t>(m_elevatorNodeIdx)].currentDeflectionRad = -pitchNorm * maxElevatorRad;
@@ -690,12 +707,37 @@ void GltfModel::ApplyAircraftControls(
         m_nodes[static_cast<size_t>(m_flapRightNodeIdx)].currentDeflectionRad = flapsNorm * maxFlapRad;
     }
 
-    // Propeller continuous rotation
+    // Propeller continuous rotation (single or twin)
     if (m_propellerNodeIdx >= 0) {
         m_nodes[static_cast<size_t>(m_propellerNodeIdx)].currentDeflectionRad = propAngleRad;
     }
+    if (m_propellerRightNodeIdx >= 0) {
+        m_nodes[static_cast<size_t>(m_propellerRightNodeIdx)].currentDeflectionRad = propAngleRad;
+    }
+
+    // Retractable Landing Gear animation (translate up into wheel bays when gear is retracted)
+    f32 gearTranslateY = gearExtended ? 0.0f : 0.85f;
+    if (m_gearNoseNodeIdx >= 0) {
+        m_nodes[static_cast<size_t>(m_gearNoseNodeIdx)].translation.y = gearTranslateY;
+    }
+    if (m_gearLeftNodeIdx >= 0) {
+        m_nodes[static_cast<size_t>(m_gearLeftNodeIdx)].translation.y = gearTranslateY;
+    }
+    if (m_gearRightNodeIdx >= 0) {
+        m_nodes[static_cast<size_t>(m_gearRightNodeIdx)].translation.y = gearTranslateY;
+    }
 
     UpdateForwardKinematics();
+}
+
+void GltfModel::ApplyAircraftControls(
+    f32 pitchNorm,
+    f32 rollNorm,
+    f32 yawNorm,
+    f32 flapsNorm,
+    f32 propAngleRad) noexcept
+{
+    ApplyAircraftControls(pitchNorm, rollNorm, yawNorm, flapsNorm, propAngleRad, true);
 }
 
 bool GltfModel::CreateGPUResources(ID3D12Device* device) {

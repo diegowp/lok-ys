@@ -1,10 +1,10 @@
-Start testing: Oct 14 14:59 Hora oficial do Brasil
+Start testing: Oct 14 18:17 Hora oficial do Brasil
 ----------------------------------------------------------
-1/10 Testing: AerospaceMathTests
-1/10 Test: AerospaceMathTests
+1/15 Testing: AerospaceMathTests
+1/15 Test: AerospaceMathTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSMathTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"AerospaceMathTests" start time: Oct 14 14:59 Hora oficial do Brasil
+"AerospaceMathTests" start time: Oct 14 18:17 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ========================================
@@ -19,15 +19,15 @@ Tests Failed: 0
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"AerospaceMathTests" end time: Oct 14 14:59 Hora oficial do Brasil
+"AerospaceMathTests" end time: Oct 14 18:17 Hora oficial do Brasil
 "AerospaceMathTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-2/10 Testing: SixDofPhysicsTests
-2/10 Test: SixDofPhysicsTests
+2/15 Testing: SixDofPhysicsTests
+2/15 Test: SixDofPhysicsTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSPhysicsTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"SixDofPhysicsTests" start time: Oct 14 14:59 Hora oficial do Brasil
+"SixDofPhysicsTests" start time: Oct 14 18:17 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ========================================
@@ -42,15 +42,15 @@ Tests Failed: 0
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"SixDofPhysicsTests" end time: Oct 14 14:59 Hora oficial do Brasil
+"SixDofPhysicsTests" end time: Oct 14 18:17 Hora oficial do Brasil
 "SixDofPhysicsTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-3/10 Testing: AeroInputTests
-3/10 Test: AeroInputTests
+3/15 Testing: AeroInputTests
+3/15 Test: AeroInputTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSAeroInputTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"AeroInputTests" start time: Oct 14 14:59 Hora oficial do Brasil
+"AeroInputTests" start time: Oct 14 18:17 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ========================================
@@ -62,18 +62,18 @@ Tests Passed: 20
 Tests Failed: 0
 ----------------------------------------
 <end of output>
-Test time =   0.06 sec
+Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"AeroInputTests" end time: Oct 14 14:59 Hora oficial do Brasil
+"AeroInputTests" end time: Oct 14 18:17 Hora oficial do Brasil
 "AeroInputTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-4/10 Testing: GroundReactionsTests
-4/10 Test: GroundReactionsTests
+4/15 Testing: GroundReactionsTests
+4/15 Test: GroundReactionsTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSGroundReactionsTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"GroundReactionsTests" start time: Oct 14 14:59 Hora oficial do Brasil
+"GroundReactionsTests" start time: Oct 14 18:17 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ========================================
@@ -88,15 +88,15 @@ Tests Failed: 0
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"GroundReactionsTests" end time: Oct 14 14:59 Hora oficial do Brasil
+"GroundReactionsTests" end time: Oct 14 18:17 Hora oficial do Brasil
 "GroundReactionsTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-5/10 Testing: PropulsionTests
-5/10 Test: PropulsionTests
+5/15 Testing: PropulsionTests
+5/15 Test: PropulsionTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSPropulsionTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"PropulsionTests" start time: Oct 14 14:59 Hora oficial do Brasil
+"PropulsionTests" start time: Oct 14 18:17 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ========================================
@@ -111,15 +111,15 @@ Tests Failed: 0
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"PropulsionTests" end time: Oct 14 14:59 Hora oficial do Brasil
+"PropulsionTests" end time: Oct 14 18:17 Hora oficial do Brasil
 "PropulsionTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-6/10 Testing: GltfModelTests
-6/10 Test: GltfModelTests
+6/15 Testing: GltfModelTests
+6/15 Test: GltfModelTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSGltfTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"GltfModelTests" start time: Oct 14 14:59 Hora oficial do Brasil
+"GltfModelTests" start time: Oct 14 18:17 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ========================================
@@ -131,18 +131,18 @@ Tests Passed: 47
 Tests Failed: 0
 ----------------------------------------
 <end of output>
-Test time =   0.02 sec
+Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"GltfModelTests" end time: Oct 14 14:59 Hora oficial do Brasil
+"GltfModelTests" end time: Oct 14 18:17 Hora oficial do Brasil
 "GltfModelTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-7/10 Testing: SixPackAvionicsTests
-7/10 Test: SixPackAvionicsTests
+7/15 Testing: SixPackAvionicsTests
+7/15 Test: SixPackAvionicsTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSAvionicsTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"SixPackAvionicsTests" start time: Oct 14 14:59 Hora oficial do Brasil
+"SixPackAvionicsTests" start time: Oct 14 18:17 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ====================================================
@@ -164,18 +164,18 @@ LokYS Analog Six-Pack Avionics Test Suite (Milestone M14)
 ALL AVIONICS TEST SUITES PASSED (6/6 Instruments Verified)
 ====================================================
 <end of output>
-Test time =   0.02 sec
+Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"SixPackAvionicsTests" end time: Oct 14 14:59 Hora oficial do Brasil
+"SixPackAvionicsTests" end time: Oct 14 18:17 Hora oficial do Brasil
 "SixPackAvionicsTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-8/10 Testing: SpatialAudioTests
-8/10 Test: SpatialAudioTests
+8/15 Testing: SpatialAudioTests
+8/15 Test: SpatialAudioTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSAudioTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"SpatialAudioTests" start time: Oct 14 14:59 Hora oficial do Brasil
+"SpatialAudioTests" start time: Oct 14 18:17 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ============================================================
@@ -200,15 +200,15 @@ LokYS Native Windows Flight Simulator — Spatial Audio Tests
 Test time =   0.05 sec
 ----------------------------------------------------------
 Test Passed.
-"SpatialAudioTests" end time: Oct 14 14:59 Hora oficial do Brasil
+"SpatialAudioTests" end time: Oct 14 18:17 Hora oficial do Brasil
 "SpatialAudioTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-9/10 Testing: RadioNavTests
-9/10 Test: RadioNavTests
+9/15 Testing: RadioNavTests
+9/15 Test: RadioNavTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSRadioNavTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"RadioNavTests" start time: Oct 14 14:59 Hora oficial do Brasil
+"RadioNavTests" start time: Oct 14 18:17 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ============================================================
@@ -234,15 +234,15 @@ LokYS Native Windows Flight Simulator — Radio Nav Unit Tests
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"RadioNavTests" end time: Oct 14 14:59 Hora oficial do Brasil
+"RadioNavTests" end time: Oct 14 18:17 Hora oficial do Brasil
 "RadioNavTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-10/10 Testing: SerialInterfaceTests
-10/10 Test: SerialInterfaceTests
+10/15 Testing: SerialInterfaceTests
+10/15 Test: SerialInterfaceTests
 Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSSerialInterfaceTests.exe"
 Directory: C:/Users/diego/Documents/Projetos/LokYS/build
-"SerialInterfaceTests" start time: Oct 14 14:59 Hora oficial do Brasil
+"SerialInterfaceTests" start time: Oct 14 18:17 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
 ============================================================
@@ -268,8 +268,180 @@ LokYS Native Windows Flight Simulator — Serial Hardware Tests
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"SerialInterfaceTests" end time: Oct 14 14:59 Hora oficial do Brasil
+"SerialInterfaceTests" end time: Oct 14 18:17 Hora oficial do Brasil
 "SerialInterfaceTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Oct 14 14:59 Hora oficial do Brasil
+11/15 Testing: AtmosphereWeatherTests
+11/15 Test: AtmosphereWeatherTests
+Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSAtmosphereWeatherTests.exe"
+Directory: C:/Users/diego/Documents/Projetos/LokYS/build
+"AtmosphereWeatherTests" start time: Oct 14 18:17 Hora oficial do Brasil
+Output:
+----------------------------------------------------------
+============================================================
+LokYS Native Windows Flight Simulator — Atmosphere & Weather Tests
+============================================================
+[RUNNING] TestStandardSeaLevelIsa...
+[PASSED] TestStandardSeaLevelIsa
+[RUNNING] TestTroposphereLapseAndTropopause...
+[PASSED] TestTroposphereLapseAndTropopause
+[RUNNING] TestNonStandardDayDensityAltitude...
+[PASSED] TestNonStandardDayDensityAltitude
+[RUNNING] TestSpeedOfSoundAndViscosity...
+[PASSED] TestSpeedOfSoundAndViscosity
+[RUNNING] TestLogarithmicBoundaryLayerWindShear...
+[PASSED] TestLogarithmicBoundaryLayerWindShear
+[RUNNING] TestRunwayWindDecomposition...
+[PASSED] TestRunwayWindDecomposition
+[RUNNING] TestDrydenTurbulenceAndRelativeVelocity...
+[PASSED] TestDrydenTurbulenceAndRelativeVelocity
+============================================================
+[ALL 7 ATMOSPHERE & WEATHER TEST SUITES PASSED (100%)]
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"AtmosphereWeatherTests" end time: Oct 14 18:17 Hora oficial do Brasil
+"AtmosphereWeatherTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/15 Testing: GraphicsOptimizationTests
+12/15 Test: GraphicsOptimizationTests
+Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSGraphicsOptimizationTests.exe"
+Directory: C:/Users/diego/Documents/Projetos/LokYS/build
+"GraphicsOptimizationTests" start time: Oct 14 18:17 Hora oficial do Brasil
+Output:
+----------------------------------------------------------
+============================================================
+LokYS Native Windows Flight Simulator — Graphics Optimization Tests
+============================================================
+[RUNNING] TestAtmosphericFogFormulas...
+[PASSED] TestAtmosphericFogFormulas
+[RUNNING] TestShadowMapMatrixCalculations...
+[PASSED] TestShadowMapMatrixCalculations
+[RUNNING] TestTerrainElevationAndAirportMesaFlattening...
+[PASSED] TestTerrainElevationAndAirportMesaFlattening
+[RUNNING] TestCameraFrustumCulling...
+[PASSED] TestCameraFrustumCulling
+[RUNNING] TestPapiGlidepathAngleEvaluation...
+[PASSED] TestPapiGlidepathAngleEvaluation
+[RUNNING] TestWindsockOrientationAndDroop...
+[PASSED] TestWindsockOrientationAndDroop
+[RUNNING] TestWeatherPresetFogParameters...
+[PASSED] TestWeatherPresetFogParameters
+============================================================
+[ALL 7 GRAPHICS OPTIMIZATION TEST SUITES PASSED (100%)]
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"GraphicsOptimizationTests" end time: Oct 14 18:17 Hora oficial do Brasil
+"GraphicsOptimizationTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/15 Testing: NetworkMultiplayerTests
+13/15 Test: NetworkMultiplayerTests
+Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSNetworkMultiplayerTests.exe"
+Directory: C:/Users/diego/Documents/Projetos/LokYS/build
+"NetworkMultiplayerTests" start time: Oct 14 18:17 Hora oficial do Brasil
+Output:
+----------------------------------------------------------
+============================================================
+LokYS Native Windows Flight Simulator — Network Multiplayer Tests
+============================================================
+[RUNNING] TestPacketSerializationAndCrc...
+[PASSED] TestPacketSerializationAndCrc
+[RUNNING] TestClientServerConnectHandshake...
+[PASSED] TestClientServerConnectHandshake
+[RUNNING] TestFlightSnapshotPackingAndUnpacking...
+[PASSED] TestFlightSnapshotPackingAndUnpacking
+[RUNNING] TestHermiteCubicSplinePositionInterpolation...
+[PASSED] TestHermiteCubicSplinePositionInterpolation
+[RUNNING] TestQuaternionSlerpAttitudeInterpolation...
+[PASSED] TestQuaternionSlerpAttitudeInterpolation
+[RUNNING] TestProjectiveDeadReckoningExtrapolation...
+[PASSED] TestProjectiveDeadReckoningExtrapolation
+[RUNNING] TestLoopbackClientServerReplicationWithMockChannel...
+[PASSED] TestLoopbackClientServerReplicationWithMockChannel
+============================================================
+[ALL 7 NETWORK MULTIPLAYER TEST SUITES PASSED (100%)]
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"NetworkMultiplayerTests" end time: Oct 14 18:17 Hora oficial do Brasil
+"NetworkMultiplayerTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/15 Testing: GlassCockpitAutopilotTests
+14/15 Test: GlassCockpitAutopilotTests
+Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSGlassCockpitAutopilotTests.exe"
+Directory: C:/Users/diego/Documents/Projetos/LokYS/build
+"GlassCockpitAutopilotTests" start time: Oct 14 18:17 Hora oficial do Brasil
+Output:
+----------------------------------------------------------
+============================================================
+LokYS Digital Glass Cockpit & Autopilot Test Suite (M21)
+============================================================
+[RUNNING] TestPidControllerLimitsAndAntiWindup...
+[PASSED] TestPidControllerLimitsAndAntiWindup
+[RUNNING] TestAutopilotWingLevelerAndRollHold...
+[PASSED] TestAutopilotWingLevelerAndRollHold
+[RUNNING] TestAutopilotHeadingSelect...
+[PASSED] TestAutopilotHeadingSelect
+[RUNNING] TestAutopilotAltitudeCaptureAndHold...
+[PASSED] TestAutopilotAltitudeCaptureAndHold
+[RUNNING] TestAutopilotVerticalSpeedHold...
+[PASSED] TestAutopilotVerticalSpeedHold
+[RUNNING] TestAutopilotNavCourseAndIlsGlideslope...
+[PASSED] TestAutopilotNavCourseAndIlsGlideslope
+[RUNNING] TestFlightDirectorAndPilotOverrideSafety...
+[PASSED] TestFlightDirectorAndPilotOverrideSafety
+============================================================
+[ALL 7 AUTOPILOT & GLASS COCKPIT TESTS PASSED]
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"GlassCockpitAutopilotTests" end time: Oct 14 18:17 Hora oficial do Brasil
+"GlassCockpitAutopilotTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/15 Testing: MultiAircraftSceneryTests
+15/15 Test: MultiAircraftSceneryTests
+Command: "C:/Users/diego/Documents/Projetos/LokYS/build/LokYSMultiAircraftSceneryTests.exe"
+Directory: C:/Users/diego/Documents/Projetos/LokYS/build
+"MultiAircraftSceneryTests" start time: Oct 14 18:17 Hora oficial do Brasil
+Output:
+----------------------------------------------------------
+========================================
+ LokYS Flight Simulator - Milestone M22
+ Multi-Aircraft & Scenery Unit Tests
+========================================
+[RUNNING] TestAircraftRegistryConfigurations...
+[PASS] TestAircraftRegistryConfigurations
+[RUNNING] TestMultiEngineAsymmetricThrust...
+[PASS] TestMultiEngineAsymmetricThrust
+[RUNNING] TestRetractableGearAerodynamics...
+[PASS] TestRetractableGearAerodynamics
+[RUNNING] TestAerobaticSymmetricAirfoil...
+[PASS] TestAerobaticSymmetricAirfoil
+[RUNNING] TestAirportDatabaseAndElevationBlending...
+[PASS] TestAirportDatabaseAndElevationBlending
+[RUNNING] TestApproachLightingSystemTimings...
+[PASS] TestApproachLightingSystemTimings
+[RUNNING] TestTerrainStreamingTileLODs...
+[PASS] TestTerrainStreamingTileLODs
+========================================
+ Test Results: 7 / 7 suites passed.
+========================================
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"MultiAircraftSceneryTests" end time: Oct 14 18:17 Hora oficial do Brasil
+"MultiAircraftSceneryTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 14 18:17 Hora oficial do Brasil

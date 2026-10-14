@@ -61,6 +61,8 @@ public:
     [[nodiscard]] bool WasFdToggleTriggered() const noexcept { return m_fdToggleTriggered; }
     [[nodiscard]] bool WasApLateralCycleTriggered() const noexcept { return m_apLateralCycleTriggered; }
     [[nodiscard]] bool WasApVerticalCycleTriggered() const noexcept { return m_apVerticalCycleTriggered; }
+    [[nodiscard]] bool WasAircraftCycleTriggered() const noexcept { return m_aircraftCycleTriggered; }
+    [[nodiscard]] bool WasGearToggleTriggered() const noexcept { return m_gearToggleTriggered; }
     [[nodiscard]] f64 GetAltitudeBugDelta() const noexcept { return m_altitudeBugDelta; }
     [[nodiscard]] f64 GetKollsmanDelta() const noexcept { return m_kollsmanDelta; }
     [[nodiscard]] f64 GetHeadingBugDelta() const noexcept { return m_headingBugDelta; }
@@ -123,6 +125,10 @@ private:
     bool m_prevApVerticalKey{ false };
     bool m_apVerticalCycleTriggered{ false };
     f64 m_altitudeBugDelta{ 0.0 };
+    bool m_prevAircraftCycleKey{ false };
+    bool m_aircraftCycleTriggered{ false };
+    bool m_prevGearToggleKey{ false };
+    bool m_gearToggleTriggered{ false };
 };
 
 

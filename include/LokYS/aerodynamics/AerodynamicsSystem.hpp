@@ -5,6 +5,8 @@
 #include "LokYS/math/CoordinateFrames.hpp"
 #include "LokYS/math/Units.hpp"
 
+#include "LokYS/aircraft/AircraftTypes.hpp"
+
 namespace LokYS::Aerodynamics {
 
 struct AircraftGeometry {
@@ -51,6 +53,11 @@ public:
 
     void SetGeometry(const AircraftGeometry& geometry) noexcept { m_geometry = geometry; }
     [[nodiscard]] const AircraftGeometry& GetGeometry() const noexcept { return m_geometry; }
+
+    void SetConfig(
+        const Aircraft::AircraftGeometryConfig& geo,
+        const Aircraft::AeroDerivativesConfig& aero,
+        bool gearExtended = true) noexcept;
 
     // Evaluates aerodynamic forces and moments from airframe state
     [[nodiscard]] AeroOutput Evaluate(
