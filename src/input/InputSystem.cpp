@@ -52,6 +52,7 @@ void InputSystem::Poll(f64 dt) noexcept {
     m_avionicsAlignTriggered = false;
     m_navSwapTriggered = false;
     m_navIdentTriggered = false;
+    m_weatherToggleTriggered = false;
     m_kollsmanDelta = 0.0;
     m_headingBugDelta = 0.0;
     m_obsDelta = 0.0;
@@ -274,6 +275,13 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
     if (IsDown('I')) {
         m_navFreqDelta += 0.5 * dt;
     }
+
+    // Weather Preset Toggle: 'W' key
+    bool wDown = IsDown('W');
+    if (wDown && !m_prevWeatherKey) {
+        m_weatherToggleTriggered = true;
+    }
+    m_prevWeatherKey = wDown;
 }
 
 void InputSystem::ApplySerialControls(

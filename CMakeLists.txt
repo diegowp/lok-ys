@@ -60,6 +60,9 @@ set(LOKYS_SOURCES
     src/navigation/RadioNavSystem.cpp
     src/serial/SerialPort.cpp
     src/serial/SerialInterfaceSystem.cpp
+    src/environment/AtmosphereModel.cpp
+    src/environment/WindModel.cpp
+    src/environment/EnvironmentSystem.cpp
 )
 
 set(LOKYS_HEADERS
@@ -102,6 +105,10 @@ set(LOKYS_HEADERS
     include/LokYS/serial/SerialProtocol.hpp
     include/LokYS/serial/SerialPort.hpp
     include/LokYS/serial/SerialInterfaceSystem.hpp
+    include/LokYS/environment/AtmosphereTypes.hpp
+    include/LokYS/environment/AtmosphereModel.hpp
+    include/LokYS/environment/WindModel.hpp
+    include/LokYS/environment/EnvironmentSystem.hpp
 )
 
 add_executable(LokYSFlightSimulator WIN32
@@ -279,3 +286,17 @@ target_link_libraries(LokYSSerialInterfaceTests PRIVATE
 )
 
 add_test(NAME SerialInterfaceTests COMMAND LokYSSerialInterfaceTests)
+
+add_executable(LokYSAtmosphereWeatherTests
+    tests/unit/AtmosphereWeatherTests.cpp
+    src/environment/AtmosphereModel.cpp
+    src/environment/WindModel.cpp
+    src/environment/EnvironmentSystem.cpp
+    ${LOKYS_HEADERS}
+)
+
+target_include_directories(LokYSAtmosphereWeatherTests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+add_test(NAME AtmosphereWeatherTests COMMAND LokYSAtmosphereWeatherTests)

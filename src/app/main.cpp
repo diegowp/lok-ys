@@ -25,6 +25,7 @@
 #include "LokYS/audio/AudioSystem.hpp"
 #include "LokYS/navigation/RadioNavSystem.hpp"
 #include "LokYS/serial/SerialInterfaceSystem.hpp"
+#include "LokYS/environment/EnvironmentSystem.hpp"
 #include <windows.h>
 #include <sstream>
 #include <iomanip>
@@ -70,7 +71,7 @@ int WINAPI wWinMain(
         }
         if (hOut != INVALID_HANDLE_VALUE && hOut != nullptr) {
             std::wstringstream ss;
-            ss << L"LokYS Native Windows Flight Simulator [Milestone M17 Serial Cockpit Hardware Interface]\n";
+            ss << L"LokYS Native Windows Flight Simulator [Milestone M18 Atmospheric & Weather Systems]\n";
             ss << L"============================================================\n";
             ss << L"Detected GPU: " << caps.adapterName << L"\n";
             ss << L"Dedicated VRAM: " << (caps.dedicatedVideoMemory / (1024 * 1024)) << L" MB\n";
@@ -91,8 +92,9 @@ int WINAPI wWinMain(
             ss << L"XAudio2 & X3DAudio Spatial Sound Subsystem (Engine, Wind, Ground): OPERATIONAL\n";
             ss << L"VHF Radio Navigation & Instrument Landing Subsystem (VOR, ILS, DME, Markers): OPERATIONAL\n";
             ss << L"Serial Cockpit Hardware Interface (Win32 COM Overlapped I/O & Microcontroller Ingestion): OPERATIONAL\n";
+            ss << L"Atmospheric & Weather Systems (ISA Lapse, Wind Shear, Dryden Turbulence, Runway Crosswinds): OPERATIONAL\n";
             ss << L"============================================================\n";
-            ss << L"[M17 SERIAL COCKPIT HARDWARE INTERFACE VERIFICATION EXIT 0]\n";
+            ss << L"[M18 ATMOSPHERIC & WEATHER SYSTEMS VERIFICATION EXIT 0]\n";
 
             std::wstring wtext = ss.str();
             DWORD mode = 0;
@@ -115,7 +117,7 @@ int WINAPI wWinMain(
     // Milestone M2: Win32 Window & High-Resolution Event Pump
     LokYS::Window window;
     LokYS::WindowDesc desc;
-    desc.title = L"LokYS Flight Simulator (M17 - Serial Cockpit Hardware Interface)";
+    desc.title = L"LokYS Flight Simulator (M18 - Atmospheric & Weather Systems)";
     desc.width = 1280;
     desc.height = 720;
     desc.resizable = true;
@@ -195,6 +197,10 @@ int WINAPI wWinMain(
     LokYS::Avionics::AvionicsSystem avionics;
     bool showAvionicsPanel = true;
 
+    // Milestone M18: Atmospheric & Weather Systems
+    LokYS::Environment::EnvironmentSystem environment;
+    environment.Initialize();
+
     // Milestone M6 & M7: Simulation Scheduler & 6-DOF Aircraft Rigid Body
     LokYS::Simulation::SimulationScheduler scheduler(1.0 / 120.0, 5); // 120 Hz
     LokYS::Physics::RigidBody aircraft(1111.0, LokYS::Math::Mat3d(
@@ -207,7 +213,7 @@ int WINAPI wWinMain(
     // Initial State Presets: Runway Takeoff vs 3000 ft Cruise
     bool onRunwayMode = true;
 
-    auto ResetToRunway = [&aircraft, &input, &propulsion, &avionics]() {
+    auto ResetToRunway = [&aircraft, &input, &propulsion, &avionics, &environment]() {
         LokYS::Physics::RigidBodyState state{};
         // Position at South threshold of 2000m runway, centered on runway X=0, gear in static equilibrium (Z = -0.935m)
         state.positionNed = { -800.0, 0.0, -0.935 };
@@ -226,13 +232,14 @@ int WINAPI wWinMain(
         propulsion.SetFuelQuantityKg(144.5);
         propulsion.SetRpm(680.0);
 
+        environment.Update(state.positionNed, state.attitude, 0.0, 1.0 / 120.0);
         avionics.ResetToSteadyState(
             state,
-            LokYS::Math::Constants::STANDARD_SEA_LEVEL_PRESSURE,
-            LokYS::Math::Constants::SEA_LEVEL_DENSITY);
+            environment.GetAtmosphere().pressurePa,
+            environment.GetAtmosphere().densityKgM3);
     };
 
-    auto ResetToCruise = [&aircraft, &input, &propulsion, &avionics]() {
+    auto ResetToCruise = [&aircraft, &input, &propulsion, &avionics, &environment]() {
         LokYS::Physics::RigidBodyState state{};
         // Airborne at 3000 ft (914.4m) at 100 knots (51.44 m/s)
         state.positionNed = { 0.0, 0.0, -914.4 };
@@ -251,10 +258,11 @@ int WINAPI wWinMain(
         propulsion.SetFuelQuantityKg(120.0);
         propulsion.SetRpm(2500.0);
 
-        LokYS::f64 altM = 914.4;
-        LokYS::f64 airDensity = LokYS::Math::Constants::SEA_LEVEL_DENSITY * std::exp(-altM / 8500.0);
-        LokYS::f64 ambientPressure = LokYS::Math::Constants::STANDARD_SEA_LEVEL_PRESSURE * std::exp(-altM / 8500.0);
-        avionics.ResetToSteadyState(state, ambientPressure, airDensity);
+        environment.Update(state.positionNed, state.attitude, 51.4444, 1.0 / 120.0);
+        avionics.ResetToSteadyState(
+            state,
+            environment.GetAtmosphere().pressurePa,
+            environment.GetAtmosphere().densityKgM3);
     };
 
     ResetToRunway();
@@ -355,6 +363,11 @@ int WINAPI wWinMain(
             radioNav.AdjustNav1StandbyFrequency(dFreq);
         }
 
+        // Milestone M18: Cycle Weather Presets with 'W' key
+        if (input.WasWeatherToggleTriggered()) {
+            environment.CyclePreset();
+        }
+
         // Milestone M17: Ingest Inbound Hardware Controls from Microcontroller Panel
         if (serialInterface.HasHardwareControls()) {
             auto hwCtrl = serialInterface.GetLatestFlightControls();
@@ -372,7 +385,15 @@ int WINAPI wWinMain(
             deflections.flaps = static_cast<LokYS::f64>(ctrl.flapSetting) / 3.0;
 
             const auto& state = aircraft.GetState();
-            auto aeroOut = aero.Evaluate(state.velocityBody, state.angularVelocityBody, deflections);
+
+            // Milestone M18: Atmospheric & Weather Systems Update
+            environment.Update(state.positionNed, state.attitude, latestAeroOut.trueAirspeedMps, dt);
+            const auto& atmo = environment.GetAtmosphere();
+
+            // Aerodynamic relative velocity in Body frame: V_rel = V_aircraft - V_wind
+            LokYS::Math::Vec3d relVelBody = environment.ComputeRelativeVelocityBody(state.velocityBody);
+
+            auto aeroOut = aero.Evaluate(relVelBody, state.angularVelocityBody, deflections, atmo.densityKgM3, atmo.speedOfSoundMps);
             latestAeroOut = aeroOut;
 
             // Apply aerodynamic forces and moments
@@ -387,12 +408,7 @@ int WINAPI wWinMain(
             propCtrl.magnetosLeft = true;
             propCtrl.magnetosRight = true;
 
-            // Barometric density and pressure altitude lapse
-            LokYS::f64 altM = -state.positionNed.z;
-            LokYS::f64 airDensity = LokYS::Math::Constants::SEA_LEVEL_DENSITY * std::exp(-altM / 8500.0);
-            LokYS::f64 ambientPressure = LokYS::Math::Constants::STANDARD_SEA_LEVEL_PRESSURE * std::exp(-altM / 8500.0);
-
-            auto propOut = propulsion.Evaluate(propCtrl, state.velocityBody, state.angularVelocityBody, airDensity, ambientPressure, dt);
+            auto propOut = propulsion.Evaluate(propCtrl, state.velocityBody, state.angularVelocityBody, atmo.densityKgM3, atmo.pressurePa, dt);
             latestPropOut = propOut;
 
             aircraft.AddForceBody(propOut.thrustForceBody);
@@ -408,7 +424,7 @@ int WINAPI wWinMain(
 
             // Milestone M14: Analog Six-Pack Avionics Subsystem
             LokYS::Math::Vec3d linearAccelBody = aeroOut.forcesBody * (1.0 / aircraft.GetMass());
-            avionics.Update(state, linearAccelBody, ambientPressure, airDensity, dt);
+            avionics.Update(state, linearAccelBody, atmo.pressurePa, atmo.densityKgM3, dt);
 
             // Milestone M16: Radio Navigation Systems
             LokYS::Math::Vec3d velocityNed = state.attitude.Rotate(state.velocityBody);
@@ -592,6 +608,21 @@ int WINAPI wWinMain(
                 dmeStr = dmeSs.str();
             }
 
+            const auto& envState = environment.GetState();
+            std::wstringstream wxSs;
+            wxSs << L" | WX: " << environment.GetPresetName();
+            if (envState.activePreset != LokYS::Environment::WeatherPreset::ClearCalm) {
+                LokYS::f64 wSpdKt = envState.totalWindNed.Length() * LokYS::Environment::Constants::MPS_TO_KNOTS;
+                LokYS::f64 xwKt = envState.crosswindMps * LokYS::Environment::Constants::MPS_TO_KNOTS;
+                wxSs << L" (" << static_cast<int>(wSpdKt) << L"kt";
+                if (std::abs(xwKt) > 0.5) {
+                    wxSs << L", XW: " << static_cast<int>(std::abs(xwKt))
+                         << (xwKt >= 0.0 ? L"kt R" : L"kt L");
+                }
+                wxSs << L")";
+            }
+            wxSs << L" | DA: " << static_cast<int>(envState.atmosphere.densityAltitudeFt) << L"ft";
+
             std::wstringstream ss;
             ss << L"LokYS | " << std::fixed << std::setprecision(0) << timer.GetFPS() << L" FPS"
                << L" | IAS: " << static_cast<int>(avi.airspeed.indicatedAirspeedKnots) << L" kts"
@@ -599,6 +630,7 @@ int WINAPI wWinMain(
                << L" | VSI: " << static_cast<int>(avi.verticalSpeed.verticalSpeedFpm) << L" fpm"
                << L" | HDG: " << static_cast<int>(avi.heading.indicatedHeadingDeg) << L"\u00B0"
                << L" | Bug: " << static_cast<int>(avi.heading.headingBugDeg) << L"\u00B0"
+               << wxSs.str()
                << L" | NAV1: " << std::fixed << std::setprecision(2) << nav1.activeFrequencyMhz
                << (nav1.stationIdent.empty() ? L"" : (std::wstring(L" [") + std::wstring(nav1.stationIdent.begin(), nav1.stationIdent.end()) + L"]"))
                << L" OBS: " << static_cast<int>(nav1.cdi.obsDeg) << L"\u00B0"
@@ -615,6 +647,7 @@ int WINAPI wWinMain(
                << L" | COM: " << (serialInterface.IsConnected() ? L"LIVE" : L"OFF")
                << L" | " << (camera.GetMode() == LokYS::Graphics::CameraMode::Chase ? L"Chase [C]" : L"Cockpit [C]")
                << L" | Panel [H]: " << (shouldDrawPanel ? L"ON" : L"OFF")
+               << L" | [W]x"
                << L" | Reset: [R]";
             SetWindowTextW(window.GetHwnd(), ss.str().c_str());
         }

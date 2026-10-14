@@ -54,6 +54,7 @@ public:
     [[nodiscard]] bool WasAvionicsAlignTriggered() const noexcept { return m_avionicsAlignTriggered; }
     [[nodiscard]] bool WasNavSwapTriggered() const noexcept { return m_navSwapTriggered; }
     [[nodiscard]] bool WasNavIdentTriggered() const noexcept { return m_navIdentTriggered; }
+    [[nodiscard]] bool WasWeatherToggleTriggered() const noexcept { return m_weatherToggleTriggered; }
     [[nodiscard]] f64 GetKollsmanDelta() const noexcept { return m_kollsmanDelta; }
     [[nodiscard]] f64 GetHeadingBugDelta() const noexcept { return m_headingBugDelta; }
     [[nodiscard]] f64 GetObsDelta() const noexcept { return m_obsDelta; }
@@ -90,12 +91,14 @@ private:
     bool m_prevAlignKey{ false };
     bool m_prevNavSwapKey{ false };
     bool m_prevNavIdentKey{ false };
+    bool m_prevWeatherKey{ false };
     bool m_cameraToggleTriggered{ false };
     bool m_resetTriggered{ false };
     bool m_panelToggleTriggered{ false };
     bool m_avionicsAlignTriggered{ false };
     bool m_navSwapTriggered{ false };
     bool m_navIdentTriggered{ false };
+    bool m_weatherToggleTriggered{ false };
     f64 m_kollsmanDelta{ 0.0 };
     f64 m_headingBugDelta{ 0.0 };
     f64 m_obsDelta{ 0.0 };
