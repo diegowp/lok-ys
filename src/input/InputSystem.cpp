@@ -66,6 +66,29 @@ void InputSystem::Poll(f64 dt) noexcept {
     m_navFreqDelta = 0.0;
     m_aircraftCycleTriggered = false;
     m_gearToggleTriggered = false;
+    m_cameraOrbitYawDelta = 0.0f;
+    m_cameraOrbitPitchDelta = 0.0f;
+    m_cameraZoomDelta = 0.0f;
+    m_orbitResetTriggered = false;
+
+    // Mouse Right Drag for 360-degree Orbit
+    if (GetKeyState(VK_RBUTTON) < 0) {
+        POINT pt{};
+        if (GetCursorPos(&pt) && m_hwnd) {
+            ScreenToClient(m_hwnd, &pt);
+            if (m_rightMouseDown) {
+                int dx = pt.x - m_lastMouseX;
+                int dy = pt.y - m_lastMouseY;
+                m_cameraOrbitYawDelta += static_cast<f32>(dx) * 0.005f;
+                m_cameraOrbitPitchDelta += static_cast<f32>(dy) * 0.005f;
+            }
+            m_lastMouseX = pt.x;
+            m_lastMouseY = pt.y;
+            m_rightMouseDown = true;
+        }
+    } else {
+        m_rightMouseDown = false;
+    }
 
     // Hardware joystick polling
     if (m_joystickConnected) {
@@ -359,6 +382,31 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
     }
     if (IsDown('P')) {
         m_altitudeBugDelta += 200.0 * dt;
+    }
+
+    // Dynamic Camera Orbit Controls: Alt + Arrow Keys or NumPad (4, 6, 8, 2)
+    if (IsDown(VK_MENU)) { // Alt key held down
+        if (IsDown(VK_LEFT))  m_cameraOrbitYawDelta -= static_cast<f32>(1.5 * dt);
+        if (IsDown(VK_RIGHT)) m_cameraOrbitYawDelta += static_cast<f32>(1.5 * dt);
+        if (IsDown(VK_UP))    m_cameraOrbitPitchDelta -= static_cast<f32>(1.5 * dt);
+        if (IsDown(VK_DOWN))  m_cameraOrbitPitchDelta += static_cast<f32>(1.5 * dt);
+    }
+    if (IsDown(VK_NUMPAD4)) m_cameraOrbitYawDelta -= static_cast<f32>(2.0 * dt);
+    if (IsDown(VK_NUMPAD6)) m_cameraOrbitYawDelta += static_cast<f32>(2.0 * dt);
+    if (IsDown(VK_NUMPAD8)) m_cameraOrbitPitchDelta -= static_cast<f32>(2.0 * dt);
+    if (IsDown(VK_NUMPAD2)) m_cameraOrbitPitchDelta += static_cast<f32>(2.0 * dt);
+
+    // Orbit Reset: Backspace, NumPad 5, or Middle Mouse Button
+    if (IsDown(VK_BACK) || IsDown(VK_NUMPAD5) || IsDown(VK_MBUTTON)) {
+        m_orbitResetTriggered = true;
+    }
+
+    // Dynamic Camera Zoom: NumPad +/- or Alt/Ctrl with +/-
+    if (IsDown(VK_ADD) || (IsDown(VK_OEM_PLUS) && (IsDown(VK_CONTROL) || IsDown(VK_MENU)))) {
+        m_cameraZoomDelta -= static_cast<f32>(0.5 * dt); // Zoom in
+    }
+    if (IsDown(VK_SUBTRACT) || (IsDown(VK_OEM_MINUS) && (IsDown(VK_CONTROL) || IsDown(VK_MENU)))) {
+        m_cameraZoomDelta += static_cast<f32>(0.5 * dt); // Zoom out
     }
 }
 

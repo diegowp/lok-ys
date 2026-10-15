@@ -69,6 +69,12 @@ public:
     [[nodiscard]] f64 GetObsDelta() const noexcept { return m_obsDelta; }
     [[nodiscard]] f64 GetNavFrequencyDelta() const noexcept { return m_navFreqDelta; }
 
+    // Dynamic Camera Orbit & Zoom Controls
+    [[nodiscard]] f32 GetCameraOrbitYawDelta() const noexcept { return m_cameraOrbitYawDelta; }
+    [[nodiscard]] f32 GetCameraOrbitPitchDelta() const noexcept { return m_cameraOrbitPitchDelta; }
+    [[nodiscard]] f32 GetCameraZoomDelta() const noexcept { return m_cameraZoomDelta; }
+    [[nodiscard]] bool WasOrbitResetTriggered() const noexcept { return m_orbitResetTriggered; }
+
     // Manual control setters for automation / autopilot
     void SetControls(const FlightControls& controls) noexcept { m_controls = controls; }
 
@@ -129,6 +135,15 @@ private:
     bool m_aircraftCycleTriggered{ false };
     bool m_prevGearToggleKey{ false };
     bool m_gearToggleTriggered{ false };
+
+    // Camera orbit & zoom tracking
+    f32 m_cameraOrbitYawDelta{ 0.0f };
+    f32 m_cameraOrbitPitchDelta{ 0.0f };
+    f32 m_cameraZoomDelta{ 0.0f };
+    bool m_orbitResetTriggered{ false };
+    bool m_rightMouseDown{ false };
+    i32 m_lastMouseX{ 0 };
+    i32 m_lastMouseY{ 0 };
 };
 
 

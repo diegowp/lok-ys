@@ -218,6 +218,12 @@ LRESULT Window::HandleMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
         return 0;
     }
 
+    case WM_MOUSEWHEEL: {
+        short wheelDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+        m_mouseWheelDelta += static_cast<f32>(wheelDelta) / static_cast<f32>(WHEEL_DELTA);
+        return 0;
+    }
+
     case WM_ERASEBKGND:
         // Direct3D 12 handles background rendering; avoid flickering
         return 1;

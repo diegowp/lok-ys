@@ -42,6 +42,7 @@
 #include <iomanip>
 #include <cmath>
 #include <algorithm>
+#include <filesystem>
 
 int WINAPI wWinMain(
     [[maybe_unused]] HINSTANCE hInstance,
@@ -229,14 +230,20 @@ int WINAPI wWinMain(
         };
         std::string gltfErr;
         for (const auto& path : searchPaths) {
-            if (model.LoadFromGlbFile(path, &gltfErr)) {
-                (void)model.CreateGPUResources(graphics.GetDevice());
-                return;
+            if (std::filesystem::exists(path)) {
+                if (model.LoadFromGlbFile(path, &gltfErr)) {
+                    (void)model.CreateGPUResources(graphics.GetDevice());
+                    return;
+                }
             }
         }
-        // Save to disk in primary paths for future launches
-        saveFunc("assets/models/" + filename);
-        saveFunc("build/assets/models/" + filename);
+        // Save to disk in primary paths for future launches ONLY if files do not exist (protect user custom models)
+        if (!std::filesystem::exists("assets/models/" + filename)) {
+            saveFunc("assets/models/" + filename);
+        }
+        if (!std::filesystem::exists("build/assets/models/" + filename)) {
+            saveFunc("build/assets/models/" + filename);
+        }
         for (const auto& path : searchPaths) {
             if (model.LoadFromGlbFile(path, &gltfErr)) {
                 (void)model.CreateGPUResources(graphics.GetDevice());
@@ -252,26 +259,138 @@ int WINAPI wWinMain(
         }
     };
 
-    LokYS::Graphics::GltfModel cessnaModel;
-    LoadOrGenerateModel(
-        cessnaModel,
-        "cessna172.glb",
-        static_cast<bool (*)(const std::string&)>(&LokYS::Graphics::AircraftModelGenerator::SaveCessna172Glb),
-        &LokYS::Graphics::AircraftModelGenerator::GenerateCessna172Glb);
+    struct AircraftCatalogEntry {
+        std::wstring displayName;
+        std::string filename;
+        LokYS::Graphics::GltfModel model;
+        LokYS::Aircraft::AircraftType archetype{ LokYS::Aircraft::AircraftType::Cessna172Skyhawk };
+    };
 
-    LokYS::Graphics::GltfModel baronModel;
-    LoadOrGenerateModel(
-        baronModel,
-        "baron58.glb",
-        static_cast<bool (*)(const std::string&)>(&LokYS::Graphics::AircraftModelGenerator::SaveBaron58Glb),
-        &LokYS::Graphics::AircraftModelGenerator::GenerateBaron58Glb);
+    std::vector<AircraftCatalogEntry> aircraftCatalog;
 
-    LokYS::Graphics::GltfModel extraModel;
-    LoadOrGenerateModel(
-        extraModel,
-        "extra330.glb",
-        static_cast<bool (*)(const std::string&)>(&LokYS::Graphics::AircraftModelGenerator::SaveExtra330Glb),
-        &LokYS::Graphics::AircraftModelGenerator::GenerateExtra330Glb);
+    // 1. Built-in archetypes with procedural binary fallbacks
+    {
+        AircraftCatalogEntry cessnaEntry;
+        cessnaEntry.displayName = L"Cessna 172 Skyhawk";
+        cessnaEntry.filename = "cessna172.glb";
+        cessnaEntry.archetype = LokYS::Aircraft::AircraftType::Cessna172Skyhawk;
+        LoadOrGenerateModel(
+            cessnaEntry.model,
+            "cessna172.glb",
+            static_cast<bool (*)(const std::string&)>(&LokYS::Graphics::AircraftModelGenerator::SaveCessna172Glb),
+            &LokYS::Graphics::AircraftModelGenerator::GenerateCessna172Glb);
+        cessnaEntry.model.AutoNormalizeToSpan(11.0f);
+        aircraftCatalog.push_back(std::move(cessnaEntry));
+    }
+
+    {
+        AircraftCatalogEntry baronEntry;
+        baronEntry.displayName = L"Baron 58";
+        baronEntry.filename = "baron58.glb";
+        baronEntry.archetype = LokYS::Aircraft::AircraftType::Baron58;
+        LoadOrGenerateModel(
+            baronEntry.model,
+            "baron58.glb",
+            static_cast<bool (*)(const std::string&)>(&LokYS::Graphics::AircraftModelGenerator::SaveBaron58Glb),
+            &LokYS::Graphics::AircraftModelGenerator::GenerateBaron58Glb);
+        baronEntry.model.AutoNormalizeToSpan(11.53f);
+        aircraftCatalog.push_back(std::move(baronEntry));
+    }
+
+    {
+        AircraftCatalogEntry extraEntry;
+        extraEntry.displayName = L"Extra 330SC";
+        extraEntry.filename = "extra330.glb";
+        extraEntry.archetype = LokYS::Aircraft::AircraftType::Extra330SC;
+        LoadOrGenerateModel(
+            extraEntry.model,
+            "extra330.glb",
+            static_cast<bool (*)(const std::string&)>(&LokYS::Graphics::AircraftModelGenerator::SaveExtra330Glb),
+            &LokYS::Graphics::AircraftModelGenerator::GenerateExtra330Glb);
+        extraEntry.model.AutoNormalizeToSpan(7.50f);
+        aircraftCatalog.push_back(std::move(extraEntry));
+    }
+
+    // 2. Dynamic Discovery: Scan models directory for ANY custom .glb models
+    auto DiscoverCustomGlbModels = [&](const std::string& dirPath) {
+        if (!std::filesystem::exists(dirPath)) return;
+        std::error_code ec;
+        for (const auto& entry : std::filesystem::directory_iterator(dirPath, ec)) {
+            if (ec) break;
+            if (!entry.is_regular_file()) continue;
+
+            std::string ext = entry.path().extension().string();
+            for (char& c : ext) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+            if (ext != ".glb") continue;
+
+            std::string fn = entry.path().filename().string();
+            std::string fnLower = fn;
+            for (char& c : fnLower) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+
+            // Skip built-in archetypes already registered
+            if (fnLower == "cessna172.glb" || fnLower == "baron58.glb" || fnLower == "extra330.glb") {
+                continue;
+            }
+
+            // Check if already loaded in catalog
+            bool alreadyInCatalog = false;
+            for (const auto& item : aircraftCatalog) {
+                std::string itemFnLower = item.filename;
+                for (char& c : itemFnLower) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+                if (itemFnLower == fnLower) {
+                    alreadyInCatalog = true;
+                    break;
+                }
+            }
+            if (alreadyInCatalog) continue;
+
+            AircraftCatalogEntry customEntry{};
+            customEntry.filename = fn;
+            std::string gltfErr;
+            if (customEntry.model.LoadFromGlbFile(entry.path().string(), &gltfErr)) {
+                customEntry.model.AutoNormalizeToSpan(0.0f); // Preserve 1:1 metric scale, auto-detect cm/mm
+                (void)customEntry.model.CreateGPUResources(graphics.GetDevice());
+
+                // Format human-readable display name from filename
+                std::string stem = entry.path().stem().string();
+                std::wstring wideDisplayName;
+                bool capNext = true;
+                for (char c : stem) {
+                    if (c == '_' || c == '-') {
+                        wideDisplayName += L' ';
+                        capNext = true;
+                    } else if (capNext) {
+                        wideDisplayName += static_cast<wchar_t>(std::toupper(static_cast<unsigned char>(c)));
+                        capNext = false;
+                    } else {
+                        wideDisplayName += static_cast<wchar_t>(c);
+                    }
+                }
+                customEntry.displayName = wideDisplayName;
+
+                // Associate archetype: heavy / large aircraft use twin/multi-engine Baron 58 physics
+                if (customEntry.model.GetEffectiveDimensions().x > 18.0f) {
+                    customEntry.archetype = LokYS::Aircraft::AircraftType::Baron58;
+                } else {
+                    customEntry.archetype = LokYS::Aircraft::AircraftType::Cessna172Skyhawk;
+                }
+
+                aircraftCatalog.push_back(std::move(customEntry));
+            }
+        }
+    };
+
+    DiscoverCustomGlbModels("assets/models");
+    DiscoverCustomGlbModels("build/assets/models");
+    DiscoverCustomGlbModels("../assets/models");
+
+    size_t activeCatalogIdx = 0;
+
+    // Dynamic camera framing initialization based on loaded active aircraft model dimensions
+    camera.SetTargetDimensions(
+        aircraftCatalog[activeCatalogIdx].model.GetEffectiveDimensions().z,
+        aircraftCatalog[activeCatalogIdx].model.GetEffectiveDimensions().x,
+        aircraftCatalog[activeCatalogIdx].model.GetEffectiveDimensions().y);
 
     // Milestone M22: Approach Lighting System (ALSF-1 720m array + Sequenced Strobes + REIL)
     LokYS::Graphics::ApproachLightingSystem approachLights;
@@ -539,6 +658,7 @@ int WINAPI wWinMain(
         // Toggle Camera View with 'C' key
         if (input.WasCameraToggleTriggered()) {
             camera.ToggleMode();
+            camera.ResetOrbit();
         }
 
         // Toggle / Reset Flight Position with 'R' key (Runway <-> 3000ft Cruise)
@@ -551,10 +671,19 @@ int WINAPI wWinMain(
             }
         }
 
-        // Milestone M22: Cycle Aircraft Archetype with 'V' key (Cessna 172 -> Baron 58 -> Extra 330)
-        if (input.WasAircraftCycleTriggered()) {
-            aircraftRegistry.CycleAircraft();
+        // Milestone M22: Cycle Aircraft Archetype / Model with 'V' key (Cessna 172 -> Baron 58 -> Extra 330 -> Custom Models)
+        if (input.WasAircraftCycleTriggered() && !aircraftCatalog.empty()) {
+            activeCatalogIdx = (activeCatalogIdx + 1) % aircraftCatalog.size();
+            const auto& activeEntry = aircraftCatalog[activeCatalogIdx];
+            aircraftRegistry.SetActiveType(activeEntry.archetype);
             ApplyAircraftConfig(aircraftRegistry.GetActiveConfig());
+
+            // Dynamically update camera framing to fit the active aircraft dimensions
+            camera.SetTargetDimensions(
+                activeEntry.model.GetEffectiveDimensions().z,
+                activeEntry.model.GetEffectiveDimensions().x,
+                activeEntry.model.GetEffectiveDimensions().y);
+            camera.ResetOrbit();
         }
 
         // Milestone M22: Toggle Retractable Landing Gear with 'U' key (Baron 58)
@@ -827,6 +956,27 @@ int WINAPI wWinMain(
         if (!window.IsMinimized()) {
             graphics.OnResize(window.GetWidth(), window.GetHeight());
             camera.SetPerspective(1.0472f, graphics.GetAspectRatio(), 0.2f, 20000.0f);
+
+            // Handle Camera Zoom from Mouse Wheel and Keyboard
+            LokYS::f32 wheelDelta = window.GetAndResetMouseWheelDelta();
+            if (std::abs(wheelDelta) > 1e-4f) {
+                camera.AdjustZoom(-wheelDelta * 0.12f);
+            }
+            LokYS::f32 keyZoom = input.GetCameraZoomDelta();
+            if (std::abs(keyZoom) > 1e-4f) {
+                camera.AdjustZoom(keyZoom);
+            }
+
+            // Handle Camera Orbit from Right Mouse Drag and Keyboard
+            LokYS::f32 orbitYaw = input.GetCameraOrbitYawDelta();
+            LokYS::f32 orbitPitch = input.GetCameraOrbitPitchDelta();
+            if (std::abs(orbitYaw) > 1e-5f || std::abs(orbitPitch) > 1e-5f) {
+                camera.AdjustOrbit(orbitYaw, orbitPitch);
+            }
+            if (input.WasOrbitResetTriggered()) {
+                camera.ResetOrbit();
+            }
+
             camera.Update(renderSnapshot.bodyState.positionNed, renderSnapshot.bodyState.attitude, timer.GetDeltaTime());
 
             // Animate propeller and control surfaces for glTF articulated model
@@ -845,18 +995,7 @@ int WINAPI wWinMain(
                 }
             }
 
-            LokYS::Graphics::GltfModel* activeModel = &cessnaModel;
-            switch (aircraftRegistry.GetActiveType()) {
-            case LokYS::Aircraft::AircraftType::Cessna172Skyhawk:
-                activeModel = &cessnaModel;
-                break;
-            case LokYS::Aircraft::AircraftType::Baron58:
-                activeModel = &baronModel;
-                break;
-            case LokYS::Aircraft::AircraftType::Extra330SC:
-                activeModel = &extraModel;
-                break;
-            }
+            LokYS::Graphics::GltfModel* activeModel = &aircraftCatalog[activeCatalogIdx].model;
 
             activeModel->ApplyAircraftControls(
                 static_cast<float>(renderCtrl.pitch),
@@ -1135,12 +1274,9 @@ int WINAPI wWinMain(
             }
             papiStr += L"]";
 
-            std::wstring acName;
-            switch (aircraftRegistry.GetActiveType()) {
-            case LokYS::Aircraft::AircraftType::Cessna172Skyhawk: acName = L"C172"; break;
-            case LokYS::Aircraft::AircraftType::Baron58:           acName = L"B58"; break;
-            case LokYS::Aircraft::AircraftType::Extra330SC:        acName = L"E330"; break;
-            }
+            std::wstring acName = !aircraftCatalog.empty()
+                ? aircraftCatalog[activeCatalogIdx].displayName
+                : L"Aircraft";
 
             std::wstring gearStateStr;
             if (aircraftRegistry.GetActiveConfig().hasRetractableGear) {

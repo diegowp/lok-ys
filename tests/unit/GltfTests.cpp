@@ -169,6 +169,65 @@ void TestCorruptedGlbRejection() {
     TEST_ASSERT(!model.LoadFromGlbMemory(badLen, sizeof(badLen), &err), "Length overflow rejected");
 }
 
+void TestBoundingBoxAndNormalization() {
+    // 1. Generate procedural Cessna 172
+    std::vector<u8> glbData = AircraftModelGenerator::GenerateCessna172Glb();
+    GltfModel model;
+    std::string err;
+    TEST_ASSERT(model.LoadFromGlbMemory(glbData.data(), glbData.size(), &err), "Load GLB for bounds test");
+
+    // 2. Verify initial AABB
+    const auto& bounds = model.GetBounds();
+    TEST_ASSERT(bounds.dimensions.x > 10.0f && bounds.dimensions.x < 12.0f, "Detected wingspan ~11.0m");
+    TEST_ASSERT(bounds.dimensions.y > 1.5f && bounds.dimensions.y < 4.0f, "Detected height ~2.0-3.5m");
+    TEST_ASSERT(bounds.dimensions.z > 5.0f && bounds.dimensions.z < 8.0f, "Detected length ~6.0-7.0m");
+
+    // 3. Test AutoNormalizeToSpan on standard metric model (should stay identity)
+    model.AutoNormalizeToSpan(11.0f);
+    TEST_NEAR(model.GetNormalizationTransform().m[0][0], 1.0f, 1e-4, "Scale X is 1.0 for metric model");
+    TEST_NEAR(model.GetNormalizationTransform().m[1][1], 1.0f, 1e-4, "Scale Y is 1.0 for metric model");
+    TEST_NEAR(model.GetNormalizationTransform().m[2][2], 1.0f, 1e-4, "Scale Z is 1.0 for metric model");
+
+    // 4. Test AutoNormalizeToSpan with target span = 5.5m (scale factor ~0.5)
+    model.AutoNormalizeToSpan(5.5f);
+    f32 scaleX = model.GetNormalizationTransform().m[0][0];
+    TEST_NEAR(scaleX, 0.5f, 0.05f, "AutoNormalize scales down to 5.5m wingspan");
+    TEST_NEAR(model.GetEffectiveDimensions().x, 5.5f, 0.1f, "Effective wingspan reported as 5.5m");
+}
+
+void TestNodeMatrixSupport() {
+    std::string jsonStr = R"({
+        "asset": { "version": "2.0" },
+        "nodes": [
+            {
+                "name": "RootMatrixNode",
+                "matrix": [
+                    1.0, 0.0, 0.0, 0.0,
+                    0.0, -1.0, 0.0, 0.0,
+                    0.0, 0.0, 1.0, 0.0,
+                    15.0, 25.0, 35.0, 1.0
+                ]
+            }
+        ]
+    })";
+
+    GltfModel model;
+    std::string err;
+    bool parsed = model.ParseJson(jsonStr, nullptr, 0, &err);
+    TEST_ASSERT(parsed, "Parsed glTF JSON with node matrix");
+    TEST_ASSERT(model.GetNodes().size() == 1, "Model has 1 node");
+    const auto& node = model.GetNodes()[0];
+    TEST_ASSERT(node.hasMatrix, "Node detected hasMatrix=true");
+    TEST_NEAR(node.matrix.m[3][0], 15.0f, 1e-4, "Matrix translation X matches");
+    TEST_NEAR(node.matrix.m[3][1], 25.0f, 1e-4, "Matrix translation Y matches");
+    TEST_NEAR(node.matrix.m[3][2], 35.0f, 1e-4, "Matrix translation Z matches");
+    TEST_NEAR(node.matrix.m[1][1], -1.0f, 1e-4, "Matrix rotation matches inverted Y");
+
+    model.UpdateForwardKinematics();
+    TEST_NEAR(node.worldTransform.m[3][0], 15.0f, 1e-4, "WorldTransform matches local matrix X");
+    TEST_NEAR(node.worldTransform.m[1][1], -1.0f, 1e-4, "WorldTransform matches local matrix Y rot");
+}
+
 int main() {
     std::cout << "========================================\n";
     std::cout << " LokYS glTF 2.0 Aircraft Model Tests\n";
@@ -178,6 +237,8 @@ int main() {
     TestGlbGenerationAndLoading();
     TestControlSurfaceArticulations();
     TestCorruptedGlbRejection();
+    TestBoundingBoxAndNormalization();
+    TestNodeMatrixSupport();
 
     std::cout << "\n----------------------------------------\n";
     std::cout << "Tests Passed: " << g_testsPassed << "\n";

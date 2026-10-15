@@ -24,7 +24,22 @@ public:
 
     void SetPerspective(f32 fovYRadians, f32 aspectRatio, f32 nearZ = 0.2f, f32 farZ = 20000.0f) noexcept;
     void Update(const Math::Vec3d& aircraftPosNed, const Math::Quat4d& aircraftAttitude, f64 dt) noexcept;
-    void Reset() noexcept { m_firstUpdate = true; }
+    void Reset() noexcept { m_firstUpdate = true; ResetOrbit(); }
+
+    // Dynamic Framing & Model Dimension Adaptation
+    void SetTargetDimensions(f32 lengthM, f32 spanM, f32 heightM) noexcept;
+    [[nodiscard]] const Math::Vec3f& GetTargetDimensions() const noexcept { return m_targetDimensions; }
+
+    // Interactive Zoom Controls (0.35x to 4.0x)
+    void AdjustZoom(f32 deltaZoom) noexcept;
+    void SetZoom(f32 zoom) noexcept;
+    [[nodiscard]] f32 GetZoom() const noexcept { return m_zoomMultiplier; }
+
+    // Interactive 360-degree Orbit Controls (Yaw and Pitch around aircraft)
+    void AdjustOrbit(f32 deltaYawRad, f32 deltaPitchRad) noexcept;
+    void ResetOrbit() noexcept;
+    [[nodiscard]] f32 GetOrbitYaw() const noexcept { return m_orbitYawRad; }
+    [[nodiscard]] f32 GetOrbitPitch() const noexcept { return m_orbitPitchRad; }
 
     [[nodiscard]] const Math::Vec3d& GetCameraPosNed() const noexcept { return m_cameraPosNed; }
     [[nodiscard]] const Math::Vec3f& GetCameraPosGfx() const noexcept { return m_cameraPosGfx; }
@@ -54,6 +69,12 @@ private:
     // Chase camera smooth tracking
     Math::Vec3d m_smoothChasePosNed{ 0.0, 0.0, 0.0 };
     bool m_firstUpdate{ true };
+
+    // Dynamic Framing, Zoom, and Orbit
+    Math::Vec3f m_targetDimensions{ 8.28f, 11.0f, 2.72f };
+    f32 m_zoomMultiplier{ 1.0f };
+    f32 m_orbitYawRad{ 0.0f };
+    f32 m_orbitPitchRad{ 0.0f };
 };
 
 } // namespace LokYS::Graphics

@@ -42,6 +42,11 @@ public:
     [[nodiscard]] u32 GetHeight() const noexcept { return m_height; }
     [[nodiscard]] bool IsMinimized() const noexcept { return m_minimized; }
     [[nodiscard]] f32 GetDpiScale() const noexcept { return m_dpiScale; }
+    [[nodiscard]] f32 GetAndResetMouseWheelDelta() noexcept {
+        f32 d = m_mouseWheelDelta;
+        m_mouseWheelDelta = 0.0f;
+        return d;
+    }
 
     void SetShouldClose(bool close) noexcept { m_shouldClose = close; }
 
@@ -55,6 +60,7 @@ private:
     u32 m_width{1280};
     u32 m_height{720};
     f32 m_dpiScale{1.0f};
+    f32 m_mouseWheelDelta{0.0f};
     bool m_minimized{false};
     bool m_shouldClose{false};
     bool m_classRegistered{false};

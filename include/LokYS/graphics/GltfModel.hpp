@@ -70,9 +70,25 @@ public:
     // Node classification helper
     void AutoDetectArticulations() noexcept;
 
+    // Bounding Box & Auto-Normalization
+    void ComputeBoundingBox() noexcept;
+    void AutoNormalizeToSpan(f32 targetSpanM) noexcept;
+    void SetNormalizationTransform(const Math::Mat4f& transform) noexcept { m_normalizationTransform = transform; }
+
+    [[nodiscard]] const ModelBounds& GetBounds() const noexcept { return m_bounds; }
+    [[nodiscard]] const Math::Vec3f& GetDimensions() const noexcept { return m_bounds.dimensions; }
+    [[nodiscard]] const Math::Vec3f& GetCenter() const noexcept { return m_bounds.center; }
+    [[nodiscard]] Math::Vec3f GetEffectiveDimensions() const noexcept {
+        if (m_normalizedDimensions.x > 0.01f) {
+            return m_normalizedDimensions;
+        }
+        return m_bounds.dimensions;
+    }
+    [[nodiscard]] const Math::Mat4f& GetNormalizationTransform() const noexcept { return m_normalizationTransform; }
+    [[nodiscard]] bool ParseJson(std::string_view jsonText, const u8* binData = nullptr, size_t binSize = 0, std::string* outError = nullptr);
+
 private:
     [[nodiscard]] bool ParseGlb(const u8* data, size_t size, std::string* outError);
-    [[nodiscard]] bool ParseJson(std::string_view jsonText, const u8* binData, size_t binSize, std::string* outError);
 
     void ExtractPrimitiveData(
         GltfPrimitive& prim,
@@ -105,6 +121,10 @@ private:
     i32 m_gearNoseNodeIdx{ -1 };
     i32 m_gearLeftNodeIdx{ -1 };
     i32 m_gearRightNodeIdx{ -1 };
+
+    ModelBounds m_bounds{};
+    Math::Vec3f m_normalizedDimensions{ 0.0f, 0.0f, 0.0f };
+    Math::Mat4f m_normalizationTransform{ Math::Mat4f::Identity() };
 
     bool m_isLoaded{ false };
 };

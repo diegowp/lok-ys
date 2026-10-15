@@ -380,6 +380,19 @@ bool GltfModel::ParseJson(
                 }
             }
 
+            if (nodeVal.HasKey("matrix")) {
+                const auto& m = nodeVal["matrix"].AsArray();
+                if (m.size() >= 16) {
+                    node.hasMatrix = true;
+                    node.matrix = Math::Mat4f(
+                        m[0].AsFloat(),  m[1].AsFloat(),  m[2].AsFloat(),  m[3].AsFloat(),
+                        m[4].AsFloat(),  m[5].AsFloat(),  m[6].AsFloat(),  m[7].AsFloat(),
+                        m[8].AsFloat(),  m[9].AsFloat(),  m[10].AsFloat(), m[11].AsFloat(),
+                        m[12].AsFloat(), m[13].AsFloat(), m[14].AsFloat(), m[15].AsFloat()
+                    );
+                }
+            }
+
             node.translation = node.restTranslation;
             node.rotation = node.restRotation;
             node.scale = node.restScale;
@@ -425,6 +438,7 @@ bool GltfModel::ParseJson(
 
     AutoDetectArticulations();
     UpdateForwardKinematics();
+    ComputeBoundingBox();
 
     m_isLoaded = true;
     return true;
@@ -766,8 +780,8 @@ void GltfModel::Draw(
         if (node.meshIndex >= 0 && node.meshIndex < static_cast<i32>(m_meshes.size())) {
             const auto& mesh = m_meshes[static_cast<size_t>(node.meshIndex)];
 
-            // Model Matrix = Node World Matrix * Aircraft Root Transform
-            Math::Mat4f model = node.worldTransform * rootTransform;
+            // Model Matrix = Node World Matrix * Normalization Transform * Aircraft Root Transform
+            Math::Mat4f model = node.worldTransform * m_normalizationTransform * rootTransform;
             Math::Mat4f mvp = model * viewProjMatrix;
 
             // Update constant buffer MVP (first 16 floats of root constants)
@@ -778,6 +792,112 @@ void GltfModel::Draw(
             }
         }
     }
+}
+
+void GltfModel::ComputeBoundingBox() noexcept {
+    if (m_meshes.empty()) {
+        m_bounds = ModelBounds{};
+        return;
+    }
+
+    Math::Vec3f minB{ 1e30f, 1e30f, 1e30f };
+    Math::Vec3f maxB{ -1e30f, -1e30f, -1e30f };
+    bool hasVertices = false;
+
+    // Compute bounding box transformed by rest node hierarchy
+    for (const auto& node : m_nodes) {
+        if (node.meshIndex >= 0 && node.meshIndex < static_cast<i32>(m_meshes.size())) {
+            const auto& mesh = m_meshes[static_cast<size_t>(node.meshIndex)];
+            const auto& wTransform = node.worldTransform;
+
+            for (const auto& prim : mesh.primitives) {
+                for (const auto& v : prim.vertices) {
+                    // Row-vector convention: p_model = v.pos * wTransform
+                    f32 px = v.position.x * wTransform.m[0][0] + v.position.y * wTransform.m[1][0] + v.position.z * wTransform.m[2][0] + wTransform.m[3][0];
+                    f32 py = v.position.x * wTransform.m[0][1] + v.position.y * wTransform.m[1][1] + v.position.z * wTransform.m[2][1] + wTransform.m[3][1];
+                    f32 pz = v.position.x * wTransform.m[0][2] + v.position.y * wTransform.m[1][2] + v.position.z * wTransform.m[2][2] + wTransform.m[3][2];
+
+                    minB.x = std::min(minB.x, px);
+                    minB.y = std::min(minB.y, py);
+                    minB.z = std::min(minB.z, pz);
+
+                    maxB.x = std::max(maxB.x, px);
+                    maxB.y = std::max(maxB.y, py);
+                    maxB.z = std::max(maxB.z, pz);
+
+                    hasVertices = true;
+                }
+            }
+        }
+    }
+
+    if (!hasVertices) {
+        for (const auto& mesh : m_meshes) {
+            for (const auto& prim : mesh.primitives) {
+                for (const auto& v : prim.vertices) {
+                    minB.x = std::min(minB.x, v.position.x);
+                    minB.y = std::min(minB.y, v.position.y);
+                    minB.z = std::min(minB.z, v.position.z);
+
+                    maxB.x = std::max(maxB.x, v.position.x);
+                    maxB.y = std::max(maxB.y, v.position.y);
+                    maxB.z = std::max(maxB.z, v.position.z);
+
+                    hasVertices = true;
+                }
+            }
+        }
+    }
+
+    if (hasVertices) {
+        m_bounds.minBound = minB;
+        m_bounds.maxBound = maxB;
+        m_bounds.dimensions = maxB - minB;
+        m_bounds.center = (minB + maxB) * 0.5f;
+    } else {
+        m_bounds = ModelBounds{};
+    }
+}
+
+void GltfModel::AutoNormalizeToSpan(f32 targetSpanM) noexcept {
+    ComputeBoundingBox();
+    if (m_bounds.dimensions.x <= 0.01f) {
+        return;
+    }
+
+    f32 currentSpan = m_bounds.dimensions.x;
+    f32 scaleFactor = 1.0f;
+
+    // Detect if model needs scale correction (e.g. exported in centimeters, millimeters, inches, or wrong units)
+    if (targetSpanM > 0.1f) {
+        if (currentSpan > 30.0f || currentSpan < 2.0f || std::abs(currentSpan - targetSpanM) > 0.20f * targetSpanM) {
+            scaleFactor = targetSpanM / currentSpan;
+        }
+    } else {
+        // Auto unit detection if no explicit target span is given (e.g. custom user models)
+        if (currentSpan > 500.0f && currentSpan < 50000.0f) {
+            scaleFactor = 0.01f; // Likely cm -> m
+        } else if (currentSpan >= 50000.0f) {
+            scaleFactor = 0.001f; // Likely mm -> m
+        }
+    }
+
+    // Determine if recentering is needed:
+    // Only recenter if the model was rescaled, or if its geometric center is far from origin
+    // (origin outside the model or shifted horizontally):
+    Math::Vec3f centerOffset{ 0.0f, 0.0f, 0.0f };
+    if (scaleFactor != 1.0f || std::abs(m_bounds.center.x) > 1.0f ||
+        (m_bounds.dimensions.z > 0.1f && std::abs(m_bounds.center.z) > m_bounds.dimensions.z * 0.5f)) {
+        centerOffset = -m_bounds.center;
+    }
+
+    // Normalization matrix in row-vector convention:
+    // P_norm = (P + centerOffset) * scaleFactor
+    Math::Mat4f tMat = Math::Mat4f::Translation(centerOffset);
+    Math::Mat4f sMat = Math::Mat4f::Scale(Math::Vec3f(scaleFactor, scaleFactor, scaleFactor));
+    m_normalizationTransform = tMat * sMat;
+
+    m_normalizedDimensions = m_bounds.dimensions * scaleFactor;
 }
 
 size_t GltfModel::GetTotalVertexCount() const noexcept {

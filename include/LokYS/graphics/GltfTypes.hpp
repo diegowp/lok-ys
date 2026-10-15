@@ -86,6 +86,13 @@ struct GltfMesh {
     std::vector<GltfPrimitive> primitives;
 };
 
+struct ModelBounds {
+    Math::Vec3f minBound{ 0.0f, 0.0f, 0.0f };
+    Math::Vec3f maxBound{ 0.0f, 0.0f, 0.0f };
+    Math::Vec3f center{ 0.0f, 0.0f, 0.0f };
+    Math::Vec3f dimensions{ 0.0f, 0.0f, 0.0f };
+};
+
 struct GltfNode {
     std::string name;
     i32 meshIndex{ -1 };
@@ -102,6 +109,10 @@ struct GltfNode {
     Math::Quat4f rotation{ Math::Quat4f::Identity() };
     Math::Vec3f scale{ 1.0f, 1.0f, 1.0f };
 
+    // Matrix transformation (glTF node "matrix" property)
+    bool hasMatrix{ false };
+    Math::Mat4f matrix{ Math::Mat4f::Identity() };
+
     // Articulation parameters
     ArticulationType articulationType{ ArticulationType::None };
     Math::Vec3f pivotPoint{ 0.0f, 0.0f, 0.0f };
@@ -113,6 +124,19 @@ struct GltfNode {
     Math::Mat4f worldTransform{ Math::Mat4f::Identity() };
 
     void ComputeLocalTransform() noexcept {
+        if (hasMatrix) {
+            if (currentDeflectionRad != 0.0f) {
+                Math::Quat4f defRot = Math::Quat4f::FromAxisAngle(hingeAxis, currentDeflectionRad);
+                Math::Mat4f tPivot = Math::Mat4f::Translation(pivotPoint);
+                Math::Mat4f tNegPivot = Math::Mat4f::Translation(-pivotPoint);
+                Math::Mat4f rMat = Math::Mat4f::FromQuaternion(defRot);
+                localTransform = tNegPivot * rMat * tPivot * matrix;
+            } else {
+                localTransform = matrix;
+            }
+            return;
+        }
+
         // M_local = T(translation) * R(rotation) * S(scale)
         // If pivot is set and deflection != 0:
         if (currentDeflectionRad != 0.0f) {
