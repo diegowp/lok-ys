@@ -432,6 +432,33 @@ build CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainStreamingSystem.cp
   TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
   TARGET_PDB = LokYSFlightSimulator.pdb
 
+build CMakeFiles\LokYSFlightSimulator.dir\src\input\ActionMapping.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\input\ActionMapping.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\input
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\input\ConfigPersistence.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\input\ConfigPersistence.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\input
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\graphics\MenuRenderer.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\graphics\MenuRenderer.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\graphics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target LokYSFlightSimulator
@@ -440,7 +467,7 @@ build CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainStreamingSystem.cp
 #############################################
 # Link the executable LokYSFlightSimulator.exe
 
-build LokYSFlightSimulator.exe: CXX_EXECUTABLE_LINKER__LokYSFlightSimulator_Release CMakeFiles\LokYSFlightSimulator.dir\src\app\main.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\EngineContext.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\Timer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\platform\Window.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GraphicsDevice.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GpuCapabilities.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Camera.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Mesh.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Renderer3D.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GltfModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AircraftModelGenerator.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\RigidBody.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\GroundReactions.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\InputSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\propulsion\PropulsionSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\avionics\AvionicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AvionicsRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\audio\AudioSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\NavDatabase.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\RadioNavSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\serial\SerialPort.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\serial\SerialInterfaceSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\AtmosphereModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\WindModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\EnvironmentSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ShadowMap.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ScenerySystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\UdpSocket.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\RemoteAircraft.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\NetworkSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\autopilot\AutopilotSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GlassCockpitRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aircraft\AircraftRegistry.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\scenery\AirportDatabase.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ApproachLightingSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainStreamingSystem.cpp.obj
+build LokYSFlightSimulator.exe: CXX_EXECUTABLE_LINKER__LokYSFlightSimulator_Release CMakeFiles\LokYSFlightSimulator.dir\src\app\main.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\EngineContext.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\Timer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\platform\Window.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GraphicsDevice.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GpuCapabilities.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Camera.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Mesh.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Renderer3D.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GltfModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AircraftModelGenerator.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\RigidBody.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\GroundReactions.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\InputSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\propulsion\PropulsionSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\avionics\AvionicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AvionicsRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\audio\AudioSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\NavDatabase.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\RadioNavSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\serial\SerialPort.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\serial\SerialInterfaceSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\AtmosphereModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\WindModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\EnvironmentSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ShadowMap.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ScenerySystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\UdpSocket.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\RemoteAircraft.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\NetworkSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\autopilot\AutopilotSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GlassCockpitRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aircraft\AircraftRegistry.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\scenery\AirportDatabase.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ApproachLightingSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainStreamingSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\ActionMapping.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\ConfigPersistence.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\MenuRenderer.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:windows
   LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  user32.lib  gdi32.lib  shell32.lib  kernel32.lib  winmm.lib  xaudio2.lib  ole32.lib  ws2_32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
@@ -489,6 +516,44 @@ build LokYSMathTests.exe: CXX_EXECUTABLE_LINKER__LokYSMathTests_Release CMakeFil
   TARGET_FILE = LokYSMathTests.exe
   TARGET_IMPLIB = LokYSMathTests.lib
   TARGET_PDB = LokYSMathTests.pdb
+
+# =============================================================================
+# Object build statements for EXECUTABLE target LokYSGameStateTests
+
+
+#############################################
+# Order-only phony target for LokYSGameStateTests
+
+build cmake_object_order_depends_target_LokYSGameStateTests: phony || CMakeFiles\LokYSGameStateTests.dir
+
+build CMakeFiles\LokYSGameStateTests.dir\tests\unit\GameStateTests.cpp.obj: CXX_COMPILER__LokYSGameStateTests_Release ..\tests\unit\GameStateTests.cpp || cmake_object_order_depends_target_LokYSGameStateTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSGameStateTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSGameStateTests.dir\tests\unit
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSGameStateTests.dir\
+  TARGET_PDB = LokYSGameStateTests.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target LokYSGameStateTests
+
+
+#############################################
+# Link the executable LokYSGameStateTests.exe
+
+build LokYSGameStateTests.exe: CXX_EXECUTABLE_LINKER__LokYSGameStateTests_Release CMakeFiles\LokYSGameStateTests.dir\tests\unit\GameStateTests.cpp.obj
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
+  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\LokYSGameStateTests.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSGameStateTests.dir\
+  TARGET_FILE = LokYSGameStateTests.exe
+  TARGET_IMPLIB = LokYSGameStateTests.lib
+  TARGET_PDB = LokYSGameStateTests.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target LokYSGltfTests
@@ -659,6 +724,15 @@ build CMakeFiles\LokYSAeroInputTests.dir\src\input\InputSystem.cpp.obj: CXX_COMP
   TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroInputTests.dir\
   TARGET_PDB = LokYSAeroInputTests.pdb
 
+build CMakeFiles\LokYSAeroInputTests.dir\src\input\ActionMapping.cpp.obj: CXX_COMPILER__LokYSAeroInputTests_Release ..\src\input\ActionMapping.cpp || cmake_object_order_depends_target_LokYSAeroInputTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSAeroInputTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSAeroInputTests.dir\src\input
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroInputTests.dir\
+  TARGET_PDB = LokYSAeroInputTests.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target LokYSAeroInputTests
@@ -667,7 +741,7 @@ build CMakeFiles\LokYSAeroInputTests.dir\src\input\InputSystem.cpp.obj: CXX_COMP
 #############################################
 # Link the executable LokYSAeroInputTests.exe
 
-build LokYSAeroInputTests.exe: CXX_EXECUTABLE_LINKER__LokYSAeroInputTests_Release CMakeFiles\LokYSAeroInputTests.dir\tests\unit\AeroInputTests.cpp.obj CMakeFiles\LokYSAeroInputTests.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSAeroInputTests.dir\src\input\InputSystem.cpp.obj
+build LokYSAeroInputTests.exe: CXX_EXECUTABLE_LINKER__LokYSAeroInputTests_Release CMakeFiles\LokYSAeroInputTests.dir\tests\unit\AeroInputTests.cpp.obj CMakeFiles\LokYSAeroInputTests.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSAeroInputTests.dir\src\input\InputSystem.cpp.obj CMakeFiles\LokYSAeroInputTests.dir\src\input\ActionMapping.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = winmm.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
@@ -939,6 +1013,15 @@ build CMakeFiles\LokYSSerialInterfaceTests.dir\src\input\InputSystem.cpp.obj: CX
   TARGET_COMPILE_PDB = CMakeFiles\LokYSSerialInterfaceTests.dir\
   TARGET_PDB = LokYSSerialInterfaceTests.pdb
 
+build CMakeFiles\LokYSSerialInterfaceTests.dir\src\input\ActionMapping.cpp.obj: CXX_COMPILER__LokYSSerialInterfaceTests_Release ..\src\input\ActionMapping.cpp || cmake_object_order_depends_target_LokYSSerialInterfaceTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSSerialInterfaceTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSSerialInterfaceTests.dir\src\input
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSSerialInterfaceTests.dir\
+  TARGET_PDB = LokYSSerialInterfaceTests.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target LokYSSerialInterfaceTests
@@ -947,7 +1030,7 @@ build CMakeFiles\LokYSSerialInterfaceTests.dir\src\input\InputSystem.cpp.obj: CX
 #############################################
 # Link the executable LokYSSerialInterfaceTests.exe
 
-build LokYSSerialInterfaceTests.exe: CXX_EXECUTABLE_LINKER__LokYSSerialInterfaceTests_Release CMakeFiles\LokYSSerialInterfaceTests.dir\tests\unit\SerialInterfaceTests.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\serial\SerialPort.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\serial\SerialInterfaceSystem.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\input\InputSystem.cpp.obj
+build LokYSSerialInterfaceTests.exe: CXX_EXECUTABLE_LINKER__LokYSSerialInterfaceTests_Release CMakeFiles\LokYSSerialInterfaceTests.dir\tests\unit\SerialInterfaceTests.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\serial\SerialPort.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\serial\SerialInterfaceSystem.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\input\InputSystem.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\input\ActionMapping.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = winmm.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
@@ -1367,6 +1450,62 @@ build LokYSMultiAircraftSceneryTests.exe: CXX_EXECUTABLE_LINKER__LokYSMultiAircr
   TARGET_IMPLIB = LokYSMultiAircraftSceneryTests.lib
   TARGET_PDB = LokYSMultiAircraftSceneryTests.pdb
 
+# =============================================================================
+# Object build statements for EXECUTABLE target LokYSActionMappingTests
+
+
+#############################################
+# Order-only phony target for LokYSActionMappingTests
+
+build cmake_object_order_depends_target_LokYSActionMappingTests: phony || CMakeFiles\LokYSActionMappingTests.dir
+
+build CMakeFiles\LokYSActionMappingTests.dir\tests\unit\ActionMappingTests.cpp.obj: CXX_COMPILER__LokYSActionMappingTests_Release ..\tests\unit\ActionMappingTests.cpp || cmake_object_order_depends_target_LokYSActionMappingTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSActionMappingTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSActionMappingTests.dir\tests\unit
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSActionMappingTests.dir\
+  TARGET_PDB = LokYSActionMappingTests.pdb
+
+build CMakeFiles\LokYSActionMappingTests.dir\src\input\ActionMapping.cpp.obj: CXX_COMPILER__LokYSActionMappingTests_Release ..\src\input\ActionMapping.cpp || cmake_object_order_depends_target_LokYSActionMappingTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSActionMappingTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSActionMappingTests.dir\src\input
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSActionMappingTests.dir\
+  TARGET_PDB = LokYSActionMappingTests.pdb
+
+build CMakeFiles\LokYSActionMappingTests.dir\src\input\ConfigPersistence.cpp.obj: CXX_COMPILER__LokYSActionMappingTests_Release ..\src\input\ConfigPersistence.cpp || cmake_object_order_depends_target_LokYSActionMappingTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSActionMappingTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSActionMappingTests.dir\src\input
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSActionMappingTests.dir\
+  TARGET_PDB = LokYSActionMappingTests.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target LokYSActionMappingTests
+
+
+#############################################
+# Link the executable LokYSActionMappingTests.exe
+
+build LokYSActionMappingTests.exe: CXX_EXECUTABLE_LINKER__LokYSActionMappingTests_Release CMakeFiles\LokYSActionMappingTests.dir\tests\unit\ActionMappingTests.cpp.obj CMakeFiles\LokYSActionMappingTests.dir\src\input\ActionMapping.cpp.obj CMakeFiles\LokYSActionMappingTests.dir\src\input\ConfigPersistence.cpp.obj
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
+  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\LokYSActionMappingTests.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSActionMappingTests.dir\
+  TARGET_FILE = LokYSActionMappingTests.exe
+  TARGET_IMPLIB = LokYSActionMappingTests.lib
+  TARGET_PDB = LokYSActionMappingTests.pdb
+
 
 #############################################
 # Utility command for rebuild_cache
@@ -1382,6 +1521,8 @@ build rebuild_cache: phony CMakeFiles\rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
+build LokYSActionMappingTests: phony LokYSActionMappingTests.exe
+
 build LokYSAeroInputTests: phony LokYSAeroInputTests.exe
 
 build LokYSAtmosphereWeatherTests: phony LokYSAtmosphereWeatherTests.exe
@@ -1391,6 +1532,8 @@ build LokYSAudioTests: phony LokYSAudioTests.exe
 build LokYSAvionicsTests: phony LokYSAvionicsTests.exe
 
 build LokYSFlightSimulator: phony LokYSFlightSimulator.exe
+
+build LokYSGameStateTests: phony LokYSGameStateTests.exe
 
 build LokYSGlassCockpitAutopilotTests: phony LokYSGlassCockpitAutopilotTests.exe
 
@@ -1422,7 +1565,7 @@ build LokYSSerialInterfaceTests: phony LokYSSerialInterfaceTests.exe
 #############################################
 # Folder: C:/Users/diego/Documents/Projetos/LokYS/build
 
-build all: phony LokYSPhysicsTests.exe LokYSFlightSimulator.exe LokYSMathTests.exe LokYSGltfTests.exe LokYSPropulsionTests.exe LokYSAeroInputTests.exe LokYSGroundReactionsTests.exe LokYSAvionicsTests.exe LokYSAudioTests.exe LokYSRadioNavTests.exe LokYSSerialInterfaceTests.exe LokYSAtmosphereWeatherTests.exe LokYSGraphicsOptimizationTests.exe LokYSNetworkMultiplayerTests.exe LokYSGlassCockpitAutopilotTests.exe LokYSMultiAircraftSceneryTests.exe
+build all: phony LokYSPhysicsTests.exe LokYSFlightSimulator.exe LokYSMathTests.exe LokYSGameStateTests.exe LokYSGltfTests.exe LokYSPropulsionTests.exe LokYSAeroInputTests.exe LokYSGroundReactionsTests.exe LokYSAvionicsTests.exe LokYSAudioTests.exe LokYSRadioNavTests.exe LokYSSerialInterfaceTests.exe LokYSAtmosphereWeatherTests.exe LokYSGraphicsOptimizationTests.exe LokYSNetworkMultiplayerTests.exe LokYSGlassCockpitAutopilotTests.exe LokYSMultiAircraftSceneryTests.exe LokYSActionMappingTests.exe
 
 # =============================================================================
 # Built-in targets

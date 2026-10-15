@@ -1,0 +1,188 @@
+
+C:\Users\diego\Documents\Projetos\LokYS>call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat" 
+**********************************************************************
+** Visual Studio 2019 Developer Command Prompt v16.11.46
+** Copyright (c) 2021 Microsoft Corporation
+**********************************************************************
+[vcvarsall.bat] Environment initialized for: 'x64'
+ninja: Entering directory `build'
+[1/2] Building CXX object CMakeFiles\LokYSActionMappingTests.dir\tests\unit\ActionMappingTests.cpp.obj
+FAILED: CMakeFiles/LokYSActionMappingTests.dir/tests/unit/ActionMappingTests.cpp.obj 
+C:\PROGRA~2\MICROS~2\2019\BUILDT~1\VC\Tools\MSVC\1429~1.301\bin\Hostx64\x64\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\include /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest /showIncludes /FoCMakeFiles\LokYSActionMappingTests.dir\tests\unit\ActionMappingTests.cpp.obj /FdCMakeFiles\LokYSActionMappingTests.dir\ /FS -c ..\tests\unit\ActionMappingTests.cpp
+Observaá∆o: incluindo arquivo: ..\include\LokYS/input/ActionMapping.hpp
+Observaá∆o: incluindo arquivo:  ..\include\LokYS/core/Types.hpp
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cstdint
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\yvals_core.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vcruntime.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\sal.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\concurrencysal.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vadefs.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xkeycheck.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\stdint.h
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cstddef
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\stddef.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xtr1common
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\concepts
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\type_traits
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xstddef
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cstdlib
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\math.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_math.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\stdlib.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_malloc.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_search.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wstdlib.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\limits.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\initializer_list
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vcruntime_new.h
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\span
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\compare
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\bit
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\intrin0.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\intrin0.inl.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\isa_availability.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\limits
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cfloat
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\float.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\climits
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cwchar
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cstdio
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\stdio.h
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wstdio.h
+Observaá∆o: incluindo arquivo:           C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_stdio_config.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\wchar.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_memcpy_s.h
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\errno.h
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vcruntime_string.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wconio.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wctype.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wdirect.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wio.h
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_share.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wprocess.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wstring.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wtime.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\sys/stat.h
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\sys/types.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xutility
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\yvals.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\crtdbg.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vcruntime_new_debug.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\crtdefs.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\use_ansi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cstring
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\string.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_memory.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\utility
+Observaá∆o: incluindo arquivo:  C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\string
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xstring
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\iosfwd
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xmemory
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\new
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\exception
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\malloc.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vcruntime_exception.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\eh.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_terminate.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xatomic.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\tuple
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xpolymorphic_allocator.h
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cctype
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\ctype.h
+Observaá∆o: incluindo arquivo:  C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\unordered_map
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xhash
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cmath
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\list
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vector
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xbit_ops.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xnode_handle.h
+Observaá∆o: incluindo arquivo: ..\include\LokYS/input/ConfigPersistence.hpp
+Observaá∆o: incluindo arquivo: C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\iostream
+Observaá∆o: incluindo arquivo:  C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\istream
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\ostream
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\ios
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xlocnum
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\iterator
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\streambuf
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xiosbase
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\share.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\system_error
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\__msvc_system_error_abi.hpp
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cerrno
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\stdexcept
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xcall_once.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xerrc.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\atomic
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xatomic_wait.h
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xthreads.h
+Observaá∆o: incluindo arquivo:           C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xtimec.h
+Observaá∆o: incluindo arquivo:            C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\ctime
+Observaá∆o: incluindo arquivo:             C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\time.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xlocale
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\memory
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\typeinfo
+Observaá∆o: incluindo arquivo:           C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vcruntime_typeinfo.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xfacet
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xlocinfo
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xlocinfo.h
+Observaá∆o: incluindo arquivo:           C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\clocale
+Observaá∆o: incluindo arquivo:            C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\locale.h
+Observaá∆o: incluindo arquivo: C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\filesystem
+Observaá∆o: incluindo arquivo:  C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\algorithm
+Observaá∆o: incluindo arquivo:  C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\chrono
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\__msvc_chrono.hpp
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\ratio
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\__msvc_tzdb.hpp
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\forward_list
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\optional
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xsmf_control.h
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\sstream
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xloctime
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\format
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\charconv
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xcharconv.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xcharconv_ryu.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xcharconv_ryu_tables.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\locale
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xlocbuf
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xlocmes
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xlocmon
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\mutex
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\thread
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\process.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_startup.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\math.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vcruntime_startup.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\stop_token
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\string_view
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xfilesystem_abi.h
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\iomanip
+Observaá∆o: incluindo arquivo: C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cassert
+Observaá∆o: incluindo arquivo:  C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\assert.h
+..\tests\unit\ActionMappingTests.cpp(34,5): error C2065: 'VK_SPACE': identificador n∆o declarado
+..\tests\unit\ActionMappingTests.cpp(37,5): error C2065: 'VK_ESCAPE': identificador n∆o declarado
+..\tests\unit\ActionMappingTests.cpp(39,10): error C2065: 'u32': identificador n∆o declarado
+..\tests\unit\ActionMappingTests.cpp(39,14): error C2146: erro de sintaxe: ';' ausente antes do identificador 'a'
+..\tests\unit\ActionMappingTests.cpp(39,16): error C2143: erro de sintaxe: ';' ausente antes de '='
+..\tests\unit\ActionMappingTests.cpp(39,16): error C2143: erro de sintaxe: ')' ausente antes de '='
+..\tests\unit\ActionMappingTests.cpp(39,16): error C2059: erro de sintaxe: '='
+..\tests\unit\ActionMappingTests.cpp(39,37): error C2061: erro de sintaxe: identificador 'u32'
+..\tests\unit\ActionMappingTests.cpp(39,61): error C2761: 'LokYS::Input::InputAction Count': a redeclaraá∆o de membro n∆o Ç permitida
+..\tests\unit\ActionMappingTests.cpp(39,65): error C2065: 'a': identificador n∆o declarado
+..\tests\unit\ActionMappingTests.cpp(39,66): error C2059: erro de sintaxe: ')'
+..\tests\unit\ActionMappingTests.cpp(40,9): error C2062: tipo 'auto' inesperado
+..\tests\unit\ActionMappingTests.cpp(41,53): error C2065: 'act': identificador n∆o declarado
+..\tests\unit\ActionMappingTests.cpp(43,60): error C2065: 'act': identificador n∆o declarado
+..\tests\unit\ActionMappingTests.cpp(46,1): error C2059: erro de sintaxe: '}'
+..\tests\unit\ActionMappingTests.cpp(46,1): error C2143: erro de sintaxe: ';' ausente antes de '}'
+..\tests\unit\ActionMappingTests.cpp(48,39): error C2143: erro de sintaxe: ';' ausente antes de '{'
+..\tests\unit\ActionMappingTests.cpp(48,39): error C2447: '{': faltando cabeáalho de funá∆o (lista formal de estilo antigo?)
+..\tests\unit\ActionMappingTests.cpp(79,5): error C2065: 'VK_SPACE': identificador n∆o declarado
+..\tests\unit\ActionMappingTests.cpp(127,19): error C2079: 'badFile' usa class 'std::basic_ofstream<char,std::char_traits<char>>' indefinido
+..\tests\unit\ActionMappingTests.cpp(127,67): error C2440: 'inicializando': n∆o Ç poss°vel converter de 'initializer list' para 'int'
+..\tests\unit\ActionMappingTests.cpp(127,26): note: O inicializador contÇm elementos em excesso
+..\tests\unit\ActionMappingTests.cpp(128,54): error C2297: '<<': inv†lido, operando direito possui tipo 'const char [37]'
+..\tests\unit\ActionMappingTests.cpp(128,13): warning C4552: '<<': o resultado da express∆o n∆o Ç usado
+..\tests\unit\ActionMappingTests.cpp(141,5): error C3861: 'TestKeyBindingStringFormatting': identificador n∆o encontrado
+ninja: build stopped: subcommand failed.

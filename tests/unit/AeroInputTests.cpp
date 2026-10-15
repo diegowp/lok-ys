@@ -126,13 +126,21 @@ void TestParkingBrakeStateToggle() {
 }
 
 int main() {
-    std::cout << "========================================\n";
-    std::cout << " LokYS Aerodynamics & Input Test Suite  \n";
-    std::cout << "========================================\n";
+    std::cout << "========================================\n" << std::flush;
+    std::cout << " LokYS Aerodynamics & Input Test Suite  \n" << std::flush;
+    std::cout << "========================================\n" << std::flush;
 
+    std::cout << "[RUNNING] TestAerodynamicCoefficients...\n" << std::flush;
     TestAerodynamicCoefficients();
+    std::cout << "[DONE] TestAerodynamicCoefficients\n" << std::flush;
+
+    std::cout << "[RUNNING] TestInputAxisShaping...\n" << std::flush;
     TestInputAxisShaping();
+    std::cout << "[DONE] TestInputAxisShaping\n" << std::flush;
+
+    std::cout << "[RUNNING] TestParkingBrakeStateToggle...\n" << std::flush;
     TestParkingBrakeStateToggle();
+    std::cout << "[DONE] TestParkingBrakeStateToggle\n" << std::flush;
 
     std::cout << "\n----------------------------------------\n";
     std::cout << "Tests Passed: " << g_testsPassed << "\n";

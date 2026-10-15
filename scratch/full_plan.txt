@@ -1,0 +1,135 @@
+### 1. Diagnóstico Técnico & Delimitação de Restrições
+
+```xml
+<plan_decomposition>
+  <constraint_boundary>
+    <compiler_standard>C++20 (/W4 /WX /permissive- zero warnings)</compiler_standard>
+    <render_engine>Pure Direct3D 12 (no engine dependencies)</render_engine>
+    <physics_clock>120 Hz Fixed Timestep Scheduler decoupled from Render Loop</physics_clock>
+    <regression_target>15/15 existing unit test suites must remain green at 100%</regression_target>
+  </constraint_boundary>
+
+  <execution_phases>
+    <phase id="1" priority="CRITICAL" name="Core Physics, Input Latch & Avionics Inversion Fixes">
+      <scope>Bugs #1, #2, #3: Stationary spawn, rising-edge SPACE parking brake toggle, artificial horizon inversion correction.</scope>
+      <affected_files>
+        src/app/main.cpp
+        include/LokYS/input/InputSystem.hpp
+        src/input/InputSystem.cpp
+        src/graphics/AvionicsRenderer.cpp
+        src/graphics/GlassCockpitRenderer.cpp
+        tests/unit/AvionicsTests.cpp
+        tests/unit/GlassCockpitTests.cpp
+      </affected_files>
+    </phase>
+
+    <phase id="2" priority="HIGH" name="GameState State Machine & Pre-Flight Menu Architecture">
+      <scope>Feature #4: GameState FSM (MainMenu, Simulation, Paused, Settings), freeze physics clock on menu, flight configuration dispatch.</scope>
+      <affected_files>
+        include/LokYS/core/GameState.hpp
+        src/core/GameState.cpp
+        src/app/main.cpp
+      </affected_files>
+    </phase>
+
+    <phase id="3" priority="HIGH" name="Modern High-Contrast D3D12 UI/UX Framework">
+      <scope>Feature #5: Hardware-accelerated 2D vector UI component system (buttons, selectors, panels, hover/active states).</scope>
+      <affected_files>
+        include/LokYS/graphics/MenuRenderer.hpp
+        src/graphics/MenuRenderer.cpp
+        src/app/main.cpp
+      </affected_files>
+    </phase>
+
+    <phase id="4" priority="MEDIUM" name="Global Settings & Input Action Remapping (JSON Persistence)">
+      <scope>Feature #6: Dynamic action mapping engine, keyboard/joystick rebinding, serialization/deserialization to config.json.</scope>
+      <affected_files>
+        include/LokYS/input/ActionMapping.hpp
+        src/input/ActionMapping.cpp
+        src/input/InputSystem.cpp
+        tests/unit/InputTests.cpp
+      </affected_files>
+    </phase>
+  </execution_phases>
+</plan_decomposition>
+```
+
+---
+
+### 2. Execução Direta da Solução (Código / Arquitetura / Parâmetros)
+
+```mermaid
+graph TD
+    P1["Phase 1: Core Physics & Bug Fixes<br/>- Stationary Spawn & Settle<br/>- Parking Brake Latch (SPACE)<br/>- ADI / PFD Inversion Fix"] --> P2["Phase 2: GameState & Pre-Flight Flow<br/>- GameState FSM<br/>- Physics Clock Decoupling<br/>- Flight Config Struct"]
+    P2 --> P3["Phase 3: Modern D3D12 UI Pipeline<br/>- Pre-Flight Setup Menu<br/>- Interactive Widgets & Focus<br/>- Visual Feedback States"]
+    P3 --> P4["Phase 4: Input Remapping & Settings<br/>- Action Map Engine<br/>- JSON Config Persistence<br/>- Settings / Pause Overlay"]
+```
+
+#### Fase 1: Correção Imediata de Bugs Críticos (Física, Input e Instrumentação)
+
+| Item | Ação Técnica | Arquivos-Alvo | Critério de Aceite |
+| :--- | :--- | :--- | :--- |
+| **1.1** | Inicializar `m_parkingBrakeEngaged = true` e fixar `state.velocityBody = {0,0,0}`, `state.angularVelocityBody = {0,0,0}`, `ctrl.throttle = 0.0`. Pre-settle oleo struts em $Z = -0.935\text{ m}$. | [`main.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/src/app/main.cpp), [`InputSystem.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/src/input/InputSystem.cpp) | O avião permanece imóvel em $t=0$ sem deslize ou salto vertical na pista. |
+| **1.2** | Implementar `m_prevSpaceKey` rising-edge filter em `InputSystem::PollKeyboard`. Toggle persistente de `m_parkingBrakeEngaged`. Integrar indicador visual `PARK BRAKE` no Glass Cockpit e HUD. | [`InputSystem.hpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/include/LokYS/input/InputSystem.hpp), [`InputSystem.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/src/input/InputSystem.cpp), [`GlassCockpitRenderer.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/src/graphics/GlassCockpitRenderer.cpp) | Pressionar `SPACE` alterna o estado (`ON` $\leftrightarrow$ `OFF`). Manter a tecla pressionada não gera churn por auto-repeat. |
+| **1.3** | Inverter o vetor de deslocamento do horizonte artificial analógico (`hy = cy + cosR * pitchOffset`) e do Glass Cockpit. Inverter convenção angular de rolamento para rotação anti-horária em curvas à direita. | [`AvionicsRenderer.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/src/graphics/AvionicsRenderer.cpp), [`GlassCockpitRenderer.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/src/graphics/GlassCockpitRenderer.cpp) | Cabeça para cima (+pitch) desce a barra do horizonte (+Y tela); asa direita baixa (+roll) rotaciona anti-horário. |
+| **1.4** | Atualizar e validar unit tests de instrumentos analógicos e PFD. | [`AvionicsTests.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/tests/unit/AvionicsTests.cpp), [`GlassCockpitTests.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/tests/unit/GlassCockpitTests.cpp) | 100% de aprovação nos testes unitários sem regressão matemática. |
+
+#### Fase 2: Arquitetura de Estados de Jogo (GameState Machine & Flight Setup)
+
+| Item | Ação Técnica | Arquivos-Alvo | Critério de Aceite |
+| :--- | :--- | :--- | :--- |
+| **2.1** | Criar `enum class GameState { MainMenu, Simulation, Paused, Settings }`. | [`include/LokYS/core/GameState.hpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/include/LokYS/core/GameState.hpp) | Definição tipada de estados com transições válidas. |
+| **2.2** | Isolar o loop principal do `main.cpp`: se `state != GameState::Simulation`, ignorar `scheduler.AccumulateTime(dt)` e suspender atualização de áudio de motor/vento. | [`src/app/main.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/src/app/main.cpp) | Física congelada durante menus; D3D12 render loop continua operando a 60/120+ FPS. |
+| **2.3** | Estruturar `FlightSetupConfiguration`: seleção de aeronave (índice catálogo), aeroporto (KLOK, KMES, KVAL), preset climático (0 a 4) e modo de spawn (Runway / Cruise). | [`include/LokYS/core/GameState.hpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/include/LokYS/core/GameState.hpp) | Payload desacoplado passado para `ResetToRunway()` e `ResetToCruise()`. |
+
+#### Fase 3: Modern D3D12 UI/UX Framework
+
+| Item | Ação Técnica | Arquivos-Alvo | Critério de Aceite |
+| :--- | :--- | :--- | :--- |
+| **3.1** | Construir pipeline 2D `MenuRenderer` integrado ao D3D12 Root Signature e Vertex Buffer existente para renderização vetorial de caixas, botões, bordas e texto vetorial de alta definição. | [`MenuRenderer.hpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/include/LokYS/graphics/MenuRenderer.hpp), [`MenuRenderer.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/src/graphics/MenuRenderer.cpp) | Renderização pura D3D12 com layout moderno, paleta escura aeronáutica e contrastes nítidos. |
+| **3.2** | Implementar detecção de mouse hover, clique e navegação via teclado/setas na tela de Pre-Flight Setup. | [`MenuRenderer.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/src/graphics/MenuRenderer.cpp), [`Window.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/src/platform/Window.cpp) | Feedback visual imediato ao passar o mouse ou selecionar botões (Start Flight, Aircraft, Weather). |
+| **3.3** | Implementar Pause Menu in-flight via tecla `ESC` (Resume, Restart, Settings, Exit to Menu). | [`src/app/main.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/src/app/main.cpp) | Pressionar `ESC` congela o voo e abre o menu de pausa; `Resume` retorna ao voo instantaneamente. |
+
+#### Fase 4: Mapeamento Dinâmico de Controles e Persistência de Configuração
+
+| Item | Ação Técnica | Arquivos-Alvo | Critério de Aceite |
+| :--- | :--- | :--- | :--- |
+| **4.1** | Criar `ActionMapping` engine mapeando ações abstratas (`Action::PitchUp`, `Action::ToggleBrake`) para bindings de teclado, mouse ou eixos/botões de joystick. | [`ActionMapping.hpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/include/LokYS/input/ActionMapping.hpp), [`ActionMapping.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/src/input/ActionMapping.cpp) | `InputSystem` consulta ações abstratas em vez de chamadas diretas a `GetKeyState(VK_...)`. |
+| **4.2** | Implementar serializador/desserializador JSON minimalista sem dependências externas (`config/controls.json`). | [`src/input/ConfigPersistence.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/src/input/ConfigPersistence.cpp) | Bindings e calibrações são persistidos em disco e recarregados no boot. |
+| **4.3** | Interface de usuário para remapeamento interativo no menu de Settings (ouvir próxima tecla/botão). | [`MenuRenderer.cpp`](file:///c:/Users/diego/Documents/Projetos/LokYS/src/graphics/MenuRenderer.cpp) | Usuário pode reconfigurar qualquer controle pela interface gráfica. |
+
+---
+
+### 3. Blindagem de Casos de Borda & Invariantes Críticos
+
+```xml
+<critical_invariants>
+  <invariant id="INV-001" name="Zero Warning Toolchain Compliance">
+    <rule>O código deve compilar sob /W4 /WX /permissive- sem exceções ou pragmas de silenciamento indiscriminado.</rule>
+    <validation>Compilar via ninja -C build em modo estrito após cada fase.</validation>
+  </invariant>
+
+  <invariant id="INV-002" name="Physics-Clock Decoupling">
+    <rule>O acumulador de tempo do scheduler (m_accumulator) nunca deve acumular deltas durante estados de menu ou pausa.</rule>
+    <validation>Ao retomar de uma pausa de 10 minutos, a simulação não pode executar milhares de substeps acelerados (spiral of death).</validation>
+  </invariant>
+
+  <invariant id="INV-003" name="Input Repeat Suppression">
+    <rule>Ações de alternância de estado (toggle) devem registrar unicamente transições (curr_state == true &amp;&amp; prev_state == false).</rule>
+    <validation>Testes unitários automatizados injetando sequências de frames com tecla pressionada continuamente.</validation>
+  </invariant>
+
+  <invariant id="INV-004" name="Attitude Indicator Continuity">
+    <rule>O horizonte artificial não pode colapsar nem inverter subitamente quando pitch atravessa zero ou extremos de +-85 graus.</rule>
+    <validation>Testes de regressão cobrindo o espectro [-90, +90] pitch e [-180, +180] roll.</validation>
+  </invariant>
+</critical_invariants>
+```
+
+#### Ordem de Execução Recomendada
+Para manter a estabilidade do simulador e validação imediata em voo:
+1. **Executar Fase 1 imediatamente** (resolve os bugs de física, parking brake e inversão de horizonte em ~20 minutos com validação direta por testes unitários e sanity test).
+2. **Executar Fases 2 e 3** (introduz a máquina de estados, menu pré-voo e nova UI D3D12).
+3. **Executar Fase 4** (finaliza com persistência e remapeamento de controles).
+
+Pronto para iniciar a execução da **Fase 1**?

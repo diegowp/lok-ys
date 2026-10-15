@@ -2,6 +2,7 @@
 
 #include "LokYS/core/Types.hpp"
 #include "LokYS/serial/SerialTypes.hpp"
+#include "LokYS/input/ActionMapping.hpp"
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -75,6 +76,23 @@ public:
     [[nodiscard]] f32 GetCameraZoomDelta() const noexcept { return m_cameraZoomDelta; }
     [[nodiscard]] bool WasOrbitResetTriggered() const noexcept { return m_orbitResetTriggered; }
 
+    // GameState & Pre-Flight Menu Triggers
+    [[nodiscard]] bool WasPauseToggleTriggered() const noexcept { return m_pauseToggleTriggered; }
+    [[nodiscard]] bool WasMenuSelectTriggered() const noexcept { return m_menuSelectTriggered; }
+    [[nodiscard]] bool WasMenuBackTriggered() const noexcept { return m_menuBackTriggered; }
+    [[nodiscard]] bool WasAirportCycleTriggered() const noexcept { return m_airportCycleTriggered; }
+    [[nodiscard]] bool WasSpawnModeToggleTriggered() const noexcept { return m_spawnModeToggleTriggered; }
+
+    [[nodiscard]] bool WasSettingsToggleTriggered() const noexcept { return m_settingsToggleTriggered; }
+
+    [[nodiscard]] const ActionMap& GetActionMap() const noexcept { return m_actionMap; }
+    void SetActionMap(const ActionMap& actionMap) noexcept { m_actionMap = actionMap; }
+
+    [[nodiscard]] f32 GetMouseX() const noexcept { return m_mouseX; }
+    [[nodiscard]] f32 GetMouseY() const noexcept { return m_mouseY; }
+    [[nodiscard]] bool IsLeftMouseDown() const noexcept { return m_leftMouseDown; }
+    [[nodiscard]] bool WasLeftMouseClicked() const noexcept { return m_leftMouseClicked; }
+
     // Manual control setters for automation / autopilot
     void SetControls(const FlightControls& controls) noexcept { m_controls = controls; }
 
@@ -143,15 +161,31 @@ private:
     bool m_gearToggleTriggered{ false };
     bool m_parkingBrakeEngaged{ true };
     bool m_prevSpaceKey{ false };
+    bool m_prevEscapeKey{ false };
+    bool m_pauseToggleTriggered{ false };
+    bool m_prevReturnKey{ false };
+    bool m_menuSelectTriggered{ false };
+    bool m_prevTabKey{ false };
+    bool m_airportCycleTriggered{ false };
+    bool m_spawnModeToggleTriggered{ false };
+    bool m_menuBackTriggered{ false };
 
     // Camera orbit & zoom tracking
     f32 m_cameraOrbitYawDelta{ 0.0f };
     f32 m_cameraOrbitPitchDelta{ 0.0f };
     f32 m_cameraZoomDelta{ 0.0f };
     bool m_orbitResetTriggered{ false };
+    bool m_prevSettingsKey{ false };
+    bool m_settingsToggleTriggered{ false };
+    ActionMap m_actionMap{};
+    f32 m_mouseX{ 0.0f };
+    f32 m_mouseY{ 0.0f };
+    int m_lastMouseX{ 0 };
+    int m_lastMouseY{ 0 };
     bool m_rightMouseDown{ false };
-    i32 m_lastMouseX{ 0 };
-    i32 m_lastMouseY{ 0 };
+    bool m_leftMouseDown{ false };
+    bool m_prevLeftMouseDown{ false };
+    bool m_leftMouseClicked{ false };
 };
 
 

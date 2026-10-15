@@ -1,0 +1,400 @@
+
+C:\Users\diego\Documents\Projetos\LokYS>call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat" 
+**********************************************************************
+** Visual Studio 2019 Developer Command Prompt v16.11.46
+** Copyright (c) 2021 Microsoft Corporation
+**********************************************************************
+[vcvarsall.bat] Environment initialized for: 'x64'
+ninja: Entering directory `build'
+[1/1] Building CXX object CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GlassCockpitRenderer.cpp.obj
+FAILED: CMakeFiles/LokYSFlightSimulator.dir/src/graphics/GlassCockpitRenderer.cpp.obj 
+C:\PROGRA~2\MICROS~2\2019\BUILDT~1\VC\Tools\MSVC\1429~1.301\bin\Hostx64\x64\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\include /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest /showIncludes /FoCMakeFiles\LokYSFlightSimulator.dir\src\graphics\GlassCockpitRenderer.cpp.obj /FdCMakeFiles\LokYSFlightSimulator.dir\ /FS -c ..\src\graphics\GlassCockpitRenderer.cpp
+Observaá∆o: incluindo arquivo: ..\include\LokYS/graphics/GlassCockpitRenderer.hpp
+Observaá∆o: incluindo arquivo:  ..\include\LokYS/core/Types.hpp
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cstdint
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\yvals_core.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vcruntime.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\sal.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\concurrencysal.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vadefs.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xkeycheck.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\stdint.h
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cstddef
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\stddef.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xtr1common
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\concepts
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\type_traits
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xstddef
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cstdlib
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\math.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_math.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\stdlib.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_malloc.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_search.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wstdlib.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\limits.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\initializer_list
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vcruntime_new.h
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\span
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\compare
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\bit
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\intrin0.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\intrin0.inl.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\isa_availability.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\limits
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cfloat
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\float.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\climits
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cwchar
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cstdio
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\stdio.h
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wstdio.h
+Observaá∆o: incluindo arquivo:           C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_stdio_config.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\wchar.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_memcpy_s.h
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\errno.h
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vcruntime_string.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wconio.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wctype.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wdirect.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wio.h
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_share.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wprocess.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wstring.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_wtime.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\sys/stat.h
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\sys/types.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xutility
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\yvals.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\crtdbg.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vcruntime_new_debug.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\crtdefs.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\use_ansi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cstring
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\string.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_memory.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\utility
+Observaá∆o: incluindo arquivo:  ..\include\LokYS/avionics/AvionicsTypes.hpp
+Observaá∆o: incluindo arquivo:   ..\include\LokYS/math/Units.hpp
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\numbers
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cmath
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\string
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xstring
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\iosfwd
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xmemory
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\new
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\exception
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\malloc.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vcruntime_exception.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\eh.h
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\corecrt_terminate.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xatomic.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\tuple
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xpolymorphic_allocator.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cctype
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\ctype.h
+Observaá∆o: incluindo arquivo:  ..\include\LokYS/navigation/NavTypes.hpp
+Observaá∆o: incluindo arquivo:   ..\include\LokYS/math/Vector3.hpp
+Observaá∆o: incluindo arquivo:  ..\include\LokYS/autopilot/AutopilotTypes.hpp
+Observaá∆o: incluindo arquivo:  ..\include\LokYS/graphics/Mesh.hpp
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vector
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\windows.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\winapifamily.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\winpackagefamily.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\sdkddkver.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\excpt.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\stdarg.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\windef.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\minwindef.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\specstrings.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\specstrings_strict.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\specstrings_undef.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\driverspecs.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\sdv_driverspecs.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\winnt.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\kernelspecs.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\basetsd.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\guiddef.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack4.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack4.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack4.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack2.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack2.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack2.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack8.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack1.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack1.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\apiset.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\ktmtypes.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\winbase.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\apisetcconv.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\minwinbase.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\apiquery2.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\processenv.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\fileapifromapp.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\fileapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\debugapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\utilapiset.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\handleapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\errhandlingapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\fibersapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\namedpipeapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\profileapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\heapapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\ioapiset.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\synchapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\interlockedapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\processthreadsapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\sysinfoapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\memoryapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\enclaveapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\threadpoollegacyapiset.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\threadpoolapiset.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\jobapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\jobapi2.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\wow64apiset.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\libloaderapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\securitybaseapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\namespaceapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\systemtopologyapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\processtopologyapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\securityappcontainer.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\realtimeapiset.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\winerror.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\timezoneapi.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\wingdi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack1.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack2.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack2.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack4.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack4.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\winuser.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack2.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\tvout.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\winnls.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\datetimeapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\stringapiset.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\winnls.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\wincon.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\wincontypes.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\consoleapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\consoleapi2.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\consoleapi3.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\winver.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\verrsrc.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\winreg.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\reason.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\winnetwk.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\wnnc.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\stralign.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\winsvc.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\mcx.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\imm.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\ime_cmodes.h
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\d3d12.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\rpc.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack8.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\rpcdce.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\rpcdcep.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\rpcnsi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\rpcnterr.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\rpcasync.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack8.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\rpcndr.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack8.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\rpcnsip.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\rpcsal.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\ole2.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack8.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\objbase.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack8.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\combaseapi.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack8.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\wtypesbase.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\guiddef.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\unknwnbase.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\objidlbase.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\guiddef.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\cguid.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\coml2api.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\objidl.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\unknwn.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\wtypes.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\propidlbase.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\oaidl.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\urlmon.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\oleidl.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\servprov.h
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\msxml.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\propidl.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\oleauto.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack8.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\ocidl.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\dxgicommon.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\dxgiformat.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\d3dcommon.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\d3d12sdklayers.h
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt\wrl/client.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt\weakreference.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt\inspectable.h
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt\hstring.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt\roapi.h
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt\activation.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt\wrl\def.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt\wrl\internal.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\pshpack8.h
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared\poppack.h
+..\include\LokYS/graphics/GlassCockpitRenderer.hpp(89,51): error C2143: erro de sintaxe: ')' ausente antes de ';'
+Observaá∆o: incluindo arquivo: C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\d3dcompiler.h
+Observaá∆o: incluindo arquivo:  C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\d3d11shader.h
+Observaá∆o: incluindo arquivo:  C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\d3d12shader.h
+Observaá∆o: incluindo arquivo: C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\algorithm
+Observaá∆o: incluindo arquivo: C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\sstream
+Observaá∆o: incluindo arquivo:  C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\istream
+Observaá∆o: incluindo arquivo:   C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\ostream
+Observaá∆o: incluindo arquivo:    C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\ios
+Observaá∆o: incluindo arquivo:     C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xlocnum
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\iterator
+Observaá∆o: incluindo arquivo:      C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\streambuf
+Observaá∆o: incluindo arquivo:       C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xiosbase
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\share.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\system_error
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\__msvc_system_error_abi.hpp
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\cerrno
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\stdexcept
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xcall_once.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xerrc.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\atomic
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xatomic_wait.h
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xthreads.h
+Observaá∆o: incluindo arquivo:           C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xtimec.h
+Observaá∆o: incluindo arquivo:            C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\ctime
+Observaá∆o: incluindo arquivo:             C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\time.h
+Observaá∆o: incluindo arquivo:        C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xlocale
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\memory
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\typeinfo
+Observaá∆o: incluindo arquivo:           C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\vcruntime_typeinfo.h
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xfacet
+Observaá∆o: incluindo arquivo:         C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xlocinfo
+Observaá∆o: incluindo arquivo:          C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xlocinfo.h
+Observaá∆o: incluindo arquivo:           C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\clocale
+Observaá∆o: incluindo arquivo:            C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt\locale.h
+Observaá∆o: incluindo arquivo: C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\iomanip
+Observaá∆o: incluindo arquivo:  C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xlocmon
+Observaá∆o: incluindo arquivo:  C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\xloctime
+..\src\graphics\GlassCockpitRenderer.cpp(405,1): error C2511: 'void LokYS::Graphics::GlassCockpitRenderer::RenderTransparentHud(ID3D12GraphicsCommandList *,LokYS::u32,LokYS::u32,const LokYS::Avionics::SixPackState &,const LokYS::Navigation::NavReceiverState &,const LokYS::Autopilot::AutopilotStatus &,const LokYS::Math::Vec3d &,bool) noexcept': funá∆o membro sobrecarregada n∆o encontrada em 'LokYS::Graphics::GlassCockpitRenderer'
+..\include\LokYS/graphics/GlassCockpitRenderer.hpp(39): note: consulte a declaraá∆o de 'LokYS::Graphics::GlassCockpitRenderer'
+..\src\graphics\GlassCockpitRenderer.cpp(406,10): error C2597: referància inv†lida para membro n∆o static 'LokYS::Graphics::GlassCockpitRenderer::m_initialized'
+..\include\LokYS/graphics/GlassCockpitRenderer.hpp(187): note: consulte a declaraá∆o de 'LokYS::Graphics::GlassCockpitRenderer::m_initialized'
+..\src\graphics\GlassCockpitRenderer.cpp(411,5): error C2352: 'LokYS::Graphics::GlassCockpitRenderer::BuildTransparentHudGeometry': chamada inv†lida a funá∆o membro n∆o static
+..\include\LokYS/graphics/GlassCockpitRenderer.hpp(153): note: consulte a declaraá∆o de 'LokYS::Graphics::GlassCockpitRenderer::BuildTransparentHudGeometry'
+..\src\graphics\GlassCockpitRenderer.cpp(415,29): error C2672: 'std::min': nenhuma funá∆o sobrecarregada correspondente encontrada
+..\src\graphics\GlassCockpitRenderer.cpp(415,63): error C2780: '_Ty std::min(std::initializer_list<_Elem>)': espera 1 argumentos - 2 fornecidos
+C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\utility(74): note: consulte a declaraá∆o de 'std::min'
+..\src\graphics\GlassCockpitRenderer.cpp(415,63): error C2780: 'const _Ty &std::min(const _Ty &,const _Ty &,_Pr) noexcept(<expr>)': espera 3 argumentos - 2 fornecidos
+C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\utility(54): note: consulte a declaraá∆o de 'std::min'
+..\src\graphics\GlassCockpitRenderer.cpp(416,28): error C2672: 'std::min': nenhuma funá∆o sobrecarregada correspondente encontrada
+..\src\graphics\GlassCockpitRenderer.cpp(416,60): error C2780: '_Ty std::min(std::initializer_list<_Elem>)': espera 1 argumentos - 2 fornecidos
+C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\utility(74): note: consulte a declaraá∆o de 'std::min'
+..\src\graphics\GlassCockpitRenderer.cpp(416,60): error C2780: 'const _Ty &std::min(const _Ty &,const _Ty &,_Pr) noexcept(<expr>)': espera 3 argumentos - 2 fornecidos
+C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\utility(54): note: consulte a declaraá∆o de 'std::min'
+..\src\graphics\GlassCockpitRenderer.cpp(418,12): error C2597: referància inv†lida para membro n∆o static 'LokYS::Graphics::GlassCockpitRenderer::m_mappedVertices'
+..\include\LokYS/graphics/GlassCockpitRenderer.hpp(178): note: consulte a declaraá∆o de 'LokYS::Graphics::GlassCockpitRenderer::m_mappedVertices'
+..\src\graphics\GlassCockpitRenderer.cpp(419,12): error C2597: referància inv†lida para membro n∆o static 'LokYS::Graphics::GlassCockpitRenderer::m_mappedIndices'
+..\include\LokYS/graphics/GlassCockpitRenderer.hpp(179): note: consulte a declaraá∆o de 'LokYS::Graphics::GlassCockpitRenderer::m_mappedIndices'
+..\src\graphics\GlassCockpitRenderer.cpp(437,34): error C2597: referància inv†lida para membro n∆o static 'LokYS::Graphics::GlassCockpitRenderer::m_opacity'
+..\src\graphics\GlassCockpitRenderer.cpp(437,34): error C3867: 'LokYS::Graphics::GlassCockpitRenderer::m_opacity': sintaxe n∆o padr∆o. Use "&" para criar um ponteiro para membro
+..\src\graphics\GlassCockpitRenderer.cpp(437,34): error C2568: '=': n∆o Ç poss°vel resolver sobrecarga de funá∆o
+..\src\graphics\GlassCockpitRenderer.cpp(442,40): error C2597: referància inv†lida para membro n∆o static 'LokYS::Graphics::GlassCockpitRenderer::m_vbView'
+..\include\LokYS/graphics/GlassCockpitRenderer.hpp(175): note: consulte a declaraá∆o de 'LokYS::Graphics::GlassCockpitRenderer::m_vbView'
+..\src\graphics\GlassCockpitRenderer.cpp(442,48): error C2664: 'void ID3D12GraphicsCommandList::IASetVertexBuffers(UINT,UINT,const D3D12_VERTEX_BUFFER_VIEW *)': n∆o Ç poss°vel converter um argumento 3 de 'D3D12_VERTEX_BUFFER_VIEW LokYS::Graphics::GlassCockpitRenderer::* ' em 'const D3D12_VERTEX_BUFFER_VIEW *'
+..\src\graphics\GlassCockpitRenderer.cpp(442,39): note: N∆o h† contexto no qual esta convers∆o seja poss°vel
+C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\d3d12.h(5631,40): note: consulte a declaraá∆o de 'ID3D12GraphicsCommandList::IASetVertexBuffers'
+..\src\graphics\GlassCockpitRenderer.cpp(443,32): error C2597: referància inv†lida para membro n∆o static 'LokYS::Graphics::GlassCockpitRenderer::m_ibView'
+..\include\LokYS/graphics/GlassCockpitRenderer.hpp(176): note: consulte a declaraá∆o de 'LokYS::Graphics::GlassCockpitRenderer::m_ibView'
+..\src\graphics\GlassCockpitRenderer.cpp(443,40): error C2664: 'void ID3D12GraphicsCommandList::IASetIndexBuffer(const D3D12_INDEX_BUFFER_VIEW *)': n∆o Ç poss°vel converter um argumento 1 de 'D3D12_INDEX_BUFFER_VIEW LokYS::Graphics::GlassCockpitRenderer::* ' em 'const D3D12_INDEX_BUFFER_VIEW *'
+..\src\graphics\GlassCockpitRenderer.cpp(443,31): note: N∆o h† contexto no qual esta convers∆o seja poss°vel
+C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\d3d12.h(5628,40): note: consulte a declaraá∆o de 'ID3D12GraphicsCommandList::IASetIndexBuffer'
+..\src\graphics\GlassCockpitRenderer.cpp(1689,28): error C2039: ' RenderPreFlightMenu': n∆o Ç um membro de 'LokYS::Graphics::GlassCockpitRenderer'
+..\include\LokYS/graphics/GlassCockpitRenderer.hpp(39): note: consulte a declaraá∆o de 'LokYS::Graphics::GlassCockpitRenderer'
+..\src\graphics\GlassCockpitRenderer.cpp(1700,10): error C2065: 'm_initialized': identificador n∆o declarado
+..\src\graphics\GlassCockpitRenderer.cpp(1702,5): error C2065: 'm_vertices': identificador n∆o declarado
+..\src\graphics\GlassCockpitRenderer.cpp(1703,5): error C2065: 'm_indices': identificador n∆o declarado
+..\src\graphics\GlassCockpitRenderer.cpp(1709,5): error C3861: 'AddQuad': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1730,5): error C3861: 'AddQuad': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1738,5): error C3861: 'AddLine': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1739,5): error C3861: 'AddLine': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1740,5): error C3861: 'AddLine': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1741,5): error C3861: 'AddLine': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1744,5): error C3861: 'DrawString': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1745,5): error C3861: 'DrawString': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1746,5): error C3861: 'AddLine': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1757,5): error C3861: 'DrawString': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1758,5): error C3861: 'DrawString': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1759,5): error C3861: 'DrawString': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1760,5): error C3861: 'AddLine': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1765,5): error C3861: 'DrawString': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1766,5): error C3861: 'DrawString': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1767,5): error C3861: 'DrawString': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1768,5): error C3861: 'AddLine': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1772,5): error C3861: 'DrawString': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1773,5): error C3861: 'DrawString': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1774,5): error C3861: 'DrawString': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1775,5): error C3861: 'AddLine': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1779,5): error C3861: 'DrawString': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1780,5): error C3861: 'DrawString': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1781,5): error C3861: 'DrawString': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1782,5): error C3861: 'AddLine': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1790,5): error C3861: 'AddQuad': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1796,5): error C3861: 'AddLine': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1797,5): error C3861: 'AddLine': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1798,5): error C3861: 'AddLine': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1799,5): error C3861: 'AddLine': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1801,5): error C3861: 'DrawString': identificador n∆o encontrado
+..\src\graphics\GlassCockpitRenderer.cpp(1803,9): error C2065: 'm_indices': identificador n∆o declarado
+..\src\graphics\GlassCockpitRenderer.cpp(1804,33): error C2065: 'm_vertices': identificador n∆o declarado
+..\src\graphics\GlassCockpitRenderer.cpp(1804,52): error C2065: 'MaxVertices': identificador n∆o declarado
+..\src\graphics\GlassCockpitRenderer.cpp(1804,29): error C2672: 'std::min': nenhuma funá∆o sobrecarregada correspondente encontrada
+..\src\graphics\GlassCockpitRenderer.cpp(1804,63): error C2780: '_Ty std::min(std::initializer_list<_Elem>)': espera 1 argumentos - 2 fornecidos
+C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\utility(74): note: consulte a declaraá∆o de 'std::min'
+..\src\graphics\GlassCockpitRenderer.cpp(1804,63): error C2780: 'const _Ty &std::min(const _Ty &,const _Ty &,_Pr) noexcept(<expr>)': espera 3 argumentos - 2 fornecidos
+C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\utility(54): note: consulte a declaraá∆o de 'std::min'
+..\src\graphics\GlassCockpitRenderer.cpp(1805,32): error C2065: 'm_indices': identificador n∆o declarado
+..\src\graphics\GlassCockpitRenderer.cpp(1805,50): error C2065: 'MaxIndices': identificador n∆o declarado
+..\src\graphics\GlassCockpitRenderer.cpp(1805,28): error C2672: 'std::min': nenhuma funá∆o sobrecarregada correspondente encontrada
+..\src\graphics\GlassCockpitRenderer.cpp(1805,60): error C2780: '_Ty std::min(std::initializer_list<_Elem>)': espera 1 argumentos - 2 fornecidos
+C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\utility(74): note: consulte a declaraá∆o de 'std::min'
+..\src\graphics\GlassCockpitRenderer.cpp(1805,60): error C2780: 'const _Ty &std::min(const _Ty &,const _Ty &,_Pr) noexcept(<expr>)': espera 3 argumentos - 2 fornecidos
+C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\include\utility(54): note: consulte a declaraá∆o de 'std::min'
+..\src\graphics\GlassCockpitRenderer.cpp(1806,12): error C2065: 'm_mappedVertices': identificador n∆o declarado
+..\src\graphics\GlassCockpitRenderer.cpp(1806,30): error C2065: 'm_vertices': identificador n∆o declarado
+..\src\graphics\GlassCockpitRenderer.cpp(1807,12): error C2065: 'm_mappedIndices': identificador n∆o declarado
+..\src\graphics\GlassCockpitRenderer.cpp(1807,29): error C2065: 'm_indices': identificador n∆o declarado
+..\src\graphics\GlassCockpitRenderer.cpp(1809,39): error C2065: 'm_rootSignature': identificador n∆o declarado
+..\src\graphics\GlassCockpitRenderer.cpp(1810,31): error C2065: 'm_pipelineState': identificador n∆o declarado
+..\src\graphics\GlassCockpitRenderer.cpp(1826,40): error C2065: 'm_vbView': identificador n∆o declarado
+..\src\graphics\GlassCockpitRenderer.cpp(1827,32): error C2065: 'm_ibView': identificador n∆o declarado
+ninja: build stopped: subcommand failed.

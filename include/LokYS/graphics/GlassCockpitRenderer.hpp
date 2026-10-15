@@ -76,7 +76,25 @@ public:
         const Navigation::NavReceiverState& nav1,
         const Autopilot::AutopilotStatus& apStatus,
         const Math::Vec3d& velocityBody,
-        bool visible) noexcept;
+        bool visible = true) noexcept;
+
+    /// @brief Renders the pre-flight configuration menu overlay.
+    void RenderPreFlightMenu(
+        ID3D12GraphicsCommandList* cmdList,
+        u32 screenWidth,
+        u32 screenHeight,
+        const std::wstring& aircraftName,
+        const std::string& airportName,
+        const std::string& airportIcao,
+        const std::string& runwayIdent,
+        const std::string& weatherPresetName,
+        const std::string& spawnModeName) noexcept;
+
+    /// @brief Renders the in-flight pause menu overlay.
+    void RenderPauseMenu(
+        ID3D12GraphicsCommandList* cmdList,
+        u32 screenWidth,
+        u32 screenHeight) noexcept;
 
     void SetPanelOpacity(f32 opacity) noexcept { m_opacity = opacity; }
     [[nodiscard]] f32 GetPanelOpacity() const noexcept { return m_opacity; }

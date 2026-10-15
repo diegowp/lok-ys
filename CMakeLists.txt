@@ -75,10 +75,14 @@ set(LOKYS_SOURCES
     src/scenery/AirportDatabase.cpp
     src/graphics/ApproachLightingSystem.cpp
     src/graphics/TerrainStreamingSystem.cpp
+    src/input/ActionMapping.cpp
+    src/input/ConfigPersistence.cpp
+    src/graphics/MenuRenderer.cpp
 )
 
 set(LOKYS_HEADERS
     include/LokYS/core/EngineContext.hpp
+    include/LokYS/core/GameState.hpp
     include/LokYS/core/Types.hpp
     include/LokYS/core/Timer.hpp
     include/LokYS/core/JsonParser.hpp
@@ -138,6 +142,9 @@ set(LOKYS_HEADERS
     include/LokYS/scenery/AirportDatabase.hpp
     include/LokYS/graphics/ApproachLightingSystem.hpp
     include/LokYS/graphics/TerrainStreamingSystem.hpp
+    include/LokYS/input/ActionMapping.hpp
+    include/LokYS/input/ConfigPersistence.hpp
+    include/LokYS/graphics/MenuRenderer.hpp
 )
 
 add_executable(LokYSFlightSimulator WIN32
@@ -198,6 +205,7 @@ add_executable(LokYSAeroInputTests
     tests/unit/AeroInputTests.cpp
     src/aerodynamics/AerodynamicsSystem.cpp
     src/input/InputSystem.cpp
+    src/input/ActionMapping.cpp
     ${LOKYS_HEADERS}
 )
 
@@ -304,6 +312,7 @@ add_executable(LokYSSerialInterfaceTests
     src/serial/SerialPort.cpp
     src/serial/SerialInterfaceSystem.cpp
     src/input/InputSystem.cpp
+    src/input/ActionMapping.cpp
     ${LOKYS_HEADERS}
 )
 
@@ -410,4 +419,29 @@ target_link_libraries(LokYSMultiAircraftSceneryTests PRIVATE
 )
 
 add_test(NAME MultiAircraftSceneryTests COMMAND LokYSMultiAircraftSceneryTests)
+
+add_executable(LokYSGameStateTests
+    tests/unit/GameStateTests.cpp
+    ${LOKYS_HEADERS}
+)
+
+target_include_directories(LokYSGameStateTests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+add_test(NAME GameStateTests COMMAND LokYSGameStateTests)
+
+add_executable(LokYSActionMappingTests
+    tests/unit/ActionMappingTests.cpp
+    src/input/ActionMapping.cpp
+    src/input/ConfigPersistence.cpp
+    ${LOKYS_HEADERS}
+)
+
+target_include_directories(LokYSActionMappingTests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+add_test(NAME ActionMappingTests COMMAND LokYSActionMappingTests)
+
 

@@ -1686,4 +1686,226 @@ void GlassCockpitRenderer::DrawString(const std::string& str, f32 x, f32 y, f32 
     }
 }
 
+void GlassCockpitRenderer::RenderPreFlightMenu(
+    ID3D12GraphicsCommandList* cmdList,
+    u32 screenWidth,
+    u32 screenHeight,
+    const std::wstring& aircraftName,
+    const std::string& airportName,
+    const std::string& airportIcao,
+    const std::string& runwayIdent,
+    const std::string& weatherPresetName,
+    const std::string& spawnModeName) noexcept
+{
+    if (!m_initialized || !cmdList || screenWidth == 0 || screenHeight == 0) return;
+
+    m_vertices.clear();
+    m_indices.clear();
+
+    f32 sw = static_cast<f32>(screenWidth);
+    f32 sh = static_cast<f32>(screenHeight);
+
+    // 1. Full-screen backdrop
+    AddQuad(
+        { 0.0f, 0.0f, 0.0f },
+        { sw, 0.0f, 0.0f },
+        { sw, sh, 0.0f },
+        { 0.0f, sh, 0.0f },
+        { 0.02f, 0.03f, 0.06f, 0.82f });
+
+    // 2. Center card
+    f32 cardW = std::min(700.0f, sw - 40.0f);
+    f32 cardH = std::min(480.0f, sh - 40.0f);
+    f32 cardX = (sw - cardW) * 0.5f;
+    f32 cardY = (sh - cardH) * 0.5f;
+
+    Math::Vec4f colCardBg{ 0.06f, 0.08f, 0.12f, 0.96f };
+    Math::Vec4f colBorder{ 0.20f, 0.50f, 0.85f, 1.0f };
+    Math::Vec4f colCyan{ 0.1f, 0.85f, 1.0f, 1.0f };
+    Math::Vec4f colGreen{ 0.15f, 0.95f, 0.35f, 1.0f };
+    Math::Vec4f colWhite{ 0.95f, 0.95f, 0.98f, 1.0f };
+    Math::Vec4f colGray{ 0.55f, 0.60f, 0.68f, 1.0f };
+    Math::Vec4f colAmber{ 1.0f, 0.75f, 0.1f, 1.0f };
+
+    AddQuad(
+        { cardX, cardY, 0.0f },
+        { cardX + cardW, cardY, 0.0f },
+        { cardX + cardW, cardY + cardH, 0.0f },
+        { cardX, cardY + cardH, 0.0f },
+        colCardBg);
+
+    // Bezel border
+    AddLine(cardX, cardY, cardX + cardW, cardY, 2.0f, colBorder);
+    AddLine(cardX + cardW, cardY, cardX + cardW, cardY + cardH, 2.0f, colBorder);
+    AddLine(cardX + cardW, cardY + cardH, cardX, cardY + cardH, 2.0f, colBorder);
+    AddLine(cardX, cardY + cardH, cardX, cardY, 2.0f, colBorder);
+
+    // Header
+    DrawString("LOKYS FLIGHT SIMULATOR", cardX + 28.0f, cardY + 24.0f, 18.0f, colCyan, 2.5f);
+    DrawString("PRE-FLIGHT MISSION SETUP & DISPATCH", cardX + 28.0f, cardY + 52.0f, 11.0f, colGray);
+    AddLine(cardX + 28.0f, cardY + 74.0f, cardX + cardW - 28.0f, cardY + 74.0f, 1.5f, colBorder);
+
+    // Options rows
+    f32 rowY = cardY + 95.0f;
+    f32 rowH = 68.0f;
+
+    // Row 1: Aircraft
+    std::string narrowAcName;
+    for (wchar_t wc : aircraftName) {
+        narrowAcName += (wc < 128) ? static_cast<char>(wc) : '?';
+    }
+    DrawString("AIRCRAFT MODEL", cardX + 32.0f, rowY, 11.0f, colGray);
+    DrawString("[V] CYCLE", cardX + cardW - 130.0f, rowY, 10.0f, colAmber);
+    DrawString(narrowAcName, cardX + 32.0f, rowY + 18.0f, 15.0f, colGreen, 2.0f);
+    AddLine(cardX + 32.0f, rowY + 46.0f, cardX + cardW - 32.0f, rowY + 46.0f, 1.0f, { 0.2f, 0.25f, 0.35f, 0.6f });
+
+    // Row 2: Airport & Runway
+    rowY += rowH;
+    std::string aptLine = airportName + " (" + airportIcao + ") - RWY " + runwayIdent;
+    DrawString("AIRFIELD / RUNWAY", cardX + 32.0f, rowY, 11.0f, colGray);
+    DrawString("[TAB] CYCLE", cardX + cardW - 130.0f, rowY, 10.0f, colAmber);
+    DrawString(aptLine, cardX + 32.0f, rowY + 18.0f, 14.0f, colWhite, 1.8f);
+    AddLine(cardX + 32.0f, rowY + 46.0f, cardX + cardW - 32.0f, rowY + 46.0f, 1.0f, { 0.2f, 0.25f, 0.35f, 0.6f });
+
+    // Row 3: Weather
+    rowY += rowH;
+    DrawString("ATMOSPHERE & WEATHER", cardX + 32.0f, rowY, 11.0f, colGray);
+    DrawString("[W] CYCLE", cardX + cardW - 130.0f, rowY, 10.0f, colAmber);
+    DrawString(weatherPresetName, cardX + 32.0f, rowY + 18.0f, 14.0f, colWhite, 1.8f);
+    AddLine(cardX + 32.0f, rowY + 46.0f, cardX + cardW - 32.0f, rowY + 46.0f, 1.0f, { 0.2f, 0.25f, 0.35f, 0.6f });
+
+    // Row 4: Spawn Mode
+    rowY += rowH;
+    DrawString("SPAWN PROFILE", cardX + 32.0f, rowY, 11.0f, colGray);
+    DrawString("[R] TOGGLE", cardX + cardW - 130.0f, rowY, 10.0f, colAmber);
+    DrawString(spawnModeName, cardX + 32.0f, rowY + 18.0f, 14.0f, colWhite, 1.8f);
+    AddLine(cardX + 32.0f, rowY + 46.0f, cardX + cardW - 32.0f, rowY + 46.0f, 1.0f, { 0.2f, 0.25f, 0.35f, 0.6f });
+
+    // Bottom action bar
+    f32 btnY = cardY + cardH - 64.0f;
+    f32 btnW = 280.0f;
+    f32 btnH = 38.0f;
+    f32 btnX = cardX + (cardW - btnW) * 0.5f;
+
+    AddQuad(
+        { btnX, btnY, 0.0f },
+        { btnX + btnW, btnY, 0.0f },
+        { btnX + btnW, btnY + btnH, 0.0f },
+        { btnX, btnY + btnH, 0.0f },
+        { 0.08f, 0.35f, 0.65f, 0.95f });
+    AddLine(btnX, btnY, btnX + btnW, btnY, 2.0f, colCyan);
+    AddLine(btnX + btnW, btnY, btnX + btnW, btnY + btnH, 2.0f, colCyan);
+    AddLine(btnX + btnW, btnY + btnH, btnX, btnY + btnH, 2.0f, colCyan);
+    AddLine(btnX, btnY + btnH, btnX, btnY, 2.0f, colCyan);
+
+    DrawString("START SIMULATION [ENTER]", btnX + 22.0f, btnY + 11.0f, 13.0f, colWhite, 2.0f);
+
+    if (m_indices.empty()) return;
+    size_t vertCount = std::min(m_vertices.size(), MaxVertices);
+    size_t idxCount = std::min(m_indices.size(), MaxIndices);
+    memcpy(m_mappedVertices, m_vertices.data(), vertCount * sizeof(Vertex3D));
+    memcpy(m_mappedIndices, m_indices.data(), idxCount * sizeof(u32));
+
+    cmdList->SetGraphicsRootSignature(m_rootSignature.Get());
+    cmdList->SetPipelineState(m_pipelineState.Get());
+
+    struct {
+        float screenSize[2];
+        float panelPos[2];
+        float panelScale;
+        float opacity;
+        float padding[2];
+    } constants{};
+    constants.screenSize[0] = sw;
+    constants.screenSize[1] = sh;
+    constants.panelScale = 1.0f;
+    constants.opacity = 1.0f;
+
+    cmdList->SetGraphicsRoot32BitConstants(0, 8, &constants, 0);
+    cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    cmdList->IASetVertexBuffers(0, 1, &m_vbView);
+    cmdList->IASetIndexBuffer(&m_ibView);
+    cmdList->DrawIndexedInstanced(static_cast<UINT>(idxCount), 1, 0, 0, 0);
+}
+
+void GlassCockpitRenderer::RenderPauseMenu(
+    ID3D12GraphicsCommandList* cmdList,
+    u32 screenWidth,
+    u32 screenHeight) noexcept
+{
+    if (!m_initialized || !cmdList || screenWidth == 0 || screenHeight == 0) return;
+
+    m_vertices.clear();
+    m_indices.clear();
+
+    f32 sw = static_cast<f32>(screenWidth);
+    f32 sh = static_cast<f32>(screenHeight);
+
+    // Dimmed translucent backdrop
+    AddQuad(
+        { 0.0f, 0.0f, 0.0f },
+        { sw, 0.0f, 0.0f },
+        { sw, sh, 0.0f },
+        { 0.0f, sh, 0.0f },
+        { 0.01f, 0.02f, 0.04f, 0.65f });
+
+    f32 cardW = 460.0f;
+    f32 cardH = 240.0f;
+    f32 cardX = (sw - cardW) * 0.5f;
+    f32 cardY = (sh - cardH) * 0.5f;
+
+    AddQuad(
+        { cardX, cardY, 0.0f },
+        { cardX + cardW, cardY, 0.0f },
+        { cardX + cardW, cardY + cardH, 0.0f },
+        { cardX, cardY + cardH, 0.0f },
+        { 0.05f, 0.07f, 0.10f, 0.95f });
+
+    Math::Vec4f colAmber{ 1.0f, 0.75f, 0.1f, 1.0f };
+    Math::Vec4f colBorder{ 0.30f, 0.40f, 0.55f, 1.0f };
+    Math::Vec4f colGreen{ 0.15f, 0.95f, 0.35f, 1.0f };
+    Math::Vec4f colWhite{ 0.95f, 0.95f, 0.98f, 1.0f };
+    Math::Vec4f colCyan{ 0.1f, 0.85f, 1.0f, 1.0f };
+
+    AddLine(cardX, cardY, cardX + cardW, cardY, 2.0f, colAmber);
+    AddLine(cardX + cardW, cardY, cardX + cardW, cardY + cardH, 2.0f, colBorder);
+    AddLine(cardX + cardW, cardY + cardH, cardX, cardY + cardH, 2.0f, colBorder);
+    AddLine(cardX, cardY + cardH, cardX, cardY, 2.0f, colBorder);
+
+    DrawString("SIMULATION PAUSED", cardX + 115.0f, cardY + 24.0f, 18.0f, colAmber, 2.5f);
+    AddLine(cardX + 24.0f, cardY + 54.0f, cardX + cardW - 24.0f, cardY + 54.0f, 1.0f, colBorder);
+
+    DrawString("[ESC / ENTER]  RESUME FLIGHT", cardX + 40.0f, cardY + 78.0f, 14.0f, colGreen, 1.8f);
+    DrawString("[R]            RESTART FLIGHT", cardX + 40.0f, cardY + 114.0f, 14.0f, colWhite, 1.8f);
+    DrawString("[M / BACK]     EXIT TO MAIN MENU", cardX + 40.0f, cardY + 150.0f, 14.0f, colCyan, 1.8f);
+    DrawString("[H]            CYCLE INSTRUMENTS (PFD/HUD/OFF)", cardX + 40.0f, cardY + 186.0f, 11.0f, { 0.6f, 0.65f, 0.72f, 1.0f });
+
+    if (m_indices.empty()) return;
+    size_t vertCount = std::min(m_vertices.size(), MaxVertices);
+    size_t idxCount = std::min(m_indices.size(), MaxIndices);
+    memcpy(m_mappedVertices, m_vertices.data(), vertCount * sizeof(Vertex3D));
+    memcpy(m_mappedIndices, m_indices.data(), idxCount * sizeof(u32));
+
+    cmdList->SetGraphicsRootSignature(m_rootSignature.Get());
+    cmdList->SetPipelineState(m_pipelineState.Get());
+
+    struct {
+        float screenSize[2];
+        float panelPos[2];
+        float panelScale;
+        float opacity;
+        float padding[2];
+    } constants{};
+    constants.screenSize[0] = sw;
+    constants.screenSize[1] = sh;
+    constants.panelScale = 1.0f;
+    constants.opacity = 1.0f;
+
+    cmdList->SetGraphicsRoot32BitConstants(0, 8, &constants, 0);
+    cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    cmdList->IASetVertexBuffers(0, 1, &m_vbView);
+    cmdList->IASetIndexBuffer(&m_ibView);
+    cmdList->DrawIndexedInstanced(static_cast<UINT>(idxCount), 1, 0, 0, 0);
+}
+
 } // namespace LokYS::Graphics

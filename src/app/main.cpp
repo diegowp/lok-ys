@@ -34,9 +34,12 @@
 #include "LokYS/graphics/GlassCockpitRenderer.hpp"
 #include "LokYS/aircraft/AircraftTypes.hpp"
 #include "LokYS/aircraft/AircraftRegistry.hpp"
+#include "LokYS/core/GameState.hpp"
 #include "LokYS/scenery/AirportDatabase.hpp"
 #include "LokYS/graphics/ApproachLightingSystem.hpp"
 #include "LokYS/graphics/TerrainStreamingSystem.hpp"
+#include "LokYS/graphics/MenuRenderer.hpp"
+#include "LokYS/input/ConfigPersistence.hpp"
 #include <windows.h>
 #include <sstream>
 #include <iomanip>
@@ -457,6 +460,22 @@ int WINAPI wWinMain(
         return 1;
     }
 
+    // Fase 3 & 4: Direct3D 12 2D Vector UI Menu & Settings Renderer
+    LokYS::Graphics::MenuRenderer menuRenderer;
+    if (!menuRenderer.Initialize(graphics.GetDevice())) {
+        MessageBoxW(nullptr, L"Failed to initialize Direct3D 12 vector menu rendering pipeline.", L"Menu Error", MB_ICONERROR | MB_OK);
+        glassCockpitRenderer.Shutdown();
+        avionicsRenderer.Shutdown();
+        renderer.Shutdown();
+        shadowMap.Shutdown();
+        scenerySystem.Shutdown();
+        terrainSystem.Shutdown();
+        graphics.Shutdown();
+        window.Destroy();
+        context.Shutdown();
+        return 1;
+    }
+
     // Milestone M19: Fog preset helper and mode state
     auto GetFogForPreset = [](LokYS::Environment::WeatherPreset preset) -> LokYS::Graphics::FogConfig {
         LokYS::Graphics::FogConfig c;
@@ -508,11 +527,22 @@ int WINAPI wWinMain(
     LokYS::Input::InputSystem input;
     static_cast<void>(input.Initialize(window.GetHwnd()));
 
+    // Fase 4: Global Settings & Input Action Remapping Configuration
+    LokYS::Input::SimulatorConfig simConfig{};
+    std::string configPath = LokYS::Input::ConfigPersistence::GetDefaultConfigPath();
+    if (!LokYS::Input::ConfigPersistence::LoadFromFile(configPath, simConfig)) {
+        (void)LokYS::Input::ConfigPersistence::SaveToFile(configPath, simConfig);
+    }
+    input.SetActionMap(simConfig.actionMap);
+    menuRenderer.SetSelectedVolume(simConfig.masterVolume);
+    menuRenderer.SetSelectedDisplayMode(simConfig.cockpitDisplayMode);
+
     // Milestone M14 & M21: Avionics & Digital Autopilot Flight Control Computer Subsystems
     LokYS::Avionics::AvionicsSystem avionics;
     LokYS::Autopilot::AutopilotSystem autopilot;
     autopilot.Initialize();
-    LokYS::Graphics::CockpitDisplayMode cockpitDisplayMode = LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD;
+    LokYS::Graphics::CockpitDisplayMode cockpitDisplayMode =
+        static_cast<LokYS::Graphics::CockpitDisplayMode>(simConfig.cockpitDisplayMode % 4);
 
     // Milestone M18: Atmospheric & Weather Systems
     LokYS::Environment::EnvironmentSystem environment;
@@ -528,6 +558,19 @@ int WINAPI wWinMain(
     ));
     aircraft.SetGravityEnabled(true);
 
+    LokYS::Scenery::AirportDatabase airportDb;
+    LokYS::Core::GameStateManager gameStateMgr(maxTestFrames > 0 ? LokYS::Core::GameState::Simulation : LokYS::Core::GameState::MainMenu);
+
+    // Apply defaults from persistent configuration
+    auto defaultFCfg = gameStateMgr.GetFlightConfig();
+    defaultFCfg.airportIcao = simConfig.defaultAirportIcao;
+    defaultFCfg.selectedRunwayIndex = simConfig.defaultRunwayIndex;
+    defaultFCfg.weatherPresetIndex = static_cast<uint8_t>(simConfig.defaultWeatherPresetIndex % 5);
+    defaultFCfg.spawnMode = (simConfig.defaultSpawnMode == 1)
+        ? LokYS::Core::SpawnMode::AirborneCruise
+        : LokYS::Core::SpawnMode::RunwayTakeoff;
+    gameStateMgr.SetFlightConfig(defaultFCfg);
+
     // Initial State Presets: Runway Takeoff vs 3000 ft Cruise
     bool onRunwayMode = true;
 
@@ -538,38 +581,91 @@ int WINAPI wWinMain(
         propulsion.SetAircraftEngineConfig(cfg.propulsion);
     };
 
-    auto ResetToRunway = [&aircraft, &input, &propulsion, &avionics, &environment, &autopilot, &aircraftRegistry, &ApplyAircraftConfig, &scheduler, &camera]() {
+    auto ApplyFlightSetup = [&](const LokYS::Core::FlightSetupConfiguration& setup) {
+        activeCatalogIdx = setup.selectedAircraftIndex % aircraftCatalog.size();
+        const auto& activeEntry = aircraftCatalog[activeCatalogIdx];
+        aircraftRegistry.SetActiveAircraft(activeEntry.archetype);
         const auto& cfg = aircraftRegistry.GetActiveConfig();
         ApplyAircraftConfig(cfg);
 
+        camera.SetTargetDimensions(
+            activeEntry.model.GetEffectiveDimensions().z,
+            activeEntry.model.GetEffectiveDimensions().x,
+            activeEntry.model.GetEffectiveDimensions().y);
+        camera.SetCockpitEyeOffset(activeEntry.cockpitEyePosBody);
+
+        auto weatherPreset = static_cast<LokYS::Environment::WeatherPreset>(setup.weatherPresetIndex % 5);
+        environment.ApplyPreset(weatherPreset);
+        renderer.SetFog(GetFogForPreset(weatherPreset));
+
+        auto optApt = airportDb.FindAirport(setup.airportIcao);
+        LokYS::Scenery::AirportConfig apt = optApt.has_value() ? *optApt : airportDb.GetAirports()[0];
+        const auto& rwy = apt.runways[setup.selectedRunwayIndex % apt.runways.size()];
+
         LokYS::Physics::RigidBodyState state{};
-        // Position at South threshold of 2000m runway, centered on runway X=0, gear in static equilibrium (Z = -0.935m)
-        state.positionNed = { -800.0, 0.0, -0.935 };
-        state.velocityBody = { 0.0, 0.0, 0.0 }; // Stopped on runway
-        state.angularVelocityBody = { 0.0, 0.0, 0.0 };
-        state.attitude = LokYS::Math::Quat4d::Identity(); // Heading North 000 along runway centerline
-        aircraft.SetState(state);
+        LokYS::f64 rwyHdgRad = LokYS::Math::Units::DegToRad(rwy.headingDeg);
+        LokYS::Math::Vec3d fwdVec(std::cos(rwyHdgRad), std::sin(rwyHdgRad), 0.0);
 
-        LokYS::Input::FlightControls ctrl{};
-        ctrl.throttle = 0.0;
-        ctrl.mixture = 1.0;
-        ctrl.flapSetting = 0;
-        ctrl.brakes = 1.0; // Engaged parking brake holds aircraft stationary on runway spawn
-        input.SetControls(ctrl);
-        input.SetParkingBrake(true);
+        if (setup.spawnMode == LokYS::Core::SpawnMode::RunwayTakeoff) {
+            onRunwayMode = true;
+            LokYS::f64 thresholdOffset = -(rwy.lengthM * 0.45);
+            state.positionNed = rwy.centerNed + fwdVec * thresholdOffset;
+            state.positionNed.z = -(rwy.elevationM + 0.935);
+            state.velocityBody = LokYS::Math::Vec3d(0.0, 0.0, 0.0);
+            state.angularVelocityBody = LokYS::Math::Vec3d(0.0, 0.0, 0.0);
+            state.attitude = LokYS::Math::Quat4d::FromEuler(0.0, 0.0, rwyHdgRad);
+            aircraft.SetState(state);
 
-        propulsion.SetFuelQuantityKg(cfg.mass.defaultFuelKg);
-        propulsion.SetRpm(cfg.propulsion.idleRpm);
+            LokYS::Input::FlightControls ctrl{};
+            ctrl.throttle = 0.0;
+            ctrl.mixture = 1.0;
+            ctrl.flapSetting = 0;
+            ctrl.brakes = 1.0;
+            input.SetControls(ctrl);
+            input.SetParkingBrake(true);
 
-        environment.Update(state.positionNed, state.attitude, 0.0, 1.0 / 120.0);
-        avionics.ResetToSteadyState(
-            state,
-            environment.GetAtmosphere().pressurePa,
-            environment.GetAtmosphere().densityKgM3);
+            propulsion.SetFuelQuantityKg(cfg.mass.defaultFuelKg * setup.initialFuelPercentage);
+            propulsion.SetRpm(cfg.propulsion.idleRpm);
 
-        autopilot.Reset();
-        autopilot.SetTargetAltitude(1000.0);
-        autopilot.SetTargetHeading(0.0);
+            environment.Update(state.positionNed, state.attitude, 0.0, 1.0 / 120.0);
+            avionics.ResetToSteadyState(
+                state,
+                environment.GetAtmosphere().pressurePa,
+                environment.GetAtmosphere().densityKgM3);
+
+            autopilot.Reset();
+            autopilot.SetTargetAltitude(1000.0);
+            autopilot.SetTargetHeading(rwy.headingDeg);
+        } else {
+            onRunwayMode = false;
+            state.positionNed = rwy.centerNed;
+            state.positionNed.z = -(rwy.elevationM + 914.4);
+            state.velocityBody = LokYS::Math::Vec3d(51.4444, 0.0, 0.0);
+            state.angularVelocityBody = LokYS::Math::Vec3d(0.0, 0.0, 0.0);
+            state.attitude = LokYS::Math::Quat4d::FromEuler(0.0, 0.0, rwyHdgRad);
+            aircraft.SetState(state);
+
+            LokYS::Input::FlightControls ctrl{};
+            ctrl.throttle = 0.65;
+            ctrl.mixture = 0.85;
+            ctrl.flapSetting = 0;
+            ctrl.brakes = 0.0;
+            input.SetControls(ctrl);
+            input.SetParkingBrake(false);
+
+            propulsion.SetFuelQuantityKg(cfg.mass.defaultFuelKg * setup.initialFuelPercentage);
+            propulsion.SetRpm(cfg.propulsion.maxRatedRpm * 0.85);
+
+            environment.Update(state.positionNed, state.attitude, 51.4444, 1.0 / 120.0);
+            avionics.ResetToSteadyState(
+                state,
+                environment.GetAtmosphere().pressurePa,
+                environment.GetAtmosphere().densityKgM3);
+
+            autopilot.Reset();
+            autopilot.SetTargetAltitude(rwy.elevationM * 3.28084 + 3000.0);
+            autopilot.SetTargetHeading(rwy.headingDeg);
+        }
 
         scheduler.Reset();
         auto snap = LokYS::Simulation::SimulationSnapshot::CreateFromRigidBody(0, 0.0, state);
@@ -578,47 +674,21 @@ int WINAPI wWinMain(
         camera.Reset();
     };
 
-    auto ResetToCruise = [&aircraft, &input, &propulsion, &avionics, &environment, &autopilot, &aircraftRegistry, &ApplyAircraftConfig, &scheduler, &camera]() {
-        const auto& cfg = aircraftRegistry.GetActiveConfig();
-        ApplyAircraftConfig(cfg);
-
-        LokYS::Physics::RigidBodyState state{};
-        // Airborne at 3000 ft (914.4m) at 100 knots (51.44 m/s)
-        state.positionNed = { 0.0, 0.0, -914.4 };
-        state.velocityBody = { 51.4444, 0.0, 0.0 };
-        state.angularVelocityBody = { 0.0, 0.0, 0.0 };
-        state.attitude = LokYS::Math::Quat4d::Identity();
-        aircraft.SetState(state);
-
-        LokYS::Input::FlightControls ctrl{};
-        ctrl.throttle = 0.65; // Cruise throttle
-        ctrl.mixture = 0.85;  // Best power mixture
-        ctrl.flapSetting = 0;
-        ctrl.brakes = 0.0;
-        input.SetControls(ctrl);
-        input.SetParkingBrake(false);
-
-        propulsion.SetFuelQuantityKg(cfg.mass.defaultFuelKg * 0.8);
-        propulsion.SetRpm(cfg.propulsion.maxRatedRpm * 0.85);
-
-        environment.Update(state.positionNed, state.attitude, 51.4444, 1.0 / 120.0);
-        avionics.ResetToSteadyState(
-            state,
-            environment.GetAtmosphere().pressurePa,
-            environment.GetAtmosphere().densityKgM3);
-
-        autopilot.Reset();
-        autopilot.SetTargetAltitude(3000.0);
-        autopilot.SetTargetHeading(0.0);
-
-        scheduler.Reset();
-        auto snap = LokYS::Simulation::SimulationSnapshot::CreateFromRigidBody(0, 0.0, state);
-        scheduler.PublishSnapshot(snap);
-        scheduler.PublishSnapshot(snap);
-        camera.Reset();
+    auto ResetToRunway = [&]() {
+        auto cfg = gameStateMgr.GetFlightConfig();
+        cfg.spawnMode = LokYS::Core::SpawnMode::RunwayTakeoff;
+        gameStateMgr.SetFlightConfig(cfg);
+        ApplyFlightSetup(cfg);
     };
 
-    ResetToRunway();
+    auto ResetToCruise = [&]() {
+        auto cfg = gameStateMgr.GetFlightConfig();
+        cfg.spawnMode = LokYS::Core::SpawnMode::AirborneCruise;
+        gameStateMgr.SetFlightConfig(cfg);
+        ApplyFlightSetup(cfg);
+    };
+
+    ApplyFlightSetup(gameStateMgr.GetFlightConfig());
 
     LokYS::Physics::GroundReactionsOutput latestGroundOut{};
     LokYS::Propulsion::PropulsionOutput latestPropOut{};
@@ -628,7 +698,7 @@ int WINAPI wWinMain(
     // Milestone M15: Native Windows XAudio2 & X3DAudio Spatial Sound Subsystem
     LokYS::AudioSystem audioSystem;
     LokYS::AudioConfig audioConfig;
-    audioConfig.masterVolume = 0.85f;
+    audioConfig.masterVolume = simConfig.masterVolume;
     audioSystem.Initialize(audioConfig);
 
     // Milestone M16: Radio Navigation Systems (VOR, ILS, DME, Markers)
@@ -669,6 +739,13 @@ int WINAPI wWinMain(
 
         // Poll Hardware / Keyboard Flight Controls
         input.Poll(timer.GetDeltaTime());
+
+        // Update 2D Menu & UI mouse cursor and click state
+        menuRenderer.UpdateMouse(
+            input.GetMouseX(),
+            input.GetMouseY(),
+            input.IsLeftMouseDown(),
+            input.WasLeftMouseClicked());
 
         // Toggle Camera View with 'C' key
         if (input.WasCameraToggleTriggered()) {
@@ -857,8 +934,123 @@ int WINAPI wWinMain(
             input.ApplySerialControls(hwCtrl, hwNav);
         }
 
+        // GameState Management Input Handling
+        if (gameStateMgr.IsInMenu()) {
+            auto fCfg = gameStateMgr.GetFlightConfig();
+            if (input.WasAircraftCycleTriggered() || menuRenderer.WasCycleAircraftTriggered()) {
+                fCfg.selectedAircraftIndex = (fCfg.selectedAircraftIndex + 1) % aircraftCatalog.size();
+                gameStateMgr.SetFlightConfig(fCfg);
+                activeCatalogIdx = fCfg.selectedAircraftIndex;
+                camera.SetTargetDimensions(
+                    aircraftCatalog[activeCatalogIdx].model.GetEffectiveDimensions().z,
+                    aircraftCatalog[activeCatalogIdx].model.GetEffectiveDimensions().x,
+                    aircraftCatalog[activeCatalogIdx].model.GetEffectiveDimensions().y);
+                camera.SetCockpitEyeOffset(aircraftCatalog[activeCatalogIdx].cockpitEyePosBody);
+            }
+            if (input.WasAirportCycleTriggered() || menuRenderer.WasCycleAirportTriggered()) {
+                const auto& apts = airportDb.GetAirports();
+                size_t curIdx = 0;
+                for (size_t i = 0; i < apts.size(); ++i) {
+                    if (apts[i].icao == fCfg.airportIcao) { curIdx = i; break; }
+                }
+                size_t nextIdx = (curIdx + 1) % apts.size();
+                fCfg.airportIcao = apts[nextIdx].icao;
+                fCfg.selectedRunwayIndex = 0;
+                gameStateMgr.SetFlightConfig(fCfg);
+            }
+            if (input.WasWeatherToggleTriggered() || menuRenderer.WasCycleWeatherTriggered()) {
+                fCfg.weatherPresetIndex = (fCfg.weatherPresetIndex + 1) % 5;
+                gameStateMgr.SetFlightConfig(fCfg);
+                environment.ApplyPreset(static_cast<LokYS::Environment::WeatherPreset>(fCfg.weatherPresetIndex));
+                if (fogMode == FogMode::Auto) {
+                    renderer.SetFog(GetFogForPreset(environment.GetActivePreset()));
+                }
+            }
+            if (input.WasSpawnModeToggleTriggered() || menuRenderer.WasToggleSpawnModeTriggered()) {
+                fCfg.spawnMode = (fCfg.spawnMode == LokYS::Core::SpawnMode::RunwayTakeoff)
+                    ? LokYS::Core::SpawnMode::AirborneCruise
+                    : LokYS::Core::SpawnMode::RunwayTakeoff;
+                gameStateMgr.SetFlightConfig(fCfg);
+            }
+            if (input.WasSettingsToggleTriggered() || menuRenderer.WasSettingsTriggered()) {
+                gameStateMgr.TransitionTo(LokYS::Core::GameState::Settings);
+            }
+            if (input.WasMenuSelectTriggered() || menuRenderer.WasStartFlightTriggered()) {
+                ApplyFlightSetup(fCfg);
+                gameStateMgr.TransitionTo(LokYS::Core::GameState::Simulation);
+            }
+            if (input.WasPauseToggleTriggered()) {
+                break;
+            }
+        } else if (gameStateMgr.IsInSimulation()) {
+            if (input.WasPauseToggleTriggered()) {
+                gameStateMgr.TransitionTo(LokYS::Core::GameState::Paused);
+            }
+            if (input.WasSettingsToggleTriggered()) {
+                gameStateMgr.TransitionTo(LokYS::Core::GameState::Settings);
+            }
+        } else if (gameStateMgr.IsPaused()) {
+            if (input.WasPauseToggleTriggered() || input.WasMenuSelectTriggered() || menuRenderer.WasResumeFlightTriggered()) {
+                gameStateMgr.TransitionTo(LokYS::Core::GameState::Simulation);
+            }
+            if (input.WasResetTriggered() || menuRenderer.WasRestartFlightTriggered()) {
+                ApplyFlightSetup(gameStateMgr.GetFlightConfig());
+                gameStateMgr.TransitionTo(LokYS::Core::GameState::Simulation);
+            }
+            if (input.WasSettingsToggleTriggered() || menuRenderer.WasSettingsTriggered()) {
+                gameStateMgr.TransitionTo(LokYS::Core::GameState::Settings);
+            }
+            if (input.WasMenuBackTriggered() || menuRenderer.WasExitToMenuTriggered()) {
+                gameStateMgr.TransitionTo(LokYS::Core::GameState::MainMenu);
+            }
+        } else if (gameStateMgr.IsInSettings()) {
+            // Rebinding listening state
+            if (menuRenderer.GetListeningAction().has_value()) {
+                auto targetAction = *menuRenderer.GetListeningAction();
+                if ((GetAsyncKeyState(VK_ESCAPE) & 0x8000) != 0) {
+                    menuRenderer.ClearListeningAction();
+                } else {
+                    bool shift = (GetAsyncKeyState(VK_SHIFT) & 0x8000) != 0;
+                    bool ctrl = (GetAsyncKeyState(VK_CONTROL) & 0x8000) != 0;
+                    bool alt = (GetAsyncKeyState(VK_MENU) & 0x8000) != 0;
+                    for (LokYS::u32 vk = 8; vk <= 222; ++vk) {
+                        if (vk == VK_SHIFT || vk == VK_CONTROL || vk == VK_MENU ||
+                            vk == VK_LSHIFT || vk == VK_RSHIFT || vk == VK_LCONTROL ||
+                            vk == VK_RCONTROL || vk == VK_LMENU || vk == VK_RMENU) {
+                            continue;
+                        }
+                        if ((GetAsyncKeyState(static_cast<int>(vk)) & 0x8000) != 0) {
+                            simConfig.actionMap.SetBinding(targetAction, LokYS::Input::KeyBinding(vk, ctrl, alt, shift));
+                            input.SetActionMap(simConfig.actionMap);
+                            (void)LokYS::Input::ConfigPersistence::SaveToFile(configPath, simConfig);
+                            menuRenderer.ClearListeningAction();
+                            break;
+                        }
+                    }
+                }
+            } else {
+                if (menuRenderer.WasResetBindingsTriggered()) {
+                    simConfig.actionMap.ResetToDefaults();
+                    input.SetActionMap(simConfig.actionMap);
+                    (void)LokYS::Input::ConfigPersistence::SaveToFile(configPath, simConfig);
+                }
+                if (menuRenderer.WasSaveConfigTriggered()) {
+                    simConfig.masterVolume = menuRenderer.GetSelectedVolume();
+                    audioSystem.SetMasterVolume(simConfig.masterVolume);
+                    simConfig.cockpitDisplayMode = menuRenderer.GetSelectedDisplayMode();
+                    cockpitDisplayMode = static_cast<LokYS::Graphics::CockpitDisplayMode>(simConfig.cockpitDisplayMode % 4);
+                    (void)LokYS::Input::ConfigPersistence::SaveToFile(configPath, simConfig);
+                }
+                if (input.WasSettingsToggleTriggered() || input.WasPauseToggleTriggered() ||
+                    input.WasMenuBackTriggered() || menuRenderer.WasExitToMenuTriggered()) {
+                    gameStateMgr.ReturnToPrevious();
+                }
+            }
+        }
+
         // 1. Advance Fixed-Timestep Physics Simulation (120 Hz)
-        scheduler.Update(timer.GetDeltaTime(), [&](LokYS::f64 dt, LokYS::u64 tick, LokYS::f64 simTime) {
+        if (gameStateMgr.IsInSimulation()) {
+            scheduler.Update(timer.GetDeltaTime(), [&](LokYS::f64 dt, LokYS::u64 tick, LokYS::f64 simTime) {
             const auto& ctrl = input.GetControls();
             const auto& state = aircraft.GetState();
             const auto& aviState = avionics.GetState();
@@ -964,6 +1156,7 @@ int WINAPI wWinMain(
             scheduler.PublishSnapshot(LokYS::Simulation::SimulationSnapshot::CreateFromRigidBody(
                 tick, simTime, aircraft.GetState()));
         });
+        }
 
         // 2. Fetch Interpolated State Snapshot for Render Presentation
         auto renderSnapshot = scheduler.GetInterpolatedSnapshot();
@@ -1088,49 +1281,89 @@ int WINAPI wWinMain(
             bool isCockpitView = (camera.GetMode() == LokYS::Graphics::CameraMode::Cockpit);
             glassCockpitRenderer.SetParkingBrake(input.IsParkingBrakeEngaged());
 
-            switch (cockpitDisplayMode) {
-            case LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD: {
-                auto dockPos = isCockpitView
-                    ? LokYS::Graphics::PfdDockPosition::BottomLeft
-                    : LokYS::Graphics::PfdDockPosition::CornerMini;
-                glassCockpitRenderer.RenderPfd(
+            if (gameStateMgr.IsInSimulation()) {
+                switch (cockpitDisplayMode) {
+                case LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD: {
+                    auto dockPos = isCockpitView
+                        ? LokYS::Graphics::PfdDockPosition::BottomLeft
+                        : LokYS::Graphics::PfdDockPosition::CornerMini;
+                    glassCockpitRenderer.RenderPfd(
+                        graphics.GetCommandList(),
+                        window.GetWidth(),
+                        window.GetHeight(),
+                        avionics.GetState(),
+                        radioNav.GetNav1(),
+                        autopilot.GetStatus(),
+                        true,
+                        dockPos);
+                    break;
+                }
+                case LokYS::Graphics::CockpitDisplayMode::TransparentHUD: {
+                    glassCockpitRenderer.RenderTransparentHud(
+                        graphics.GetCommandList(),
+                        window.GetWidth(),
+                        window.GetHeight(),
+                        avionics.GetState(),
+                        radioNav.GetNav1(),
+                        autopilot.GetStatus(),
+                        renderSnapshot.bodyState.velocityBody,
+                        true);
+                    break;
+                }
+                case LokYS::Graphics::CockpitDisplayMode::AnalogSixPack: {
+                    LokYS::f32 scale = isCockpitView ? 1.0f : 0.80f;
+                    avionicsRenderer.Render(
+                        graphics.GetCommandList(),
+                        window.GetWidth(),
+                        window.GetHeight(),
+                        avionics.GetState(),
+                        radioNav.GetNav1(),
+                        true,
+                        scale);
+                    break;
+                }
+                case LokYS::Graphics::CockpitDisplayMode::Off:
+                    // No cockpit instruments rendered (pure external / clean VFR window)
+                    break;
+                }
+            } else if (gameStateMgr.IsInMenu()) {
+                const auto& fCfg = gameStateMgr.GetFlightConfig();
+                auto optApt = airportDb.FindAirport(fCfg.airportIcao);
+                std::string aptName = optApt.has_value() ? optApt->name : "LokYS Regional";
+                std::string rwyIdent = (optApt.has_value() && !optApt->runways.empty()) ? optApt->runways[0].ident : "36/18";
+                LokYS::f64 rwyLengthM = (optApt.has_value() && !optApt->runways.empty()) ? optApt->runways[0].lengthM : 2100.0;
+                LokYS::f64 rwyElevationM = optApt.has_value() ? optApt->elevationM : 22.0;
+                std::wstring wsWeather = environment.GetPresetName();
+                std::string weatherName;
+                for (wchar_t wc : wsWeather) {
+                    weatherName += (wc < 128) ? static_cast<char>(wc) : '?';
+                }
+                std::string spawnName = LokYS::Core::SpawnModeToString(fCfg.spawnMode);
+
+                menuRenderer.RenderPreFlight(
                     graphics.GetCommandList(),
                     window.GetWidth(),
                     window.GetHeight(),
-                    avionics.GetState(),
-                    radioNav.GetNav1(),
-                    autopilot.GetStatus(),
-                    true,
-                    dockPos);
-                break;
-            }
-            case LokYS::Graphics::CockpitDisplayMode::TransparentHUD: {
-                glassCockpitRenderer.RenderTransparentHud(
+                    aircraftCatalog[activeCatalogIdx].displayName,
+                    aptName,
+                    fCfg.airportIcao,
+                    rwyIdent,
+                    rwyLengthM,
+                    rwyElevationM,
+                    weatherName,
+                    spawnName,
+                    static_cast<LokYS::f64>(fCfg.initialFuelPercentage));
+            } else if (gameStateMgr.IsPaused()) {
+                menuRenderer.RenderPause(
+                    graphics.GetCommandList(),
+                    window.GetWidth(),
+                    window.GetHeight());
+            } else if (gameStateMgr.IsInSettings()) {
+                menuRenderer.RenderSettings(
                     graphics.GetCommandList(),
                     window.GetWidth(),
                     window.GetHeight(),
-                    avionics.GetState(),
-                    radioNav.GetNav1(),
-                    autopilot.GetStatus(),
-                    renderSnapshot.bodyState.velocityBody,
-                    true);
-                break;
-            }
-            case LokYS::Graphics::CockpitDisplayMode::AnalogSixPack: {
-                LokYS::f32 scale = isCockpitView ? 1.0f : 0.80f;
-                avionicsRenderer.Render(
-                    graphics.GetCommandList(),
-                    window.GetWidth(),
-                    window.GetHeight(),
-                    avionics.GetState(),
-                    radioNav.GetNav1(),
-                    true,
-                    scale);
-                break;
-            }
-            case LokYS::Graphics::CockpitDisplayMode::Off:
-                // No cockpit instruments rendered (pure external / clean VFR window)
-                break;
+                    simConfig);
             }
 
             graphics.EndFrame(true); // Vsync on for consistent frametimes
@@ -1157,29 +1390,32 @@ int WINAPI wWinMain(
         emitter.velocity = listener.velocity;
 
         LokYS::EngineAudioParams engineAudio{};
-        engineAudio.rpm = static_cast<float>(latestPropOut.engineRpm);
-        engineAudio.throttle = static_cast<float>(input.GetControls().throttle);
-        engineAudio.manifoldPressure = static_cast<float>(latestPropOut.manifoldPressureInHg);
-
         LokYS::WindAudioParams windAudio{};
-        windAudio.dynamicPressure = static_cast<float>(latestAeroOut.dynamicPressurePa);
-        windAudio.trueAirspeed = static_cast<float>(latestAeroOut.trueAirspeedMps);
-
         LokYS::GroundAudioParams groundAudio{};
-        groundAudio.groundSpeed = static_cast<float>(std::sqrt(
-            renderSnapshot.bodyState.velocityBody.x * renderSnapshot.bodyState.velocityBody.x +
-            renderSnapshot.bodyState.velocityBody.y * renderSnapshot.bodyState.velocityBody.y));
-        groundAudio.noseContact = latestGroundOut.noseInContact;
-        groundAudio.leftMainContact = latestGroundOut.leftMainInContact;
-        groundAudio.rightMainContact = latestGroundOut.rightMainInContact;
-        groundAudio.brakeFactor = static_cast<float>(input.GetControls().brakes);
 
-        bool isAirborne = !latestGroundOut.anyGearInContact;
-        if (wasAirborne && !isAirborne) {
-            groundAudio.touchdownEvent = true;
-            groundAudio.touchdownVelocity = groundAudio.groundSpeed;
+        if (gameStateMgr.IsInSimulation()) {
+            engineAudio.rpm = static_cast<float>(latestPropOut.engineRpm);
+            engineAudio.throttle = static_cast<float>(input.GetControls().throttle);
+            engineAudio.manifoldPressure = static_cast<float>(latestPropOut.manifoldPressureInHg);
+
+            windAudio.dynamicPressure = static_cast<float>(latestAeroOut.dynamicPressurePa);
+            windAudio.trueAirspeed = static_cast<float>(latestAeroOut.trueAirspeedMps);
+
+            groundAudio.groundSpeed = static_cast<float>(std::sqrt(
+                renderSnapshot.bodyState.velocityBody.x * renderSnapshot.bodyState.velocityBody.x +
+                renderSnapshot.bodyState.velocityBody.y * renderSnapshot.bodyState.velocityBody.y));
+            groundAudio.noseContact = latestGroundOut.noseInContact;
+            groundAudio.leftMainContact = latestGroundOut.leftMainInContact;
+            groundAudio.rightMainContact = latestGroundOut.rightMainInContact;
+            groundAudio.brakeFactor = static_cast<float>(input.GetControls().brakes);
+
+            bool isAirborne = !latestGroundOut.anyGearInContact;
+            if (wasAirborne && !isAirborne) {
+                groundAudio.touchdownEvent = true;
+                groundAudio.touchdownVelocity = groundAudio.groundSpeed;
+            }
+            wasAirborne = isAirborne;
         }
-        wasAirborne = isAirborne;
 
         audioSystem.Update(
             static_cast<float>(timer.GetDeltaTime()),
@@ -1346,6 +1582,7 @@ int WINAPI wWinMain(
     network.Shutdown();
     serialInterface.Shutdown();
     audioSystem.Shutdown();
+    menuRenderer.Shutdown();
     glassCockpitRenderer.Shutdown();
     avionicsRenderer.Shutdown();
     approachLights.Shutdown();

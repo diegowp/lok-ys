@@ -73,6 +73,24 @@ void InputSystem::Poll(f64 dt) noexcept {
     m_cameraOrbitPitchDelta = 0.0f;
     m_cameraZoomDelta = 0.0f;
     m_orbitResetTriggered = false;
+    m_pauseToggleTriggered = false;
+    m_menuSelectTriggered = false;
+    m_menuBackTriggered = false;
+    m_airportCycleTriggered = false;
+    m_spawnModeToggleTriggered = false;
+    m_settingsToggleTriggered = false;
+
+    // Track mouse coordinates and left click
+    if (m_hwnd) {
+        POINT pt{};
+        if (::GetCursorPos(&pt) && ::ScreenToClient(m_hwnd, &pt)) {
+            m_mouseX = static_cast<f32>(pt.x);
+            m_mouseY = static_cast<f32>(pt.y);
+        }
+        m_leftMouseDown = (::GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
+        m_leftMouseClicked = m_leftMouseDown && !m_prevLeftMouseDown;
+        m_prevLeftMouseDown = m_leftMouseDown;
+    }
 
     // Mouse Right Drag for 360-degree Orbit
     if (GetKeyState(VK_RBUTTON) < 0) {
@@ -274,12 +292,47 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
     }
     m_prevCameraKey = cDown;
 
-    // Flight Reset: 'R' key
+    // Flight Reset: 'R' key (or Toggle Spawn Mode in Pre-Flight Menu)
     bool rDown = IsDown('R');
     if (rDown && !m_prevResetKey) {
         m_resetTriggered = true;
+        m_spawnModeToggleTriggered = true;
     }
     m_prevResetKey = rDown;
+
+    // GameState Flow: Escape (Pause / Back)
+    bool escDown = IsDown(VK_ESCAPE);
+    if (escDown && !m_prevEscapeKey) {
+        m_pauseToggleTriggered = true;
+    }
+    m_prevEscapeKey = escDown;
+
+    // Menu Select / Start Flight: Return / Enter
+    bool retDown = IsDown(VK_RETURN);
+    if (retDown && !m_prevReturnKey) {
+        m_menuSelectTriggered = true;
+    }
+    m_prevReturnKey = retDown;
+
+    // Airport Cycle: Tab key
+    bool tabDown = IsDown(VK_TAB);
+    if (tabDown && !m_prevTabKey) {
+        m_airportCycleTriggered = true;
+    }
+    m_prevTabKey = tabDown;
+
+    // Menu Back: 'M' or Backspace
+    bool backDown = IsDown('M') || IsDown(VK_BACK);
+    if (backDown) {
+        m_menuBackTriggered = true;
+    }
+
+    // Settings Toggle: 'O' key
+    bool oDown = IsDown('O');
+    if (oDown && !m_prevSettingsKey) {
+        m_settingsToggleTriggered = true;
+    }
+    m_prevSettingsKey = oDown;
 
     // Instrument Panel Toggle: 'H' key
     bool hDown = IsDown('H');
