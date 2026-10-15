@@ -78,6 +78,12 @@ public:
     // Manual control setters for automation / autopilot
     void SetControls(const FlightControls& controls) noexcept { m_controls = controls; }
 
+    [[nodiscard]] bool IsParkingBrakeEngaged() const noexcept { return m_parkingBrakeEngaged; }
+    void SetParkingBrake(bool engaged) noexcept {
+        m_parkingBrakeEngaged = engaged;
+        m_controls.brakes = engaged ? 1.0 : 0.0;
+    }
+
     /// @brief Ingests hardware serial controls from microcontroller panel.
     void ApplySerialControls(
         const Serial::InboundFlightControlsPayload& controls,
@@ -135,6 +141,8 @@ private:
     bool m_aircraftCycleTriggered{ false };
     bool m_prevGearToggleKey{ false };
     bool m_gearToggleTriggered{ false };
+    bool m_parkingBrakeEngaged{ true };
+    bool m_prevSpaceKey{ false };
 
     // Camera orbit & zoom tracking
     f32 m_cameraOrbitYawDelta{ 0.0f };

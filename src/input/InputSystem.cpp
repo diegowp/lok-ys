@@ -5,7 +5,10 @@
 
 namespace LokYS::Input {
 
-InputSystem::InputSystem() = default;
+InputSystem::InputSystem() {
+    m_parkingBrakeEngaged = true;
+    m_controls.brakes = 1.0;
+}
 
 InputSystem::~InputSystem() = default;
 
@@ -126,11 +129,12 @@ void InputSystem::PollJoystick() noexcept {
             m_controls.throttle = std::clamp(rawThrottle, 0.0, 1.0);
         }
 
-        // Brakes: Trigger button (JOY_BUTTON1)
-        if (info.dwButtons & JOY_BUTTON1) {
+        // Brakes: Trigger button (JOY_BUTTON1) or persistent Parking Brake latch
+        f64 joyBrake = (info.dwButtons & JOY_BUTTON1) ? 1.0 : 0.0;
+        if (m_parkingBrakeEngaged) {
             m_controls.brakes = 1.0;
         } else {
-            m_controls.brakes = 0.0;
+            m_controls.brakes = joyBrake;
         }
     } else {
         // Hardware disconnected
@@ -246,11 +250,21 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
     }
     m_prevGearToggleKey = uDown;
 
-    // Wheel Brakes: Spacebar (held) or auto-release when forward throttle is applied
-    if (IsDown(VK_SPACE)) {
+    // Parking Brake: Spacebar edge-triggered toggle (rising edge only)
+    bool spaceDown = IsDown(VK_SPACE);
+    if (spaceDown && !m_prevSpaceKey) {
+        m_parkingBrakeEngaged = !m_parkingBrakeEngaged;
+    }
+    m_prevSpaceKey = spaceDown;
+
+    // Manual Toe/Wheel Brakes: 'B' key (momentary hold)
+    f64 manualBrake = IsDown('B') ? 1.0 : 0.0;
+
+    // Resolved brake control: locked at 1.0 if parking brake active, else manual input
+    if (m_parkingBrakeEngaged) {
         m_controls.brakes = 1.0;
     } else if (!m_joystickConnected) {
-        m_controls.brakes = 0.0;
+        m_controls.brakes = manualBrake;
     }
 
     // Camera Toggle: 'C' key

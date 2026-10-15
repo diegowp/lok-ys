@@ -108,6 +108,23 @@ void TestInputAxisShaping() {
     TEST_ASSERT(verified.flapSetting == 2, "SetControls flapSetting");
 }
 
+void TestParkingBrakeStateToggle() {
+    InputSystem input;
+    // 1. Initial spawn state must have parking brake active and brakes = 1.0
+    TEST_ASSERT(input.IsParkingBrakeEngaged(), "Parking brake engaged on initial spawn");
+    TEST_NEAR(input.GetControls().brakes, 1.0, 1e-6, "Brakes applied at 100% on spawn");
+
+    // 2. Disengage parking brake
+    input.SetParkingBrake(false);
+    TEST_ASSERT(!input.IsParkingBrakeEngaged(), "Parking brake disengaged");
+    TEST_NEAR(input.GetControls().brakes, 0.0, 1e-6, "Brakes released to 0.0");
+
+    // 3. Re-engage parking brake
+    input.SetParkingBrake(true);
+    TEST_ASSERT(input.IsParkingBrakeEngaged(), "Parking brake re-engaged");
+    TEST_NEAR(input.GetControls().brakes, 1.0, 1e-6, "Brakes locked back to 1.0");
+}
+
 int main() {
     std::cout << "========================================\n";
     std::cout << " LokYS Aerodynamics & Input Test Suite  \n";
@@ -115,6 +132,7 @@ int main() {
 
     TestAerodynamicCoefficients();
     TestInputAxisShaping();
+    TestParkingBrakeStateToggle();
 
     std::cout << "\n----------------------------------------\n";
     std::cout << "Tests Passed: " << g_testsPassed << "\n";

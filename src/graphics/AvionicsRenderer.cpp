@@ -444,21 +444,22 @@ void AvionicsRenderer::DrawAttitudeIndicator(f32 cx, f32 cy, f32 r, const Avioni
 
     // Sky (blue) upper hemisphere tilted by roll and translated by pitch
     // Represented by an arc or polygon dividing line
-    f32 cosR = std::cos(-rollRad);
-    f32 sinR = std::sin(-rollRad);
+    // Banking RIGHT (+roll) rotates the horizon COUNTER-CLOCKWISE.
+    // In screen space (where +Y is down), counter-clockwise rotation vector along horizon to right:
+    // u_right = (cos(rollRad), -sin(rollRad))
+    // Perpendicular vector pointing DOWN along pitch axis:
+    // u_down = (sin(rollRad), cos(rollRad))
+    f32 cosR = std::cos(rollRad);
+    f32 sinR = std::sin(rollRad);
 
-    // Normal to horizon pointing toward sky
-    f32 nx = -sinR;
-    f32 ny = -cosR;
+    // Horizon center point: +pitch (nose up) translates horizon DOWN (+Y in screen space)
+    f32 hx = cx + sinR * pitchOffset;
+    f32 hy = cy + cosR * pitchOffset;
 
-    // Horizon center point
-    f32 hx = cx + nx * pitchOffset;
-    f32 hy = cy + ny * pitchOffset;
-
-    // Draw sky half-disk
+    // Draw sky half-disk (spanning [rollRad, rollRad + PI] in upper screen region)
     for (int i = 0; i < 24; ++i) {
-        f32 a0 = (-rollRad) + (static_cast<f32>(i) / 24.0f) * PI;
-        f32 a1 = (-rollRad) + (static_cast<f32>(i + 1) / 24.0f) * PI;
+        f32 a0 = rollRad + (static_cast<f32>(i) / 24.0f) * PI;
+        f32 a1 = rollRad + (static_cast<f32>(i + 1) / 24.0f) * PI;
         Math::Vec3f p0{ hx, hy, 0.0f };
         Math::Vec3f p1{ cx + std::cos(a0) * horizonR, cy - std::sin(a0) * horizonR, 0.0f };
         Math::Vec3f p2{ cx + std::cos(a1) * horizonR, cy - std::sin(a1) * horizonR, 0.0f };
@@ -466,6 +467,8 @@ void AvionicsRenderer::DrawAttitudeIndicator(f32 cx, f32 cy, f32 r, const Avioni
     }
 
     // Horizon line (white dividing line)
+    // Left endpoint: (hx - cosR * horizonR, hy + sinR * horizonR) [downwards on right bank]
+    // Right endpoint: (hx + cosR * horizonR, hy - sinR * horizonR) [upwards on right bank]
     f32 hx0 = hx - cosR * horizonR;
     f32 hy0 = hy + sinR * horizonR;
     f32 hx1 = hx + cosR * horizonR;
@@ -473,11 +476,12 @@ void AvionicsRenderer::DrawAttitudeIndicator(f32 cx, f32 cy, f32 r, const Avioni
     AddLine(hx0, hy0, hx1, hy1, 2.5f, { 1.0f, 1.0f, 1.0f, 1.0f });
 
     // Pitch ladder rungs: +/- 10 deg, +/- 20 deg
+    // Positive p (+10, +20) is in the sky (above horizon, subtract from pitchOffset)
     for (int p = -20; p <= 20; p += 10) {
         if (p == 0) continue;
         f32 rungOffset = pitchOffset - (static_cast<f32>(p) / 20.0f) * (horizonR * 0.50f);
-        f32 rx = cx + nx * rungOffset;
-        f32 ry = cy + ny * rungOffset;
+        f32 rx = cx + sinR * rungOffset;
+        f32 ry = cy + cosR * rungOffset;
         f32 rungW = (std::abs(p) == 10) ? (r * 0.22f) : (r * 0.15f);
         AddLine(rx - cosR * rungW, ry + sinR * rungW, rx + cosR * rungW, ry - sinR * rungW, 1.8f, { 1.0f, 1.0f, 1.0f, 0.9f });
     }

@@ -554,8 +554,9 @@ int WINAPI wWinMain(
         ctrl.throttle = 0.0;
         ctrl.mixture = 1.0;
         ctrl.flapSetting = 0;
-        ctrl.brakes = 0.0; // Disengaged initially for clean taxi / rollout
+        ctrl.brakes = 1.0; // Engaged parking brake holds aircraft stationary on runway spawn
         input.SetControls(ctrl);
+        input.SetParkingBrake(true);
 
         propulsion.SetFuelQuantityKg(cfg.mass.defaultFuelKg);
         propulsion.SetRpm(cfg.propulsion.idleRpm);
@@ -595,6 +596,7 @@ int WINAPI wWinMain(
         ctrl.flapSetting = 0;
         ctrl.brakes = 0.0;
         input.SetControls(ctrl);
+        input.SetParkingBrake(false);
 
         propulsion.SetFuelQuantityKg(cfg.mass.defaultFuelKg * 0.8);
         propulsion.SetRpm(cfg.propulsion.maxRatedRpm * 0.85);
@@ -1084,6 +1086,7 @@ int WINAPI wWinMain(
 
             // Milestone M21 & M14: Render Cockpit Instrumentation (Camera-Aware & Mode-Aware)
             bool isCockpitView = (camera.GetMode() == LokYS::Graphics::CameraMode::Cockpit);
+            glassCockpitRenderer.SetParkingBrake(input.IsParkingBrakeEngaged());
 
             switch (cockpitDisplayMode) {
             case LokYS::Graphics::CockpitDisplayMode::GlassCockpitPFD: {

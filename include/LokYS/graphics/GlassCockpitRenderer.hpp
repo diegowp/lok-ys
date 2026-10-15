@@ -84,6 +84,9 @@ public:
     void SetEadiBackgroundOpacity(f32 opacity) noexcept { m_eadiBgOpacity = opacity; }
     [[nodiscard]] f32 GetEadiBackgroundOpacity() const noexcept { return m_eadiBgOpacity; }
 
+    void SetParkingBrake(bool engaged) noexcept { m_parkingBrake = engaged; }
+    [[nodiscard]] bool IsParkingBrake() const noexcept { return m_parkingBrake; }
+
 private:
     bool CreateRootSignature(ID3D12Device* device);
     bool CreatePipelineState(ID3D12Device* device);
@@ -168,6 +171,7 @@ private:
     bool m_initialized{ false };
     f32 m_opacity{ 0.96f };
     f32 m_eadiBgOpacity{ 0.85f };
+    bool m_parkingBrake{ true };
 };
 
 } // namespace LokYS::Graphics

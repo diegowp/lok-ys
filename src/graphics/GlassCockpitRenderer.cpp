@@ -765,6 +765,18 @@ void GlassCockpitRenderer::BuildTransparentHudGeometry(
         dmeSs << "DME " << std::fixed << std::setprecision(1) << nav1.dme.slantRangeNm << " NM";
         DrawString(dmeSs.str(), 25.0f, bannerY + 16.0f, 10.0f, colHudCyan);
     }
+
+    // 10. Parking Brake Annunciator
+    if (m_parkingBrake) {
+        f32 pbX = cx - 45.0f;
+        f32 pbY = cy + 120.0f;
+        Math::Vec4f colAmberRed{ 1.0f, 0.25f, 0.1f, 1.0f };
+        AddLine(pbX - 4.0f, pbY - 2.0f, pbX + 90.0f, pbY - 2.0f, 1.5f, colAmberRed);
+        AddLine(pbX + 90.0f, pbY - 2.0f, pbX + 90.0f, pbY + 16.0f, 1.5f, colAmberRed);
+        AddLine(pbX + 90.0f, pbY + 16.0f, pbX - 4.0f, pbY + 16.0f, 1.5f, colAmberRed);
+        AddLine(pbX - 4.0f, pbY + 16.0f, pbX - 4.0f, pbY - 2.0f, 1.5f, colAmberRed);
+        DrawString("PARK BRAKE", pbX + 4.0f, pbY + 2.0f, 11.0f, colAmberRed, 2.0f);
+    }
 }
 
 void GlassCockpitRenderer::BuildPfdGeometry(
@@ -840,6 +852,28 @@ void GlassCockpitRenderer::BuildPfdGeometry(
         static_cast<f32>(avi.heading.indicatedHeadingDeg),
         static_cast<f32>(ap.targets.targetHeadingDeg),
         nav1);
+
+    // 9. Parking Brake Annunciator Box
+    if (m_parkingBrake) {
+        f32 pbW = 86.0f;
+        f32 pbH = 18.0f;
+        f32 pbX = x + 12.0f;
+        f32 pbY = y + h - pbH - 12.0f;
+        Math::Vec4f colPbBg{ 0.75f, 0.12f, 0.05f, 0.95f };
+        Math::Vec4f colBorder{ 1.0f, 0.35f, 0.3f, 1.0f };
+        Math::Vec4f colWhite{ 1.0f, 1.0f, 1.0f, 1.0f };
+        AddQuad(
+            { pbX, pbY, 0.0f },
+            { pbX + pbW, pbY, 0.0f },
+            { pbX + pbW, pbY + pbH, 0.0f },
+            { pbX, pbY + pbH, 0.0f },
+            colPbBg);
+        AddLine(pbX, pbY, pbX + pbW, pbY, 1.5f, colBorder);
+        AddLine(pbX + pbW, pbY, pbX + pbW, pbY + pbH, 1.5f, colBorder);
+        AddLine(pbX + pbW, pbY + pbH, pbX, pbY + pbH, 1.5f, colBorder);
+        AddLine(pbX, pbY + pbH, pbX, pbY, 1.5f, colBorder);
+        DrawString("PARK BRAKE", pbX + 6.0f, pbY + 3.0f, 10.0f, colWhite, 2.0f);
+    }
 }
 
 void GlassCockpitRenderer::DrawBezelAndHousing(f32 x, f32 y, f32 w, f32 h) {
