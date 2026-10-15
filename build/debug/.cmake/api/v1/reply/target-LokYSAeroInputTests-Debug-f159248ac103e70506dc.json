@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "LokYSAtmosphereWeatherTests.exe"
+			"path" : "LokYSAeroInputTests.exe"
 		},
 		{
-			"path" : "LokYSAtmosphereWeatherTests.pdb"
+			"path" : "LokYSAeroInputTests.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -14,6 +14,7 @@
 		"commands" : 
 		[
 			"add_executable",
+			"target_link_libraries",
 			"add_compile_options",
 			"add_definitions",
 			"include_directories"
@@ -30,29 +31,35 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 320,
+				"line" : 204,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 17,
-				"parent" : 0
-			},
-			{
-				"command" : 1,
-				"file" : 0,
-				"line" : 32,
+				"line" : 216,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 13,
+				"line" : 17,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 32,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
+				"file" : 0,
+				"line" : 13,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
 				"file" : 0,
 				"line" : 36,
 				"parent" : 0
@@ -68,51 +75,51 @@
 					"fragment" : "/DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd"
 				},
 				{
-					"backtrace" : 2,
+					"backtrace" : 3,
 					"fragment" : "/W4"
 				},
 				{
-					"backtrace" : 2,
+					"backtrace" : 3,
 					"fragment" : "/WX"
 				},
 				{
-					"backtrace" : 2,
+					"backtrace" : 3,
 					"fragment" : "/permissive-"
 				},
 				{
-					"backtrace" : 2,
+					"backtrace" : 3,
 					"fragment" : "/utf-8"
 				},
 				{
-					"backtrace" : 2,
+					"backtrace" : 3,
 					"fragment" : "/Zc:inline"
 				},
 				{
-					"backtrace" : 2,
+					"backtrace" : 3,
 					"fragment" : "/Zc:preprocessor"
 				},
 				{
-					"backtrace" : 2,
+					"backtrace" : 3,
 					"fragment" : "/wd5105"
 				},
 				{
-					"backtrace" : 2,
+					"backtrace" : 3,
 					"fragment" : "/wd4324"
 				},
 				{
-					"backtrace" : 2,
+					"backtrace" : 3,
 					"fragment" : "/diagnostics:column"
 				},
 				{
-					"backtrace" : 3,
+					"backtrace" : 4,
 					"fragment" : "/Od"
 				},
 				{
-					"backtrace" : 3,
+					"backtrace" : 4,
 					"fragment" : "/Zi"
 				},
 				{
-					"backtrace" : 3,
+					"backtrace" : 4,
 					"fragment" : "/RTC1"
 				},
 				{
@@ -122,18 +129,18 @@
 			"defines" : 
 			[
 				{
-					"backtrace" : 4,
+					"backtrace" : 5,
 					"define" : "UNICODE"
 				},
 				{
-					"backtrace" : 4,
+					"backtrace" : 5,
 					"define" : "_UNICODE"
 				}
 			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 5,
+					"backtrace" : 6,
 					"path" : "C:/Users/diego/Documents/Projetos/LokYS/include"
 				}
 			],
@@ -155,7 +162,7 @@
 			]
 		}
 	],
-	"id" : "LokYSAtmosphereWeatherTests::@6890427a1f51a3e7e1df",
+	"id" : "LokYSAeroInputTests::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -169,14 +176,19 @@
 				"role" : "flags"
 			},
 			{
+				"backtrace" : 2,
+				"fragment" : "winmm.lib",
+				"role" : "libraries"
+			},
+			{
 				"fragment" : "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
 				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
-	"name" : "LokYSAtmosphereWeatherTests",
-	"nameOnDisk" : "LokYSAtmosphereWeatherTests.exe",
+	"name" : "LokYSAeroInputTests",
+	"nameOnDisk" : "LokYSAeroInputTests.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -257,7 +269,11 @@
 				60,
 				61,
 				62,
-				63
+				63,
+				64,
+				65,
+				66,
+				67
 			]
 		}
 	],
@@ -266,30 +282,35 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "tests/unit/AtmosphereWeatherTests.cpp",
+			"path" : "tests/unit/AeroInputTests.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/environment/AtmosphereModel.cpp",
+			"path" : "src/aerodynamics/AerodynamicsSystem.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/environment/WindModel.cpp",
+			"path" : "src/input/InputSystem.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/environment/EnvironmentSystem.cpp",
+			"path" : "src/input/ActionMapping.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"path" : "include/LokYS/core/EngineContext.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/LokYS/core/GameState.hpp",
 			"sourceGroupIndex" : 1
 		},
 		{
@@ -585,6 +606,21 @@
 		{
 			"backtrace" : 1,
 			"path" : "include/LokYS/graphics/TerrainStreamingSystem.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/LokYS/input/ActionMapping.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/LokYS/input/ConfigPersistence.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/LokYS/graphics/MenuRenderer.hpp",
 			"sourceGroupIndex" : 1
 		}
 	],

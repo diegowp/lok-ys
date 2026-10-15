@@ -325,7 +325,7 @@ bool AudioSystem::Initialize(const AudioConfig& config) {
 
     // Step 1: Initialize COM for multi-threaded audio pipeline
     HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
-    if (SUCCEEDED(hr)) {
+    if (hr == S_OK) {
         m_impl->coInitialized = true;
     }
 
@@ -349,7 +349,7 @@ bool AudioSystem::Initialize(const AudioConfig& config) {
     // Query speaker geometry and channel count
     DWORD dwChannelMask = 0;
     hr = m_impl->pMasteringVoice->GetChannelMask(&dwChannelMask);
-    if (SUCCEEDED(hr)) {
+    if (SUCCEEDED(hr) && dwChannelMask != 0) {
         m_impl->channelMask = dwChannelMask;
     } else {
         m_impl->channelMask = SPEAKER_STEREO;
@@ -368,7 +368,7 @@ bool AudioSystem::Initialize(const AudioConfig& config) {
     // Step 4: Initialize X3DAudio engine
     hr = X3DAudioInitialize(m_impl->channelMask, m_impl->config.speedOfSound, m_impl->x3dInstance);
     if (FAILED(hr)) {
-        // Continue without 3D acceleration if not supported
+        m_impl->config.enableSpatialAudio = false;
     }
 
     // Step 5: Synthesize procedural audio waveforms into memory
@@ -393,7 +393,7 @@ bool AudioSystem::Initialize(const AudioConfig& config) {
             &pVoice,
             &wfx,
             XAUDIO2_VOICE_USEFILTER,
-            XAUDIO2_DEFAULT_FREQ_RATIO,
+            4.0f,
             nullptr,
             nullptr,
             nullptr);
@@ -404,7 +404,7 @@ bool AudioSystem::Initialize(const AudioConfig& config) {
         XAUDIO2_BUFFER buffer{};
         buffer.AudioBytes = static_cast<UINT32>(data.size() * sizeof(i16));
         buffer.pAudioData = reinterpret_cast<const BYTE*>(data.data());
-        buffer.Flags = XAUDIO2_END_OF_STREAM;
+        buffer.Flags = 0;
         buffer.LoopCount = XAUDIO2_LOOP_INFINITE;
 
         voiceHr = pVoice->SubmitSourceBuffer(&buffer);
@@ -434,7 +434,7 @@ bool AudioSystem::Initialize(const AudioConfig& config) {
         &m_impl->pTireScreechVoice,
         &wfx,
         XAUDIO2_VOICE_USEFILTER,
-        XAUDIO2_DEFAULT_FREQ_RATIO,
+        4.0f,
         nullptr,
         nullptr,
         nullptr);
@@ -528,6 +528,7 @@ void AudioSystem::Update(
     if (!m_impl->available) {
         return;
     }
+    (void)emitterState;
 
     // Update perspective if state changed
     if (listenerState.inCockpit != m_impl->config.isCockpitPerspective) {
@@ -541,22 +542,60 @@ void AudioSystem::Update(
     // Apply 3D spatialization when in exterior chase perspective
     f32 dopplerMultiplier = 1.0f;
     if (!listenerState.inCockpit && m_impl->config.enableSpatialAudio) {
+        Math::Vec3f lFwd = listenerState.forward;
+        if (lFwd.LengthSq() < 1e-4f) lFwd = { 0.0f, 0.0f, 1.0f };
+        else lFwd = lFwd.Normalized();
+
+        Math::Vec3f lUp = listenerState.up;
+        if (lUp.LengthSq() < 1e-4f) lUp = { 0.0f, 1.0f, 0.0f };
+        else lUp = lUp.Normalized();
+
+        Math::Vec3f lRight = lFwd.Cross(lUp);
+        if (lRight.LengthSq() < 1e-4f) lRight = { 1.0f, 0.0f, 0.0f };
+        else lRight = lRight.Normalized();
+        Math::Vec3f lTop = lRight.Cross(lFwd).Normalized();
+
+        Math::Vec3f lPos = listenerState.position;
+        Math::Vec3f ePos = emitterState.position;
+        // Ensure distance is at least 1.0m to prevent divide-by-zero singularity in 3D calculations
+        if ((ePos - lPos).LengthSq() < 1.0f) {
+            lPos = ePos - lFwd * 2.0f;
+        }
+
+        // Clamp velocities to safe limits below Mach 1
+        auto ClampVel = [](const Math::Vec3f& v) -> Math::Vec3f {
+            f32 speed = v.Length();
+            if (speed > 250.0f) return v * (250.0f / speed);
+            return v;
+        };
+        Math::Vec3f lVel = ClampVel(listenerState.velocity);
+        Math::Vec3f eVel = ClampVel(emitterState.velocity);
+
         X3DAUDIO_LISTENER listener{};
-        listener.OrientFront = { listenerState.forward.x, listenerState.forward.y, listenerState.forward.z };
-        listener.OrientTop   = { listenerState.up.x, listenerState.up.y, listenerState.up.z };
-        listener.Position    = { listenerState.position.x, listenerState.position.y, listenerState.position.z };
-        listener.Velocity    = { listenerState.velocity.x, listenerState.velocity.y, listenerState.velocity.z };
+        listener.OrientFront = { lFwd.x, lFwd.y, lFwd.z };
+        listener.OrientTop   = { lTop.x, lTop.y, lTop.z };
+        listener.Position    = { lPos.x, lPos.y, lPos.z };
+        listener.Velocity    = { lVel.x, lVel.y, lVel.z };
+
+        Math::Vec3f eFwd = emitterState.forward;
+        if (eFwd.LengthSq() < 1e-4f) eFwd = lFwd;
+        else eFwd = eFwd.Normalized();
+
+        Math::Vec3f eRight = eFwd.Cross(lTop);
+        if (eRight.LengthSq() < 1e-4f) eRight = lRight;
+        else eRight = eRight.Normalized();
+        Math::Vec3f eTop = eRight.Cross(eFwd).Normalized();
 
         X3DAUDIO_EMITTER emitter{};
-        emitter.OrientFront = { emitterState.forward.x, emitterState.forward.y, emitterState.forward.z };
-        emitter.OrientTop   = { emitterState.up.x, emitterState.up.y, emitterState.up.z };
-        emitter.Position    = { emitterState.position.x, emitterState.position.y, emitterState.position.z };
-        emitter.Velocity    = { emitterState.velocity.x, emitterState.velocity.y, emitterState.velocity.z };
-        emitter.InnerRadius = emitterState.minDistance;
+        emitter.OrientFront = { eFwd.x, eFwd.y, eFwd.z };
+        emitter.OrientTop   = { eTop.x, eTop.y, eTop.z };
+        emitter.Position    = { ePos.x, ePos.y, ePos.z };
+        emitter.Velocity    = { eVel.x, eVel.y, eVel.z };
+        emitter.InnerRadius = std::max(1.0f, emitterState.minDistance);
         emitter.InnerRadiusAngle = 0.0f;
         emitter.ChannelCount = 1;
         emitter.ChannelRadius = 1.0f;
-        emitter.CurveDistanceScaler = 1.0f;
+        emitter.CurveDistanceScaler = 10.0f;
         emitter.DopplerScaler = 1.0f;
 
         X3DAUDIO_DSP_SETTINGS dspSettings{};
@@ -571,9 +610,25 @@ void AudioSystem::Update(
             X3DAUDIO_CALCULATE_MATRIX | X3DAUDIO_CALCULATE_DOPPLER,
             &dspSettings);
 
-        dopplerMultiplier = ClampVal(dspSettings.DopplerFactor, 0.5f, 2.0f);
+
+        // Sanitize DopplerFactor
+        if (!std::isfinite(dspSettings.DopplerFactor) || dspSettings.DopplerFactor < 0.1f) {
+            dopplerMultiplier = 1.0f;
+        } else {
+            dopplerMultiplier = ClampVal(dspSettings.DopplerFactor, 0.5f, 2.0f);
+        }
+
+        // Sanitize matrix coefficients to eliminate any NaN/Inf
+        for (u32 c = 0; c < m_impl->channelCount; ++c) {
+            if (!std::isfinite(m_impl->matrixCoefficients[c]) || m_impl->matrixCoefficients[c] < 0.0f) {
+                m_impl->matrixCoefficients[c] = 0.5f;
+            } else {
+                m_impl->matrixCoefficients[c] = ClampVal(m_impl->matrixCoefficients[c], 0.0f, 2.0f);
+            }
+        }
+
         m_impl->pEngineVoice->SetOutputMatrix(
-            m_impl->pMasteringVoice,
+            nullptr,
             1,
             m_impl->channelCount,
             m_impl->matrixCoefficients.data());
@@ -583,13 +638,13 @@ void AudioSystem::Update(
             m_impl->matrixCoefficients[c] = 1.0f;
         }
         m_impl->pEngineVoice->SetOutputMatrix(
-            m_impl->pMasteringVoice,
+            nullptr,
             1,
             m_impl->channelCount,
             m_impl->matrixCoefficients.data());
     }
 
-    m_impl->pEngineVoice->SetFrequencyRatio(ClampVal(pitchRatio * dopplerMultiplier, 0.1f, 4.0f));
+    m_impl->pEngineVoice->SetFrequencyRatio(ClampVal(pitchRatio * dopplerMultiplier, 0.1f, 3.8f));
     m_impl->pEngineVoice->SetVolume(engineVol * m_impl->config.masterVolume);
 
     // 2. Aerodynamic Wind Rush Dynamics

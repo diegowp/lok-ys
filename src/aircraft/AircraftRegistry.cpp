@@ -74,6 +74,9 @@ void AircraftRegistry::InitializeConfigurations() {
         0.0, 1824.0, 0.0,
         0.0, 0.0, 2667.0
     );
+    c172.mass.emptyCgBody = { 0.0, 0.0, 0.0 };
+    c172.mass.fuelTankLocationBody = { 0.0, 0.0, -0.70 };
+    c172.mass.payloadLocationBody = { 0.35, 0.0, 0.10 };
 
     c172.vSpeeds.Vso = 40.0;
     c172.vSpeeds.Vs = 48.0;
@@ -157,6 +160,9 @@ void AircraftRegistry::InitializeConfigurations() {
         0.0, 7800.0, 0.0,
         0.0, 0.0, 11500.0
     );
+    b58.mass.emptyCgBody = { 0.0, 0.0, 0.0 };
+    b58.mass.fuelTankLocationBody = { 0.0, 0.0, 0.10 };
+    b58.mass.payloadLocationBody = { 0.45, 0.0, 0.15 };
 
     b58.vSpeeds.Vso = 74.0;
     b58.vSpeeds.Vs = 84.0;
@@ -241,6 +247,9 @@ void AircraftRegistry::InitializeConfigurations() {
         0.0, 680.0, 0.0,
         0.0, 0.0, 1050.0
     );
+    e330.mass.emptyCgBody = { 0.0, 0.0, 0.0 };
+    e330.mass.fuelTankLocationBody = { -0.10, 0.0, 0.0 };
+    e330.mass.payloadLocationBody = { -0.30, 0.0, 0.05 };
 
     e330.vSpeeds.Vso = 58.0;
     e330.vSpeeds.Vs = 60.0;

@@ -105,6 +105,14 @@ public:
     void SetParkingBrake(bool engaged) noexcept { m_parkingBrake = engaged; }
     [[nodiscard]] bool IsParkingBrake() const noexcept { return m_parkingBrake; }
 
+    void SetPhysicsAnnunciators(f32 groundEffectPhi, f32 slipstreamMps, f32 bladePitchDeg, bool brakeLeft, bool brakeRight) noexcept {
+        m_groundEffectPhi = groundEffectPhi;
+        m_slipstreamMps = slipstreamMps;
+        m_bladePitchDeg = bladePitchDeg;
+        m_brakeLeft = brakeLeft;
+        m_brakeRight = brakeRight;
+    }
+
 private:
     bool CreateRootSignature(ID3D12Device* device);
     bool CreatePipelineState(ID3D12Device* device);
@@ -190,6 +198,11 @@ private:
     f32 m_opacity{ 0.96f };
     f32 m_eadiBgOpacity{ 0.85f };
     bool m_parkingBrake{ true };
+    f32 m_groundEffectPhi{ 1.0f };
+    f32 m_slipstreamMps{ 0.0f };
+    f32 m_bladePitchDeg{ 0.0f };
+    bool m_brakeLeft{ false };
+    bool m_brakeRight{ false };
 };
 
 } // namespace LokYS::Graphics

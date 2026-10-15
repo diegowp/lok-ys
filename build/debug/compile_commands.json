@@ -201,8 +201,28 @@
 },
 {
   "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\input\\ActionMapping.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\input\\ActionMapping.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/input/ActionMapping.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\input\\ConfigPersistence.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\input\\ConfigPersistence.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/input/ConfigPersistence.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\graphics\\MenuRenderer.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\graphics\\MenuRenderer.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/graphics/MenuRenderer.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
   "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSMathTests.dir\\tests\\unit\\MathTests.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\tests\\unit\\MathTests.cpp",
   "file": "C:/Users/diego/Documents/Projetos/LokYS/tests/unit/MathTests.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSGameStateTests.dir\\tests\\unit\\GameStateTests.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\tests\\unit\\GameStateTests.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/tests/unit/GameStateTests.cpp"
 },
 {
   "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
@@ -256,6 +276,11 @@
 },
 {
   "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSAeroInputTests.dir\\src\\input\\ActionMapping.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\input\\ActionMapping.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/input/ActionMapping.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
   "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSGroundReactionsTests.dir\\tests\\unit\\GroundReactionsTests.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\tests\\unit\\GroundReactionsTests.cpp",
   "file": "C:/Users/diego/Documents/Projetos/LokYS/tests/unit/GroundReactionsTests.cpp"
 },
@@ -268,6 +293,36 @@
   "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
   "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSGroundReactionsTests.dir\\src\\physics\\RigidBody.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\physics\\RigidBody.cpp",
   "file": "C:/Users/diego/Documents/Projetos/LokYS/src/physics/RigidBody.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSAeroPhysicsTests.dir\\tests\\unit\\AeroPhysicsTests.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\tests\\unit\\AeroPhysicsTests.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/tests/unit/AeroPhysicsTests.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSAeroPhysicsTests.dir\\src\\aerodynamics\\AerodynamicsSystem.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\aerodynamics\\AerodynamicsSystem.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/aerodynamics/AerodynamicsSystem.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSAeroPhysicsTests.dir\\src\\propulsion\\PropulsionSystem.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\propulsion\\PropulsionSystem.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/propulsion/PropulsionSystem.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSAeroPhysicsTests.dir\\src\\physics\\GroundReactions.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\physics\\GroundReactions.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/physics/GroundReactions.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSAeroPhysicsTests.dir\\src\\physics\\RigidBody.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\physics\\RigidBody.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/physics/RigidBody.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSAeroPhysicsTests.dir\\src\\aircraft\\AircraftRegistry.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\aircraft\\AircraftRegistry.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/aircraft/AircraftRegistry.cpp"
 },
 {
   "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
@@ -328,6 +383,11 @@
   "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
   "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSSerialInterfaceTests.dir\\src\\input\\InputSystem.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\input\\InputSystem.cpp",
   "file": "C:/Users/diego/Documents/Projetos/LokYS/src/input/InputSystem.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSSerialInterfaceTests.dir\\src\\input\\ActionMapping.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\input\\ActionMapping.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/input/ActionMapping.cpp"
 },
 {
   "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
@@ -468,5 +528,20 @@
   "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
   "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSMultiAircraftSceneryTests.dir\\src\\aerodynamics\\AerodynamicsSystem.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\aerodynamics\\AerodynamicsSystem.cpp",
   "file": "C:/Users/diego/Documents/Projetos/LokYS/src/aerodynamics/AerodynamicsSystem.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSActionMappingTests.dir\\tests\\unit\\ActionMappingTests.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\tests\\unit\\ActionMappingTests.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/tests/unit/ActionMappingTests.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSActionMappingTests.dir\\src\\input\\ActionMapping.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\input\\ActionMapping.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/input/ActionMapping.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSActionMappingTests.dir\\src\\input\\ConfigPersistence.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\input\\ConfigPersistence.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/input/ConfigPersistence.cpp"
 }
 ]

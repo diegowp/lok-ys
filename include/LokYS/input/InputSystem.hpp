@@ -23,6 +23,8 @@ struct FlightControls {
     f64 mixture{ 1.0 };  // [0.0, 1.0]: 0 idle cutoff, 1 full rich
     u32 flapSetting{ 0 };// 0 (0 deg), 1 (10 deg), 2 (20 deg), 3 (30 deg)
     f64 brakes{ 0.0 };   // [0.0, 1.0]: wheel brake pressure
+    f64 brakeLeft{ 0.0 };// [0.0, 1.0]: independent left toe brake
+    f64 brakeRight{ 0.0 };// [0.0, 1.0]: independent right toe brake
 };
 
 

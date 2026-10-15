@@ -29,7 +29,10 @@
 						12,
 						13,
 						14,
-						15
+						15,
+						16,
+						17,
+						18
 					]
 				}
 			],
@@ -59,7 +62,10 @@
 						12,
 						13,
 						14,
-						15
+						15,
+						16,
+						17,
+						18
 					]
 				}
 			],
@@ -67,113 +73,134 @@
 			[
 				{
 					"directoryIndex" : 0,
+					"id" : "LokYSActionMappingTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSActionMappingTests-Debug-1f91a7fccec85670e256.json",
+					"name" : "LokYSActionMappingTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
 					"id" : "LokYSAeroInputTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSAeroInputTests-Debug-7ef74705afbd7a83ca0f.json",
+					"jsonFile" : "target-LokYSAeroInputTests-Debug-f159248ac103e70506dc.json",
 					"name" : "LokYSAeroInputTests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
+					"id" : "LokYSAeroPhysicsTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSAeroPhysicsTests-Debug-87b44810c3c15852c1bc.json",
+					"name" : "LokYSAeroPhysicsTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
 					"id" : "LokYSAtmosphereWeatherTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSAtmosphereWeatherTests-Debug-2624b5b9dd27b494fa6e.json",
+					"jsonFile" : "target-LokYSAtmosphereWeatherTests-Debug-3797f2f8597da4e33857.json",
 					"name" : "LokYSAtmosphereWeatherTests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "LokYSAudioTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSAudioTests-Debug-73ad6f9f0fa0f815f7d4.json",
+					"jsonFile" : "target-LokYSAudioTests-Debug-47dc921112abd8ab1ede.json",
 					"name" : "LokYSAudioTests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "LokYSAvionicsTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSAvionicsTests-Debug-76a9f636a83d124f97f9.json",
+					"jsonFile" : "target-LokYSAvionicsTests-Debug-0e29ce3dc8e3316a713e.json",
 					"name" : "LokYSAvionicsTests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "LokYSFlightSimulator::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSFlightSimulator-Debug-27757ee900f2f2b10382.json",
+					"jsonFile" : "target-LokYSFlightSimulator-Debug-99035fe013a80234550c.json",
 					"name" : "LokYSFlightSimulator",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
+					"id" : "LokYSGameStateTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSGameStateTests-Debug-61139b1bc5546dd884ad.json",
+					"name" : "LokYSGameStateTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
 					"id" : "LokYSGlassCockpitAutopilotTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSGlassCockpitAutopilotTests-Debug-aee7ba640e90cb085414.json",
+					"jsonFile" : "target-LokYSGlassCockpitAutopilotTests-Debug-b19b9d1ea318d31dd18b.json",
 					"name" : "LokYSGlassCockpitAutopilotTests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "LokYSGltfTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSGltfTests-Debug-31ea5730f663dcd105e7.json",
+					"jsonFile" : "target-LokYSGltfTests-Debug-2cc2b50ae058ada62f45.json",
 					"name" : "LokYSGltfTests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "LokYSGraphicsOptimizationTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSGraphicsOptimizationTests-Debug-dd9659b80e11aed86f58.json",
+					"jsonFile" : "target-LokYSGraphicsOptimizationTests-Debug-1510e644a05014429cc4.json",
 					"name" : "LokYSGraphicsOptimizationTests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "LokYSGroundReactionsTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSGroundReactionsTests-Debug-1b8037a5b24d55292baf.json",
+					"jsonFile" : "target-LokYSGroundReactionsTests-Debug-3dfe2f2db853ed8f89d4.json",
 					"name" : "LokYSGroundReactionsTests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "LokYSMathTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSMathTests-Debug-6129f77ab93c322c26fa.json",
+					"jsonFile" : "target-LokYSMathTests-Debug-fc491c48861f08d620d1.json",
 					"name" : "LokYSMathTests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "LokYSMultiAircraftSceneryTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSMultiAircraftSceneryTests-Debug-4677f469410e7ee35779.json",
+					"jsonFile" : "target-LokYSMultiAircraftSceneryTests-Debug-9a853989e5a65fc2b8af.json",
 					"name" : "LokYSMultiAircraftSceneryTests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "LokYSNetworkMultiplayerTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSNetworkMultiplayerTests-Debug-098b380d191f0596e878.json",
+					"jsonFile" : "target-LokYSNetworkMultiplayerTests-Debug-f3cb7346c4781a671aab.json",
 					"name" : "LokYSNetworkMultiplayerTests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "LokYSPhysicsTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSPhysicsTests-Debug-9b44f452f06ce803a76f.json",
+					"jsonFile" : "target-LokYSPhysicsTests-Debug-be50f7ad616b197a29ab.json",
 					"name" : "LokYSPhysicsTests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "LokYSPropulsionTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSPropulsionTests-Debug-bace066b3a5854552779.json",
+					"jsonFile" : "target-LokYSPropulsionTests-Debug-126d1693c36971db8ccd.json",
 					"name" : "LokYSPropulsionTests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "LokYSRadioNavTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSRadioNavTests-Debug-b494242bd58b38d4ac80.json",
+					"jsonFile" : "target-LokYSRadioNavTests-Debug-eacded38899da9b34f92.json",
 					"name" : "LokYSRadioNavTests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "LokYSSerialInterfaceTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LokYSSerialInterfaceTests-Debug-edbb57ddd5aa1c73123a.json",
+					"jsonFile" : "target-LokYSSerialInterfaceTests-Debug-e01bd8cd02aa13148dae.json",
 					"name" : "LokYSSerialInterfaceTests",
 					"projectIndex" : 0
 				}

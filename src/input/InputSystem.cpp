@@ -275,14 +275,23 @@ void InputSystem::PollKeyboard(f64 dt) noexcept {
     }
     m_prevSpaceKey = spaceDown;
 
-    // Manual Toe/Wheel Brakes: 'B' key (momentary hold)
+    // Manual Toe/Wheel Brakes: 'B' key (both), ',' (left toe brake), '.' (right toe brake)
     f64 manualBrake = IsDown('B') ? 1.0 : 0.0;
+    f64 manualLeft = (IsDown('B') || IsDown(VK_OEM_COMMA)) ? 1.0 : 0.0;
+    f64 manualRight = (IsDown('B') || IsDown(VK_OEM_PERIOD)) ? 1.0 : 0.0;
 
     // Resolved brake control: locked at 1.0 if parking brake active, else manual input
     if (m_parkingBrakeEngaged) {
         m_controls.brakes = 1.0;
+        m_controls.brakeLeft = 1.0;
+        m_controls.brakeRight = 1.0;
     } else if (!m_joystickConnected) {
         m_controls.brakes = manualBrake;
+        m_controls.brakeLeft = manualLeft;
+        m_controls.brakeRight = manualRight;
+    } else {
+        m_controls.brakeLeft = m_controls.brakes;
+        m_controls.brakeRight = m_controls.brakes;
     }
 
     // Camera Toggle: 'C' key

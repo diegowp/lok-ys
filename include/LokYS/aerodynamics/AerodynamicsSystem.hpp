@@ -45,6 +45,12 @@ struct AeroOutput {
     f64 alphaDeg{ 0.0 };
     f64 betaDeg{ 0.0 };
     bool isStalled{ false };
+
+    // Phase F2 Empirical Aerodynamics Additions
+    f64 groundEffectFactor{ 1.0 };       // McCormick phi(h/b) factor: 1.0 = free flight, < 1.0 = ground effect
+    f64 tailDynamicPressurePa{ 0.0 };    // q_tail incorporating propwash slipstream
+    f64 slipstreamVelocityMps{ 0.0 };    // V_slip via Rankine-Froude actuator disk
+    f64 machNumber{ 0.0 };               // Flight Mach number
 };
 
 class AerodynamicsSystem {
@@ -59,7 +65,7 @@ public:
         const Aircraft::AeroDerivativesConfig& aero,
         bool gearExtended = true) noexcept;
 
-    // Evaluates aerodynamic forces and moments from airframe state
+    // Standard 3-to-5 argument overload
     [[nodiscard]] AeroOutput Evaluate(
         const Math::Vec3d& relativeWindBody,
         const Math::Vec3d& angularVelocityBody,
@@ -67,15 +73,34 @@ public:
         f64 airDensityKgM3 = Math::Constants::SEA_LEVEL_DENSITY,
         f64 speedOfSoundMps = 340.294) const noexcept;
 
+    // Phase F2 full evaluation with Ground Effect & Propwash (6 to 9 arguments)
+    [[nodiscard]] AeroOutput Evaluate(
+        const Math::Vec3d& relativeWindBody,
+        const Math::Vec3d& angularVelocityBody,
+        const ControlDeflections& controls,
+        f64 airDensityKgM3,
+        f64 speedOfSoundMps,
+        f64 altitudeAglM,
+        f64 propThrustNewtons = 0.0,
+        f64 propDiameterM = 1.905,
+        f64 propwashImmersion = 0.60) const noexcept;
+
 private:
-    [[nodiscard]] f64 ComputeLiftCoefficient(f64 alphaRad, f64 qHat, f64 elevatorNorm, f64 flapsNorm, bool& outStall) const noexcept;
-    [[nodiscard]] f64 ComputeDragCoefficient(f64 alphaRad, f64 CL, f64 flapsNorm) const noexcept;
-    [[nodiscard]] f64 ComputeSideForceCoefficient(f64 betaRad, f64 rudderNorm) const noexcept;
-    [[nodiscard]] f64 ComputeRollMomentCoefficient(f64 betaRad, f64 pHat, f64 rHat, f64 aileronNorm) const noexcept;
-    [[nodiscard]] f64 ComputePitchMomentCoefficient(f64 alphaRad, f64 qHat, f64 elevatorNorm, f64 flapsNorm) const noexcept;
-    [[nodiscard]] f64 ComputeYawMomentCoefficient(f64 betaRad, f64 pHat, f64 rHat, f64 rudderNorm) const noexcept;
+    [[nodiscard]] f64 ComputeLiftCoefficient(
+        f64 alphaRad, f64 qHat, f64 elevatorNorm, f64 flapsNorm, f64 phiGe, f64 betaComp, bool& outStall) const noexcept;
+    [[nodiscard]] f64 ComputeDragCoefficient(
+        f64 alphaRad, f64 CL, f64 flapsNorm, f64 phiGe, f64 mach) const noexcept;
+    [[nodiscard]] f64 ComputeSideForceCoefficient(
+        f64 betaRad, f64 rudderNorm) const noexcept;
+    [[nodiscard]] f64 ComputeRollMomentCoefficient(
+        f64 betaRad, f64 pHat, f64 rHat, f64 aileronNorm, f64 alphaRad, f64 tasMps) const noexcept;
+    [[nodiscard]] f64 ComputePitchMomentCoefficient(
+        f64 alphaRad, f64 qHat, f64 elevatorNorm, f64 flapsNorm, f64 phiGe, f64 etaTail, f64 betaComp) const noexcept;
+    [[nodiscard]] f64 ComputeYawMomentCoefficient(
+        f64 betaRad, f64 pHat, f64 rHat, f64 rudderNorm, f64 etaTail, f64 alphaRad) const noexcept;
 
     AircraftGeometry m_geometry{};
+    f64 m_criticalMach{ 0.65 };
 
     // --- Cessna 172 Aero Derivatives (NASA CR-2144 / Roskam Airplane Flight Dynamics) ---
     f64 m_CL0{ 0.307 };         // Zero-alpha lift coefficient

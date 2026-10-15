@@ -361,6 +361,7 @@ void GlassCockpitRenderer::RenderPfd(
 
     if (m_indices.empty()) return;
 
+
     size_t vertCount = std::min(m_vertices.size(), MaxVertices);
     size_t idxCount = std::min(m_indices.size(), MaxIndices);
 
@@ -766,16 +767,35 @@ void GlassCockpitRenderer::BuildTransparentHudGeometry(
         DrawString(dmeSs.str(), 25.0f, bannerY + 16.0f, 10.0f, colHudCyan);
     }
 
-    // 10. Parking Brake Annunciator
+    // 10. Parking Brake & Physics Annunciators
+    f32 pbX = cx - 45.0f;
+    f32 pbY = cy + 120.0f;
     if (m_parkingBrake) {
-        f32 pbX = cx - 45.0f;
-        f32 pbY = cy + 120.0f;
         Math::Vec4f colAmberRed{ 1.0f, 0.25f, 0.1f, 1.0f };
         AddLine(pbX - 4.0f, pbY - 2.0f, pbX + 90.0f, pbY - 2.0f, 1.5f, colAmberRed);
         AddLine(pbX + 90.0f, pbY - 2.0f, pbX + 90.0f, pbY + 16.0f, 1.5f, colAmberRed);
         AddLine(pbX + 90.0f, pbY + 16.0f, pbX - 4.0f, pbY + 16.0f, 1.5f, colAmberRed);
         AddLine(pbX - 4.0f, pbY + 16.0f, pbX - 4.0f, pbY - 2.0f, 1.5f, colAmberRed);
         DrawString("PARK BRAKE", pbX + 4.0f, pbY + 2.0f, 11.0f, colAmberRed, 2.0f);
+        pbY += 22.0f;
+    } else if (m_brakeLeft || m_brakeRight) {
+        Math::Vec4f colAmber{ 1.0f, 0.7f, 0.2f, 1.0f };
+        AddLine(pbX - 4.0f, pbY - 2.0f, pbX + 70.0f, pbY - 2.0f, 1.5f, colAmber);
+        AddLine(pbX + 70.0f, pbY - 2.0f, pbX + 70.0f, pbY + 16.0f, 1.5f, colAmber);
+        AddLine(pbX + 70.0f, pbY + 16.0f, pbX - 4.0f, pbY + 16.0f, 1.5f, colAmber);
+        AddLine(pbX - 4.0f, pbY + 16.0f, pbX - 4.0f, pbY - 2.0f, 1.5f, colAmber);
+        const char* brkText = (m_brakeLeft && m_brakeRight) ? "BRAKE" : (m_brakeLeft ? "L-BRK" : "R-BRK");
+        DrawString(brkText, pbX + 4.0f, pbY + 2.0f, 11.0f, colAmber, 2.0f);
+        pbY += 22.0f;
+    }
+
+    if (m_groundEffectPhi < 0.95f) {
+        Math::Vec4f colGreen{ 0.2f, 0.95f, 0.4f, 1.0f };
+        AddLine(pbX - 4.0f, pbY - 2.0f, pbX + 76.0f, pbY - 2.0f, 1.5f, colGreen);
+        AddLine(pbX + 76.0f, pbY - 2.0f, pbX + 76.0f, pbY + 16.0f, 1.5f, colGreen);
+        AddLine(pbX + 76.0f, pbY + 16.0f, pbX - 4.0f, pbY + 16.0f, 1.5f, colGreen);
+        AddLine(pbX - 4.0f, pbY + 16.0f, pbX - 4.0f, pbY - 2.0f, 1.5f, colGreen);
+        DrawString("GND EFF", pbX + 4.0f, pbY + 2.0f, 11.0f, colGreen, 2.0f);
     }
 }
 
@@ -853,12 +873,13 @@ void GlassCockpitRenderer::BuildPfdGeometry(
         static_cast<f32>(ap.targets.targetHeadingDeg),
         nav1);
 
-    // 9. Parking Brake Annunciator Box
+    // 9. Parking Brake & Physics Annunciator Boxes
+    f32 pbW = 86.0f;
+    f32 pbH = 18.0f;
+    f32 pbX = x + 12.0f;
+    f32 pbY = y + h - pbH - 12.0f;
+
     if (m_parkingBrake) {
-        f32 pbW = 86.0f;
-        f32 pbH = 18.0f;
-        f32 pbX = x + 12.0f;
-        f32 pbY = y + h - pbH - 12.0f;
         Math::Vec4f colPbBg{ 0.75f, 0.12f, 0.05f, 0.95f };
         Math::Vec4f colBorder{ 1.0f, 0.35f, 0.3f, 1.0f };
         Math::Vec4f colWhite{ 1.0f, 1.0f, 1.0f, 1.0f };
@@ -873,6 +894,43 @@ void GlassCockpitRenderer::BuildPfdGeometry(
         AddLine(pbX + pbW, pbY + pbH, pbX, pbY + pbH, 1.5f, colBorder);
         AddLine(pbX, pbY + pbH, pbX, pbY, 1.5f, colBorder);
         DrawString("PARK BRAKE", pbX + 6.0f, pbY + 3.0f, 10.0f, colWhite, 2.0f);
+        pbX += pbW + 6.0f;
+    } else if (m_brakeLeft || m_brakeRight) {
+        f32 brkW = 64.0f;
+        Math::Vec4f colBrkBg{ 0.70f, 0.45f, 0.05f, 0.95f };
+        Math::Vec4f colBorder{ 1.0f, 0.7f, 0.2f, 1.0f };
+        Math::Vec4f colWhite{ 1.0f, 1.0f, 1.0f, 1.0f };
+        AddQuad(
+            { pbX, pbY, 0.0f },
+            { pbX + brkW, pbY, 0.0f },
+            { pbX + brkW, pbY + pbH, 0.0f },
+            { pbX, pbY + pbH, 0.0f },
+            colBrkBg);
+        AddLine(pbX, pbY, pbX + brkW, pbY, 1.5f, colBorder);
+        AddLine(pbX + brkW, pbY, pbX + brkW, pbY + pbH, 1.5f, colBorder);
+        AddLine(pbX + brkW, pbY + pbH, pbX, pbY + pbH, 1.5f, colBorder);
+        AddLine(pbX, pbY + pbH, pbX, pbY, 1.5f, colBorder);
+        const char* brkText = (m_brakeLeft && m_brakeRight) ? "BRAKE" : (m_brakeLeft ? "L-BRK" : "R-BRK");
+        DrawString(brkText, pbX + 6.0f, pbY + 3.0f, 10.0f, colWhite, 2.0f);
+        pbX += brkW + 6.0f;
+    }
+
+    if (m_groundEffectPhi < 0.95f) {
+        f32 geW = 68.0f;
+        Math::Vec4f colGeBg{ 0.05f, 0.50f, 0.20f, 0.95f };
+        Math::Vec4f colBorder{ 0.2f, 0.9f, 0.4f, 1.0f };
+        Math::Vec4f colWhite{ 1.0f, 1.0f, 1.0f, 1.0f };
+        AddQuad(
+            { pbX, pbY, 0.0f },
+            { pbX + geW, pbY, 0.0f },
+            { pbX + geW, pbY + pbH, 0.0f },
+            { pbX, pbY + pbH, 0.0f },
+            colGeBg);
+        AddLine(pbX, pbY, pbX + geW, pbY, 1.5f, colBorder);
+        AddLine(pbX + geW, pbY, pbX + geW, pbY + pbH, 1.5f, colBorder);
+        AddLine(pbX + geW, pbY + pbH, pbX, pbY + pbH, 1.5f, colBorder);
+        AddLine(pbX, pbY + pbH, pbX, pbY, 1.5f, colBorder);
+        DrawString("GND EFF", pbX + 6.0f, pbY + 3.0f, 10.0f, colWhite, 2.0f);
     }
 }
 

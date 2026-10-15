@@ -432,6 +432,33 @@ build CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainStreamingSystem.cp
   TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
   TARGET_PDB = LokYSFlightSimulator.pdb
 
+build CMakeFiles\LokYSFlightSimulator.dir\src\input\ActionMapping.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Debug ..\..\src\input\ActionMapping.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest
+  INCLUDES = -I..\..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\input
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\input\ConfigPersistence.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Debug ..\..\src\input\ConfigPersistence.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest
+  INCLUDES = -I..\..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\input
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\graphics\MenuRenderer.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Debug ..\..\src\graphics\MenuRenderer.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest
+  INCLUDES = -I..\..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\graphics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target LokYSFlightSimulator
@@ -440,7 +467,7 @@ build CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainStreamingSystem.cp
 #############################################
 # Link the executable LokYSFlightSimulator.exe
 
-build LokYSFlightSimulator.exe: CXX_EXECUTABLE_LINKER__LokYSFlightSimulator_Debug CMakeFiles\LokYSFlightSimulator.dir\src\app\main.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\EngineContext.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\Timer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\platform\Window.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GraphicsDevice.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GpuCapabilities.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Camera.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Mesh.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Renderer3D.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GltfModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AircraftModelGenerator.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\RigidBody.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\GroundReactions.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\InputSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\propulsion\PropulsionSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\avionics\AvionicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AvionicsRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\audio\AudioSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\NavDatabase.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\RadioNavSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\serial\SerialPort.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\serial\SerialInterfaceSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\AtmosphereModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\WindModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\EnvironmentSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ShadowMap.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ScenerySystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\UdpSocket.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\RemoteAircraft.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\NetworkSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\autopilot\AutopilotSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GlassCockpitRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aircraft\AircraftRegistry.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\scenery\AirportDatabase.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ApproachLightingSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainStreamingSystem.cpp.obj
+build LokYSFlightSimulator.exe: CXX_EXECUTABLE_LINKER__LokYSFlightSimulator_Debug CMakeFiles\LokYSFlightSimulator.dir\src\app\main.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\EngineContext.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\Timer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\platform\Window.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GraphicsDevice.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GpuCapabilities.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Camera.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Mesh.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Renderer3D.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GltfModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AircraftModelGenerator.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\RigidBody.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\GroundReactions.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\InputSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\propulsion\PropulsionSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\avionics\AvionicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AvionicsRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\audio\AudioSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\NavDatabase.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\RadioNavSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\serial\SerialPort.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\serial\SerialInterfaceSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\AtmosphereModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\WindModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\EnvironmentSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ShadowMap.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ScenerySystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\UdpSocket.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\RemoteAircraft.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\NetworkSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\autopilot\AutopilotSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GlassCockpitRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aircraft\AircraftRegistry.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\scenery\AirportDatabase.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ApproachLightingSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainStreamingSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\ActionMapping.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\ConfigPersistence.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\MenuRenderer.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:windows
   LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  user32.lib  gdi32.lib  shell32.lib  kernel32.lib  winmm.lib  xaudio2.lib  ole32.lib  ws2_32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
@@ -489,6 +516,44 @@ build LokYSMathTests.exe: CXX_EXECUTABLE_LINKER__LokYSMathTests_Debug CMakeFiles
   TARGET_FILE = LokYSMathTests.exe
   TARGET_IMPLIB = LokYSMathTests.lib
   TARGET_PDB = LokYSMathTests.pdb
+
+# =============================================================================
+# Object build statements for EXECUTABLE target LokYSGameStateTests
+
+
+#############################################
+# Order-only phony target for LokYSGameStateTests
+
+build cmake_object_order_depends_target_LokYSGameStateTests: phony || CMakeFiles\LokYSGameStateTests.dir
+
+build CMakeFiles\LokYSGameStateTests.dir\tests\unit\GameStateTests.cpp.obj: CXX_COMPILER__LokYSGameStateTests_Debug ..\..\tests\unit\GameStateTests.cpp || cmake_object_order_depends_target_LokYSGameStateTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest
+  INCLUDES = -I..\..\include
+  OBJECT_DIR = CMakeFiles\LokYSGameStateTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSGameStateTests.dir\tests\unit
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSGameStateTests.dir\
+  TARGET_PDB = LokYSGameStateTests.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target LokYSGameStateTests
+
+
+#############################################
+# Link the executable LokYSGameStateTests.exe
+
+build LokYSGameStateTests.exe: CXX_EXECUTABLE_LINKER__LokYSGameStateTests_Debug CMakeFiles\LokYSGameStateTests.dir\tests\unit\GameStateTests.cpp.obj
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
+  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
+  LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\LokYSGameStateTests.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSGameStateTests.dir\
+  TARGET_FILE = LokYSGameStateTests.exe
+  TARGET_IMPLIB = LokYSGameStateTests.lib
+  TARGET_PDB = LokYSGameStateTests.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target LokYSGltfTests
@@ -659,6 +724,15 @@ build CMakeFiles\LokYSAeroInputTests.dir\src\input\InputSystem.cpp.obj: CXX_COMP
   TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroInputTests.dir\
   TARGET_PDB = LokYSAeroInputTests.pdb
 
+build CMakeFiles\LokYSAeroInputTests.dir\src\input\ActionMapping.cpp.obj: CXX_COMPILER__LokYSAeroInputTests_Debug ..\..\src\input\ActionMapping.cpp || cmake_object_order_depends_target_LokYSAeroInputTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest
+  INCLUDES = -I..\..\include
+  OBJECT_DIR = CMakeFiles\LokYSAeroInputTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSAeroInputTests.dir\src\input
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroInputTests.dir\
+  TARGET_PDB = LokYSAeroInputTests.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target LokYSAeroInputTests
@@ -667,7 +741,7 @@ build CMakeFiles\LokYSAeroInputTests.dir\src\input\InputSystem.cpp.obj: CXX_COMP
 #############################################
 # Link the executable LokYSAeroInputTests.exe
 
-build LokYSAeroInputTests.exe: CXX_EXECUTABLE_LINKER__LokYSAeroInputTests_Debug CMakeFiles\LokYSAeroInputTests.dir\tests\unit\AeroInputTests.cpp.obj CMakeFiles\LokYSAeroInputTests.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSAeroInputTests.dir\src\input\InputSystem.cpp.obj
+build LokYSAeroInputTests.exe: CXX_EXECUTABLE_LINKER__LokYSAeroInputTests_Debug CMakeFiles\LokYSAeroInputTests.dir\tests\unit\AeroInputTests.cpp.obj CMakeFiles\LokYSAeroInputTests.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSAeroInputTests.dir\src\input\InputSystem.cpp.obj CMakeFiles\LokYSAeroInputTests.dir\src\input\ActionMapping.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = winmm.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
@@ -734,6 +808,89 @@ build LokYSGroundReactionsTests.exe: CXX_EXECUTABLE_LINKER__LokYSGroundReactions
   TARGET_FILE = LokYSGroundReactionsTests.exe
   TARGET_IMPLIB = LokYSGroundReactionsTests.lib
   TARGET_PDB = LokYSGroundReactionsTests.pdb
+
+# =============================================================================
+# Object build statements for EXECUTABLE target LokYSAeroPhysicsTests
+
+
+#############################################
+# Order-only phony target for LokYSAeroPhysicsTests
+
+build cmake_object_order_depends_target_LokYSAeroPhysicsTests: phony || CMakeFiles\LokYSAeroPhysicsTests.dir
+
+build CMakeFiles\LokYSAeroPhysicsTests.dir\tests\unit\AeroPhysicsTests.cpp.obj: CXX_COMPILER__LokYSAeroPhysicsTests_Debug ..\..\tests\unit\AeroPhysicsTests.cpp || cmake_object_order_depends_target_LokYSAeroPhysicsTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest
+  INCLUDES = -I..\..\include
+  OBJECT_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir\tests\unit
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroPhysicsTests.dir\
+  TARGET_PDB = LokYSAeroPhysicsTests.pdb
+
+build CMakeFiles\LokYSAeroPhysicsTests.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj: CXX_COMPILER__LokYSAeroPhysicsTests_Debug ..\..\src\aerodynamics\AerodynamicsSystem.cpp || cmake_object_order_depends_target_LokYSAeroPhysicsTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest
+  INCLUDES = -I..\..\include
+  OBJECT_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir\src\aerodynamics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroPhysicsTests.dir\
+  TARGET_PDB = LokYSAeroPhysicsTests.pdb
+
+build CMakeFiles\LokYSAeroPhysicsTests.dir\src\propulsion\PropulsionSystem.cpp.obj: CXX_COMPILER__LokYSAeroPhysicsTests_Debug ..\..\src\propulsion\PropulsionSystem.cpp || cmake_object_order_depends_target_LokYSAeroPhysicsTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest
+  INCLUDES = -I..\..\include
+  OBJECT_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir\src\propulsion
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroPhysicsTests.dir\
+  TARGET_PDB = LokYSAeroPhysicsTests.pdb
+
+build CMakeFiles\LokYSAeroPhysicsTests.dir\src\physics\GroundReactions.cpp.obj: CXX_COMPILER__LokYSAeroPhysicsTests_Debug ..\..\src\physics\GroundReactions.cpp || cmake_object_order_depends_target_LokYSAeroPhysicsTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest
+  INCLUDES = -I..\..\include
+  OBJECT_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir\src\physics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroPhysicsTests.dir\
+  TARGET_PDB = LokYSAeroPhysicsTests.pdb
+
+build CMakeFiles\LokYSAeroPhysicsTests.dir\src\physics\RigidBody.cpp.obj: CXX_COMPILER__LokYSAeroPhysicsTests_Debug ..\..\src\physics\RigidBody.cpp || cmake_object_order_depends_target_LokYSAeroPhysicsTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest
+  INCLUDES = -I..\..\include
+  OBJECT_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir\src\physics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroPhysicsTests.dir\
+  TARGET_PDB = LokYSAeroPhysicsTests.pdb
+
+build CMakeFiles\LokYSAeroPhysicsTests.dir\src\aircraft\AircraftRegistry.cpp.obj: CXX_COMPILER__LokYSAeroPhysicsTests_Debug ..\..\src\aircraft\AircraftRegistry.cpp || cmake_object_order_depends_target_LokYSAeroPhysicsTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest
+  INCLUDES = -I..\..\include
+  OBJECT_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir\src\aircraft
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroPhysicsTests.dir\
+  TARGET_PDB = LokYSAeroPhysicsTests.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target LokYSAeroPhysicsTests
+
+
+#############################################
+# Link the executable LokYSAeroPhysicsTests.exe
+
+build LokYSAeroPhysicsTests.exe: CXX_EXECUTABLE_LINKER__LokYSAeroPhysicsTests_Debug CMakeFiles\LokYSAeroPhysicsTests.dir\tests\unit\AeroPhysicsTests.cpp.obj CMakeFiles\LokYSAeroPhysicsTests.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSAeroPhysicsTests.dir\src\propulsion\PropulsionSystem.cpp.obj CMakeFiles\LokYSAeroPhysicsTests.dir\src\physics\GroundReactions.cpp.obj CMakeFiles\LokYSAeroPhysicsTests.dir\src\physics\RigidBody.cpp.obj CMakeFiles\LokYSAeroPhysicsTests.dir\src\aircraft\AircraftRegistry.cpp.obj
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
+  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
+  LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroPhysicsTests.dir\
+  TARGET_FILE = LokYSAeroPhysicsTests.exe
+  TARGET_IMPLIB = LokYSAeroPhysicsTests.lib
+  TARGET_PDB = LokYSAeroPhysicsTests.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target LokYSAvionicsTests
@@ -939,6 +1096,15 @@ build CMakeFiles\LokYSSerialInterfaceTests.dir\src\input\InputSystem.cpp.obj: CX
   TARGET_COMPILE_PDB = CMakeFiles\LokYSSerialInterfaceTests.dir\
   TARGET_PDB = LokYSSerialInterfaceTests.pdb
 
+build CMakeFiles\LokYSSerialInterfaceTests.dir\src\input\ActionMapping.cpp.obj: CXX_COMPILER__LokYSSerialInterfaceTests_Debug ..\..\src\input\ActionMapping.cpp || cmake_object_order_depends_target_LokYSSerialInterfaceTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest
+  INCLUDES = -I..\..\include
+  OBJECT_DIR = CMakeFiles\LokYSSerialInterfaceTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSSerialInterfaceTests.dir\src\input
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSSerialInterfaceTests.dir\
+  TARGET_PDB = LokYSSerialInterfaceTests.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target LokYSSerialInterfaceTests
@@ -947,7 +1113,7 @@ build CMakeFiles\LokYSSerialInterfaceTests.dir\src\input\InputSystem.cpp.obj: CX
 #############################################
 # Link the executable LokYSSerialInterfaceTests.exe
 
-build LokYSSerialInterfaceTests.exe: CXX_EXECUTABLE_LINKER__LokYSSerialInterfaceTests_Debug CMakeFiles\LokYSSerialInterfaceTests.dir\tests\unit\SerialInterfaceTests.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\serial\SerialPort.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\serial\SerialInterfaceSystem.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\input\InputSystem.cpp.obj
+build LokYSSerialInterfaceTests.exe: CXX_EXECUTABLE_LINKER__LokYSSerialInterfaceTests_Debug CMakeFiles\LokYSSerialInterfaceTests.dir\tests\unit\SerialInterfaceTests.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\serial\SerialPort.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\serial\SerialInterfaceSystem.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\input\InputSystem.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\input\ActionMapping.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = winmm.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
@@ -1367,6 +1533,62 @@ build LokYSMultiAircraftSceneryTests.exe: CXX_EXECUTABLE_LINKER__LokYSMultiAircr
   TARGET_IMPLIB = LokYSMultiAircraftSceneryTests.lib
   TARGET_PDB = LokYSMultiAircraftSceneryTests.pdb
 
+# =============================================================================
+# Object build statements for EXECUTABLE target LokYSActionMappingTests
+
+
+#############################################
+# Order-only phony target for LokYSActionMappingTests
+
+build cmake_object_order_depends_target_LokYSActionMappingTests: phony || CMakeFiles\LokYSActionMappingTests.dir
+
+build CMakeFiles\LokYSActionMappingTests.dir\tests\unit\ActionMappingTests.cpp.obj: CXX_COMPILER__LokYSActionMappingTests_Debug ..\..\tests\unit\ActionMappingTests.cpp || cmake_object_order_depends_target_LokYSActionMappingTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest
+  INCLUDES = -I..\..\include
+  OBJECT_DIR = CMakeFiles\LokYSActionMappingTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSActionMappingTests.dir\tests\unit
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSActionMappingTests.dir\
+  TARGET_PDB = LokYSActionMappingTests.pdb
+
+build CMakeFiles\LokYSActionMappingTests.dir\src\input\ActionMapping.cpp.obj: CXX_COMPILER__LokYSActionMappingTests_Debug ..\..\src\input\ActionMapping.cpp || cmake_object_order_depends_target_LokYSActionMappingTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest
+  INCLUDES = -I..\..\include
+  OBJECT_DIR = CMakeFiles\LokYSActionMappingTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSActionMappingTests.dir\src\input
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSActionMappingTests.dir\
+  TARGET_PDB = LokYSActionMappingTests.pdb
+
+build CMakeFiles\LokYSActionMappingTests.dir\src\input\ConfigPersistence.cpp.obj: CXX_COMPILER__LokYSActionMappingTests_Debug ..\..\src\input\ConfigPersistence.cpp || cmake_object_order_depends_target_LokYSActionMappingTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest
+  INCLUDES = -I..\..\include
+  OBJECT_DIR = CMakeFiles\LokYSActionMappingTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSActionMappingTests.dir\src\input
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSActionMappingTests.dir\
+  TARGET_PDB = LokYSActionMappingTests.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target LokYSActionMappingTests
+
+
+#############################################
+# Link the executable LokYSActionMappingTests.exe
+
+build LokYSActionMappingTests.exe: CXX_EXECUTABLE_LINKER__LokYSActionMappingTests_Debug CMakeFiles\LokYSActionMappingTests.dir\tests\unit\ActionMappingTests.cpp.obj CMakeFiles\LokYSActionMappingTests.dir\src\input\ActionMapping.cpp.obj CMakeFiles\LokYSActionMappingTests.dir\src\input\ConfigPersistence.cpp.obj
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
+  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
+  LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\LokYSActionMappingTests.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSActionMappingTests.dir\
+  TARGET_FILE = LokYSActionMappingTests.exe
+  TARGET_IMPLIB = LokYSActionMappingTests.lib
+  TARGET_PDB = LokYSActionMappingTests.pdb
+
 
 #############################################
 # Utility command for rebuild_cache
@@ -1382,7 +1604,11 @@ build rebuild_cache: phony CMakeFiles\rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
+build LokYSActionMappingTests: phony LokYSActionMappingTests.exe
+
 build LokYSAeroInputTests: phony LokYSAeroInputTests.exe
+
+build LokYSAeroPhysicsTests: phony LokYSAeroPhysicsTests.exe
 
 build LokYSAtmosphereWeatherTests: phony LokYSAtmosphereWeatherTests.exe
 
@@ -1391,6 +1617,8 @@ build LokYSAudioTests: phony LokYSAudioTests.exe
 build LokYSAvionicsTests: phony LokYSAvionicsTests.exe
 
 build LokYSFlightSimulator: phony LokYSFlightSimulator.exe
+
+build LokYSGameStateTests: phony LokYSGameStateTests.exe
 
 build LokYSGlassCockpitAutopilotTests: phony LokYSGlassCockpitAutopilotTests.exe
 
@@ -1422,7 +1650,7 @@ build LokYSSerialInterfaceTests: phony LokYSSerialInterfaceTests.exe
 #############################################
 # Folder: C:/Users/diego/Documents/Projetos/LokYS/build/debug
 
-build all: phony LokYSPhysicsTests.exe LokYSFlightSimulator.exe LokYSMathTests.exe LokYSGltfTests.exe LokYSPropulsionTests.exe LokYSAeroInputTests.exe LokYSGroundReactionsTests.exe LokYSAvionicsTests.exe LokYSAudioTests.exe LokYSRadioNavTests.exe LokYSSerialInterfaceTests.exe LokYSAtmosphereWeatherTests.exe LokYSGraphicsOptimizationTests.exe LokYSNetworkMultiplayerTests.exe LokYSGlassCockpitAutopilotTests.exe LokYSMultiAircraftSceneryTests.exe
+build all: phony LokYSPhysicsTests.exe LokYSFlightSimulator.exe LokYSMathTests.exe LokYSGameStateTests.exe LokYSGltfTests.exe LokYSPropulsionTests.exe LokYSAeroInputTests.exe LokYSGroundReactionsTests.exe LokYSAeroPhysicsTests.exe LokYSAvionicsTests.exe LokYSAudioTests.exe LokYSRadioNavTests.exe LokYSSerialInterfaceTests.exe LokYSAtmosphereWeatherTests.exe LokYSGraphicsOptimizationTests.exe LokYSNetworkMultiplayerTests.exe LokYSGlassCockpitAutopilotTests.exe LokYSMultiAircraftSceneryTests.exe LokYSActionMappingTests.exe
 
 # =============================================================================
 # Built-in targets
@@ -1431,14 +1659,14 @@ build all: phony LokYSPhysicsTests.exe LokYSFlightSimulator.exe LokYSMathTests.e
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ..\..\CMakeLists.txt C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCCompiler.cmake.in C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCCompilerABI.c C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCXXCompiler.cmake.in C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCXXCompilerABI.cpp C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCompilerIdDetection.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineCCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineCXXCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineCompileFeatures.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineCompilerABI.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineCompilerId.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineRCCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineSystem.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeFindBinUtils.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeNinjaFindMake.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeParseImplicitIncludeInfo.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeParseImplicitLinkInfo.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeParseLibraryArchitecture.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeRCCompiler.cmake.in C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystem.cmake.in C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeTestCCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeTestCXXCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeTestCompilerCommon.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeTestRCCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\ADSP-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\ARMCC-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\ARMClang-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\AppleClang-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Borland-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Bruce-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang-DetermineCompilerInternal.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Compaq-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Cray-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Embarcadero-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Fujitsu-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\GHS-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\GNU-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\HP-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\HP-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\IAR-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Intel-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\MSVC-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\NVHPC-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\NVIDIA-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\PGI-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\PathScale-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\SCO-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\SDCC-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\SunPro-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\TI-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Watcom-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\XL-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\XL-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\XLClang-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\zOS-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Internal\FeatureTesting.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-Determine-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake CMakeCache.txt CMakeFiles\3.20.21032501-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ..\..\CMakeLists.txt C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake CMakeCache.txt CMakeFiles\3.20.21032501-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ..\..\CMakeLists.txt C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCCompiler.cmake.in C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCCompilerABI.c C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCXXCompiler.cmake.in C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCXXCompilerABI.cpp C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCompilerIdDetection.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineCCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineCXXCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineCompileFeatures.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineCompilerABI.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineCompilerId.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineRCCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeDetermineSystem.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeFindBinUtils.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeNinjaFindMake.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeParseImplicitIncludeInfo.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeParseImplicitLinkInfo.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeParseLibraryArchitecture.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeRCCompiler.cmake.in C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystem.cmake.in C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeTestCCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeTestCXXCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeTestCompilerCommon.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeTestRCCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\ADSP-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\ARMCC-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\ARMClang-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\AppleClang-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Borland-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Bruce-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang-DetermineCompilerInternal.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Compaq-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Cray-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Embarcadero-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Fujitsu-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\GHS-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\GNU-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\HP-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\HP-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\IAR-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Intel-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\MSVC-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\NVHPC-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\NVIDIA-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\PGI-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\PathScale-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\SCO-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\SDCC-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\SunPro-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\TI-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Watcom-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\XL-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\XL-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\XLClang-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\zOS-C-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Internal\FeatureTesting.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-Determine-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake CMakeCache.txt CMakeFiles\3.20.21032501-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeSystem.cmake: phony
+build ..\..\CMakeLists.txt C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake CMakeCache.txt CMakeFiles\3.20.21032501-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeSystem.cmake: phony
 
 
 #############################################

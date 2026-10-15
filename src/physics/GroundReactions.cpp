@@ -113,28 +113,89 @@ GearContactState GroundReactionsSystem::EvaluateStrut(
     return out;
 }
 
+AircraftLandingGearConfig GroundReactionsSystem::CreateForArchetype(Aircraft::AircraftType type) noexcept {
+    AircraftLandingGearConfig cfg{};
+    switch (type) {
+    case Aircraft::AircraftType::Cessna172Skyhawk:
+        return cfg; // Default tricycle
+
+    case Aircraft::AircraftType::Baron58:
+        // Heavy twin tricycle with wider stance
+        cfg.noseGear.mountPointBody = Math::Vec3d{ 1.80, 0.0, 0.0 };
+        cfg.noseGear.uncompressedLength = 1.05;
+        cfg.noseGear.maxStroke = 0.22;
+        cfg.noseGear.springStiffness = 60000.0;
+        cfg.noseGear.dampingCompression = 5500.0;
+
+        cfg.leftMainGear.mountPointBody = Math::Vec3d{ -0.40, -1.46, 0.0 }; // 2.92m track
+        cfg.leftMainGear.uncompressedLength = 1.05;
+        cfg.leftMainGear.maxStroke = 0.22;
+        cfg.leftMainGear.springStiffness = 95000.0;
+        cfg.leftMainGear.dampingCompression = 7000.0;
+
+        cfg.rightMainGear.mountPointBody = Math::Vec3d{ -0.40, 1.46, 0.0 };
+        cfg.rightMainGear.uncompressedLength = 1.05;
+        cfg.rightMainGear.maxStroke = 0.22;
+        cfg.rightMainGear.springStiffness = 95000.0;
+        cfg.rightMainGear.dampingCompression = 7000.0;
+        return cfg;
+
+    case Aircraft::AircraftType::Extra330SC:
+        // Taildragger Configuration (Phase F4.1 & F4.2)
+        // Mains are located FORWARD of CG (+0.45m), inducing ground loop instability
+        cfg.leftMainGear.mountPointBody = Math::Vec3d{ 0.45, -0.98, 0.0 };
+        cfg.leftMainGear.uncompressedLength = 1.05;
+        cfg.leftMainGear.maxStroke = 0.16;
+        cfg.leftMainGear.springStiffness = 55000.0;
+        cfg.leftMainGear.dampingCompression = 4000.0;
+        cfg.leftMainGear.isSteerable = false;
+        cfg.leftMainGear.hasBrake = true;
+
+        cfg.rightMainGear.mountPointBody = Math::Vec3d{ 0.45, 0.98, 0.0 };
+        cfg.rightMainGear.uncompressedLength = 1.05;
+        cfg.rightMainGear.maxStroke = 0.16;
+        cfg.rightMainGear.springStiffness = 55000.0;
+        cfg.rightMainGear.dampingCompression = 4000.0;
+        cfg.rightMainGear.isSteerable = false;
+        cfg.rightMainGear.hasBrake = true;
+
+        // Tailwheel mounted at rear fuselage
+        cfg.noseGear.mountPointBody = Math::Vec3d{ -4.35, 0.0, 0.0 };
+        cfg.noseGear.uncompressedLength = 0.40;
+        cfg.noseGear.maxStroke = 0.10;
+        cfg.noseGear.springStiffness = 30000.0;
+        cfg.noseGear.dampingCompression = 2500.0;
+        cfg.noseGear.isSteerable = true;
+        cfg.noseGear.maxSteerAngleRad = 0.35; // 20 deg steerable tailwheel
+        cfg.noseGear.hasBrake = false;
+        return cfg;
+    }
+    return cfg;
+}
+
 GroundReactionsOutput GroundReactionsSystem::Evaluate(
     const RigidBodyState& state,
     f64 rudderInput,
-    f64 brakeInput,
+    f64 leftBrakeInput,
+    f64 rightBrakeInput,
     [[maybe_unused]] f64 dt,
     f64 terrainElevationNed) const noexcept
 {
     GroundReactionsOutput out{};
 
-    // Steering angle on nose gear: rudder deflection * maxSteerAngle
+    // Steering angle on nose gear / tailwheel
     f64 steerAngleRad = std::clamp(rudderInput, -1.0, 1.0) * m_config.noseGear.maxSteerAngleRad;
 
-    // 1. Evaluate Nose Gear
+    // 1. Evaluate Nose Gear / Tailwheel
     out.gearStates[0] = EvaluateStrut(m_config.noseGear, state, steerAngleRad, 0.0, terrainElevationNed);
     out.noseInContact = out.gearStates[0].inContact;
 
-    // 2. Evaluate Left Main Gear
-    out.gearStates[1] = EvaluateStrut(m_config.leftMainGear, state, 0.0, brakeInput, terrainElevationNed);
+    // 2. Evaluate Left Main Gear (with left brake)
+    out.gearStates[1] = EvaluateStrut(m_config.leftMainGear, state, 0.0, leftBrakeInput, terrainElevationNed);
     out.leftMainInContact = out.gearStates[1].inContact;
 
-    // 3. Evaluate Right Main Gear
-    out.gearStates[2] = EvaluateStrut(m_config.rightMainGear, state, 0.0, brakeInput, terrainElevationNed);
+    // 3. Evaluate Right Main Gear (with right brake)
+    out.gearStates[2] = EvaluateStrut(m_config.rightMainGear, state, 0.0, rightBrakeInput, terrainElevationNed);
     out.rightMainInContact = out.gearStates[2].inContact;
 
     out.anyGearInContact = out.noseInContact || out.leftMainInContact || out.rightMainInContact;

@@ -810,6 +810,89 @@ build LokYSGroundReactionsTests.exe: CXX_EXECUTABLE_LINKER__LokYSGroundReactions
   TARGET_PDB = LokYSGroundReactionsTests.pdb
 
 # =============================================================================
+# Object build statements for EXECUTABLE target LokYSAeroPhysicsTests
+
+
+#############################################
+# Order-only phony target for LokYSAeroPhysicsTests
+
+build cmake_object_order_depends_target_LokYSAeroPhysicsTests: phony || CMakeFiles\LokYSAeroPhysicsTests.dir
+
+build CMakeFiles\LokYSAeroPhysicsTests.dir\tests\unit\AeroPhysicsTests.cpp.obj: CXX_COMPILER__LokYSAeroPhysicsTests_Release ..\tests\unit\AeroPhysicsTests.cpp || cmake_object_order_depends_target_LokYSAeroPhysicsTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir\tests\unit
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroPhysicsTests.dir\
+  TARGET_PDB = LokYSAeroPhysicsTests.pdb
+
+build CMakeFiles\LokYSAeroPhysicsTests.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj: CXX_COMPILER__LokYSAeroPhysicsTests_Release ..\src\aerodynamics\AerodynamicsSystem.cpp || cmake_object_order_depends_target_LokYSAeroPhysicsTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir\src\aerodynamics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroPhysicsTests.dir\
+  TARGET_PDB = LokYSAeroPhysicsTests.pdb
+
+build CMakeFiles\LokYSAeroPhysicsTests.dir\src\propulsion\PropulsionSystem.cpp.obj: CXX_COMPILER__LokYSAeroPhysicsTests_Release ..\src\propulsion\PropulsionSystem.cpp || cmake_object_order_depends_target_LokYSAeroPhysicsTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir\src\propulsion
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroPhysicsTests.dir\
+  TARGET_PDB = LokYSAeroPhysicsTests.pdb
+
+build CMakeFiles\LokYSAeroPhysicsTests.dir\src\physics\GroundReactions.cpp.obj: CXX_COMPILER__LokYSAeroPhysicsTests_Release ..\src\physics\GroundReactions.cpp || cmake_object_order_depends_target_LokYSAeroPhysicsTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir\src\physics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroPhysicsTests.dir\
+  TARGET_PDB = LokYSAeroPhysicsTests.pdb
+
+build CMakeFiles\LokYSAeroPhysicsTests.dir\src\physics\RigidBody.cpp.obj: CXX_COMPILER__LokYSAeroPhysicsTests_Release ..\src\physics\RigidBody.cpp || cmake_object_order_depends_target_LokYSAeroPhysicsTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir\src\physics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroPhysicsTests.dir\
+  TARGET_PDB = LokYSAeroPhysicsTests.pdb
+
+build CMakeFiles\LokYSAeroPhysicsTests.dir\src\aircraft\AircraftRegistry.cpp.obj: CXX_COMPILER__LokYSAeroPhysicsTests_Release ..\src\aircraft\AircraftRegistry.cpp || cmake_object_order_depends_target_LokYSAeroPhysicsTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir\src\aircraft
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroPhysicsTests.dir\
+  TARGET_PDB = LokYSAeroPhysicsTests.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target LokYSAeroPhysicsTests
+
+
+#############################################
+# Link the executable LokYSAeroPhysicsTests.exe
+
+build LokYSAeroPhysicsTests.exe: CXX_EXECUTABLE_LINKER__LokYSAeroPhysicsTests_Release CMakeFiles\LokYSAeroPhysicsTests.dir\tests\unit\AeroPhysicsTests.cpp.obj CMakeFiles\LokYSAeroPhysicsTests.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSAeroPhysicsTests.dir\src\propulsion\PropulsionSystem.cpp.obj CMakeFiles\LokYSAeroPhysicsTests.dir\src\physics\GroundReactions.cpp.obj CMakeFiles\LokYSAeroPhysicsTests.dir\src\physics\RigidBody.cpp.obj CMakeFiles\LokYSAeroPhysicsTests.dir\src\aircraft\AircraftRegistry.cpp.obj
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
+  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSAeroPhysicsTests.dir\
+  TARGET_FILE = LokYSAeroPhysicsTests.exe
+  TARGET_IMPLIB = LokYSAeroPhysicsTests.lib
+  TARGET_PDB = LokYSAeroPhysicsTests.pdb
+
+# =============================================================================
 # Object build statements for EXECUTABLE target LokYSAvionicsTests
 
 
@@ -1525,6 +1608,8 @@ build LokYSActionMappingTests: phony LokYSActionMappingTests.exe
 
 build LokYSAeroInputTests: phony LokYSAeroInputTests.exe
 
+build LokYSAeroPhysicsTests: phony LokYSAeroPhysicsTests.exe
+
 build LokYSAtmosphereWeatherTests: phony LokYSAtmosphereWeatherTests.exe
 
 build LokYSAudioTests: phony LokYSAudioTests.exe
@@ -1565,7 +1650,7 @@ build LokYSSerialInterfaceTests: phony LokYSSerialInterfaceTests.exe
 #############################################
 # Folder: C:/Users/diego/Documents/Projetos/LokYS/build
 
-build all: phony LokYSPhysicsTests.exe LokYSFlightSimulator.exe LokYSMathTests.exe LokYSGameStateTests.exe LokYSGltfTests.exe LokYSPropulsionTests.exe LokYSAeroInputTests.exe LokYSGroundReactionsTests.exe LokYSAvionicsTests.exe LokYSAudioTests.exe LokYSRadioNavTests.exe LokYSSerialInterfaceTests.exe LokYSAtmosphereWeatherTests.exe LokYSGraphicsOptimizationTests.exe LokYSNetworkMultiplayerTests.exe LokYSGlassCockpitAutopilotTests.exe LokYSMultiAircraftSceneryTests.exe LokYSActionMappingTests.exe
+build all: phony LokYSPhysicsTests.exe LokYSFlightSimulator.exe LokYSMathTests.exe LokYSGameStateTests.exe LokYSGltfTests.exe LokYSPropulsionTests.exe LokYSAeroInputTests.exe LokYSGroundReactionsTests.exe LokYSAeroPhysicsTests.exe LokYSAvionicsTests.exe LokYSAudioTests.exe LokYSRadioNavTests.exe LokYSSerialInterfaceTests.exe LokYSAtmosphereWeatherTests.exe LokYSGraphicsOptimizationTests.exe LokYSNetworkMultiplayerTests.exe LokYSGlassCockpitAutopilotTests.exe LokYSMultiAircraftSceneryTests.exe LokYSActionMappingTests.exe
 
 # =============================================================================
 # Built-in targets

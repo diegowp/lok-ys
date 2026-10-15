@@ -58,6 +58,7 @@ struct AeroDerivativesConfig {
     f64 Cnr{ -0.099 };              // Yaw damping derivative
     f64 Cnp{ -0.030 };              // Yaw due to roll rate
     f64 Cndr{ -0.074 };             // Rudder yaw effectiveness
+    f64 criticalMach{ 0.65 };       // Transonic drag divergence onset Mach
 };
 
 struct AircraftEngineConfig {
@@ -94,6 +95,9 @@ struct AircraftMassConfig {
         0.0, 1824.0, 0.0,
         0.0, 0.0, 2667.0
     };
+    Math::Vec3d emptyCgBody{ 0.0, 0.0, 0.0 };
+    Math::Vec3d fuelTankLocationBody{ 0.0, 0.0, -0.70 };
+    Math::Vec3d payloadLocationBody{ 0.35, 0.0, 0.10 };
 };
 
 struct AircraftConfig {

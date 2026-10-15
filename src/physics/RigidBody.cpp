@@ -1,5 +1,6 @@
 #include "LokYS/physics/RigidBody.hpp"
 #include <algorithm>
+#include <cmath>
 
 namespace LokYS::Physics {
 
@@ -49,8 +50,61 @@ void RigidBody::AddMomentBody(const Math::Vec3d& momentBody) noexcept {
 
 void RigidBody::AddForceAtPointBody(const Math::Vec3d& forceBody, const Math::Vec3d& pointBody) noexcept {
     m_accumulatedForcesBody += forceBody;
-    // Moment = r x F
-    m_accumulatedMomentsBody += pointBody.Cross(forceBody);
+    // Moment = r x F where r is lever arm from dynamic CG
+    Math::Vec3d leverArm = pointBody - m_cgBody;
+    m_accumulatedMomentsBody += leverArm.Cross(forceBody);
+}
+
+void RigidBody::SetMassDistribution(
+    f64 emptyMassKg,
+    const Math::Vec3d& emptyCgBody,
+    const Math::Mat3d& emptyInertiaTensor,
+    const Math::Vec3d& fuelTankLocationBody,
+    const Math::Vec3d& payloadLocationBody) noexcept
+{
+    m_emptyMassKg = std::max(emptyMassKg, 1e-3);
+    m_emptyCgBody = emptyCgBody;
+    m_emptyInertiaTensor = emptyInertiaTensor;
+    m_fuelTankLocationBody = fuelTankLocationBody;
+    m_payloadLocationBody = payloadLocationBody;
+
+    UpdateFuelAndPayload(m_fuelMassKg, m_payloadMassKg);
+}
+
+void RigidBody::UpdateFuelAndPayload(f64 fuelMassKg, f64 payloadMassKg) noexcept {
+    m_fuelMassKg = std::max(0.0, fuelMassKg);
+    m_payloadMassKg = std::max(0.0, payloadMassKg);
+
+    m_mass = m_emptyMassKg + m_fuelMassKg + m_payloadMassKg;
+    m_invMass = 1.0 / m_mass;
+
+    // Instantaneous composite CG: r_cg = (m_empty*r_empty + m_fuel*r_fuel + m_payload*r_payload) / m_total
+    m_cgBody = (m_emptyCgBody * m_emptyMassKg +
+                m_fuelTankLocationBody * m_fuelMassKg +
+                m_payloadLocationBody * m_payloadMassKg) * m_invMass;
+
+    // Parallel Axis Theorem (Steiner) for Inertia Tensor:
+    auto SteinerTerm = [](f64 m, const Math::Vec3d& d) -> Math::Mat3d {
+        f64 x = d.x;
+        f64 y = d.y;
+        f64 z = d.z;
+        return Math::Mat3d(
+            m * (y * y + z * z), -m * x * y,          -m * x * z,
+           -m * x * y,           m * (x * x + z * z), -m * y * z,
+           -m * x * z,          -m * y * z,           m * (x * x + y * y)
+        );
+    };
+
+    Math::Vec3d dEmpty = m_emptyCgBody - m_cgBody;
+    Math::Vec3d dFuel = m_fuelTankLocationBody - m_cgBody;
+    Math::Vec3d dPayload = m_payloadLocationBody - m_cgBody;
+
+    Math::Mat3d totalInertia = m_emptyInertiaTensor +
+                               SteinerTerm(m_emptyMassKg, dEmpty) +
+                               SteinerTerm(m_fuelMassKg, dFuel) +
+                               SteinerTerm(m_payloadMassKg, dPayload);
+
+    SetInertiaTensor(totalInertia);
 }
 
 void RigidBody::ClearForcesAndMoments() noexcept {
@@ -92,95 +146,40 @@ RigidBodyDerivatives RigidBody::EvaluateDerivatives(
     Math::Vec3d gyroTorque = state.angularVelocityBody.Cross(angularMomentum);
     deriv.dAngularVelocityBody = m_invInertiaTensor * (totalMomentsBody - gyroTorque);
 
+    // Safeguard: Clamp non-physical linear and angular acceleration blowups
+    constexpr f64 MAX_LINEAR_ACCEL = 500.0; // ~50 G
+    f64 linAccel = deriv.dVelocityBody.Length();
+    if (!std::isfinite(linAccel) || linAccel > MAX_LINEAR_ACCEL) {
+        if (linAccel > 1e-6) {
+            deriv.dVelocityBody = deriv.dVelocityBody * (MAX_LINEAR_ACCEL / linAccel);
+        } else {
+            deriv.dVelocityBody = { 0.0, 0.0, 0.0 };
+        }
+    }
+
+    constexpr f64 MAX_ANGULAR_ACCEL = 100.0; // ~5700 deg/s^2
+    f64 angAccel = deriv.dAngularVelocityBody.Length();
+    if (!std::isfinite(angAccel) || angAccel > MAX_ANGULAR_ACCEL) {
+        if (angAccel > 1e-6) {
+            deriv.dAngularVelocityBody = deriv.dAngularVelocityBody * (MAX_ANGULAR_ACCEL / angAccel);
+        } else {
+            deriv.dAngularVelocityBody = { 0.0, 0.0, 0.0 };
+        }
+    }
+
     return deriv;
 }
 
 void RigidBody::IntegrateRK4(f64 dt) noexcept {
-    if (dt <= 0.0) {
-        return;
-    }
-
-    // Compute gravity force in body frame for current attitude
-    auto ComputeTotalForces = [this](const Math::Quat4d& attitude) -> Math::Vec3d {
-        Math::Vec3d forces = m_accumulatedForcesBody;
-        if (m_gravityEnabled) {
-            // Gravity vector in NED: [0, 0, g]
-            Math::Vec3d gNed{ 0.0, 0.0, Math::Constants::STANDARD_GRAVITY };
-            // Rotate NED gravity into Body frame: g_body = q* * g_ned * q
-            Math::Vec3d gBody = attitude.Unrotate(gNed);
-            forces += gBody * m_mass;
-        }
-        return forces;
-    };
-
-    const RigidBodyState s0 = m_state;
-
-    // --- k1 ---
-    Math::Vec3d forces0 = ComputeTotalForces(s0.attitude);
-    RigidBodyDerivatives k1 = EvaluateDerivatives(s0, forces0, m_accumulatedMomentsBody);
-
-    // --- k2 ---
-    RigidBodyState s1{};
-    s1.positionNed = s0.positionNed + k1.dPositionNed * (0.5 * dt);
-    s1.velocityBody = s0.velocityBody + k1.dVelocityBody * (0.5 * dt);
-    s1.attitude = Math::Quat4d(
-        s0.attitude.w + k1.dAttitude.w * (0.5 * dt),
-        s0.attitude.x + k1.dAttitude.x * (0.5 * dt),
-        s0.attitude.y + k1.dAttitude.y * (0.5 * dt),
-        s0.attitude.z + k1.dAttitude.z * (0.5 * dt)
-    ).Normalized();
-    s1.angularVelocityBody = s0.angularVelocityBody + k1.dAngularVelocityBody * (0.5 * dt);
-
-    Math::Vec3d forces1 = ComputeTotalForces(s1.attitude);
-    RigidBodyDerivatives k2 = EvaluateDerivatives(s1, forces1, m_accumulatedMomentsBody);
-
-    // --- k3 ---
-    RigidBodyState s2{};
-    s2.positionNed = s0.positionNed + k2.dPositionNed * (0.5 * dt);
-    s2.velocityBody = s0.velocityBody + k2.dVelocityBody * (0.5 * dt);
-    s2.attitude = Math::Quat4d(
-        s0.attitude.w + k2.dAttitude.w * (0.5 * dt),
-        s0.attitude.x + k2.dAttitude.x * (0.5 * dt),
-        s0.attitude.y + k2.dAttitude.y * (0.5 * dt),
-        s0.attitude.z + k2.dAttitude.z * (0.5 * dt)
-    ).Normalized();
-    s2.angularVelocityBody = s0.angularVelocityBody + k2.dAngularVelocityBody * (0.5 * dt);
-
-    Math::Vec3d forces2 = ComputeTotalForces(s2.attitude);
-    RigidBodyDerivatives k3 = EvaluateDerivatives(s2, forces2, m_accumulatedMomentsBody);
-
-    // --- k4 ---
-    RigidBodyState s3{};
-    s3.positionNed = s0.positionNed + k3.dPositionNed * dt;
-    s3.velocityBody = s0.velocityBody + k3.dVelocityBody * dt;
-    s3.attitude = Math::Quat4d(
-        s0.attitude.w + k3.dAttitude.w * dt,
-        s0.attitude.x + k3.dAttitude.x * dt,
-        s0.attitude.y + k3.dAttitude.y * dt,
-        s0.attitude.z + k3.dAttitude.z * dt
-    ).Normalized();
-    s3.angularVelocityBody = s0.angularVelocityBody + k3.dAngularVelocityBody * dt;
-
-    Math::Vec3d forces3 = ComputeTotalForces(s3.attitude);
-    RigidBodyDerivatives k4 = EvaluateDerivatives(s3, forces3, m_accumulatedMomentsBody);
-
-    // --- Final State Update (RK4 weighted sum) ---
-    const f64 dt6 = dt / 6.0;
-
-    m_state.positionNed = s0.positionNed + (k1.dPositionNed + k2.dPositionNed * 2.0 + k3.dPositionNed * 2.0 + k4.dPositionNed) * dt6;
-    m_state.velocityBody = s0.velocityBody + (k1.dVelocityBody + k2.dVelocityBody * 2.0 + k3.dVelocityBody * 2.0 + k4.dVelocityBody) * dt6;
-
-    m_state.attitude = Math::Quat4d(
-        s0.attitude.w + (k1.dAttitude.w + k2.dAttitude.w * 2.0 + k3.dAttitude.w * 2.0 + k4.dAttitude.w) * dt6,
-        s0.attitude.x + (k1.dAttitude.x + k2.dAttitude.x * 2.0 + k3.dAttitude.x * 2.0 + k4.dAttitude.x) * dt6,
-        s0.attitude.y + (k1.dAttitude.y + k2.dAttitude.y * 2.0 + k3.dAttitude.y * 2.0 + k4.dAttitude.y) * dt6,
-        s0.attitude.z + (k1.dAttitude.z + k2.dAttitude.z * 2.0 + k3.dAttitude.z * 2.0 + k4.dAttitude.z) * dt6
-    ).Normalized();
-
-    m_state.angularVelocityBody = s0.angularVelocityBody + (k1.dAngularVelocityBody + k2.dAngularVelocityBody * 2.0 + k3.dAngularVelocityBody * 2.0 + k4.dAngularVelocityBody) * dt6;
-
-    // Reset applied external forces and moments for next tick
-    ClearForcesAndMoments();
+    IntegrateRK4(dt, [this](
+        [[maybe_unused]] const RigidBodyState& s,
+        [[maybe_unused]] f64 subDt,
+        Math::Vec3d& outF,
+        Math::Vec3d& outM) noexcept
+    {
+        outF = m_accumulatedForcesBody;
+        outM = m_accumulatedMomentsBody;
+    });
 }
 
 } // namespace LokYS::Physics

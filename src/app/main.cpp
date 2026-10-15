@@ -47,12 +47,16 @@
 #include <algorithm>
 #include <filesystem>
 
+inline void LogTrace([[maybe_unused]] const char* msg) noexcept {}
+
 int WINAPI wWinMain(
     [[maybe_unused]] HINSTANCE hInstance,
     [[maybe_unused]] HINSTANCE hPrevInstance,
     [[maybe_unused]] PWSTR pCmdLine,
     [[maybe_unused]] int nCmdShow)
 {
+    (void)_unlink("sim_trace.txt");
+    (void)_unlink("sim_crash.log");
     LokYS::EngineContext context;
     if (!context.Initialize()) {
         MessageBoxW(
@@ -63,13 +67,70 @@ int WINAPI wWinMain(
         return 1;
     }
 
+    SetUnhandledExceptionFilter([](EXCEPTION_POINTERS* ep) -> LONG {
+        FILE* f = nullptr;
+        fopen_s(&f, "sim_crash.log", "w");
+        if (f) {
+            fprintf(f, "CRASH! Code: 0x%08X, Address: %p\n", ep->ExceptionRecord->ExceptionCode, ep->ExceptionRecord->ExceptionAddress);
+            if (ep->ExceptionRecord->NumberParameters >= 2) {
+                fprintf(f, "AV Type: %llu, Target: 0x%llX\n", (unsigned long long)ep->ExceptionRecord->ExceptionInformation[0], (unsigned long long)ep->ExceptionRecord->ExceptionInformation[1]);
+            }
+            HMODULE hMod = nullptr;
+            if (GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+                                   (LPCSTR)ep->ExceptionRecord->ExceptionAddress, &hMod)) {
+                char modName[MAX_PATH] = { 0 };
+                GetModuleFileNameA(hMod, modName, MAX_PATH);
+                uintptr_t offset = (uintptr_t)ep->ExceptionRecord->ExceptionAddress - (uintptr_t)hMod;
+                fprintf(f, "Module: %s + 0x%zX\n", modName, offset);
+            }
+            if (ep->ContextRecord) {
+                fprintf(f, "RAX: 0x%llX RBX: 0x%llX RCX: 0x%llX RDX: 0x%llX\n",
+                    (unsigned long long)ep->ContextRecord->Rax, (unsigned long long)ep->ContextRecord->Rbx, (unsigned long long)ep->ContextRecord->Rcx, (unsigned long long)ep->ContextRecord->Rdx);
+                fprintf(f, "RSI: 0x%llX RDI: 0x%llX RBP: 0x%llX RSP: 0x%llX\n",
+                    (unsigned long long)ep->ContextRecord->Rsi, (unsigned long long)ep->ContextRecord->Rdi, (unsigned long long)ep->ContextRecord->Rbp, (unsigned long long)ep->ContextRecord->Rsp);
+                fprintf(f, "R8:  0x%llX R9:  0x%llX R10: 0x%llX R11: 0x%llX\n",
+                    (unsigned long long)ep->ContextRecord->R8, (unsigned long long)ep->ContextRecord->R9, (unsigned long long)ep->ContextRecord->R10, (unsigned long long)ep->ContextRecord->R11);
+                fprintf(f, "R12: 0x%llX R13: 0x%llX R14: 0x%llX R15: 0x%llX\n",
+                    (unsigned long long)ep->ContextRecord->R12, (unsigned long long)ep->ContextRecord->R13, (unsigned long long)ep->ContextRecord->R14, (unsigned long long)ep->ContextRecord->R15);
+                
+                uintptr_t rcx = (uintptr_t)ep->ContextRecord->Rcx;
+                if (rcx) {
+                    uint32_t* p = (uint32_t*)(rcx + 0x1C);
+                    fprintf(f, "[RCX+0x1C] as raw hex: 0x%08X, as float: %f\n", *p, *(float*)p);
+                }
+                uintptr_t rsp = (uintptr_t)ep->ContextRecord->Rsp;
+                if (rsp) {
+                    uintptr_t* stk = (uintptr_t*)rsp;
+                    fprintf(f, "STACK DUMP:\n");
+                    for (int i = 0; i < 20; ++i) {
+                        HMODULE hM = nullptr;
+                        if (GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR)stk[i], &hM)) {
+                            char mN[MAX_PATH] = { 0 };
+                            GetModuleFileNameA(hM, mN, MAX_PATH);
+                            fprintf(f, "  [%02d] 0x%llX (%s + 0x%llX)\n", i, (unsigned long long)stk[i], mN, (unsigned long long)(stk[i] - (uintptr_t)hM));
+                        } else {
+                            fprintf(f, "  [%02d] 0x%llX\n", i, (unsigned long long)stk[i]);
+                        }
+                    }
+                }
+            }
+            fflush(f);
+            fclose(f);
+        }
+        return EXCEPTION_EXECUTE_HANDLER;
+    });
+
     const auto& caps = context.GetCapabilities();
 
     bool headless = false;
+    bool autoStart = false;
     LokYS::u32 maxTestFrames = 0;
     if (pCmdLine) {
         if (wcsstr(pCmdLine, L"--headless") || wcsstr(pCmdLine, L"--verify")) {
             headless = true;
+        }
+        if (wcsstr(pCmdLine, L"--auto-start")) {
+            autoStart = true;
         }
         const wchar_t* pFrames = wcsstr(pCmdLine, L"--test-frames=");
         if (pFrames) {
@@ -559,7 +620,7 @@ int WINAPI wWinMain(
     aircraft.SetGravityEnabled(true);
 
     LokYS::Scenery::AirportDatabase airportDb;
-    LokYS::Core::GameStateManager gameStateMgr(maxTestFrames > 0 ? LokYS::Core::GameState::Simulation : LokYS::Core::GameState::MainMenu);
+    LokYS::Core::GameStateManager gameStateMgr((maxTestFrames > 0 && !autoStart) ? LokYS::Core::GameState::Simulation : LokYS::Core::GameState::MainMenu);
 
     // Apply defaults from persistent configuration
     auto defaultFCfg = gameStateMgr.GetFlightConfig();
@@ -575,10 +636,16 @@ int WINAPI wWinMain(
     bool onRunwayMode = true;
 
     auto ApplyAircraftConfig = [&](const LokYS::Aircraft::AircraftConfig& cfg) {
-        aircraft.SetMass(cfg.mass.emptyMassKg + cfg.mass.defaultFuelKg);
-        aircraft.SetInertiaTensor(cfg.mass.inertiaTensor);
+        aircraft.SetMassDistribution(
+            cfg.mass.emptyMassKg,
+            cfg.mass.emptyCgBody,
+            cfg.mass.inertiaTensor,
+            cfg.mass.fuelTankLocationBody,
+            cfg.mass.payloadLocationBody);
+        aircraft.UpdateFuelAndPayload(cfg.mass.defaultFuelKg, 0.0);
         aero.SetConfig(cfg.geometry, cfg.aero, aircraftRegistry.IsGearExtended());
         propulsion.SetAircraftEngineConfig(cfg.propulsion);
+        groundReactions.SetConfig(LokYS::Physics::GroundReactionsSystem::CreateForArchetype(cfg.type));
     };
 
     auto ApplyFlightSetup = [&](const LokYS::Core::FlightSetupConfiguration& setup) {
@@ -731,6 +798,7 @@ int WINAPI wWinMain(
     constexpr LokYS::f32 clearSkyColor[4] = { 0.423f, 0.627f, 0.863f, 1.0f };
 
     while (window.ProcessMessages()) {
+        LogTrace("Top of while loop");
         timer.Tick();
 
         if (maxTestFrames > 0 && timer.GetFrameCount() >= maxTestFrames) {
@@ -975,8 +1043,10 @@ int WINAPI wWinMain(
             if (input.WasSettingsToggleTriggered() || menuRenderer.WasSettingsTriggered()) {
                 gameStateMgr.TransitionTo(LokYS::Core::GameState::Settings);
             }
-            if (input.WasMenuSelectTriggered() || menuRenderer.WasStartFlightTriggered()) {
+            if (input.WasMenuSelectTriggered() || menuRenderer.WasStartFlightTriggered() || (autoStart && timer.GetFrameCount() >= 2)) {
+                LogTrace("StartFlight triggered - calling ApplyFlightSetup");
                 ApplyFlightSetup(fCfg);
+                LogTrace("ApplyFlightSetup completed - TransitionTo Simulation");
                 gameStateMgr.TransitionTo(LokYS::Core::GameState::Simulation);
             }
             if (input.WasPauseToggleTriggered()) {
@@ -1048,8 +1118,11 @@ int WINAPI wWinMain(
             }
         }
 
+        LogTrace("L: after input poll");
+
         // 1. Advance Fixed-Timestep Physics Simulation (120 Hz)
         if (gameStateMgr.IsInSimulation()) {
+            LogTrace("L: before scheduler.Update");
             scheduler.Update(timer.GetDeltaTime(), [&](LokYS::f64 dt, LokYS::u64 tick, LokYS::f64 simTime) {
             const auto& ctrl = input.GetControls();
             const auto& state = aircraft.GetState();
@@ -1096,7 +1169,25 @@ int WINAPI wWinMain(
             // Aerodynamic relative velocity in Body frame: V_rel = V_aircraft - V_wind
             LokYS::Math::Vec3d relVelBody = environment.ComputeRelativeVelocityBody(state.velocityBody);
 
-            auto aeroOut = aero.Evaluate(relVelBody, state.angularVelocityBody, deflections, atmo.densityKgM3, atmo.speedOfSoundMps);
+            // Phase F2: Sample terrain AGL for McCormick Ground Effect & Actuator Disk Propwash
+            LokYS::Math::Vec3f posGfx = LokYS::Math::CoordinateFrames::NedToGraphics(state.positionNed);
+            LokYS::f32 terrainElevMsl = terrainStreaming.SampleElevation(posGfx.x, posGfx.z);
+            LokYS::f64 groundHeightNed = -static_cast<LokYS::f64>(terrainElevMsl);
+            LokYS::f64 altitudeAglM = std::max(0.0, (-state.positionNed.z) - static_cast<LokYS::f64>(terrainElevMsl));
+
+            const auto& activeCfg = aircraftRegistry.GetActiveConfig();
+            LokYS::f64 propwashImmersion = (activeCfg.propulsion.engineCount == 1) ? 0.60 : 0.15;
+
+            auto aeroOut = aero.Evaluate(
+                relVelBody,
+                state.angularVelocityBody,
+                deflections,
+                atmo.densityKgM3,
+                atmo.speedOfSoundMps,
+                altitudeAglM,
+                latestPropOut.thrustNewtons,
+                activeCfg.propulsion.propDiameterM,
+                propwashImmersion);
             latestAeroOut = aeroOut;
 
             // Apply aerodynamic forces and moments
@@ -1118,7 +1209,6 @@ int WINAPI wWinMain(
             aircraft.AddMomentBody(propOut.momentsBody);
 
             // Milestone M22: Multi-Engine Asymmetric Yaw Moment (Baron 58)
-            const auto& activeCfg = aircraftRegistry.GetActiveConfig();
             if (activeCfg.propulsion.engineCount > 1) {
                 LokYS::Math::Vec3d asymForce{};
                 LokYS::Math::Vec3d asymMoments{};
@@ -1131,26 +1221,22 @@ int WINAPI wWinMain(
                 aircraft.AddMomentBody(asymMoments);
             }
 
-            // Update aircraft mass dynamically with fuel burn
-            aircraft.SetMass(activeCfg.mass.emptyMassKg + propOut.remainingFuelKg);
+            // Update aircraft mass and dynamic CG with fuel burn (Phase F1)
+            aircraft.UpdateFuelAndPayload(propOut.remainingFuelKg, 0.0);
 
-            // Milestone M11 & M22: Multi-Point Oleo Strut Ground Reactions & Terrain Elevation
-            LokYS::Math::Vec3f posGfx = LokYS::Math::CoordinateFrames::NedToGraphics(state.positionNed);
-            LokYS::f32 terrainElevMsl = terrainStreaming.SampleElevation(posGfx.x, posGfx.z);
-            LokYS::f64 groundHeightNed = -static_cast<LokYS::f64>(terrainElevMsl);
-            auto groundOut = groundReactions.Evaluate(state, activeCtrl.yaw, activeCtrl.brakes, dt, groundHeightNed);
+            LogTrace("Pre-groundReactions.Evaluate");
+            auto groundOut = groundReactions.Evaluate(state, activeCtrl.yaw, activeCtrl.brakeLeft, activeCtrl.brakeRight, dt, groundHeightNed);
+            LogTrace("Pre-groundReactions.ApplyToRigidBody");
             groundReactions.ApplyToRigidBody(aircraft, groundOut);
             latestGroundOut = groundOut;
 
-            // Milestone M14: Analog Six-Pack Avionics Subsystem
+            LogTrace("Pre-avionics.Update");
             LokYS::Math::Vec3d linearAccelBody = aeroOut.forcesBody * (1.0 / aircraft.GetMass());
             avionics.Update(state, linearAccelBody, atmo.pressurePa, atmo.densityKgM3, dt);
 
-            // Milestone M16: Radio Navigation Systems
+            LogTrace("Pre-radioNav.Update");
             LokYS::Math::Vec3d velocityNed = state.attitude.Rotate(state.velocityBody);
             radioNav.Update(state.positionNed, velocityNed, dt);
-
-            // Integrate rigid body equations of motion (RK4)
             aircraft.IntegrateRK4(dt);
 
             scheduler.PublishSnapshot(LokYS::Simulation::SimulationSnapshot::CreateFromRigidBody(
@@ -1186,6 +1272,7 @@ int WINAPI wWinMain(
                 camera.ResetOrbit();
             }
 
+            LogTrace("L: before camera.Update");
             camera.Update(renderSnapshot.bodyState.positionNed, renderSnapshot.bodyState.attitude, timer.GetDeltaTime());
 
             // Animate propeller and control surfaces for glTF articulated model
@@ -1206,6 +1293,7 @@ int WINAPI wWinMain(
 
             LokYS::Graphics::GltfModel* activeModel = &aircraftCatalog[activeCatalogIdx].model;
 
+            LogTrace("L: before ApplyAircraftControls");
             activeModel->ApplyAircraftControls(
                 static_cast<float>(renderCtrl.pitch),
                 static_cast<float>(renderCtrl.roll),
@@ -1245,9 +1333,11 @@ int WINAPI wWinMain(
                 latestPropOut.engineRpm,
                 latestGroundOut.anyGearInContact);
 
+            LogTrace("L: before BeginFrame");
             graphics.BeginFrame(clearSkyColor);
 
             // Milestone M19 Pass 1: Depth-Only Shadow Pass for Dynamic Aircraft Shadows
+            LogTrace("L: before shadow pass");
             shadowMap.Begin(graphics.GetCommandList());
             renderer.RenderShadowPass(
                 graphics.GetCommandList(),
@@ -1261,6 +1351,7 @@ int WINAPI wWinMain(
             graphics.BindMainRenderTarget();
 
             // Milestone M19 & M20: Main Forward Pass with Multi-LOD Terrain, Scenery, Runway, CSM Shadows & Remote Peers
+            LogTrace("L: before forward pass renderer.Render");
             renderer.Render(
                 graphics.GetCommandList(),
                 camera,
@@ -1280,6 +1371,13 @@ int WINAPI wWinMain(
             // Milestone M21 & M14: Render Cockpit Instrumentation (Camera-Aware & Mode-Aware)
             bool isCockpitView = (camera.GetMode() == LokYS::Graphics::CameraMode::Cockpit);
             glassCockpitRenderer.SetParkingBrake(input.IsParkingBrakeEngaged());
+            const auto& frameControls = input.GetControls();
+            glassCockpitRenderer.SetPhysicsAnnunciators(
+                static_cast<LokYS::f32>(latestAeroOut.groundEffectFactor),
+                static_cast<LokYS::f32>(latestAeroOut.slipstreamVelocityMps),
+                static_cast<LokYS::f32>(latestPropOut.bladePitchDeg),
+                frameControls.brakeLeft > 0.05,
+                frameControls.brakeRight > 0.05);
 
             if (gameStateMgr.IsInSimulation()) {
                 switch (cockpitDisplayMode) {
@@ -1287,6 +1385,7 @@ int WINAPI wWinMain(
                     auto dockPos = isCockpitView
                         ? LokYS::Graphics::PfdDockPosition::BottomLeft
                         : LokYS::Graphics::PfdDockPosition::CornerMini;
+                    LogTrace("Pre-glassCockpitRenderer.RenderPfd");
                     glassCockpitRenderer.RenderPfd(
                         graphics.GetCommandList(),
                         window.GetWidth(),
@@ -1296,6 +1395,7 @@ int WINAPI wWinMain(
                         autopilot.GetStatus(),
                         true,
                         dockPos);
+                    LogTrace("Post-glassCockpitRenderer.RenderPfd");
                     break;
                 }
                 case LokYS::Graphics::CockpitDisplayMode::TransparentHUD: {
@@ -1366,32 +1466,33 @@ int WINAPI wWinMain(
                     simConfig);
             }
 
+            LogTrace("Pre-graphics.EndFrame");
             graphics.EndFrame(true); // Vsync on for consistent frametimes
+            LogTrace("Post-graphics.EndFrame");
         }
 
+        LogTrace("Pre-AudioListenerState setup");
         // Milestone M15: Spatial Audio Engine Update
         LokYS::AudioListenerState listener{};
         listener.inCockpit = (camera.GetMode() == LokYS::Graphics::CameraMode::Cockpit);
         listener.position = camera.GetCameraPosGfx();
         listener.forward = camera.GetForward();
         listener.up = camera.GetUp();
-        listener.velocity = LokYS::Math::Vec3f(
-            static_cast<float>(renderSnapshot.bodyState.velocityBody.x),
-            static_cast<float>(renderSnapshot.bodyState.velocityBody.y),
-            static_cast<float>(renderSnapshot.bodyState.velocityBody.z));
+        LokYS::Math::Vec3d velNed = renderSnapshot.bodyState.attitude.Rotate(renderSnapshot.bodyState.velocityBody);
+        listener.velocity = LokYS::Math::CoordinateFrames::NedToGraphics(velNed);
 
         LokYS::AudioEmitterState emitter{};
-        emitter.position = LokYS::Math::Vec3f(
-            static_cast<float>(renderSnapshot.bodyState.positionNed.x),
-            static_cast<float>(-renderSnapshot.bodyState.positionNed.z),
-            static_cast<float>(renderSnapshot.bodyState.positionNed.y));
+        emitter.position = LokYS::Math::CoordinateFrames::NedToGraphics(renderSnapshot.bodyState.positionNed);
         emitter.forward = listener.forward;
         emitter.up = listener.up;
         emitter.velocity = listener.velocity;
+        emitter.minDistance = 2.0f;
+        emitter.maxDistance = 500.0f;
 
         LokYS::EngineAudioParams engineAudio{};
         LokYS::WindAudioParams windAudio{};
         LokYS::GroundAudioParams groundAudio{};
+        LogTrace("Post-AudioListenerState setup");
 
         if (gameStateMgr.IsInSimulation()) {
             engineAudio.rpm = static_cast<float>(latestPropOut.engineRpm);
@@ -1417,6 +1518,7 @@ int WINAPI wWinMain(
             wasAirborne = isAirborne;
         }
 
+        LogTrace("Pre-audioSystem.Update");
         audioSystem.Update(
             static_cast<float>(timer.GetDeltaTime()),
             listener,
@@ -1424,6 +1526,7 @@ int WINAPI wWinMain(
             engineAudio,
             windAudio,
             groundAudio);
+        LogTrace("Post-audioSystem.Update");
 
         // Milestone M17: Outbound Serial Telemetry Streaming (~30 Hz)
         serialTelemetryTimer += timer.GetDeltaTime();
@@ -1468,6 +1571,7 @@ int WINAPI wWinMain(
                 serialInterface.SendNav(navData);
             }
         }
+        LogTrace("Post-serialTelemetry");
 
         // 4. Update telemetry in window title every 200ms
         titleUpdateTimer += timer.GetDeltaTime();
@@ -1558,11 +1662,17 @@ int WINAPI wWinMain(
                << L" | Baro: " << std::setprecision(2) << avi.altimeter.kollsmanInHg << L"\""
                << L" | RPM: " << static_cast<int>(latestPropOut.engineRpm)
                << L" | MAP: " << std::setprecision(1) << latestPropOut.manifoldPressureInHg << L"\""
+               << (latestPropOut.bladePitchDeg > 0.0 ? (std::wstring(L" | \u03B2: ") + std::to_wstring(static_cast<int>(latestPropOut.bladePitchDeg)) + L"\u00B0") : L"")
+               << (latestAeroOut.groundEffectFactor < 0.99 ? (std::wstring(L" | GE: ") + std::to_wstring(static_cast<int>(latestAeroOut.groundEffectFactor * 100.0)) + L"%") : L"")
+               << (latestAeroOut.slipstreamVelocityMps > 1.0 ? (std::wstring(L" | Vslip: ") + std::to_wstring(static_cast<int>(LokYS::Math::Units::MpsToKnots(latestAeroOut.slipstreamVelocityMps))) + L"kt") : L"")
                << L" | FF: " << latestPropOut.fuelFlowGph << L" GPH"
                << L" | Mix: " << static_cast<int>(activeCtrl.mixture * 100.0) << L"%"
                << L" | Flaps [F/V]: " << (activeCtrl.flapSetting * 10) << L"\u00B0"
                << L" | " << gearStatus
-               << (activeCtrl.brakes > 0.05 ? L" | BRK" : L"")
+               << (input.IsParkingBrakeEngaged() ? L" | PARK-BRK" :
+                   (activeCtrl.brakeLeft > 0.05 && activeCtrl.brakeRight > 0.05) ? L" | BRK" :
+                   (activeCtrl.brakeLeft > 0.05) ? L" | L-BRK" :
+                   (activeCtrl.brakeRight > 0.05) ? L" | R-BRK" : L"")
                << L" | COM: " << (serialInterface.IsConnected() ? L"LIVE" : L"OFF")
                << L" | " << autopilot.GetStatusString()
                << L" | Cam [C]: " << (camera.GetMode() == LokYS::Graphics::CameraMode::Chase ? L"CHASE 3D" : L"COCKPIT")
@@ -1575,24 +1685,43 @@ int WINAPI wWinMain(
                << L" | Wx [F8]: " << environment.GetPresetName()
                << L" | Fog [G]: " << fogStr
                << L" | Reset: [R]";
+            LogTrace("Pre-SetWindowTextW");
             SetWindowTextW(window.GetHwnd(), ss.str().c_str());
+            LogTrace("Post-SetWindowTextW");
         }
+        LogTrace("End of while loop iteration");
     }
 
+    LogTrace("Shutdown: network");
     network.Shutdown();
+    LogTrace("Shutdown: serialInterface");
     serialInterface.Shutdown();
+    LogTrace("Shutdown: audioSystem");
     audioSystem.Shutdown();
+    LogTrace("Shutdown: menuRenderer");
     menuRenderer.Shutdown();
+    LogTrace("Shutdown: glassCockpitRenderer");
     glassCockpitRenderer.Shutdown();
+    LogTrace("Shutdown: avionicsRenderer");
     avionicsRenderer.Shutdown();
+    LogTrace("Shutdown: approachLights");
     approachLights.Shutdown();
+    LogTrace("Shutdown: terrainStreaming");
     terrainStreaming.Shutdown();
+    LogTrace("Shutdown: scenerySystem");
     scenerySystem.Shutdown();
+    LogTrace("Shutdown: terrainSystem");
     terrainSystem.Shutdown();
+    LogTrace("Shutdown: shadowMap");
     shadowMap.Shutdown();
+    LogTrace("Shutdown: renderer");
     renderer.Shutdown();
+    LogTrace("Shutdown: graphics");
     graphics.Shutdown();
+    LogTrace("Shutdown: window");
     window.Destroy();
+    LogTrace("Shutdown: context");
     context.Shutdown();
-    return 0;
+    LogTrace("Shutdown: completed cleanly");
+    ExitProcess(0);
 }

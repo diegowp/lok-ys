@@ -1,5 +1,6 @@
 #include "LokYS/physics/GroundReactions.hpp"
 #include "LokYS/physics/RigidBody.hpp"
+#include "LokYS/aircraft/AircraftTypes.hpp"
 #include "LokYS/math/Units.hpp"
 #include <iostream>
 #include <cmath>
@@ -7,6 +8,7 @@
 using namespace LokYS;
 using namespace LokYS::Math;
 using namespace LokYS::Physics;
+using namespace LokYS::Aircraft;
 
 static int g_testsPassed = 0;
 static int g_testsFailed = 0;
@@ -179,6 +181,82 @@ void TestTailstrikeDetection() {
     TEST_ASSERT(out.tailBumperState.momentBody.y < 0.0, "Tailstrike produces nose-down restoring moment");
 }
 
+// Phase F4 Unit Tests: Taildragger Ground Loop, Differential Toe Brakes, and Multi-Gear Archetypes
+
+void TestTaildraggerGroundLoopInstability() {
+    // 1. Tricycle Gear (Cessna 172) - Main wheels aft of CG (X = -0.35m)
+    GroundReactionsSystem tricycleSys(GroundReactionsSystem::CreateForArchetype(AircraftType::Cessna172Skyhawk));
+    // 2. Taildragger Gear (Extra 330SC) - Main wheels ahead of CG (X = +0.45m)
+    GroundReactionsSystem taildraggerSys(GroundReactionsSystem::CreateForArchetype(AircraftType::Extra330SC));
+
+    RigidBodyState stateTri{};
+    stateTri.positionNed = { 0.0, 0.0, -0.935 };
+    stateTri.velocityBody = { 20.0, 1.0, 0.0 }; // 20 m/s rollout with 1 m/s right lateral drift (crab perturbation)
+    stateTri.attitude = Quat4d::Identity();
+
+    RigidBodyState stateTail{};
+    stateTail.positionNed = { 0.0, 0.0, -0.98 };
+    stateTail.velocityBody = { 20.0, 1.0, 0.0 };
+    stateTail.attitude = Quat4d::Identity();
+
+    auto outTri = tricycleSys.Evaluate(stateTri, 0.0, 0.0, 1.0 / 120.0, 0.0);
+    auto outTail = taildraggerSys.Evaluate(stateTail, 0.0, 0.0, 1.0 / 120.0, 0.0);
+
+    TEST_ASSERT(outTri.leftMainInContact && outTri.rightMainInContact, "Tricycle main gear in contact during rollout");
+    TEST_ASSERT(outTail.leftMainInContact && outTail.rightMainInContact, "Taildragger main gear in contact during rollout");
+
+    // In tricycle gear, main gear sideforces act behind the CG (rx < 0):
+    // Lateral force Fy < 0 generates moment Mz = rx * Fy - ry * Fx.
+    // For tricycle, rx = -0.35m -> positive restoring moment that pushes nose into wind.
+    // For taildragger, rx = +0.45m -> destabilizing moment that pulls nose further into the drift!
+    f64 triMainYawMoment = outTri.gearStates[1].momentBody.z + outTri.gearStates[2].momentBody.z;
+    f64 tailMainYawMoment = outTail.gearStates[1].momentBody.z + outTail.gearStates[2].momentBody.z;
+
+    // The sign of main gear yaw torque in taildragger must be opposite to tricycle,
+    // confirming dynamic divergent ground loop tendency
+    TEST_ASSERT(tailMainYawMoment * triMainYawMoment < 0.0,
+        "Taildragger main gear produces destabilizing ground-loop torque opposite to tricycle stabilizing torque");
+}
+
+void TestDifferentialToeBraking() {
+    GroundReactionsSystem gearSys(GroundReactionsSystem::CreateForArchetype(AircraftType::Cessna172Skyhawk));
+    RigidBodyState state{};
+    state.positionNed = { 0.0, 0.0, -0.935 };
+    state.velocityBody = { 10.0, 0.0, 0.0 }; // Taxi rollout 10 m/s (~20 kt)
+    state.attitude = Quat4d::Identity();
+
+    constexpr f64 dt = 1.0 / 120.0;
+
+    // Case 1: Independent Left Toe Brake only (rudder = 0, leftBrake = 1.0, rightBrake = 0.0)
+    auto outLeftBrake = gearSys.Evaluate(state, 0.0, 1.0, 0.0, dt, 0.0);
+    TEST_ASSERT(outLeftBrake.gearStates[1].frictionForceNewtons < -1000.0, "Left wheel generates heavy braking retarding force");
+    TEST_NEAR(outLeftBrake.gearStates[2].frictionForceNewtons, -100.0, 150.0, "Right wheel has only rolling resistance");
+    // Left brake retards wheel at Y = -1.05m -> generates strong left yaw moment (negative Mz)
+    TEST_ASSERT(outLeftBrake.totalMomentBody.z < -1000.0, "Left toe brake produces strong negative (left-turning) yaw moment");
+
+    // Case 2: Independent Right Toe Brake only (rudder = 0, leftBrake = 0.0, rightBrake = 1.0)
+    auto outRightBrake = gearSys.Evaluate(state, 0.0, 0.0, 1.0, dt, 0.0);
+    TEST_ASSERT(outRightBrake.gearStates[2].frictionForceNewtons < -1000.0, "Right wheel generates heavy braking retarding force");
+    TEST_NEAR(outRightBrake.gearStates[1].frictionForceNewtons, -100.0, 150.0, "Left wheel has only rolling resistance");
+    // Right brake retards wheel at Y = +1.05m -> generates strong right yaw moment (positive Mz)
+    TEST_ASSERT(outRightBrake.totalMomentBody.z > 1000.0, "Right toe brake produces strong positive (right-turning) yaw moment");
+
+    // Case 3: Symmetric Brakes (both pedals pressed)
+    auto outSymmetric = gearSys.Evaluate(state, 0.0, 1.0, 1.0, dt, 0.0);
+    TEST_NEAR(outSymmetric.totalMomentBody.z, 0.0, 50.0, "Symmetric braking balances differential yaw torque");
+    TEST_ASSERT(outSymmetric.totalForceBody.x < -2000.0, "Full symmetric braking generates massive stopping force");
+}
+
+void TestBaron58HeavyGearStability() {
+    auto b58Config = GroundReactionsSystem::CreateForArchetype(AircraftType::Baron58);
+    GroundReactionsSystem b58Gear(b58Config);
+
+    // Track width = |Y_left - Y_right| = 1.46 - (-1.46) = 2.92m
+    f64 trackWidth = std::abs(b58Config.leftMainGear.mountPointBody.y - b58Config.rightMainGear.mountPointBody.y);
+    TEST_NEAR(trackWidth, 2.92, 0.01, "Baron 58 wide landing gear track width matches 2.92m");
+    TEST_NEAR(b58Config.leftMainGear.springStiffness, 95000.0, 1.0, "Baron 58 heavy oleo spring stiffness 95 kN/m");
+}
+
 int main() {
     std::cout << "========================================\n";
     std::cout << " LokYS Ground Reactions & Strut Tests   \n";
@@ -189,6 +267,9 @@ int main() {
     TestRunwayBrakingFriction();
     TestNosewheelSteeringAuthority();
     TestTailstrikeDetection();
+    TestTaildraggerGroundLoopInstability();
+    TestDifferentialToeBraking();
+    TestBaron58HeavyGearStability();
 
     std::cout << "\n----------------------------------------\n";
     std::cout << "Tests Passed: " << g_testsPassed << "\n";

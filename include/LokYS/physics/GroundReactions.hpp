@@ -5,6 +5,7 @@
 #include "LokYS/math/Quaternion.hpp"
 #include "LokYS/physics/RigidBodyState.hpp"
 #include "LokYS/physics/RigidBody.hpp"
+#include "LokYS/aircraft/AircraftTypes.hpp"
 #include <array>
 
 namespace LokYS::Physics {
@@ -121,12 +122,25 @@ public:
     void SetConfig(const AircraftLandingGearConfig& config) noexcept { m_config = config; }
     [[nodiscard]] const AircraftLandingGearConfig& GetConfig() const noexcept { return m_config; }
 
+    [[nodiscard]] static AircraftLandingGearConfig CreateForArchetype(Aircraft::AircraftType type) noexcept;
+
     [[nodiscard]] GroundReactionsOutput Evaluate(
         const RigidBodyState& state,
         f64 rudderInput,
         f64 brakeInput,
         f64 dt,
-        f64 terrainElevationNed = 0.0) const noexcept;
+        f64 terrainElevationNed = 0.0) const noexcept
+    {
+        return Evaluate(state, rudderInput, brakeInput, brakeInput, dt, terrainElevationNed);
+    }
+
+    [[nodiscard]] GroundReactionsOutput Evaluate(
+        const RigidBodyState& state,
+        f64 rudderInput,
+        f64 leftBrakeInput,
+        f64 rightBrakeInput,
+        f64 dt,
+        f64 terrainElevationNed) const noexcept;
 
     void ApplyToRigidBody(RigidBody& body, const GroundReactionsOutput& out) const noexcept;
 

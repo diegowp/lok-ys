@@ -174,6 +174,130 @@ void TestSnapshotTelemetry() {
     TEST_NEAR(interp.bodyState.positionNed.x, 50.0, 1e-3, "Interpolated X position");
 }
 
+// Test 6: Phase F1 State-Dependent RK4 Integration (Velocity Damping)
+void TestStateDependentRK4Damping() {
+    RigidBody body(100.0, Mat3d::Identity());
+    body.SetGravityEnabled(false);
+
+    RigidBodyState initial{};
+    initial.velocityBody = { 50.0, 0.0, 0.0 }; // v0 = 50 m/s
+    body.SetState(initial);
+
+    constexpr f64 dt = 1.0 / 120.0;
+    constexpr f64 c_drag = 50.0; // F = -c * v
+    constexpr f64 simDuration = 1.0;
+    constexpr u32 steps = static_cast<u32>(simDuration / dt);
+
+    for (u32 i = 0; i < steps; ++i) {
+        body.IntegrateRK4(dt, [c_drag](
+            const RigidBodyState& state,
+            [[maybe_unused]] f64 subDt,
+            Math::Vec3d& outF,
+            Math::Vec3d& outM) noexcept
+        {
+            outF = state.velocityBody * (-c_drag);
+            outM = { 0.0, 0.0, 0.0 };
+        });
+    }
+
+    const auto& finalState = body.GetState();
+
+    // Analytical solution: v(t) = v0 * exp(-(c/m)*t)
+    // For m=100, c=50, t=1.0: v(1) = 50 * exp(-0.5) = 30.3265329856 m/s
+    f64 expectedV = 50.0 * std::exp(-0.5);
+    // Analytical x(t) = (m * v0 / c) * (1 - exp(-(c/m)*t)) = 100 * (1 - exp(-0.5)) = 39.3469340287 m
+    f64 expectedX = 100.0 * (1.0 - std::exp(-0.5));
+
+    TEST_NEAR(finalState.velocityBody.x, expectedV, 1e-4, "State-dependent RK4 velocity decay matches analytical exp(-c/m*t)");
+    TEST_NEAR(finalState.positionNed.x, expectedX, 1e-3, "State-dependent RK4 position matches analytical integral");
+}
+
+// Test 7: Phase F1 Dynamic Center of Gravity (CG) Tracking with Fuel Burn
+void TestDynamicCenterOfGravityShift() {
+    RigidBody body;
+
+    f64 emptyMass = 757.0;
+    Vec3d emptyCg{ 0.0, 0.0, 0.0 };
+    Mat3d emptyInertia(
+        1285.0, 0.0, 0.0,
+        0.0, 1824.0, 0.0,
+        0.0, 0.0, 2667.0
+    );
+    Vec3d fuelTankPos{ 0.0, 0.0, -0.70 };
+    Vec3d payloadPos{ 0.35, 0.0, 0.10 };
+
+    body.SetMassDistribution(emptyMass, emptyCg, emptyInertia, fuelTankPos, payloadPos);
+
+    // Initial state: Full fuel (144.5 kg), 150 kg payload
+    f64 fuelMass = 144.5;
+    f64 payloadMass = 150.0;
+    body.UpdateFuelAndPayload(fuelMass, payloadMass);
+
+    f64 totalMass = emptyMass + fuelMass + payloadMass; // 1051.5 kg
+    Vec3d expectedCg = (emptyCg * emptyMass + fuelTankPos * fuelMass + payloadPos * payloadMass) * (1.0 / totalMass);
+
+    Vec3d actualCg = body.GetCenterOfGravityBody();
+    TEST_NEAR(actualCg.x, expectedCg.x, 1e-5, "Initial dynamic CG X match");
+    TEST_NEAR(actualCg.y, expectedCg.y, 1e-5, "Initial dynamic CG Y match");
+    TEST_NEAR(actualCg.z, expectedCg.z, 1e-5, "Initial dynamic CG Z match");
+
+    // Simulate complete fuel burn: fuel -> 0 kg
+    body.UpdateFuelAndPayload(0.0, payloadMass);
+    f64 dryMass = emptyMass + payloadMass; // 907.0 kg
+    Vec3d expectedDryCg = (emptyCg * emptyMass + payloadPos * payloadMass) * (1.0 / dryMass);
+
+    Vec3d actualDryCg = body.GetCenterOfGravityBody();
+    TEST_NEAR(actualDryCg.x, expectedDryCg.x, 1e-5, "Zero-fuel dynamic CG X shift match");
+    TEST_NEAR(actualDryCg.z, expectedDryCg.z, 1e-5, "Zero-fuel dynamic CG Z shift match");
+
+    // Moment arm adjustment in AddForceAtPointBody:
+    // Force at payload location should produce zero moment about CG if force is applied at CG
+    body.ClearForcesAndMoments();
+    Vec3d testForce{ 0.0, 0.0, 1000.0 };
+    body.AddForceAtPointBody(testForce, actualDryCg); // Force directly through composite CG
+    // Resulting moment should be identically zero
+    // (Accumulated force is 1000 N, accumulated moment is 0 N*m)
+    body.IntegrateRK4(1.0 / 120.0);
+    // Angular velocity remains zero
+    TEST_NEAR(body.GetState().angularVelocityBody.Length(), 0.0, 1e-6, "Force through composite CG produces zero angular torque");
+}
+
+// Test 8: Phase F1 Steiner Parallel Axis Dynamic Inertia Tensor
+void TestSteinerParallelAxisInertiaTensor() {
+    RigidBody body;
+
+    f64 emptyMass = 1000.0;
+    Vec3d emptyCg{ 0.0, 0.0, 0.0 };
+    Mat3d emptyInertia(
+        1000.0, 0.0, 0.0,
+        0.0, 2000.0, 0.0,
+        0.0, 0.0, 3000.0
+    );
+    Vec3d fuelTankPos{ 0.0, 0.0, 2.0 }; // Offset along Z by 2m
+    Vec3d payloadPos{ 0.0, 0.0, 0.0 };
+
+    body.SetMassDistribution(emptyMass, emptyCg, emptyInertia, fuelTankPos, payloadPos);
+
+    // Add 1000 kg at z = 2m. Composite CG moves to z = 1.0m.
+    // For empty mass: d = (0, 0, -1). d^2 = 1. Steiner term: Ixx += 1000*1, Iyy += 1000*1, Izz += 0.
+    // For fuel mass: d = (0, 0, +1). d^2 = 1. Steiner term: Ixx += 1000*1, Iyy += 1000*1, Izz += 0.
+    // Total Ixx = 1000 + 1000 + 1000 = 3000.
+    // Total Iyy = 2000 + 1000 + 1000 = 4000.
+    // Total Izz = 3000 + 0 + 0 = 3000.
+    body.UpdateFuelAndPayload(1000.0, 0.0);
+
+    const auto& I = body.GetInertiaTensor();
+
+    TEST_NEAR(I.m[0][0], 3000.0, 1e-4, "Steiner Ixx diagonal increment");
+    TEST_NEAR(I.m[1][1], 4000.0, 1e-4, "Steiner Iyy diagonal increment");
+    TEST_NEAR(I.m[2][2], 3000.0, 1e-4, "Steiner Izz unchanged for pure Z shift");
+
+    // Off-diagonal symmetry check: I_ij == I_ji
+    TEST_NEAR(I.m[0][1], I.m[1][0], 1e-6, "Tensor symmetry Ixy == Iyx");
+    TEST_NEAR(I.m[0][2], I.m[2][0], 1e-6, "Tensor symmetry Ixz == Izx");
+    TEST_NEAR(I.m[1][2], I.m[2][1], 1e-6, "Tensor symmetry Iyz == Izy");
+}
+
 int main() {
     std::cout << "========================================\n";
     std::cout << " LokYS 6-DOF Physics & Scheduler Tests  \n";
@@ -184,6 +308,9 @@ int main() {
     TestLongHorizonQuaternionNorm();
     TestSimulationScheduler();
     TestSnapshotTelemetry();
+    TestStateDependentRK4Damping();
+    TestDynamicCenterOfGravityShift();
+    TestSteinerParallelAxisInertiaTensor();
 
     std::cout << "\n----------------------------------------\n";
     std::cout << "Tests Passed: " << g_testsPassed << "\n";
