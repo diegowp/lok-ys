@@ -264,6 +264,7 @@ int WINAPI wWinMain(
         std::string filename;
         LokYS::Graphics::GltfModel model;
         LokYS::Aircraft::AircraftType archetype{ LokYS::Aircraft::AircraftType::Cessna172Skyhawk };
+        LokYS::Math::Vec3d cockpitEyePosBody{ 0.25, -0.27, -0.70 };
     };
 
     std::vector<AircraftCatalogEntry> aircraftCatalog;
@@ -274,12 +275,13 @@ int WINAPI wWinMain(
         cessnaEntry.displayName = L"Cessna 172 Skyhawk";
         cessnaEntry.filename = "cessna172.glb";
         cessnaEntry.archetype = LokYS::Aircraft::AircraftType::Cessna172Skyhawk;
+        cessnaEntry.cockpitEyePosBody = { 0.25, -0.27, -0.70 };
         LoadOrGenerateModel(
             cessnaEntry.model,
             "cessna172.glb",
             static_cast<bool (*)(const std::string&)>(&LokYS::Graphics::AircraftModelGenerator::SaveCessna172Glb),
             &LokYS::Graphics::AircraftModelGenerator::GenerateCessna172Glb);
-        cessnaEntry.model.AutoNormalizeToSpan(11.0f);
+        cessnaEntry.model.AutoAlignAndGround(11.0f);
         aircraftCatalog.push_back(std::move(cessnaEntry));
     }
 
@@ -288,12 +290,13 @@ int WINAPI wWinMain(
         baronEntry.displayName = L"Baron 58";
         baronEntry.filename = "baron58.glb";
         baronEntry.archetype = LokYS::Aircraft::AircraftType::Baron58;
+        baronEntry.cockpitEyePosBody = { 0.60, -0.32, -0.65 };
         LoadOrGenerateModel(
             baronEntry.model,
             "baron58.glb",
             static_cast<bool (*)(const std::string&)>(&LokYS::Graphics::AircraftModelGenerator::SaveBaron58Glb),
             &LokYS::Graphics::AircraftModelGenerator::GenerateBaron58Glb);
-        baronEntry.model.AutoNormalizeToSpan(11.53f);
+        baronEntry.model.AutoAlignAndGround(11.53f);
         aircraftCatalog.push_back(std::move(baronEntry));
     }
 
@@ -302,12 +305,13 @@ int WINAPI wWinMain(
         extraEntry.displayName = L"Extra 330SC";
         extraEntry.filename = "extra330.glb";
         extraEntry.archetype = LokYS::Aircraft::AircraftType::Extra330SC;
+        extraEntry.cockpitEyePosBody = { -0.20, 0.00, -0.55 };
         LoadOrGenerateModel(
             extraEntry.model,
             "extra330.glb",
             static_cast<bool (*)(const std::string&)>(&LokYS::Graphics::AircraftModelGenerator::SaveExtra330Glb),
             &LokYS::Graphics::AircraftModelGenerator::GenerateExtra330Glb);
-        extraEntry.model.AutoNormalizeToSpan(7.50f);
+        extraEntry.model.AutoAlignAndGround(7.50f);
         aircraftCatalog.push_back(std::move(extraEntry));
     }
 
@@ -348,7 +352,7 @@ int WINAPI wWinMain(
             customEntry.filename = fn;
             std::string gltfErr;
             if (customEntry.model.LoadFromGlbFile(entry.path().string(), &gltfErr)) {
-                customEntry.model.AutoNormalizeToSpan(0.0f); // Preserve 1:1 metric scale, auto-detect cm/mm
+                customEntry.model.AutoAlignAndGround(0.0f); // Auto heading detect (180 deg reverse if needed) & ground level
                 (void)customEntry.model.CreateGPUResources(graphics.GetDevice());
 
                 // Format human-readable display name from filename
@@ -368,11 +372,19 @@ int WINAPI wWinMain(
                 }
                 customEntry.displayName = wideDisplayName;
 
-                // Associate archetype: heavy / large aircraft use twin/multi-engine Baron 58 physics
-                if (customEntry.model.GetEffectiveDimensions().x > 18.0f) {
-                    customEntry.archetype = LokYS::Aircraft::AircraftType::Baron58;
+                // Associate archetype & calibrate pilot cockpit eye position in Body FRD
+                if (customEntry.model.GetEffectiveDimensions().x > 18.0f ||
+                    fnLower.find("c-17") != std::string::npos ||
+                    fnLower.find("c17") != std::string::npos ||
+                    fnLower.find("globemaster") != std::string::npos)
+                {
+                    customEntry.archetype = LokYS::Aircraft::AircraftType::Baron58; // Multi-engine heavy
+                    customEntry.cockpitEyePosBody = { 8.20, -0.75, -2.10 };       // Military flight deck captain seat
                 } else {
                     customEntry.archetype = LokYS::Aircraft::AircraftType::Cessna172Skyhawk;
+                    LokYS::f64 fwd = static_cast<LokYS::f64>(customEntry.model.GetEffectiveDimensions().z) * 0.15;
+                    LokYS::f64 up = static_cast<LokYS::f64>(customEntry.model.GetEffectiveDimensions().y) * 0.35;
+                    customEntry.cockpitEyePosBody = { fwd, -0.27, -up };
                 }
 
                 aircraftCatalog.push_back(std::move(customEntry));
@@ -391,6 +403,7 @@ int WINAPI wWinMain(
         aircraftCatalog[activeCatalogIdx].model.GetEffectiveDimensions().z,
         aircraftCatalog[activeCatalogIdx].model.GetEffectiveDimensions().x,
         aircraftCatalog[activeCatalogIdx].model.GetEffectiveDimensions().y);
+    camera.SetCockpitEyeOffset(aircraftCatalog[activeCatalogIdx].cockpitEyePosBody);
 
     // Milestone M22: Approach Lighting System (ALSF-1 720m array + Sequenced Strobes + REIL)
     LokYS::Graphics::ApproachLightingSystem approachLights;
@@ -678,11 +691,12 @@ int WINAPI wWinMain(
             aircraftRegistry.SetActiveType(activeEntry.archetype);
             ApplyAircraftConfig(aircraftRegistry.GetActiveConfig());
 
-            // Dynamically update camera framing to fit the active aircraft dimensions
+            // Dynamically update camera framing and cockpit eye position to fit the active aircraft dimensions
             camera.SetTargetDimensions(
                 activeEntry.model.GetEffectiveDimensions().z,
                 activeEntry.model.GetEffectiveDimensions().x,
                 activeEntry.model.GetEffectiveDimensions().y);
+            camera.SetCockpitEyeOffset(activeEntry.cockpitEyePosBody);
             camera.ResetOrbit();
         }
 

@@ -73,6 +73,8 @@ public:
     // Bounding Box & Auto-Normalization
     void ComputeBoundingBox() noexcept;
     void AutoNormalizeToSpan(f32 targetSpanM) noexcept;
+    void AutoAlignAndGround(f32 targetSpanM = 0.0f, bool groundToRunway = true) noexcept;
+    [[nodiscard]] bool IsHeadingReversed() const noexcept { return m_isReversedHeading; }
     void SetNormalizationTransform(const Math::Mat4f& transform) noexcept { m_normalizationTransform = transform; }
 
     [[nodiscard]] const ModelBounds& GetBounds() const noexcept { return m_bounds; }
@@ -125,6 +127,7 @@ private:
     ModelBounds m_bounds{};
     Math::Vec3f m_normalizedDimensions{ 0.0f, 0.0f, 0.0f };
     Math::Mat4f m_normalizationTransform{ Math::Mat4f::Identity() };
+    bool m_isReversedHeading{ false };
 
     bool m_isLoaded{ false };
 };

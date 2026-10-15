@@ -210,3 +210,13 @@
 2727	3119	8137299055506380	LokYSFlightSimulator.exe	be281c2002602517
 7	3405	8137300812094149	CMakeFiles/LokYSFlightSimulator.dir/src/app/main.cpp.obj	360e10ff7ba98efb
 3407	3710	8137300815167732	LokYSFlightSimulator.exe	be281c2002602517
+12	598	8137313817872020	CMakeFiles/LokYSFlightSimulator.dir/src/graphics/Camera.cpp.obj	dadba0faa5ca86cc
+32	599	8137313817872020	CMakeFiles/LokYSGraphicsOptimizationTests.dir/src/graphics/Camera.cpp.obj	48e3ac2bebbf788b
+600	878	8137313820657330	LokYSGraphicsOptimizationTests.exe	15f5bc43b59a5f19
+17	2826	8137313840122309	CMakeFiles/LokYSFlightSimulator.dir/src/graphics/GltfModel.cpp.obj	1a40bffa85bc321c
+23	2853	8137313840385892	CMakeFiles/LokYSGltfTests.dir/src/graphics/GltfModel.cpp.obj	6a8657e7d2e4ecb0
+2854	3108	8137313842905871	LokYSGltfTests.exe	da474d75b1c64201
+7	4063	8137313852482946	CMakeFiles/LokYSFlightSimulator.dir/src/app/main.cpp.obj	360e10ff7ba98efb
+4065	4337	8137313855244698	LokYSFlightSimulator.exe	be281c2002602517
+5	1900	8137314718076101	CMakeFiles/LokYSGltfTests.dir/tests/unit/GltfTests.cpp.obj	457c51c50de33f98
+1901	2203	8137314721148660	LokYSGltfTests.exe	da474d75b1c64201

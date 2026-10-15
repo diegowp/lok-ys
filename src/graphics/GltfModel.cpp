@@ -900,6 +900,101 @@ void GltfModel::AutoNormalizeToSpan(f32 targetSpanM) noexcept {
     m_normalizedDimensions = m_bounds.dimensions * scaleFactor;
 }
 
+void GltfModel::AutoAlignAndGround(f32 targetSpanM, bool groundToRunway) noexcept {
+    ComputeBoundingBox();
+    if (m_bounds.dimensions.x <= 0.01f) {
+        return;
+    }
+
+    f32 currentSpan = m_bounds.dimensions.x;
+    f32 scaleFactor = 1.0f;
+
+    // Detect if model needs scale correction (e.g. exported in centimeters, millimeters, inches, or wrong units)
+    if (targetSpanM > 0.1f) {
+        if (currentSpan > 30.0f || currentSpan < 2.0f || std::abs(currentSpan - targetSpanM) > 0.20f * targetSpanM) {
+            scaleFactor = targetSpanM / currentSpan;
+        }
+    } else {
+        // Auto unit detection if no explicit target span is given (e.g. custom user models)
+        if (currentSpan > 500.0f && currentSpan < 50000.0f) {
+            scaleFactor = 0.01f; // Likely cm -> m
+        } else if (currentSpan >= 50000.0f) {
+            scaleFactor = 0.001f; // Likely mm -> m
+        }
+    }
+
+    // 1. Detect Heading Orientation (reversed facing along Z)
+    f32 frontZSum = 0.0f;
+    int frontCount = 0;
+    f32 rearZSum = 0.0f;
+    int rearCount = 0;
+
+    auto ToLowerStr = [](std::string_view s) {
+        std::string res;
+        res.reserve(s.size());
+        for (char c : s) res += static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+        return res;
+    };
+
+    for (const auto& node : m_nodes) {
+        std::string nameLower = ToLowerStr(node.name);
+        if (nameLower.find("cockpit") != std::string::npos ||
+            nameLower.find("nose") != std::string::npos ||
+            nameLower.find("gear_f") != std::string::npos ||
+            nameLower.find("propeller") != std::string::npos ||
+            nameLower.find("prop") != std::string::npos ||
+            nameLower.find("steering") != std::string::npos ||
+            nameLower.find("seat_dside") != std::string::npos)
+        {
+            frontZSum += node.worldTransform.m[3][2];
+            frontCount++;
+        }
+        if (nameLower.find("rudder") != std::string::npos ||
+            nameLower.find("tail") != std::string::npos ||
+            nameLower.find("fin") != std::string::npos ||
+            nameLower.find("elevator") != std::string::npos)
+        {
+            rearZSum += node.worldTransform.m[3][2];
+            rearCount++;
+        }
+    }
+
+    m_isReversedHeading = false;
+    if (frontCount > 0 && rearCount > 0) {
+        f32 avgFrontZ = frontZSum / static_cast<f32>(frontCount);
+        f32 avgRearZ = rearZSum / static_cast<f32>(rearCount);
+        if (avgRearZ > avgFrontZ + 0.5f) {
+            m_isReversedHeading = true;
+        }
+    }
+
+    // 2. Ground alignment:
+    // In LokYS physics, the aircraft body in static ground equilibrium sits at Y_gfx = +0.935m.
+    // The lowest point of the landing gear should touch the ground plane (Y_world = 0.0m),
+    // which requires the lowest point in model space to be at Y = -0.935m.
+    f32 yMinScaled = m_bounds.minBound.y * scaleFactor;
+    f32 deltaY = groundToRunway ? (-0.935f - yMinScaled) : 0.0f;
+
+    // 3. Lateral centering
+    f32 deltaX = -m_bounds.center.x * scaleFactor;
+    f32 deltaZ = 0.0f;
+
+    // 4. Construct normalization matrix in row-vector convention (v' = v * R * S * T)
+    Math::Mat4f rotMat = m_isReversedHeading
+        ? Math::Mat4f(
+            -1.0f,  0.0f,  0.0f, 0.0f,
+             0.0f,  1.0f,  0.0f, 0.0f,
+             0.0f,  0.0f, -1.0f, 0.0f,
+             0.0f,  0.0f,  0.0f, 1.0f)
+        : Math::Mat4f::Identity();
+
+    Math::Mat4f scaleMat = Math::Mat4f::Scale(Math::Vec3f(scaleFactor, scaleFactor, scaleFactor));
+    Math::Mat4f transMat = Math::Mat4f::Translation(Math::Vec3f(deltaX, deltaY, deltaZ));
+
+    m_normalizationTransform = rotMat * scaleMat * transMat;
+    m_normalizedDimensions = m_bounds.dimensions * scaleFactor;
+}
+
 size_t GltfModel::GetTotalVertexCount() const noexcept {
     size_t count = 0;
     for (const auto& mesh : m_meshes) {

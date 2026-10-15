@@ -30,6 +30,10 @@ public:
     void SetTargetDimensions(f32 lengthM, f32 spanM, f32 heightM) noexcept;
     [[nodiscard]] const Math::Vec3f& GetTargetDimensions() const noexcept { return m_targetDimensions; }
 
+    // Dedicated Cockpit Eye-Level Offset in Body FRD (Forward, Right, Down)
+    void SetCockpitEyeOffset(const Math::Vec3d& eyeOffsetBody) noexcept { m_cockpitEyeOffsetBody = eyeOffsetBody; }
+    [[nodiscard]] const Math::Vec3d& GetCockpitEyeOffset() const noexcept { return m_cockpitEyeOffsetBody; }
+
     // Interactive Zoom Controls (0.35x to 4.0x)
     void AdjustZoom(f32 deltaZoom) noexcept;
     void SetZoom(f32 zoom) noexcept;
@@ -72,6 +76,7 @@ private:
 
     // Dynamic Framing, Zoom, and Orbit
     Math::Vec3f m_targetDimensions{ 8.28f, 11.0f, 2.72f };
+    Math::Vec3d m_cockpitEyeOffsetBody{ 0.25, -0.27, -0.70 };
     f32 m_zoomMultiplier{ 1.0f };
     f32 m_orbitYawRad{ 0.0f };
     f32 m_orbitPitchRad{ 0.0f };

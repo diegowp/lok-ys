@@ -100,11 +100,8 @@ void Camera::Update(const Math::Vec3d& aircraftPosNed, const Math::Quat4d& aircr
             m_upGfx = Math::Vec3f(0.0f, 1.0f, 0.0f);
         }
     } else {
-        // Cockpit view: Pilot's left seat eye position, scaled to aircraft size
-        const f64 lFactor = static_cast<f64>(m_targetDimensions.x) / 8.28;
-        const f64 hFactor = static_cast<f64>(m_targetDimensions.z) / 2.72;
-        const Math::Vec3d pilotEyeBody{ 0.35 * lFactor, -0.25, -0.65 * hFactor };
-        const Math::Vec3d pilotEyeNed = aircraftAttitude.Rotate(pilotEyeBody);
+        // Cockpit view: Pilot's dedicated eye position in Body FRD (Forward, Right, Down)
+        const Math::Vec3d pilotEyeNed = aircraftAttitude.Rotate(m_cockpitEyeOffsetBody);
 
         m_cameraPosNed = aircraftPosNed + pilotEyeNed;
         m_cameraPosGfx = Math::CoordinateFrames::NedToGraphics(m_cameraPosNed);
