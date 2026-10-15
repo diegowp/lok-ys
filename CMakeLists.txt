@@ -245,6 +245,22 @@ target_include_directories(LokYSPropulsionTests PRIVATE
 
 add_test(NAME PropulsionTests COMMAND LokYSPropulsionTests)
 
+add_executable(LokYSAeroPhysicsTests
+    tests/unit/AeroPhysicsTests.cpp
+    src/aerodynamics/AerodynamicsSystem.cpp
+    src/propulsion/PropulsionSystem.cpp
+    src/physics/GroundReactions.cpp
+    src/physics/RigidBody.cpp
+    src/aircraft/AircraftRegistry.cpp
+    ${LOKYS_HEADERS}
+)
+
+target_include_directories(LokYSAeroPhysicsTests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+add_test(NAME AeroPhysicsTests COMMAND LokYSAeroPhysicsTests)
+
 add_executable(LokYSGltfTests
     tests/unit/GltfTests.cpp
     src/graphics/GltfModel.cpp
