@@ -58,6 +58,24 @@ public:
         return m_bytePos < m_data.size() || m_bitsCount > 0;
     }
 
+    bool SkipBytes(size_t count) {
+        AlignToByte();
+        size_t curPos = GetBytePos();
+        if (curPos + count > m_data.size()) {
+            return false;
+        }
+        m_bytePos = curPos + count;
+        m_bitBuffer = 0;
+        m_bitsCount = 0;
+        return true;
+    }
+
+    std::span<const uint8_t> GetRemainingSpan() const {
+        size_t curPos = GetBytePos();
+        if (curPos >= m_data.size()) return {};
+        return m_data.subspan(curPos);
+    }
+
 private:
     std::span<const uint8_t> m_data;
     size_t m_bytePos;
@@ -70,8 +88,11 @@ struct HuffmanTree {
     static constexpr size_t MaxSymbols = 320;
     u16 counts[16]{};
     u16 symbols[MaxSymbols]{};
+    u16 firstCode[16]{};
+    u16 firstIndex[16]{};
 
     bool Build(const u8* lengths, size_t numSymbols) {
+        if (numSymbols > MaxSymbols) return false;
         std::memset(counts, 0, sizeof(counts));
         for (size_t i = 0; i < numSymbols; ++i) {
             if (lengths[i] > 15) return false;
@@ -79,18 +100,25 @@ struct HuffmanTree {
         }
         counts[0] = 0;
 
-        u16 offsets[16]{};
         u16 code = 0;
+        u16 symIdx = 0;
         for (int len = 1; len <= 15; ++len) {
-            offsets[len] = code;
+            firstCode[len] = code;
+            firstIndex[len] = symIdx;
             code = static_cast<u16>(code + counts[len]);
+            symIdx = static_cast<u16>(symIdx + counts[len]);
             code = static_cast<u16>(code << 1);
+        }
+
+        u16 currOffset[16]{};
+        for (int len = 1; len <= 15; ++len) {
+            currOffset[len] = firstIndex[len];
         }
 
         for (size_t i = 0; i < numSymbols; ++i) {
             u8 len = lengths[i];
             if (len > 0) {
-                u16 idx = offsets[len]++;
+                u16 idx = currOffset[len]++;
                 if (idx < MaxSymbols) {
                     symbols[idx] = static_cast<u16>(i);
                 }
@@ -101,16 +129,18 @@ struct HuffmanTree {
 
     i32 Decode(BitReader& reader) const {
         u16 code = 0;
-        u16 first = 0;
-        u16 count = 0;
         for (int len = 1; len <= 15; ++len) {
             code = static_cast<u16>((code << 1) | reader.ReadBits(1));
-            count = counts[len];
-            if (code < first + count) {
-                return symbols[code - first + (first / 2)]; // Offset lookup
+            u16 count = counts[len];
+            if (count > 0) {
+                u16 base = firstCode[len];
+                if (code >= base && code < base + count) {
+                    u16 idx = static_cast<u16>(firstIndex[len] + (code - base));
+                    if (idx < MaxSymbols) {
+                        return symbols[idx];
+                    }
+                }
             }
-            first = static_cast<u16>(first + count);
-            first = static_cast<u16>(first << 1);
         }
         return -1; // Symbol not found
     }
@@ -143,32 +173,127 @@ bool ZipVfsReader::InflateRaw(std::span<const uint8_t> compressed, std::vector<u
         0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6,
         7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13
     };
+    constexpr u8 clcidx[19] = {
+        16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15
+    };
+
+    // Safety ceiling: prevent allocation attacks or unbounded loops (500 MB max)
+    constexpr size_t MaxOutputBytes = 500 * 1024 * 1024;
 
     while (!bFinal) {
+        if (!reader.HasMoreData()) {
+            break;
+        }
+
         bFinal = (reader.ReadBits(1) != 0);
         u32 blockType = reader.ReadBits(2);
 
         if (blockType == 0) {
             // Uncompressed block
             reader.AlignToByte();
-            size_t pos = reader.GetBytePos();
-            if (pos + 4 > compressed.size()) return false;
+            auto rem = reader.GetRemainingSpan();
+            if (rem.size() < 4) return false;
 
-            u16 len = ReadLE16(&compressed[pos]);
-            u16 nlen = ReadLE16(&compressed[pos + 2]);
+            u16 len = ReadLE16(&rem[0]);
+            u16 nlen = ReadLE16(&rem[2]);
             if (static_cast<u16>(len ^ 0xFFFF) != nlen) return false;
 
-            pos += 4;
-            if (pos + len > compressed.size()) return false;
-            outDecompressed.insert(outDecompressed.end(), &compressed[pos], &compressed[pos + len]);
-            reader = BitReader(compressed.subspan(pos + len));
+            if (rem.size() < static_cast<size_t>(4 + len)) return false;
+            if (outDecompressed.size() + len > MaxOutputBytes) return false;
+
+            outDecompressed.insert(outDecompressed.end(), rem.data() + 4, rem.data() + 4 + len);
+            if (!reader.SkipBytes(4 + len)) return false;
         }
         else if (blockType == 1 || blockType == 2) {
-            // Huffman blocks (Fixed or Dynamic)
-            // For simple/fast compatibility, if blockType == 1 or 2, we support standard inflation
-            // Fallback for full RFC 1951 or uncompressed blocks
-            // If output buffer is already populated from uncompressed, continue
-            return true;
+            HuffmanTree litTree;
+            HuffmanTree distTree;
+
+            if (blockType == 1) {
+                // Fixed Huffman codes
+                u8 fixedLitLengths[288];
+                for (int i = 0; i <= 143; ++i) fixedLitLengths[i] = 8;
+                for (int i = 144; i <= 255; ++i) fixedLitLengths[i] = 9;
+                for (int i = 256; i <= 279; ++i) fixedLitLengths[i] = 7;
+                for (int i = 280; i <= 287; ++i) fixedLitLengths[i] = 8;
+                if (!litTree.Build(fixedLitLengths, 288)) return false;
+
+                u8 fixedDistLengths[32];
+                for (int i = 0; i < 32; ++i) fixedDistLengths[i] = 5;
+                if (!distTree.Build(fixedDistLengths, 32)) return false;
+            }
+            else {
+                // Dynamic Huffman codes
+                u32 hlit = reader.ReadBits(5) + 257;
+                u32 hdist = reader.ReadBits(5) + 1;
+                u32 hclen = reader.ReadBits(4) + 4;
+
+                if (hlit > 286 || hdist > 32) return false;
+
+                u8 clLengths[19]{};
+                for (u32 i = 0; i < hclen; ++i) {
+                    clLengths[clcidx[i]] = static_cast<u8>(reader.ReadBits(3));
+                }
+                HuffmanTree clTree;
+                if (!clTree.Build(clLengths, 19)) return false;
+
+                std::vector<u8> litAndDistLengths;
+                litAndDistLengths.reserve(hlit + hdist);
+                while (litAndDistLengths.size() < hlit + hdist) {
+                    i32 sym = clTree.Decode(reader);
+                    if (sym < 0 || sym > 18) return false;
+                    if (sym < 16) {
+                        litAndDistLengths.push_back(static_cast<u8>(sym));
+                    } else if (sym == 16) {
+                        if (litAndDistLengths.empty()) return false;
+                        u8 prev = litAndDistLengths.back();
+                        u32 repeat = reader.ReadBits(2) + 3;
+                        for (u32 r = 0; r < repeat && litAndDistLengths.size() < hlit + hdist; ++r) {
+                            litAndDistLengths.push_back(prev);
+                        }
+                    } else if (sym == 17) {
+                        u32 repeat = reader.ReadBits(3) + 3;
+                        for (u32 r = 0; r < repeat && litAndDistLengths.size() < hlit + hdist; ++r) {
+                            litAndDistLengths.push_back(0);
+                        }
+                    } else if (sym == 18) {
+                        u32 repeat = reader.ReadBits(7) + 11;
+                        for (u32 r = 0; r < repeat && litAndDistLengths.size() < hlit + hdist; ++r) {
+                            litAndDistLengths.push_back(0);
+                        }
+                    }
+                }
+
+                if (!litTree.Build(litAndDistLengths.data(), hlit)) return false;
+                if (!distTree.Build(litAndDistLengths.data() + hlit, hdist)) return false;
+            }
+
+            // Decode Huffman stream
+            while (true) {
+                i32 sym = litTree.Decode(reader);
+                if (sym < 0 || sym > 285) return false;
+                if (sym < 256) {
+                    if (outDecompressed.size() >= MaxOutputBytes) return false;
+                    outDecompressed.push_back(static_cast<uint8_t>(sym));
+                } else if (sym == 256) {
+                    break; // End of block
+                } else {
+                    u32 lenIdx = static_cast<u32>(sym - 257);
+                    if (lenIdx >= 29) return false;
+                    u32 length = lengthBase[lenIdx] + reader.ReadBits(lengthExtraBits[lenIdx]);
+
+                    i32 distSym = distTree.Decode(reader);
+                    if (distSym < 0 || distSym >= 30) return false;
+                    u32 distance = distBase[distSym] + reader.ReadBits(distExtraBits[distSym]);
+
+                    if (distance == 0 || distance > outDecompressed.size()) return false;
+                    if (outDecompressed.size() + length > MaxOutputBytes) return false;
+
+                    size_t srcPos = outDecompressed.size() - distance;
+                    for (u32 k = 0; k < length; ++k) {
+                        outDecompressed.push_back(outDecompressed[srcPos + k]);
+                    }
+                }
+            }
         }
         else {
             return false; // Reserved / invalid block
