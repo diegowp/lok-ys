@@ -459,6 +459,123 @@ build CMakeFiles\LokYSFlightSimulator.dir\src\graphics\MenuRenderer.cpp.obj: CXX
   TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
   TARGET_PDB = LokYSFlightSimulator.pdb
 
+build CMakeFiles\LokYSFlightSimulator.dir\src\vfs\ZipVfsReader.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\vfs\ZipVfsReader.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\vfs
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\vfs\ZipWriter.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\vfs\ZipWriter.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\vfs
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\assets\AssetTokenizer.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\assets\AssetTokenizer.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\assets\SrfParser.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\assets\SrfParser.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\assets\DnmParser.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\assets\DnmParser.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\assets\AircraftDatParser.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\assets\AircraftDatParser.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\assets\CockpitIstParser.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\assets\CockpitIstParser.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\assets\AcftPackage.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\assets\AcftPackage.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\assets\SpawnStpParser.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\assets\SpawnStpParser.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\assets\SceneryFldParser.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\assets\SceneryFldParser.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\assets\LfsPackage.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\assets\LfsPackage.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\tools\AircraftEditor.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\tools\AircraftEditor.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\tools
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
+build CMakeFiles\LokYSFlightSimulator.dir\src\tools\SceneryEditor.cpp.obj: CXX_COMPILER__LokYSFlightSimulator_Release ..\src\tools\SceneryEditor.cpp || cmake_object_order_depends_target_LokYSFlightSimulator
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSFlightSimulator.dir\src\tools
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSFlightSimulator.dir\
+  TARGET_PDB = LokYSFlightSimulator.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target LokYSFlightSimulator
@@ -467,7 +584,7 @@ build CMakeFiles\LokYSFlightSimulator.dir\src\graphics\MenuRenderer.cpp.obj: CXX
 #############################################
 # Link the executable LokYSFlightSimulator.exe
 
-build LokYSFlightSimulator.exe: CXX_EXECUTABLE_LINKER__LokYSFlightSimulator_Release CMakeFiles\LokYSFlightSimulator.dir\src\app\main.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\EngineContext.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\Timer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\platform\Window.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GraphicsDevice.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GpuCapabilities.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Camera.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Mesh.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Renderer3D.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GltfModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AircraftModelGenerator.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\RigidBody.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\GroundReactions.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\InputSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\propulsion\PropulsionSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\avionics\AvionicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AvionicsRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\audio\AudioSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\NavDatabase.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\RadioNavSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\serial\SerialPort.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\serial\SerialInterfaceSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\AtmosphereModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\WindModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\EnvironmentSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ShadowMap.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ScenerySystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\UdpSocket.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\RemoteAircraft.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\NetworkSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\autopilot\AutopilotSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GlassCockpitRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aircraft\AircraftRegistry.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\scenery\AirportDatabase.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ApproachLightingSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainStreamingSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\ActionMapping.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\ConfigPersistence.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\MenuRenderer.cpp.obj
+build LokYSFlightSimulator.exe: CXX_EXECUTABLE_LINKER__LokYSFlightSimulator_Release CMakeFiles\LokYSFlightSimulator.dir\src\app\main.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\EngineContext.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\Timer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\platform\Window.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GraphicsDevice.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GpuCapabilities.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Camera.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Mesh.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Renderer3D.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GltfModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AircraftModelGenerator.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\RigidBody.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\GroundReactions.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\InputSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\propulsion\PropulsionSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\avionics\AvionicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AvionicsRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\audio\AudioSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\NavDatabase.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\RadioNavSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\serial\SerialPort.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\serial\SerialInterfaceSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\AtmosphereModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\WindModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\EnvironmentSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ShadowMap.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ScenerySystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\UdpSocket.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\RemoteAircraft.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\NetworkSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\autopilot\AutopilotSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GlassCockpitRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aircraft\AircraftRegistry.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\scenery\AirportDatabase.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ApproachLightingSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainStreamingSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\ActionMapping.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\ConfigPersistence.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\MenuRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\vfs\ZipVfsReader.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\vfs\ZipWriter.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\AssetTokenizer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\SrfParser.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\DnmParser.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\AircraftDatParser.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\CockpitIstParser.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\AcftPackage.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\SpawnStpParser.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\SceneryFldParser.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\LfsPackage.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\tools\AircraftEditor.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\tools\SceneryEditor.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:windows
   LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  user32.lib  gdi32.lib  shell32.lib  kernel32.lib  winmm.lib  xaudio2.lib  ole32.lib  ws2_32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
@@ -1052,6 +1169,116 @@ build LokYSRadioNavTests.exe: CXX_EXECUTABLE_LINKER__LokYSRadioNavTests_Release 
   TARGET_PDB = LokYSRadioNavTests.pdb
 
 # =============================================================================
+# Object build statements for EXECUTABLE target LokYSYsflightPhase2Tests
+
+
+#############################################
+# Order-only phony target for LokYSYsflightPhase2Tests
+
+build cmake_object_order_depends_target_LokYSYsflightPhase2Tests: phony || CMakeFiles\LokYSYsflightPhase2Tests.dir
+
+build CMakeFiles\LokYSYsflightPhase2Tests.dir\tests\unit\YsflightPhase2Tests.cpp.obj: CXX_COMPILER__LokYSYsflightPhase2Tests_Release ..\tests\unit\YsflightPhase2Tests.cpp || cmake_object_order_depends_target_LokYSYsflightPhase2Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir\tests\unit
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase2Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase2Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase2Tests.dir\src\vfs\ZipVfsReader.cpp.obj: CXX_COMPILER__LokYSYsflightPhase2Tests_Release ..\src\vfs\ZipVfsReader.cpp || cmake_object_order_depends_target_LokYSYsflightPhase2Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir\src\vfs
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase2Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase2Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\AssetTokenizer.cpp.obj: CXX_COMPILER__LokYSYsflightPhase2Tests_Release ..\src\assets\AssetTokenizer.cpp || cmake_object_order_depends_target_LokYSYsflightPhase2Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase2Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase2Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\SrfParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase2Tests_Release ..\src\assets\SrfParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase2Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase2Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase2Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\DnmParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase2Tests_Release ..\src\assets\DnmParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase2Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase2Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase2Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\AircraftDatParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase2Tests_Release ..\src\assets\AircraftDatParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase2Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase2Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase2Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\CockpitIstParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase2Tests_Release ..\src\assets\CockpitIstParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase2Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase2Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase2Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\AcftPackage.cpp.obj: CXX_COMPILER__LokYSYsflightPhase2Tests_Release ..\src\assets\AcftPackage.cpp || cmake_object_order_depends_target_LokYSYsflightPhase2Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase2Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase2Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase2Tests.dir\src\graphics\Mesh.cpp.obj: CXX_COMPILER__LokYSYsflightPhase2Tests_Release ..\src\graphics\Mesh.cpp || cmake_object_order_depends_target_LokYSYsflightPhase2Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir\src\graphics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase2Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase2Tests.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target LokYSYsflightPhase2Tests
+
+
+#############################################
+# Link the executable LokYSYsflightPhase2Tests.exe
+
+build LokYSYsflightPhase2Tests.exe: CXX_EXECUTABLE_LINKER__LokYSYsflightPhase2Tests_Release CMakeFiles\LokYSYsflightPhase2Tests.dir\tests\unit\YsflightPhase2Tests.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\vfs\ZipVfsReader.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\AssetTokenizer.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\SrfParser.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\DnmParser.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\AircraftDatParser.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\CockpitIstParser.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\AcftPackage.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\graphics\Mesh.cpp.obj
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
+  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase2Tests.dir\
+  TARGET_FILE = LokYSYsflightPhase2Tests.exe
+  TARGET_IMPLIB = LokYSYsflightPhase2Tests.lib
+  TARGET_PDB = LokYSYsflightPhase2Tests.pdb
+
+# =============================================================================
 # Object build statements for EXECUTABLE target LokYSSerialInterfaceTests
 
 
@@ -1589,6 +1816,608 @@ build LokYSActionMappingTests.exe: CXX_EXECUTABLE_LINKER__LokYSActionMappingTest
   TARGET_IMPLIB = LokYSActionMappingTests.lib
   TARGET_PDB = LokYSActionMappingTests.pdb
 
+# =============================================================================
+# Object build statements for EXECUTABLE target LokYSYsflightPhase1Tests
+
+
+#############################################
+# Order-only phony target for LokYSYsflightPhase1Tests
+
+build cmake_object_order_depends_target_LokYSYsflightPhase1Tests: phony || CMakeFiles\LokYSYsflightPhase1Tests.dir
+
+build CMakeFiles\LokYSYsflightPhase1Tests.dir\tests\unit\YsflightPhase1Tests.cpp.obj: CXX_COMPILER__LokYSYsflightPhase1Tests_Release ..\tests\unit\YsflightPhase1Tests.cpp || cmake_object_order_depends_target_LokYSYsflightPhase1Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase1Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase1Tests.dir\tests\unit
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase1Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase1Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase1Tests.dir\src\vfs\ZipVfsReader.cpp.obj: CXX_COMPILER__LokYSYsflightPhase1Tests_Release ..\src\vfs\ZipVfsReader.cpp || cmake_object_order_depends_target_LokYSYsflightPhase1Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase1Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase1Tests.dir\src\vfs
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase1Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase1Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase1Tests.dir\src\assets\AssetTokenizer.cpp.obj: CXX_COMPILER__LokYSYsflightPhase1Tests_Release ..\src\assets\AssetTokenizer.cpp || cmake_object_order_depends_target_LokYSYsflightPhase1Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase1Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase1Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase1Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase1Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase1Tests.dir\src\assets\SrfParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase1Tests_Release ..\src\assets\SrfParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase1Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase1Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase1Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase1Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase1Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase1Tests.dir\src\assets\DnmParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase1Tests_Release ..\src\assets\DnmParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase1Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase1Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase1Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase1Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase1Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase1Tests.dir\src\graphics\Mesh.cpp.obj: CXX_COMPILER__LokYSYsflightPhase1Tests_Release ..\src\graphics\Mesh.cpp || cmake_object_order_depends_target_LokYSYsflightPhase1Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase1Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase1Tests.dir\src\graphics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase1Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase1Tests.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target LokYSYsflightPhase1Tests
+
+
+#############################################
+# Link the executable LokYSYsflightPhase1Tests.exe
+
+build LokYSYsflightPhase1Tests.exe: CXX_EXECUTABLE_LINKER__LokYSYsflightPhase1Tests_Release CMakeFiles\LokYSYsflightPhase1Tests.dir\tests\unit\YsflightPhase1Tests.cpp.obj CMakeFiles\LokYSYsflightPhase1Tests.dir\src\vfs\ZipVfsReader.cpp.obj CMakeFiles\LokYSYsflightPhase1Tests.dir\src\assets\AssetTokenizer.cpp.obj CMakeFiles\LokYSYsflightPhase1Tests.dir\src\assets\SrfParser.cpp.obj CMakeFiles\LokYSYsflightPhase1Tests.dir\src\assets\DnmParser.cpp.obj CMakeFiles\LokYSYsflightPhase1Tests.dir\src\graphics\Mesh.cpp.obj
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
+  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase1Tests.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase1Tests.dir\
+  TARGET_FILE = LokYSYsflightPhase1Tests.exe
+  TARGET_IMPLIB = LokYSYsflightPhase1Tests.lib
+  TARGET_PDB = LokYSYsflightPhase1Tests.pdb
+
+# =============================================================================
+# Object build statements for EXECUTABLE target LokYSYsflightPhase3Tests
+
+
+#############################################
+# Order-only phony target for LokYSYsflightPhase3Tests
+
+build cmake_object_order_depends_target_LokYSYsflightPhase3Tests: phony || CMakeFiles\LokYSYsflightPhase3Tests.dir
+
+build CMakeFiles\LokYSYsflightPhase3Tests.dir\tests\unit\YsflightPhase3Tests.cpp.obj: CXX_COMPILER__LokYSYsflightPhase3Tests_Release ..\tests\unit\YsflightPhase3Tests.cpp || cmake_object_order_depends_target_LokYSYsflightPhase3Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir\tests\unit
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase3Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase3Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase3Tests.dir\src\vfs\ZipVfsReader.cpp.obj: CXX_COMPILER__LokYSYsflightPhase3Tests_Release ..\src\vfs\ZipVfsReader.cpp || cmake_object_order_depends_target_LokYSYsflightPhase3Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir\src\vfs
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase3Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase3Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\AssetTokenizer.cpp.obj: CXX_COMPILER__LokYSYsflightPhase3Tests_Release ..\src\assets\AssetTokenizer.cpp || cmake_object_order_depends_target_LokYSYsflightPhase3Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase3Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase3Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\SrfParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase3Tests_Release ..\src\assets\SrfParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase3Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase3Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase3Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\DnmParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase3Tests_Release ..\src\assets\DnmParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase3Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase3Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase3Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\AircraftDatParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase3Tests_Release ..\src\assets\AircraftDatParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase3Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase3Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase3Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\CockpitIstParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase3Tests_Release ..\src\assets\CockpitIstParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase3Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase3Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase3Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\AcftPackage.cpp.obj: CXX_COMPILER__LokYSYsflightPhase3Tests_Release ..\src\assets\AcftPackage.cpp || cmake_object_order_depends_target_LokYSYsflightPhase3Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase3Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase3Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\SpawnStpParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase3Tests_Release ..\src\assets\SpawnStpParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase3Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase3Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase3Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\SceneryFldParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase3Tests_Release ..\src\assets\SceneryFldParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase3Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase3Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase3Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\LfsPackage.cpp.obj: CXX_COMPILER__LokYSYsflightPhase3Tests_Release ..\src\assets\LfsPackage.cpp || cmake_object_order_depends_target_LokYSYsflightPhase3Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase3Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase3Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase3Tests.dir\src\graphics\Mesh.cpp.obj: CXX_COMPILER__LokYSYsflightPhase3Tests_Release ..\src\graphics\Mesh.cpp || cmake_object_order_depends_target_LokYSYsflightPhase3Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir\src\graphics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase3Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase3Tests.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target LokYSYsflightPhase3Tests
+
+
+#############################################
+# Link the executable LokYSYsflightPhase3Tests.exe
+
+build LokYSYsflightPhase3Tests.exe: CXX_EXECUTABLE_LINKER__LokYSYsflightPhase3Tests_Release CMakeFiles\LokYSYsflightPhase3Tests.dir\tests\unit\YsflightPhase3Tests.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\vfs\ZipVfsReader.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\AssetTokenizer.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\SrfParser.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\DnmParser.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\AircraftDatParser.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\CockpitIstParser.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\AcftPackage.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\SpawnStpParser.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\SceneryFldParser.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\LfsPackage.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\graphics\Mesh.cpp.obj
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
+  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase3Tests.dir\
+  TARGET_FILE = LokYSYsflightPhase3Tests.exe
+  TARGET_IMPLIB = LokYSYsflightPhase3Tests.lib
+  TARGET_PDB = LokYSYsflightPhase3Tests.pdb
+
+# =============================================================================
+# Object build statements for EXECUTABLE target LokYSYsflightPhase4Tests
+
+
+#############################################
+# Order-only phony target for LokYSYsflightPhase4Tests
+
+build cmake_object_order_depends_target_LokYSYsflightPhase4Tests: phony || CMakeFiles\LokYSYsflightPhase4Tests.dir
+
+build CMakeFiles\LokYSYsflightPhase4Tests.dir\tests\unit\YsflightPhase4Tests.cpp.obj: CXX_COMPILER__LokYSYsflightPhase4Tests_Release ..\tests\unit\YsflightPhase4Tests.cpp || cmake_object_order_depends_target_LokYSYsflightPhase4Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir\tests\unit
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase4Tests.dir\src\vfs\ZipVfsReader.cpp.obj: CXX_COMPILER__LokYSYsflightPhase4Tests_Release ..\src\vfs\ZipVfsReader.cpp || cmake_object_order_depends_target_LokYSYsflightPhase4Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir\src\vfs
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase4Tests.dir\src\vfs\ZipWriter.cpp.obj: CXX_COMPILER__LokYSYsflightPhase4Tests_Release ..\src\vfs\ZipWriter.cpp || cmake_object_order_depends_target_LokYSYsflightPhase4Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir\src\vfs
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\AssetTokenizer.cpp.obj: CXX_COMPILER__LokYSYsflightPhase4Tests_Release ..\src\assets\AssetTokenizer.cpp || cmake_object_order_depends_target_LokYSYsflightPhase4Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\SrfParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase4Tests_Release ..\src\assets\SrfParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase4Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\DnmParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase4Tests_Release ..\src\assets\DnmParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase4Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\AircraftDatParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase4Tests_Release ..\src\assets\AircraftDatParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase4Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\CockpitIstParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase4Tests_Release ..\src\assets\CockpitIstParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase4Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\AcftPackage.cpp.obj: CXX_COMPILER__LokYSYsflightPhase4Tests_Release ..\src\assets\AcftPackage.cpp || cmake_object_order_depends_target_LokYSYsflightPhase4Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\SpawnStpParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase4Tests_Release ..\src\assets\SpawnStpParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase4Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\SceneryFldParser.cpp.obj: CXX_COMPILER__LokYSYsflightPhase4Tests_Release ..\src\assets\SceneryFldParser.cpp || cmake_object_order_depends_target_LokYSYsflightPhase4Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\LfsPackage.cpp.obj: CXX_COMPILER__LokYSYsflightPhase4Tests_Release ..\src\assets\LfsPackage.cpp || cmake_object_order_depends_target_LokYSYsflightPhase4Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase4Tests.dir\src\tools\AircraftEditor.cpp.obj: CXX_COMPILER__LokYSYsflightPhase4Tests_Release ..\src\tools\AircraftEditor.cpp || cmake_object_order_depends_target_LokYSYsflightPhase4Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir\src\tools
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase4Tests.dir\src\tools\SceneryEditor.cpp.obj: CXX_COMPILER__LokYSYsflightPhase4Tests_Release ..\src\tools\SceneryEditor.cpp || cmake_object_order_depends_target_LokYSYsflightPhase4Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir\src\tools
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+build CMakeFiles\LokYSYsflightPhase4Tests.dir\src\graphics\Mesh.cpp.obj: CXX_COMPILER__LokYSYsflightPhase4Tests_Release ..\src\graphics\Mesh.cpp || cmake_object_order_depends_target_LokYSYsflightPhase4Tests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir\src\graphics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target LokYSYsflightPhase4Tests
+
+
+#############################################
+# Link the executable LokYSYsflightPhase4Tests.exe
+
+build LokYSYsflightPhase4Tests.exe: CXX_EXECUTABLE_LINKER__LokYSYsflightPhase4Tests_Release CMakeFiles\LokYSYsflightPhase4Tests.dir\tests\unit\YsflightPhase4Tests.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\vfs\ZipVfsReader.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\vfs\ZipWriter.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\AssetTokenizer.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\SrfParser.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\DnmParser.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\AircraftDatParser.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\CockpitIstParser.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\AcftPackage.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\SpawnStpParser.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\SceneryFldParser.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\LfsPackage.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\tools\AircraftEditor.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\tools\SceneryEditor.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\graphics\Mesh.cpp.obj
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
+  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightPhase4Tests.dir\
+  TARGET_FILE = LokYSYsflightPhase4Tests.exe
+  TARGET_IMPLIB = LokYSYsflightPhase4Tests.lib
+  TARGET_PDB = LokYSYsflightPhase4Tests.pdb
+
+# =============================================================================
+# Object build statements for EXECUTABLE target LokYSYsflightInterOpTests
+
+
+#############################################
+# Order-only phony target for LokYSYsflightInterOpTests
+
+build cmake_object_order_depends_target_LokYSYsflightInterOpTests: phony || CMakeFiles\LokYSYsflightInterOpTests.dir
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\tests\unit\YsflightInterOpTests.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\tests\unit\YsflightInterOpTests.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\tests\unit
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\physics\RigidBody.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\physics\RigidBody.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\physics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\physics\GroundReactions.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\physics\GroundReactions.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\physics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\aerodynamics\AerodynamicsSystem.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\aerodynamics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\propulsion\PropulsionSystem.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\propulsion\PropulsionSystem.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\propulsion
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\scenery\AirportDatabase.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\scenery\AirportDatabase.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\scenery
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\graphics\ApproachLightingSystem.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\graphics\ApproachLightingSystem.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\graphics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\vfs\ZipVfsReader.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\vfs\ZipVfsReader.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\vfs
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\vfs\ZipWriter.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\vfs\ZipWriter.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\vfs
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\AssetTokenizer.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\assets\AssetTokenizer.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\SrfParser.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\assets\SrfParser.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\DnmParser.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\assets\DnmParser.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\AircraftDatParser.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\assets\AircraftDatParser.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\CockpitIstParser.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\assets\CockpitIstParser.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\AcftPackage.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\assets\AcftPackage.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\SpawnStpParser.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\assets\SpawnStpParser.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\SceneryFldParser.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\assets\SceneryFldParser.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\LfsPackage.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\assets\LfsPackage.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\tools\AircraftEditor.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\tools\AircraftEditor.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\tools
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\tools\SceneryEditor.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\tools\SceneryEditor.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\tools
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+build CMakeFiles\LokYSYsflightInterOpTests.dir\src\graphics\Mesh.cpp.obj: CXX_COMPILER__LokYSYsflightInterOpTests_Release ..\src\graphics\Mesh.cpp || cmake_object_order_depends_target_LokYSYsflightInterOpTests
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /O2 /Oi /Ot /GS- -std:c++latest
+  INCLUDES = -I..\include
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  OBJECT_FILE_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir\src\graphics
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target LokYSYsflightInterOpTests
+
+
+#############################################
+# Link the executable LokYSYsflightInterOpTests.exe
+
+build LokYSYsflightInterOpTests.exe: CXX_EXECUTABLE_LINKER__LokYSYsflightInterOpTests_Release CMakeFiles\LokYSYsflightInterOpTests.dir\tests\unit\YsflightInterOpTests.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\physics\RigidBody.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\physics\GroundReactions.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\propulsion\PropulsionSystem.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\scenery\AirportDatabase.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\graphics\ApproachLightingSystem.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\vfs\ZipVfsReader.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\vfs\ZipWriter.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\AssetTokenizer.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\SrfParser.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\DnmParser.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\AircraftDatParser.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\CockpitIstParser.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\AcftPackage.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\SpawnStpParser.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\SceneryFldParser.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\LfsPackage.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\tools\AircraftEditor.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\tools\SceneryEditor.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\graphics\Mesh.cpp.obj
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
+  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\LokYSYsflightInterOpTests.dir\
+  TARGET_FILE = LokYSYsflightInterOpTests.exe
+  TARGET_IMPLIB = LokYSYsflightInterOpTests.lib
+  TARGET_PDB = LokYSYsflightInterOpTests.pdb
+
 
 #############################################
 # Utility command for rebuild_cache
@@ -1642,6 +2471,16 @@ build LokYSRadioNavTests: phony LokYSRadioNavTests.exe
 
 build LokYSSerialInterfaceTests: phony LokYSSerialInterfaceTests.exe
 
+build LokYSYsflightInterOpTests: phony LokYSYsflightInterOpTests.exe
+
+build LokYSYsflightPhase1Tests: phony LokYSYsflightPhase1Tests.exe
+
+build LokYSYsflightPhase2Tests: phony LokYSYsflightPhase2Tests.exe
+
+build LokYSYsflightPhase3Tests: phony LokYSYsflightPhase3Tests.exe
+
+build LokYSYsflightPhase4Tests: phony LokYSYsflightPhase4Tests.exe
+
 # =============================================================================
 # Folder targets.
 
@@ -1650,7 +2489,7 @@ build LokYSSerialInterfaceTests: phony LokYSSerialInterfaceTests.exe
 #############################################
 # Folder: C:/Users/diego/Documents/Projetos/LokYS/build
 
-build all: phony LokYSPhysicsTests.exe LokYSFlightSimulator.exe LokYSMathTests.exe LokYSGameStateTests.exe LokYSGltfTests.exe LokYSPropulsionTests.exe LokYSAeroInputTests.exe LokYSGroundReactionsTests.exe LokYSAeroPhysicsTests.exe LokYSAvionicsTests.exe LokYSAudioTests.exe LokYSRadioNavTests.exe LokYSSerialInterfaceTests.exe LokYSAtmosphereWeatherTests.exe LokYSGraphicsOptimizationTests.exe LokYSNetworkMultiplayerTests.exe LokYSGlassCockpitAutopilotTests.exe LokYSMultiAircraftSceneryTests.exe LokYSActionMappingTests.exe
+build all: phony LokYSPhysicsTests.exe LokYSFlightSimulator.exe LokYSMathTests.exe LokYSGameStateTests.exe LokYSGltfTests.exe LokYSPropulsionTests.exe LokYSAeroInputTests.exe LokYSGroundReactionsTests.exe LokYSAeroPhysicsTests.exe LokYSAvionicsTests.exe LokYSAudioTests.exe LokYSRadioNavTests.exe LokYSYsflightPhase2Tests.exe LokYSSerialInterfaceTests.exe LokYSAtmosphereWeatherTests.exe LokYSGraphicsOptimizationTests.exe LokYSNetworkMultiplayerTests.exe LokYSGlassCockpitAutopilotTests.exe LokYSMultiAircraftSceneryTests.exe LokYSActionMappingTests.exe LokYSYsflightPhase1Tests.exe LokYSYsflightPhase3Tests.exe LokYSYsflightPhase4Tests.exe LokYSYsflightInterOpTests.exe
 
 # =============================================================================
 # Built-in targets

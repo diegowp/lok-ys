@@ -11,6 +11,7 @@ C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSAeroPhysicsTests.d
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSAvionicsTests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSAudioTests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSRadioNavTests.dir
+C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSYsflightPhase2Tests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSSerialInterfaceTests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSAtmosphereWeatherTests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSGraphicsOptimizationTests.dir
@@ -19,4 +20,8 @@ C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/edit_cache.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSGlassCockpitAutopilotTests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSMultiAircraftSceneryTests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSActionMappingTests.dir
+C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSYsflightPhase1Tests.dir
+C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSYsflightPhase3Tests.dir
+C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSYsflightPhase4Tests.dir
+C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/LokYSYsflightInterOpTests.dir
 C:/Users/diego/Documents/Projetos/LokYS/build/CMakeFiles/rebuild_cache.dir
