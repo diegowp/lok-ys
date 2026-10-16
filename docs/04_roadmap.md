@@ -68,14 +68,14 @@ Phase 5: Verification & Quality Assur.   [ Agent-QA ]
 - [x] **P2.3: Aircraft Container Packager (`.acft.zip`)**
   - Support bundling and loading `.acft.zip` archives with `manifest.json`.
 
-### Phase 3: Scenery & World Pipeline (`Agent-Scenery`)
-- [ ] **P3.1: Terrain & Field Mesh Parser (`SceneryFldParser`)**
+### Phase 3: Scenery & World Pipeline (`Agent-Scenery`) — COMPLETED
+- [x] **P3.1: Terrain & Field Mesh Parser (`SceneryFldParser`)**
   - Ingests `.fld` files, parsing `TerrMesh` elevation blocks (`TMS`, `NBL`, `BLO`) into LokYS heightfields.
   - Ingests ground polygon vectors (runways, taxiways, aprons, water bodies).
   - Ingests placed ground object instances (`POS` + `TAG`) and links to `.srf`/`.dnm` visual meshes.
-- [ ] **P3.2: Spawn & Starting Points Manager (`SpawnStpParser`)**
+- [x] **P3.2: Spawn & Starting Points Manager (`SpawnStpParser`)**
   - Ingests `.stp` files, mapping runway spawn points, carrier deck spots, and airborne waypoints to `AirportDatabase`.
-- [ ] **P3.3: Unified Scenery Container Packager (`.lfs`)**
+- [x] **P3.3: Unified Scenery Container Packager (`.lfs`)**
   - Container format combining terrain mesh, object instances, starting points, and embedded models into a single compressed `.lfs` file.
 
 ### Phase 4: Standalone Tooling Suite (`Agent-Tools`)
