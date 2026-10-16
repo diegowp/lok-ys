@@ -7,7 +7,7 @@
     "invertYaw": false
   },
   "version": "1.0.0",
-  "masterVolume": 0.85,
+  "masterVolume": 0.6,
   "bindings": {
     "Pitch Up": "DOWN",
     "Roll Left": "LEFT",

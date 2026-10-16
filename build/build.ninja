@@ -71,7 +71,7 @@ build CMakeFiles\LokYSPhysicsTests.dir\src\physics\RigidBody.cpp.obj: CXX_COMPIL
 
 build LokYSPhysicsTests.exe: CXX_EXECUTABLE_LINKER__LokYSPhysicsTests_Release CMakeFiles\LokYSPhysicsTests.dir\tests\unit\PhysicsTests.cpp.obj CMakeFiles\LokYSPhysicsTests.dir\src\physics\RigidBody.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSPhysicsTests.dir
   POST_BUILD = cd .
@@ -586,7 +586,7 @@ build CMakeFiles\LokYSFlightSimulator.dir\src\tools\SceneryEditor.cpp.obj: CXX_C
 
 build LokYSFlightSimulator.exe: CXX_EXECUTABLE_LINKER__LokYSFlightSimulator_Release CMakeFiles\LokYSFlightSimulator.dir\src\app\main.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\EngineContext.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\core\Timer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\platform\Window.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GraphicsDevice.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GpuCapabilities.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Camera.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Mesh.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\Renderer3D.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GltfModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AircraftModelGenerator.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\RigidBody.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\physics\GroundReactions.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\InputSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\propulsion\PropulsionSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\avionics\AvionicsSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\AvionicsRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\audio\AudioSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\NavDatabase.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\navigation\RadioNavSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\serial\SerialPort.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\serial\SerialInterfaceSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\AtmosphereModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\WindModel.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\environment\EnvironmentSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ShadowMap.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ScenerySystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\UdpSocket.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\RemoteAircraft.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\network\NetworkSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\autopilot\AutopilotSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\GlassCockpitRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\aircraft\AircraftRegistry.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\scenery\AirportDatabase.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\ApproachLightingSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\TerrainStreamingSystem.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\ActionMapping.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\input\ConfigPersistence.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\graphics\MenuRenderer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\vfs\ZipVfsReader.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\vfs\ZipWriter.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\AssetTokenizer.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\SrfParser.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\DnmParser.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\AircraftDatParser.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\CockpitIstParser.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\AcftPackage.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\SpawnStpParser.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\SceneryFldParser.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\assets\LfsPackage.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\tools\AircraftEditor.cpp.obj CMakeFiles\LokYSFlightSimulator.dir\src\tools\SceneryEditor.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:windows
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:windows
   LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  user32.lib  gdi32.lib  shell32.lib  kernel32.lib  winmm.lib  xaudio2.lib  ole32.lib  ws2_32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSFlightSimulator.dir
   POST_BUILD = cd .
@@ -624,7 +624,7 @@ build CMakeFiles\LokYSMathTests.dir\tests\unit\MathTests.cpp.obj: CXX_COMPILER__
 
 build LokYSMathTests.exe: CXX_EXECUTABLE_LINKER__LokYSMathTests_Release CMakeFiles\LokYSMathTests.dir\tests\unit\MathTests.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSMathTests.dir
   POST_BUILD = cd .
@@ -662,7 +662,7 @@ build CMakeFiles\LokYSGameStateTests.dir\tests\unit\GameStateTests.cpp.obj: CXX_
 
 build LokYSGameStateTests.exe: CXX_EXECUTABLE_LINKER__LokYSGameStateTests_Release CMakeFiles\LokYSGameStateTests.dir\tests\unit\GameStateTests.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSGameStateTests.dir
   POST_BUILD = cd .
@@ -727,7 +727,7 @@ build CMakeFiles\LokYSGltfTests.dir\src\physics\RigidBody.cpp.obj: CXX_COMPILER_
 
 build LokYSGltfTests.exe: CXX_EXECUTABLE_LINKER__LokYSGltfTests_Release CMakeFiles\LokYSGltfTests.dir\tests\unit\GltfTests.cpp.obj CMakeFiles\LokYSGltfTests.dir\src\graphics\GltfModel.cpp.obj CMakeFiles\LokYSGltfTests.dir\src\graphics\AircraftModelGenerator.cpp.obj CMakeFiles\LokYSGltfTests.dir\src\physics\RigidBody.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = d3d12.lib  dxgi.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSGltfTests.dir
   POST_BUILD = cd .
@@ -783,7 +783,7 @@ build CMakeFiles\LokYSPropulsionTests.dir\src\physics\RigidBody.cpp.obj: CXX_COM
 
 build LokYSPropulsionTests.exe: CXX_EXECUTABLE_LINKER__LokYSPropulsionTests_Release CMakeFiles\LokYSPropulsionTests.dir\tests\unit\PropulsionTests.cpp.obj CMakeFiles\LokYSPropulsionTests.dir\src\propulsion\PropulsionSystem.cpp.obj CMakeFiles\LokYSPropulsionTests.dir\src\physics\RigidBody.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSPropulsionTests.dir
   POST_BUILD = cd .
@@ -860,7 +860,7 @@ build CMakeFiles\LokYSAeroInputTests.dir\src\input\ActionMapping.cpp.obj: CXX_CO
 
 build LokYSAeroInputTests.exe: CXX_EXECUTABLE_LINKER__LokYSAeroInputTests_Release CMakeFiles\LokYSAeroInputTests.dir\tests\unit\AeroInputTests.cpp.obj CMakeFiles\LokYSAeroInputTests.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSAeroInputTests.dir\src\input\InputSystem.cpp.obj CMakeFiles\LokYSAeroInputTests.dir\src\input\ActionMapping.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = winmm.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSAeroInputTests.dir
   POST_BUILD = cd .
@@ -916,7 +916,7 @@ build CMakeFiles\LokYSGroundReactionsTests.dir\src\physics\RigidBody.cpp.obj: CX
 
 build LokYSGroundReactionsTests.exe: CXX_EXECUTABLE_LINKER__LokYSGroundReactionsTests_Release CMakeFiles\LokYSGroundReactionsTests.dir\tests\unit\GroundReactionsTests.cpp.obj CMakeFiles\LokYSGroundReactionsTests.dir\src\physics\GroundReactions.cpp.obj CMakeFiles\LokYSGroundReactionsTests.dir\src\physics\RigidBody.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSGroundReactionsTests.dir
   POST_BUILD = cd .
@@ -999,7 +999,7 @@ build CMakeFiles\LokYSAeroPhysicsTests.dir\src\aircraft\AircraftRegistry.cpp.obj
 
 build LokYSAeroPhysicsTests.exe: CXX_EXECUTABLE_LINKER__LokYSAeroPhysicsTests_Release CMakeFiles\LokYSAeroPhysicsTests.dir\tests\unit\AeroPhysicsTests.cpp.obj CMakeFiles\LokYSAeroPhysicsTests.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSAeroPhysicsTests.dir\src\propulsion\PropulsionSystem.cpp.obj CMakeFiles\LokYSAeroPhysicsTests.dir\src\physics\GroundReactions.cpp.obj CMakeFiles\LokYSAeroPhysicsTests.dir\src\physics\RigidBody.cpp.obj CMakeFiles\LokYSAeroPhysicsTests.dir\src\aircraft\AircraftRegistry.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSAeroPhysicsTests.dir
   POST_BUILD = cd .
@@ -1055,7 +1055,7 @@ build CMakeFiles\LokYSAvionicsTests.dir\src\physics\RigidBody.cpp.obj: CXX_COMPI
 
 build LokYSAvionicsTests.exe: CXX_EXECUTABLE_LINKER__LokYSAvionicsTests_Release CMakeFiles\LokYSAvionicsTests.dir\tests\unit\AvionicsTests.cpp.obj CMakeFiles\LokYSAvionicsTests.dir\src\avionics\AvionicsSystem.cpp.obj CMakeFiles\LokYSAvionicsTests.dir\src\physics\RigidBody.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSAvionicsTests.dir
   POST_BUILD = cd .
@@ -1102,7 +1102,7 @@ build CMakeFiles\LokYSAudioTests.dir\src\audio\AudioSystem.cpp.obj: CXX_COMPILER
 
 build LokYSAudioTests.exe: CXX_EXECUTABLE_LINKER__LokYSAudioTests_Release CMakeFiles\LokYSAudioTests.dir\tests\unit\AudioTests.cpp.obj CMakeFiles\LokYSAudioTests.dir\src\audio\AudioSystem.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = xaudio2.lib  ole32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSAudioTests.dir
   POST_BUILD = cd .
@@ -1158,7 +1158,7 @@ build CMakeFiles\LokYSRadioNavTests.dir\src\navigation\RadioNavSystem.cpp.obj: C
 
 build LokYSRadioNavTests.exe: CXX_EXECUTABLE_LINKER__LokYSRadioNavTests_Release CMakeFiles\LokYSRadioNavTests.dir\tests\unit\RadioNavTests.cpp.obj CMakeFiles\LokYSRadioNavTests.dir\src\navigation\NavDatabase.cpp.obj CMakeFiles\LokYSRadioNavTests.dir\src\navigation\RadioNavSystem.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSRadioNavTests.dir
   POST_BUILD = cd .
@@ -1268,7 +1268,7 @@ build CMakeFiles\LokYSYsflightPhase2Tests.dir\src\graphics\Mesh.cpp.obj: CXX_COM
 
 build LokYSYsflightPhase2Tests.exe: CXX_EXECUTABLE_LINKER__LokYSYsflightPhase2Tests_Release CMakeFiles\LokYSYsflightPhase2Tests.dir\tests\unit\YsflightPhase2Tests.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\vfs\ZipVfsReader.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\AssetTokenizer.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\SrfParser.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\DnmParser.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\AircraftDatParser.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\CockpitIstParser.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\assets\AcftPackage.cpp.obj CMakeFiles\LokYSYsflightPhase2Tests.dir\src\graphics\Mesh.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSYsflightPhase2Tests.dir
   POST_BUILD = cd .
@@ -1342,7 +1342,7 @@ build CMakeFiles\LokYSSerialInterfaceTests.dir\src\input\ActionMapping.cpp.obj: 
 
 build LokYSSerialInterfaceTests.exe: CXX_EXECUTABLE_LINKER__LokYSSerialInterfaceTests_Release CMakeFiles\LokYSSerialInterfaceTests.dir\tests\unit\SerialInterfaceTests.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\serial\SerialPort.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\serial\SerialInterfaceSystem.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\input\InputSystem.cpp.obj CMakeFiles\LokYSSerialInterfaceTests.dir\src\input\ActionMapping.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = winmm.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSSerialInterfaceTests.dir
   POST_BUILD = cd .
@@ -1407,7 +1407,7 @@ build CMakeFiles\LokYSAtmosphereWeatherTests.dir\src\environment\EnvironmentSyst
 
 build LokYSAtmosphereWeatherTests.exe: CXX_EXECUTABLE_LINKER__LokYSAtmosphereWeatherTests_Release CMakeFiles\LokYSAtmosphereWeatherTests.dir\tests\unit\AtmosphereWeatherTests.cpp.obj CMakeFiles\LokYSAtmosphereWeatherTests.dir\src\environment\AtmosphereModel.cpp.obj CMakeFiles\LokYSAtmosphereWeatherTests.dir\src\environment\WindModel.cpp.obj CMakeFiles\LokYSAtmosphereWeatherTests.dir\src\environment\EnvironmentSystem.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSAtmosphereWeatherTests.dir
   POST_BUILD = cd .
@@ -1517,7 +1517,7 @@ build CMakeFiles\LokYSGraphicsOptimizationTests.dir\src\environment\EnvironmentS
 
 build LokYSGraphicsOptimizationTests.exe: CXX_EXECUTABLE_LINKER__LokYSGraphicsOptimizationTests_Release CMakeFiles\LokYSGraphicsOptimizationTests.dir\tests\unit\GraphicsOptimizationTests.cpp.obj CMakeFiles\LokYSGraphicsOptimizationTests.dir\src\graphics\ShadowMap.cpp.obj CMakeFiles\LokYSGraphicsOptimizationTests.dir\src\graphics\TerrainSystem.cpp.obj CMakeFiles\LokYSGraphicsOptimizationTests.dir\src\graphics\ScenerySystem.cpp.obj CMakeFiles\LokYSGraphicsOptimizationTests.dir\src\graphics\Mesh.cpp.obj CMakeFiles\LokYSGraphicsOptimizationTests.dir\src\graphics\Camera.cpp.obj CMakeFiles\LokYSGraphicsOptimizationTests.dir\src\environment\AtmosphereModel.cpp.obj CMakeFiles\LokYSGraphicsOptimizationTests.dir\src\environment\WindModel.cpp.obj CMakeFiles\LokYSGraphicsOptimizationTests.dir\src\environment\EnvironmentSystem.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSGraphicsOptimizationTests.dir
   POST_BUILD = cd .
@@ -1582,7 +1582,7 @@ build CMakeFiles\LokYSNetworkMultiplayerTests.dir\src\network\NetworkSystem.cpp.
 
 build LokYSNetworkMultiplayerTests.exe: CXX_EXECUTABLE_LINKER__LokYSNetworkMultiplayerTests_Release CMakeFiles\LokYSNetworkMultiplayerTests.dir\tests\unit\NetworkMultiplayerTests.cpp.obj CMakeFiles\LokYSNetworkMultiplayerTests.dir\src\network\UdpSocket.cpp.obj CMakeFiles\LokYSNetworkMultiplayerTests.dir\src\network\RemoteAircraft.cpp.obj CMakeFiles\LokYSNetworkMultiplayerTests.dir\src\network\NetworkSystem.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = ws2_32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSNetworkMultiplayerTests.dir
   POST_BUILD = cd .
@@ -1658,7 +1658,7 @@ build CMakeFiles\LokYSGlassCockpitAutopilotTests.dir\src\aerodynamics\Aerodynami
 
 build LokYSGlassCockpitAutopilotTests.exe: CXX_EXECUTABLE_LINKER__LokYSGlassCockpitAutopilotTests_Release CMakeFiles\LokYSGlassCockpitAutopilotTests.dir\tests\unit\GlassCockpitAutopilotTests.cpp.obj CMakeFiles\LokYSGlassCockpitAutopilotTests.dir\src\autopilot\AutopilotSystem.cpp.obj CMakeFiles\LokYSGlassCockpitAutopilotTests.dir\src\physics\RigidBody.cpp.obj CMakeFiles\LokYSGlassCockpitAutopilotTests.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSGlassCockpitAutopilotTests.dir
   POST_BUILD = cd .
@@ -1750,7 +1750,7 @@ build CMakeFiles\LokYSMultiAircraftSceneryTests.dir\src\aerodynamics\Aerodynamic
 
 build LokYSMultiAircraftSceneryTests.exe: CXX_EXECUTABLE_LINKER__LokYSMultiAircraftSceneryTests_Release CMakeFiles\LokYSMultiAircraftSceneryTests.dir\tests\unit\MultiAircraftSceneryTests.cpp.obj CMakeFiles\LokYSMultiAircraftSceneryTests.dir\src\aircraft\AircraftRegistry.cpp.obj CMakeFiles\LokYSMultiAircraftSceneryTests.dir\src\scenery\AirportDatabase.cpp.obj CMakeFiles\LokYSMultiAircraftSceneryTests.dir\src\graphics\ApproachLightingSystem.cpp.obj CMakeFiles\LokYSMultiAircraftSceneryTests.dir\src\graphics\TerrainStreamingSystem.cpp.obj CMakeFiles\LokYSMultiAircraftSceneryTests.dir\src\graphics\Mesh.cpp.obj CMakeFiles\LokYSMultiAircraftSceneryTests.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSMultiAircraftSceneryTests.dir
   POST_BUILD = cd .
@@ -1806,7 +1806,7 @@ build CMakeFiles\LokYSActionMappingTests.dir\src\input\ConfigPersistence.cpp.obj
 
 build LokYSActionMappingTests.exe: CXX_EXECUTABLE_LINKER__LokYSActionMappingTests_Release CMakeFiles\LokYSActionMappingTests.dir\tests\unit\ActionMappingTests.cpp.obj CMakeFiles\LokYSActionMappingTests.dir\src\input\ActionMapping.cpp.obj CMakeFiles\LokYSActionMappingTests.dir\src\input\ConfigPersistence.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSActionMappingTests.dir
   POST_BUILD = cd .
@@ -1889,7 +1889,7 @@ build CMakeFiles\LokYSYsflightPhase1Tests.dir\src\graphics\Mesh.cpp.obj: CXX_COM
 
 build LokYSYsflightPhase1Tests.exe: CXX_EXECUTABLE_LINKER__LokYSYsflightPhase1Tests_Release CMakeFiles\LokYSYsflightPhase1Tests.dir\tests\unit\YsflightPhase1Tests.cpp.obj CMakeFiles\LokYSYsflightPhase1Tests.dir\src\vfs\ZipVfsReader.cpp.obj CMakeFiles\LokYSYsflightPhase1Tests.dir\src\assets\AssetTokenizer.cpp.obj CMakeFiles\LokYSYsflightPhase1Tests.dir\src\assets\SrfParser.cpp.obj CMakeFiles\LokYSYsflightPhase1Tests.dir\src\assets\DnmParser.cpp.obj CMakeFiles\LokYSYsflightPhase1Tests.dir\src\graphics\Mesh.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSYsflightPhase1Tests.dir
   POST_BUILD = cd .
@@ -2026,7 +2026,7 @@ build CMakeFiles\LokYSYsflightPhase3Tests.dir\src\graphics\Mesh.cpp.obj: CXX_COM
 
 build LokYSYsflightPhase3Tests.exe: CXX_EXECUTABLE_LINKER__LokYSYsflightPhase3Tests_Release CMakeFiles\LokYSYsflightPhase3Tests.dir\tests\unit\YsflightPhase3Tests.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\vfs\ZipVfsReader.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\AssetTokenizer.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\SrfParser.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\DnmParser.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\AircraftDatParser.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\CockpitIstParser.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\AcftPackage.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\SpawnStpParser.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\SceneryFldParser.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\assets\LfsPackage.cpp.obj CMakeFiles\LokYSYsflightPhase3Tests.dir\src\graphics\Mesh.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSYsflightPhase3Tests.dir
   POST_BUILD = cd .
@@ -2190,7 +2190,7 @@ build CMakeFiles\LokYSYsflightPhase4Tests.dir\src\graphics\Mesh.cpp.obj: CXX_COM
 
 build LokYSYsflightPhase4Tests.exe: CXX_EXECUTABLE_LINKER__LokYSYsflightPhase4Tests_Release CMakeFiles\LokYSYsflightPhase4Tests.dir\tests\unit\YsflightPhase4Tests.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\vfs\ZipVfsReader.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\vfs\ZipWriter.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\AssetTokenizer.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\SrfParser.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\DnmParser.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\AircraftDatParser.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\CockpitIstParser.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\AcftPackage.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\SpawnStpParser.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\SceneryFldParser.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\assets\LfsPackage.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\tools\AircraftEditor.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\tools\SceneryEditor.cpp.obj CMakeFiles\LokYSYsflightPhase4Tests.dir\src\graphics\Mesh.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSYsflightPhase4Tests.dir
   POST_BUILD = cd .
@@ -2408,7 +2408,7 @@ build CMakeFiles\LokYSYsflightInterOpTests.dir\src\graphics\Mesh.cpp.obj: CXX_CO
 
 build LokYSYsflightInterOpTests.exe: CXX_EXECUTABLE_LINKER__LokYSYsflightInterOpTests_Release CMakeFiles\LokYSYsflightInterOpTests.dir\tests\unit\YsflightInterOpTests.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\physics\RigidBody.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\physics\GroundReactions.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\aerodynamics\AerodynamicsSystem.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\propulsion\PropulsionSystem.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\scenery\AirportDatabase.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\graphics\ApproachLightingSystem.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\vfs\ZipVfsReader.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\vfs\ZipWriter.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\AssetTokenizer.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\SrfParser.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\DnmParser.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\AircraftDatParser.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\CockpitIstParser.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\AcftPackage.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\SpawnStpParser.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\SceneryFldParser.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\assets\LfsPackage.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\tools\AircraftEditor.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\tools\SceneryEditor.cpp.obj CMakeFiles\LokYSYsflightInterOpTests.dir\src\graphics\Mesh.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_FLAGS = /machine:x64 /MANIFEST:NO /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = d3d12.lib  dxgi.lib  d3dcompiler.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\LokYSYsflightInterOpTests.dir
   POST_BUILD = cd .
