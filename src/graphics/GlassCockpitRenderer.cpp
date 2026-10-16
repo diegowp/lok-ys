@@ -728,8 +728,13 @@ void GlassCockpitRenderer::BuildTransparentHudGeometry(
 
     // Heading Bug Diamond
     f32 bugDelta = static_cast<f32>(ap.targets.targetHeadingDeg - hdgDeg);
-    while (bugDelta > 180.0f) bugDelta -= 360.0f;
-    while (bugDelta < -180.0f) bugDelta += 360.0f;
+    if (std::isfinite(bugDelta)) {
+        bugDelta = std::fmod(bugDelta + 180.0f, 360.0f);
+        if (bugDelta < 0.0f) bugDelta += 360.0f;
+        bugDelta -= 180.0f;
+    } else {
+        bugDelta = 0.0f;
+    }
     if (std::abs(bugDelta) <= 35.0f) {
         f32 bugX = cx + bugDelta * pxPerHdgDeg;
         AddLine(bugX, hdgY - 10.0f, bugX - 5.0f, hdgY - 5.0f, 1.8f, colHudCyan);

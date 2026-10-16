@@ -10,9 +10,10 @@ namespace LokYS::Autopilot {
 namespace {
 
 [[nodiscard]] inline f64 NormalizeAngleDeg180(f64 deg) noexcept {
-    while (deg > 180.0) deg -= 360.0;
-    while (deg <= -180.0) deg += 360.0;
-    return deg;
+    if (!std::isfinite(deg)) return 0.0;
+    f64 d = std::fmod(deg + 180.0, 360.0);
+    if (d < 0.0) d += 360.0;
+    return d - 180.0;
 }
 
 [[nodiscard]] inline f64 NormalizeAngleDeg360(f64 deg) noexcept {

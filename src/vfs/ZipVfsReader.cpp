@@ -187,7 +187,6 @@ bool ZipVfsReader::InflateRaw(std::span<const uint8_t> compressed, std::vector<u
 
         bFinal = (reader.ReadBits(1) != 0);
         u32 blockType = reader.ReadBits(2);
-
         if (blockType == 0) {
             // Uncompressed block
             reader.AlignToByte();

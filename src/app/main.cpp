@@ -925,16 +925,49 @@ int WINAPI wWinMain(
             }
         }
 
-        // Milestone M22: Cycle Aircraft Archetype / Model with 'V' key (Cessna 172 -> Baron 58 -> Extra 330 -> Custom Models)
-        if (input.WasAircraftCycleTriggered() && !aircraftCatalog.empty()) {
+        // Milestone M22: Cycle Aircraft Archetype / Model with 'V' key (In-Flight Simulation Only)
+        if (gameStateMgr.IsInSimulation() && input.WasAircraftCycleTriggered() && !aircraftCatalog.empty()) {
             activeCatalogIdx = (activeCatalogIdx + 1) % aircraftCatalog.size();
+            auto fCfg = gameStateMgr.GetFlightConfig();
+            fCfg.selectedAircraftIndex = activeCatalogIdx;
+            gameStateMgr.SetFlightConfig(fCfg);
+
             const auto& activeEntry = aircraftCatalog[activeCatalogIdx];
             if (activeEntry.customConfig.has_value()) {
                 aircraftRegistry.SetCustomConfig(*activeEntry.customConfig);
             } else {
                 aircraftRegistry.SetActiveType(activeEntry.archetype);
             }
-            ApplyAircraftConfig(aircraftRegistry.GetActiveConfig());
+            const auto& activeCfg = aircraftRegistry.GetActiveConfig();
+            ApplyAircraftConfig(activeCfg);
+
+            // In-flight state harmonization: clear transient force shocks and sanitize momentum
+            aircraft.ClearForcesAndMoments();
+            auto curState = aircraft.GetState();
+            if (!std::isfinite(curState.velocityBody.x) || !std::isfinite(curState.velocityBody.y) ||
+                !std::isfinite(curState.velocityBody.z) || curState.velocityBody.Length() > 1000.0) {
+                curState.velocityBody = LokYS::Math::Vec3d(50.0, 0.0, 0.0);
+            }
+            curState.angularVelocityBody = LokYS::Math::Vec3d(0.0, 0.0, 0.0);
+            curState.attitude.Renormalize();
+            aircraft.SetState(curState);
+
+            // Re-synchronize propulsion RPM and fuel capacity bounds
+            propulsion.SetFuelQuantityKg(std::min(propulsion.GetFuelQuantityKg(), activeCfg.propulsion.maxFuelCapacityKg));
+            if (propulsion.GetFuelQuantityKg() <= 0.01) {
+                propulsion.SetFuelQuantityKg(activeCfg.mass.defaultFuelKg);
+            }
+            propulsion.SetRpm(std::clamp(propulsion.GetRpm(), activeCfg.propulsion.idleRpm, activeCfg.propulsion.maxRatedRpm));
+
+            // Reset autopilot guidance loops to prevent stale trim control overdrive
+            autopilot.Reset();
+            avionics.ResetToSteadyState(
+                curState,
+                environment.GetAtmosphere().pressurePa,
+                environment.GetAtmosphere().densityKgM3);
+
+            // Seed simulation scheduler with clean instantaneous snapshot
+            scheduler.PublishSnapshot(LokYS::Simulation::SimulationSnapshot::CreateFromRigidBody(0, 0.0, curState));
 
             // Dynamically update camera framing and cockpit eye position to fit the active aircraft dimensions
             camera.SetTargetDimensions(

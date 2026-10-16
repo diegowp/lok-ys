@@ -151,8 +151,12 @@ bool GltfModel::LoadFromDnm(const Assets::DnmModel& dnm) {
         gNode.name = dNode.name;
         gNode.meshIndex = meshIdx;
         gNode.translation = dNode.position;
-        gNode.rotation = Math::Quat4f(0.0f, 0.0f, 0.0f, 1.0f);
+        gNode.rotation = Math::Quat4f::Identity();
         gNode.scale = Math::Vec3f(1.0f, 1.0f, 1.0f);
+        gNode.restTranslation = dNode.position;
+        gNode.restRotation = Math::Quat4f::Identity();
+        gNode.restScale = Math::Vec3f(1.0f, 1.0f, 1.0f);
+        gNode.pivotPoint = dNode.pivotCenter;
         gNode.parentIndex = -1;
 
         switch (dNode.animationClass) {

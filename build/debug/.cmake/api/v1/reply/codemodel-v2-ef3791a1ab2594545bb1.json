@@ -1,0 +1,266 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "LokYSFlightSimulator",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSActionMappingTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSActionMappingTests-Debug-9b1cbe57407f9c5c88ad.json",
+					"name" : "LokYSActionMappingTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSAeroInputTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSAeroInputTests-Debug-5c783553fd52c8e4eba2.json",
+					"name" : "LokYSAeroInputTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSAeroPhysicsTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSAeroPhysicsTests-Debug-3cc3c55261f55bae56d2.json",
+					"name" : "LokYSAeroPhysicsTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSAtmosphereWeatherTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSAtmosphereWeatherTests-Debug-c0425a06a5b9dd0d9b85.json",
+					"name" : "LokYSAtmosphereWeatherTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSAudioTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSAudioTests-Debug-8a8641aa3098b07fb11c.json",
+					"name" : "LokYSAudioTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSAvionicsTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSAvionicsTests-Debug-51a4033aab76118fd882.json",
+					"name" : "LokYSAvionicsTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSFlightSimulator::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSFlightSimulator-Debug-e9085b19afdb1cd1d920.json",
+					"name" : "LokYSFlightSimulator",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSGameStateTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSGameStateTests-Debug-3a6c4db9d0fb4cfca160.json",
+					"name" : "LokYSGameStateTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSGlassCockpitAutopilotTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSGlassCockpitAutopilotTests-Debug-5b36f31ce82727606e5a.json",
+					"name" : "LokYSGlassCockpitAutopilotTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSGltfTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSGltfTests-Debug-429e16d663d86b254156.json",
+					"name" : "LokYSGltfTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSGraphicsOptimizationTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSGraphicsOptimizationTests-Debug-dba7aeb54f9677a1dba5.json",
+					"name" : "LokYSGraphicsOptimizationTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSGroundReactionsTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSGroundReactionsTests-Debug-79271e83572d28daa3f9.json",
+					"name" : "LokYSGroundReactionsTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSMathTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSMathTests-Debug-0c932d741e98925ad118.json",
+					"name" : "LokYSMathTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSMultiAircraftSceneryTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSMultiAircraftSceneryTests-Debug-aa7a9e5ffe1c7125e173.json",
+					"name" : "LokYSMultiAircraftSceneryTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSNetworkMultiplayerTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSNetworkMultiplayerTests-Debug-f9332d156e7908f79eda.json",
+					"name" : "LokYSNetworkMultiplayerTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSPhysicsTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSPhysicsTests-Debug-6ee3b23f6f60e0d8846f.json",
+					"name" : "LokYSPhysicsTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSPropulsionTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSPropulsionTests-Debug-591c87440d73b5fd72fc.json",
+					"name" : "LokYSPropulsionTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSRadioNavTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSRadioNavTests-Debug-cf6a0f63404a72e3cc4e.json",
+					"name" : "LokYSRadioNavTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSSerialInterfaceTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSSerialInterfaceTests-Debug-97fb83164783600acce3.json",
+					"name" : "LokYSSerialInterfaceTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSYsflightInterOpTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSYsflightInterOpTests-Debug-cb254c066e7c570bcbe8.json",
+					"name" : "LokYSYsflightInterOpTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSYsflightPhase1Tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSYsflightPhase1Tests-Debug-fc50c1646b436e45dc7c.json",
+					"name" : "LokYSYsflightPhase1Tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSYsflightPhase2Tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSYsflightPhase2Tests-Debug-877c7c3faf274185e452.json",
+					"name" : "LokYSYsflightPhase2Tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSYsflightPhase3Tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSYsflightPhase3Tests-Debug-4164e33997e9ee4d4668.json",
+					"name" : "LokYSYsflightPhase3Tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LokYSYsflightPhase4Tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LokYSYsflightPhase4Tests-Debug-9fc84c1d8fbe7de3f5d9.json",
+					"name" : "LokYSYsflightPhase4Tests",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+		"source" : "C:/Users/diego/Documents/Projetos/LokYS"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 2
+	}
+}

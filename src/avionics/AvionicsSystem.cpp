@@ -283,13 +283,15 @@ void AvionicsSystem::UpdateHeading(f64 yawRad, f64 dt) noexcept {
     // Gyro mechanical precession drift
     m_state.heading.gyroDriftDeg += m_gyroDriftRateDegPerSec * dt;
 
+    if (!std::isfinite(yawRad)) return;
+
     f64 targetHeadingDeg = Math::Units::RadToDeg(yawRad);
     targetHeadingDeg = std::fmod(std::fmod(targetHeadingDeg + m_state.heading.gyroDriftDeg, 360.0) + 360.0, 360.0);
 
     // Angular difference with wrap-around
-    f64 diff = targetHeadingDeg - m_state.heading.indicatedHeadingDeg;
-    while (diff > 180.0) diff -= 360.0;
-    while (diff < -180.0) diff += 360.0;
+    f64 diff = std::fmod(targetHeadingDeg - m_state.heading.indicatedHeadingDeg + 180.0, 360.0);
+    if (diff < 0.0) diff += 360.0;
+    diff -= 180.0;
 
     f64 alpha = 1.0 - std::exp(-dt / 0.08); // 80 ms directional gyro lag
     m_state.heading.indicatedHeadingDeg = std::fmod(std::fmod(m_state.heading.indicatedHeadingDeg + diff * alpha, 360.0) + 360.0, 360.0);
