@@ -16,8 +16,26 @@ public:
 
     /// @brief Gets the currently active aircraft configuration.
     [[nodiscard]] const AircraftConfig& GetActiveConfig() const noexcept {
+        if (m_isCustomActive) {
+            return m_customConfig;
+        }
         return GetConfig(m_activeType);
     }
+
+    /// @brief Sets a custom dynamic aircraft configuration (e.g. from YSFlight package).
+    void SetCustomConfig(const AircraftConfig& cfg) noexcept {
+        m_customConfig = cfg;
+        m_isCustomActive = true;
+        m_gearExtended = true;
+    }
+
+    /// @brief Clears custom config and restores active built-in archetype.
+    void ClearCustomConfig() noexcept {
+        m_isCustomActive = false;
+    }
+
+    /// @brief Gets whether a custom aircraft configuration is currently active.
+    [[nodiscard]] bool IsCustomConfigActive() const noexcept { return m_isCustomActive; }
 
     /// @brief Gets the currently active aircraft type.
     [[nodiscard]] AircraftType GetActiveType() const noexcept { return m_activeType; }
@@ -59,6 +77,8 @@ private:
 
     AircraftType m_activeType{ AircraftType::Cessna172Skyhawk };
     bool m_gearExtended{ true }; // Gear down by default for takeoff/landing
+    bool m_isCustomActive{ false };
+    AircraftConfig m_customConfig{};
 
     std::array<AircraftConfig, 3> m_configs;
 };

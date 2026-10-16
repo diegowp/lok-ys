@@ -6,12 +6,19 @@
 #include <vector>
 #include <span>
 
+namespace LokYS::Assets {
+    struct DnmModel;
+}
+
 namespace LokYS::Graphics {
 
 class GltfModel {
 public:
     GltfModel() = default;
     ~GltfModel() = default;
+
+    // Load dynamic articulated model from parsed YSFlight DNM
+    [[nodiscard]] bool LoadFromDnm(const Assets::DnmModel& dnm);
 
     // Load binary glTF (.glb) from file or memory buffer
     [[nodiscard]] bool LoadFromGlbFile(const std::wstring& filePath, std::string* outError = nullptr);

@@ -357,7 +357,7 @@ std::optional<std::vector<uint8_t>> ZipVfsReader::ReadFile(std::string_view file
         // Deflated
         std::vector<uint8_t> decompressed;
         decompressed.reserve(info.uncompressedSize);
-        if (InflateRaw(compressedData, decompressed)) {
+        if (InflateRaw(compressedData, decompressed) && decompressed.size() == info.uncompressedSize) {
             return decompressed;
         }
         return std::nullopt;

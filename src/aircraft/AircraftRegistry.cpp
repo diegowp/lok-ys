@@ -276,6 +276,7 @@ const AircraftConfig& AircraftRegistry::GetConfig(AircraftType type) const noexc
 
 void AircraftRegistry::SetActiveType(AircraftType type) noexcept {
     m_activeType = type;
+    m_isCustomActive = false;
     // Set gear down by default when switching
     m_gearExtended = true;
 }

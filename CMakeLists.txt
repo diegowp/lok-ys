@@ -30,6 +30,9 @@ if(MSVC)
     add_compile_options("$<$<CONFIG:Release>:/O2;/Oi;/Ot;/GS->")
     # Debug settings
     add_compile_options("$<$<CONFIG:Debug>:/Od;/Zi;/RTC1>")
+
+    # Prevent mt.exe file-locking collisions on Windows
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MANIFEST:NO")
 endif()
 
 # Global include directory

@@ -47,7 +47,7 @@ bool AcftPackage::LoadFromArchive(Vfs::ZipVfsReader& vfs) {
         for (const auto& file : allFiles) {
             if (file.ends_with(".dat")) {
                 m_manifest.flightModelFile = file;
-            } else if (file.ends_with(".dnm")) {
+            } else if (file.ends_with(".dnm") && file.find("coarse") == std::string::npos) {
                 m_manifest.visualModelFile = file;
             } else if (file.ends_with(".ist")) {
                 m_manifest.instrumentPanelFile = file;

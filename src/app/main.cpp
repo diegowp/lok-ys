@@ -40,6 +40,7 @@
 #include "LokYS/graphics/TerrainStreamingSystem.hpp"
 #include "LokYS/graphics/MenuRenderer.hpp"
 #include "LokYS/input/ConfigPersistence.hpp"
+#include "LokYS/assets/AcftPackage.hpp"
 #include <windows.h>
 #include <sstream>
 #include <iomanip>
@@ -329,6 +330,7 @@ int WINAPI wWinMain(
         LokYS::Graphics::GltfModel model;
         LokYS::Aircraft::AircraftType archetype{ LokYS::Aircraft::AircraftType::Cessna172Skyhawk };
         LokYS::Math::Vec3d cockpitEyePosBody{ 0.25, -0.27, -0.70 };
+        std::optional<LokYS::Aircraft::AircraftConfig> customConfig;
     };
 
     std::vector<AircraftCatalogEntry> aircraftCatalog;
@@ -459,6 +461,94 @@ int WINAPI wWinMain(
     DiscoverCustomGlbModels("assets/models");
     DiscoverCustomGlbModels("build/assets/models");
     DiscoverCustomGlbModels("../assets/models");
+
+    // 3. Dynamic Discovery: Scan assets/aircraft for any YSFlight packages (.acft.zip, .zip) or loose folders / .dat files
+    auto RegisterYsflightPackage = [&](LokYS::Assets::AcftPackage& package, const std::string& uniqueKey) {
+        if (!package.IsValid()) return;
+
+        std::string keyLower = uniqueKey;
+        for (char& c : keyLower) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+
+        for (const auto& item : aircraftCatalog) {
+            std::string itemFnLower = item.filename;
+            for (char& c : itemFnLower) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+            if (itemFnLower == keyLower) {
+                return; // Already in catalog
+            }
+        }
+
+        AircraftCatalogEntry customEntry{};
+        customEntry.filename = uniqueKey;
+
+        if (customEntry.model.LoadFromDnm(package.GetVisualModel())) {
+            customEntry.model.AutoAlignAndGround(0.0f);
+            (void)customEntry.model.CreateGPUResources(graphics.GetDevice());
+
+            const auto& flightData = package.GetFlightData();
+            customEntry.customConfig = flightData.config;
+
+            std::string dispName = !package.GetManifest().displayName.empty()
+                ? package.GetManifest().displayName
+                : flightData.config.name;
+
+            std::wstring wideDisplayName;
+            for (char c : dispName) {
+                wideDisplayName += (static_cast<unsigned char>(c) < 128)
+                    ? static_cast<wchar_t>(c) : L'?';
+            }
+            customEntry.displayName = wideDisplayName;
+
+            LokYS::f64 fwd = static_cast<LokYS::f64>(customEntry.model.GetEffectiveDimensions().z) * 0.15;
+            LokYS::f64 up = static_cast<LokYS::f64>(customEntry.model.GetEffectiveDimensions().y) * 0.35;
+            customEntry.cockpitEyePosBody = { fwd, -0.27, -up };
+
+            aircraftCatalog.push_back(std::move(customEntry));
+        }
+    };
+
+    auto DiscoverYsflightPackages = [&](const std::string& dirPath) {
+        if (!std::filesystem::exists(dirPath)) return;
+        std::error_code ec;
+        for (const auto& entry : std::filesystem::directory_iterator(dirPath, ec)) {
+            if (ec) break;
+
+            if (entry.is_regular_file()) {
+                std::string ext = entry.path().extension().string();
+                for (char& c : ext) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+
+                if (ext == ".zip") {
+                    LokYS::Assets::AcftPackage package;
+                    if (package.LoadFromZipFile(entry.path().string())) {
+                        RegisterYsflightPackage(package, entry.path().stem().string());
+                    }
+                } else if (ext == ".dat") {
+                    LokYS::Assets::AcftPackage package;
+                    if (package.LoadFromDirectory(dirPath, entry.path().filename().string())) {
+                        RegisterYsflightPackage(package, entry.path().stem().string());
+                    }
+                }
+            } else if (entry.is_directory()) {
+                std::error_code subEc;
+                for (const auto& subEntry : std::filesystem::directory_iterator(entry.path(), subEc)) {
+                    if (subEc) break;
+                    if (subEntry.is_regular_file()) {
+                        std::string subExt = subEntry.path().extension().string();
+                        for (char& c : subExt) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+                        if (subExt == ".dat") {
+                            LokYS::Assets::AcftPackage package;
+                            if (package.LoadFromDirectory(entry.path().string(), subEntry.path().filename().string())) {
+                                RegisterYsflightPackage(package, entry.path().filename().string() + "_" + subEntry.path().stem().string());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    DiscoverYsflightPackages("assets/aircraft");
+    DiscoverYsflightPackages("build/assets/aircraft");
+    DiscoverYsflightPackages("../assets/aircraft");
 
     size_t activeCatalogIdx = 0;
 
@@ -651,7 +741,11 @@ int WINAPI wWinMain(
     auto ApplyFlightSetup = [&](const LokYS::Core::FlightSetupConfiguration& setup) {
         activeCatalogIdx = setup.selectedAircraftIndex % aircraftCatalog.size();
         const auto& activeEntry = aircraftCatalog[activeCatalogIdx];
-        aircraftRegistry.SetActiveAircraft(activeEntry.archetype);
+        if (activeEntry.customConfig.has_value()) {
+            aircraftRegistry.SetCustomConfig(*activeEntry.customConfig);
+        } else {
+            aircraftRegistry.SetActiveAircraft(activeEntry.archetype);
+        }
         const auto& cfg = aircraftRegistry.GetActiveConfig();
         ApplyAircraftConfig(cfg);
 
@@ -835,7 +929,11 @@ int WINAPI wWinMain(
         if (input.WasAircraftCycleTriggered() && !aircraftCatalog.empty()) {
             activeCatalogIdx = (activeCatalogIdx + 1) % aircraftCatalog.size();
             const auto& activeEntry = aircraftCatalog[activeCatalogIdx];
-            aircraftRegistry.SetActiveType(activeEntry.archetype);
+            if (activeEntry.customConfig.has_value()) {
+                aircraftRegistry.SetCustomConfig(*activeEntry.customConfig);
+            } else {
+                aircraftRegistry.SetActiveType(activeEntry.archetype);
+            }
             ApplyAircraftConfig(aircraftRegistry.GetActiveConfig());
 
             // Dynamically update camera framing and cockpit eye position to fit the active aircraft dimensions

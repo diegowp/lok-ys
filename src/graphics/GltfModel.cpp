@@ -1,4 +1,5 @@
 #include "LokYS/graphics/GltfModel.hpp"
+#include "LokYS/assets/DnmParser.hpp"
 #include <fstream>
 #include <iostream>
 #include <cmath>
@@ -107,6 +108,114 @@ void GltfPrimitive::Draw(ID3D12GraphicsCommandList* cmdList) const noexcept {
 // =========================================================================
 // GltfModel Implementation
 // =========================================================================
+
+bool GltfModel::LoadFromDnm(const Assets::DnmModel& dnm) {
+    m_isLoaded = false;
+    m_nodes.clear();
+    m_meshes.clear();
+    m_materials.clear();
+    m_rootNodes.clear();
+    m_nodeNameMap.clear();
+    m_accessors.clear();
+    m_bufferViews.clear();
+
+    if (dnm.nodes.empty()) return false;
+
+    // Default white material
+    GltfMaterial defaultMat{};
+    defaultMat.name = "DnmDefault";
+    defaultMat.baseColorFactor = Math::Vec4f(1.0f, 1.0f, 1.0f, 1.0f);
+    m_materials.push_back(defaultMat);
+
+    for (size_t i = 0; i < dnm.nodes.size(); ++i) {
+        const auto& dNode = dnm.nodes[i];
+
+        i32 meshIdx = -1;
+        if (dNode.HasGeometry()) {
+            GltfMesh mesh{};
+            mesh.name = dNode.name + "_mesh";
+
+            GltfPrimitive prim{};
+            prim.vertices = dNode.vertices;
+            prim.indices = dNode.indices;
+            prim.materialIndex = 0;
+            prim.vertexCount = static_cast<u32>(prim.vertices.size());
+            prim.indexCount = static_cast<u32>(prim.indices.size());
+            mesh.primitives.push_back(std::move(prim));
+
+            meshIdx = static_cast<i32>(m_meshes.size());
+            m_meshes.push_back(std::move(mesh));
+        }
+
+        GltfNode gNode{};
+        gNode.name = dNode.name;
+        gNode.meshIndex = meshIdx;
+        gNode.translation = dNode.position;
+        gNode.rotation = Math::Quat4f(0.0f, 0.0f, 0.0f, 1.0f);
+        gNode.scale = Math::Vec3f(1.0f, 1.0f, 1.0f);
+        gNode.parentIndex = -1;
+
+        switch (dNode.animationClass) {
+        case 5:
+            gNode.articulationType = ArticulationType::FlapLeft;
+            gNode.hingeAxis = dNode.pivotAxis;
+            break;
+        case 6:
+            gNode.articulationType = ArticulationType::Elevator;
+            gNode.hingeAxis = dNode.pivotAxis;
+            break;
+        case 7:
+            gNode.articulationType = ArticulationType::AileronLeft;
+            gNode.hingeAxis = dNode.pivotAxis;
+            break;
+        case 8:
+            gNode.articulationType = ArticulationType::Rudder;
+            gNode.hingeAxis = dNode.pivotAxis;
+            break;
+        case 24:
+            gNode.articulationType = ArticulationType::Propeller;
+            gNode.hingeAxis = dNode.pivotAxis;
+            break;
+        case 1:
+        case 2:
+        case 3:
+            gNode.articulationType = ArticulationType::LandingGear;
+            break;
+        default:
+            gNode.articulationType = ArticulationType::None;
+            break;
+        }
+
+        m_nodes.push_back(std::move(gNode));
+        m_nodeNameMap[dNode.name] = static_cast<u32>(i);
+    }
+
+    std::vector<bool> isChild(m_nodes.size(), false);
+    for (size_t i = 0; i < dnm.nodes.size(); ++i) {
+        const auto& dNode = dnm.nodes[i];
+        for (const auto& chName : dNode.childrenNames) {
+            auto it = m_nodeNameMap.find(chName);
+            if (it != m_nodeNameMap.end()) {
+                u32 chIdx = it->second;
+                m_nodes[i].children.push_back(chIdx);
+                m_nodes[chIdx].parentIndex = static_cast<i32>(i);
+                isChild[chIdx] = true;
+            }
+        }
+    }
+
+    for (size_t i = 0; i < m_nodes.size(); ++i) {
+        if (!isChild[i]) {
+            m_rootNodes.push_back(static_cast<u32>(i));
+        }
+    }
+
+    m_isLoaded = true;
+    ComputeBoundingBox();
+    AutoDetectArticulations();
+    UpdateForwardKinematics();
+    return true;
+}
 
 bool GltfModel::LoadFromGlbFile(const std::wstring& filePath, std::string* outError) {
     std::ifstream file(filePath, std::ios::binary | std::ios::ate);
