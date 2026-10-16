@@ -216,6 +216,71 @@
 },
 {
   "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\vfs\\ZipVfsReader.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\vfs\\ZipVfsReader.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/vfs/ZipVfsReader.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\vfs\\ZipWriter.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\vfs\\ZipWriter.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/vfs/ZipWriter.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\assets\\AssetTokenizer.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AssetTokenizer.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AssetTokenizer.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\assets\\SrfParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\SrfParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/SrfParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\assets\\DnmParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\DnmParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/DnmParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\assets\\AircraftDatParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AircraftDatParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AircraftDatParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\assets\\CockpitIstParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\CockpitIstParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/CockpitIstParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\assets\\AcftPackage.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AcftPackage.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AcftPackage.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\assets\\SpawnStpParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\SpawnStpParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/SpawnStpParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\assets\\SceneryFldParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\SceneryFldParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/SceneryFldParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\assets\\LfsPackage.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\LfsPackage.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/LfsPackage.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\tools\\AircraftEditor.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\tools\\AircraftEditor.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/tools/AircraftEditor.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSFlightSimulator.dir\\src\\tools\\SceneryEditor.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\tools\\SceneryEditor.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/tools/SceneryEditor.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
   "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSMathTests.dir\\tests\\unit\\MathTests.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\tests\\unit\\MathTests.cpp",
   "file": "C:/Users/diego/Documents/Projetos/LokYS/tests/unit/MathTests.cpp"
 },
@@ -363,6 +428,51 @@
   "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
   "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSRadioNavTests.dir\\src\\navigation\\RadioNavSystem.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\navigation\\RadioNavSystem.cpp",
   "file": "C:/Users/diego/Documents/Projetos/LokYS/src/navigation/RadioNavSystem.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase2Tests.dir\\tests\\unit\\YsflightPhase2Tests.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\tests\\unit\\YsflightPhase2Tests.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/tests/unit/YsflightPhase2Tests.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase2Tests.dir\\src\\vfs\\ZipVfsReader.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\vfs\\ZipVfsReader.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/vfs/ZipVfsReader.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase2Tests.dir\\src\\assets\\AssetTokenizer.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AssetTokenizer.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AssetTokenizer.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase2Tests.dir\\src\\assets\\SrfParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\SrfParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/SrfParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase2Tests.dir\\src\\assets\\DnmParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\DnmParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/DnmParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase2Tests.dir\\src\\assets\\AircraftDatParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AircraftDatParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AircraftDatParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase2Tests.dir\\src\\assets\\CockpitIstParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\CockpitIstParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/CockpitIstParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase2Tests.dir\\src\\assets\\AcftPackage.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AcftPackage.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AcftPackage.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase2Tests.dir\\src\\graphics\\Mesh.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\graphics\\Mesh.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/graphics/Mesh.cpp"
 },
 {
   "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
@@ -543,5 +653,275 @@
   "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
   "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSActionMappingTests.dir\\src\\input\\ConfigPersistence.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\input\\ConfigPersistence.cpp",
   "file": "C:/Users/diego/Documents/Projetos/LokYS/src/input/ConfigPersistence.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase1Tests.dir\\tests\\unit\\YsflightPhase1Tests.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\tests\\unit\\YsflightPhase1Tests.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/tests/unit/YsflightPhase1Tests.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase1Tests.dir\\src\\vfs\\ZipVfsReader.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\vfs\\ZipVfsReader.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/vfs/ZipVfsReader.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase1Tests.dir\\src\\assets\\AssetTokenizer.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AssetTokenizer.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AssetTokenizer.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase1Tests.dir\\src\\assets\\SrfParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\SrfParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/SrfParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase1Tests.dir\\src\\assets\\DnmParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\DnmParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/DnmParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase1Tests.dir\\src\\graphics\\Mesh.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\graphics\\Mesh.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/graphics/Mesh.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase3Tests.dir\\tests\\unit\\YsflightPhase3Tests.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\tests\\unit\\YsflightPhase3Tests.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/tests/unit/YsflightPhase3Tests.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase3Tests.dir\\src\\vfs\\ZipVfsReader.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\vfs\\ZipVfsReader.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/vfs/ZipVfsReader.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase3Tests.dir\\src\\assets\\AssetTokenizer.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AssetTokenizer.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AssetTokenizer.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase3Tests.dir\\src\\assets\\SrfParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\SrfParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/SrfParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase3Tests.dir\\src\\assets\\DnmParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\DnmParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/DnmParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase3Tests.dir\\src\\assets\\AircraftDatParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AircraftDatParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AircraftDatParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase3Tests.dir\\src\\assets\\CockpitIstParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\CockpitIstParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/CockpitIstParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase3Tests.dir\\src\\assets\\AcftPackage.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AcftPackage.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AcftPackage.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase3Tests.dir\\src\\assets\\SpawnStpParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\SpawnStpParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/SpawnStpParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase3Tests.dir\\src\\assets\\SceneryFldParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\SceneryFldParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/SceneryFldParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase3Tests.dir\\src\\assets\\LfsPackage.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\LfsPackage.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/LfsPackage.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase3Tests.dir\\src\\graphics\\Mesh.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\graphics\\Mesh.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/graphics/Mesh.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase4Tests.dir\\tests\\unit\\YsflightPhase4Tests.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\tests\\unit\\YsflightPhase4Tests.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/tests/unit/YsflightPhase4Tests.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase4Tests.dir\\src\\vfs\\ZipVfsReader.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\vfs\\ZipVfsReader.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/vfs/ZipVfsReader.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase4Tests.dir\\src\\vfs\\ZipWriter.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\vfs\\ZipWriter.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/vfs/ZipWriter.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase4Tests.dir\\src\\assets\\AssetTokenizer.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AssetTokenizer.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AssetTokenizer.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase4Tests.dir\\src\\assets\\SrfParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\SrfParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/SrfParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase4Tests.dir\\src\\assets\\DnmParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\DnmParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/DnmParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase4Tests.dir\\src\\assets\\AircraftDatParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AircraftDatParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AircraftDatParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase4Tests.dir\\src\\assets\\CockpitIstParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\CockpitIstParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/CockpitIstParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase4Tests.dir\\src\\assets\\AcftPackage.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AcftPackage.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AcftPackage.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase4Tests.dir\\src\\assets\\SpawnStpParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\SpawnStpParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/SpawnStpParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase4Tests.dir\\src\\assets\\SceneryFldParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\SceneryFldParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/SceneryFldParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase4Tests.dir\\src\\assets\\LfsPackage.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\LfsPackage.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/LfsPackage.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase4Tests.dir\\src\\tools\\AircraftEditor.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\tools\\AircraftEditor.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/tools/AircraftEditor.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase4Tests.dir\\src\\tools\\SceneryEditor.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\tools\\SceneryEditor.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/tools/SceneryEditor.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightPhase4Tests.dir\\src\\graphics\\Mesh.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\graphics\\Mesh.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/graphics/Mesh.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\tests\\unit\\YsflightInterOpTests.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\tests\\unit\\YsflightInterOpTests.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/tests/unit/YsflightInterOpTests.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\physics\\RigidBody.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\physics\\RigidBody.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/physics/RigidBody.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\physics\\GroundReactions.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\physics\\GroundReactions.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/physics/GroundReactions.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\aerodynamics\\AerodynamicsSystem.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\aerodynamics\\AerodynamicsSystem.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/aerodynamics/AerodynamicsSystem.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\propulsion\\PropulsionSystem.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\propulsion\\PropulsionSystem.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/propulsion/PropulsionSystem.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\scenery\\AirportDatabase.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\scenery\\AirportDatabase.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/scenery/AirportDatabase.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\graphics\\ApproachLightingSystem.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\graphics\\ApproachLightingSystem.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/graphics/ApproachLightingSystem.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\vfs\\ZipVfsReader.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\vfs\\ZipVfsReader.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/vfs/ZipVfsReader.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\vfs\\ZipWriter.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\vfs\\ZipWriter.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/vfs/ZipWriter.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\assets\\AssetTokenizer.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AssetTokenizer.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AssetTokenizer.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\assets\\SrfParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\SrfParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/SrfParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\assets\\DnmParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\DnmParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/DnmParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\assets\\AircraftDatParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AircraftDatParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AircraftDatParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\assets\\CockpitIstParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\CockpitIstParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/CockpitIstParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\assets\\AcftPackage.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\AcftPackage.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/AcftPackage.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\assets\\SpawnStpParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\SpawnStpParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/SpawnStpParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\assets\\SceneryFldParser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\SceneryFldParser.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/SceneryFldParser.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\assets\\LfsPackage.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\assets\\LfsPackage.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/assets/LfsPackage.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\tools\\AircraftEditor.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\tools\\AircraftEditor.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/tools/AircraftEditor.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\tools\\SceneryEditor.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\tools\\SceneryEditor.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/tools/SceneryEditor.cpp"
+},
+{
+  "directory": "C:/Users/diego/Documents/Projetos/LokYS/build/debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\BUILDT~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DUNICODE -D_UNICODE -I..\\..\\include /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /WX /permissive- /utf-8 /Zc:inline /Zc:preprocessor /wd5105 /wd4324 /diagnostics:column /Od /Zi /RTC1 -std:c++latest /FoCMakeFiles\\LokYSYsflightInterOpTests.dir\\src\\graphics\\Mesh.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\diego\\Documents\\Projetos\\LokYS\\src\\graphics\\Mesh.cpp",
+  "file": "C:/Users/diego/Documents/Projetos/LokYS/src/graphics/Mesh.cpp"
 }
 ]
