@@ -78,9 +78,17 @@ set(LOKYS_SOURCES
     src/input/ActionMapping.cpp
     src/input/ConfigPersistence.cpp
     src/graphics/MenuRenderer.cpp
+    src/vfs/ZipVfsReader.cpp
+    src/assets/AssetTokenizer.cpp
+    src/assets/SrfParser.cpp
+    src/assets/DnmParser.cpp
 )
 
 set(LOKYS_HEADERS
+    include/LokYS/vfs/ZipVfsReader.hpp
+    include/LokYS/assets/AssetTokenizer.hpp
+    include/LokYS/assets/SrfParser.hpp
+    include/LokYS/assets/DnmParser.hpp
     include/LokYS/core/EngineContext.hpp
     include/LokYS/core/GameState.hpp
     include/LokYS/core/Types.hpp
@@ -459,5 +467,27 @@ target_include_directories(LokYSActionMappingTests PRIVATE
 )
 
 add_test(NAME ActionMappingTests COMMAND LokYSActionMappingTests)
+
+add_executable(LokYSYsflightPhase1Tests
+    tests/unit/YsflightPhase1Tests.cpp
+    src/vfs/ZipVfsReader.cpp
+    src/assets/AssetTokenizer.cpp
+    src/assets/SrfParser.cpp
+    src/assets/DnmParser.cpp
+    src/graphics/Mesh.cpp
+    ${LOKYS_HEADERS}
+)
+
+target_include_directories(LokYSYsflightPhase1Tests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_link_libraries(LokYSYsflightPhase1Tests PRIVATE
+    d3d12.lib
+    dxgi.lib
+    d3dcompiler.lib
+)
+
+add_test(NAME YsflightPhase1Tests COMMAND LokYSYsflightPhase1Tests)
 
 

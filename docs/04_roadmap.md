@@ -44,18 +44,18 @@ Phase 5: Verification & Quality Assur.   [ Agent-QA ]
 
 ## 2. Phase-by-Phase Deliverables & Acceptance Criteria
 
-### Phase 1: Core Foundation, VFS & Geometry (`Agent-Core` & `Agent-Geometry`)
-- [ ] **P1.1: In-Memory ZIP Virtual File System (`ZipVfsReader`)**
+### Phase 1: Core Foundation, VFS & Geometry (`Agent-Core` & `Agent-Geometry`) — COMPLETED
+- [x] **P1.1: In-Memory ZIP Virtual File System (`ZipVfsReader`)**
   - Implement zero-dependency C++20 PKZIP directory header parser.
   - Expose `ZipVfsReader::OpenFile(path)` returning a non-owning `std::span<const uint8_t>` or `std::string_view`.
   - In-memory Deflate inflation without writing temporary files to disk.
-- [ ] **P1.2: Robust Asset Tokenizer (`AssetTokenizer`)**
+- [x] **P1.2: Robust Asset Tokenizer (`AssetTokenizer`)**
   - High-performance, zero-allocation line and token scanner.
   - Strips `#` and `REM` comments, handles inline units (`180HP`, `630kg`, `15deg`).
-- [ ] **P1.3: Surface Geometry Parser (`SrfParser`)**
+- [x] **P1.3: Surface Geometry Parser (`SrfParser`)**
   - Ingests `.srf` vertex arrays ($X, Y, Z$), face polygon indices, colors ($R, G, B$), and normals.
   - Decomposes non-planar or n-gon faces into triangle fans; produces Direct3D 12 vertex/index buffers.
-- [ ] **P1.4: Dynamic Articulated Model Parser (`DnmParser`)**
+- [x] **P1.4: Dynamic Articulated Model Parser (`DnmParser`)**
   - Ingests `.dnm` hierarchical scene graphs (`PCK` blocks, `CLA` animation classes, `STA` state keyframes, `POS` pivots).
   - Connects nodes directly to the LokYS articulated submesh scene graph solver.
 
