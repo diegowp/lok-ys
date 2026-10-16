@@ -14,15 +14,42 @@ bool LfsPackage::ParseManifestJson(std::string_view jsonText) {
     m_manifest.type = root[std::string("type")].AsString("Scenery");
     m_manifest.identifier = root[std::string("identifier")].AsString("");
     m_manifest.displayName = root[std::string("displayName")].AsString(m_manifest.identifier);
+    if (m_manifest.displayName.empty()) {
+        m_manifest.displayName = root[std::string("name")].AsString("Scenery");
+    }
+    m_manifest.name = m_manifest.displayName;
     m_manifest.author = root[std::string("author")].AsString("Unknown");
 
+    // Check top-level files
+    m_manifest.fieldFile = root[std::string("fieldFile")].AsString("");
+    if (m_manifest.fieldFile.empty()) {
+        m_manifest.fieldFile = root[std::string("terrainFile")].AsString("");
+    }
+    m_manifest.spawnFile = root[std::string("spawnFile")].AsString("");
+
+    // Check nested files object if present
     const auto& files = root[std::string("files")];
     if (files.IsObject()) {
-        m_manifest.fieldFile = files[std::string("fieldFile")].AsString("");
-        m_manifest.spawnFile = files[std::string("spawnFile")].AsString("");
+        if (m_manifest.fieldFile.empty()) {
+            m_manifest.fieldFile = files[std::string("fieldFile")].AsString("");
+        }
+        if (m_manifest.fieldFile.empty()) {
+            m_manifest.fieldFile = files[std::string("terrainFile")].AsString("");
+        }
+        if (m_manifest.spawnFile.empty()) {
+            m_manifest.spawnFile = files[std::string("spawnFile")].AsString("");
+        }
     }
 
     return !m_manifest.fieldFile.empty();
+}
+
+bool LfsPackage::LoadFromMemory(std::span<const uint8_t> buffer) {
+    Vfs::ZipVfsReader vfs;
+    if (!vfs.LoadFromMemory(buffer)) {
+        return false;
+    }
+    return LoadFromArchive(vfs);
 }
 
 bool LfsPackage::LoadFromArchive(Vfs::ZipVfsReader& vfs) {
@@ -30,8 +57,11 @@ bool LfsPackage::LoadFromArchive(Vfs::ZipVfsReader& vfs) {
     m_field.reset();
     m_spawns = ScenerySpawnList{};
 
-    // 1. Try reading scenery_manifest.json
-    auto manifestText = vfs.ReadText("scenery_manifest.json");
+    // 1. Try reading manifest.json or scenery_manifest.json
+    auto manifestText = vfs.ReadText("manifest.json");
+    if (!manifestText) {
+        manifestText = vfs.ReadText("scenery_manifest.json");
+    }
     if (manifestText && ParseManifestJson(*manifestText)) {
         // Successfully parsed manifest
     } else {

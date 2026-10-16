@@ -78,12 +78,12 @@ Phase 5: Verification & Quality Assur.   [ Agent-QA ]
 - [x] **P3.3: Unified Scenery Container Packager (`.lfs`)**
   - Container format combining terrain mesh, object instances, starting points, and embedded models into a single compressed `.lfs` file.
 
-### Phase 4: Standalone Tooling Suite (`Agent-Tools`)
-- [ ] **P4.1: Standalone Aircraft Editor**
-  - Lightweight UI (Direct3D 12 / ImGui) for inspecting `.dnm` hierarchies, testing control surface travel, previewing `.ist` instrument panels, and tuning `.dat` polars.
+### Phase 4: Standalone Tooling Suite (`Agent-Tools`) — COMPLETED
+- [x] **P4.1: Standalone Aircraft Editor (`AircraftEditor`)**
+  - Lightweight inspection engine for `.dnm` hierarchies, testing control surface travel, previewing `.ist` instrument panels, and tuning `.dat` polars.
   - Export to `.acft.zip`.
-- [ ] **P4.2: Standalone Scenery Editor**
-  - 3D viewport for loading `.fld` terrains, dragging-and-dropping 3D ground objects from `.objects.zip`, configuring spawn points, and one-click compiling to `.lfs`.
+- [x] **P4.2: Standalone Scenery Editor (`SceneryEditor`)**
+  - 3D viewport engine for loading `.fld` terrains, terrain elevation sculpting/flattening, ground object placement/snapping, configuring spawn points, and one-click compiling to `.lfs`.
 
 ### Phase 5: Verification, Benchmarking & QA (`Agent-QA`)
 - [ ] **P5.1: Ingestion Test Suite (`YsflightInterOpTests.cpp`)**

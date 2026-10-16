@@ -79,6 +79,7 @@ set(LOKYS_SOURCES
     src/input/ConfigPersistence.cpp
     src/graphics/MenuRenderer.cpp
     src/vfs/ZipVfsReader.cpp
+    src/vfs/ZipWriter.cpp
     src/assets/AssetTokenizer.cpp
     src/assets/SrfParser.cpp
     src/assets/DnmParser.cpp
@@ -88,10 +89,13 @@ set(LOKYS_SOURCES
     src/assets/SpawnStpParser.cpp
     src/assets/SceneryFldParser.cpp
     src/assets/LfsPackage.cpp
+    src/tools/AircraftEditor.cpp
+    src/tools/SceneryEditor.cpp
 )
 
 set(LOKYS_HEADERS
     include/LokYS/vfs/ZipVfsReader.hpp
+    include/LokYS/vfs/ZipWriter.hpp
     include/LokYS/assets/AssetTokenizer.hpp
     include/LokYS/assets/SrfParser.hpp
     include/LokYS/assets/DnmParser.hpp
@@ -101,6 +105,8 @@ set(LOKYS_HEADERS
     include/LokYS/assets/SpawnStpParser.hpp
     include/LokYS/assets/SceneryFldParser.hpp
     include/LokYS/assets/LfsPackage.hpp
+    include/LokYS/tools/AircraftEditor.hpp
+    include/LokYS/tools/SceneryEditor.hpp
     include/LokYS/core/EngineContext.hpp
     include/LokYS/core/GameState.hpp
     include/LokYS/core/Types.hpp
@@ -554,5 +560,36 @@ target_link_libraries(LokYSYsflightPhase3Tests PRIVATE
 )
 
 add_test(NAME YsflightPhase3Tests COMMAND LokYSYsflightPhase3Tests)
+
+add_executable(LokYSYsflightPhase4Tests
+    tests/unit/YsflightPhase4Tests.cpp
+    src/vfs/ZipVfsReader.cpp
+    src/vfs/ZipWriter.cpp
+    src/assets/AssetTokenizer.cpp
+    src/assets/SrfParser.cpp
+    src/assets/DnmParser.cpp
+    src/assets/AircraftDatParser.cpp
+    src/assets/CockpitIstParser.cpp
+    src/assets/AcftPackage.cpp
+    src/assets/SpawnStpParser.cpp
+    src/assets/SceneryFldParser.cpp
+    src/assets/LfsPackage.cpp
+    src/tools/AircraftEditor.cpp
+    src/tools/SceneryEditor.cpp
+    src/graphics/Mesh.cpp
+    ${LOKYS_HEADERS}
+)
+
+target_include_directories(LokYSYsflightPhase4Tests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_link_libraries(LokYSYsflightPhase4Tests PRIVATE
+    d3d12.lib
+    dxgi.lib
+    d3dcompiler.lib
+)
+
+add_test(NAME YsflightPhase4Tests COMMAND LokYSYsflightPhase4Tests)
 
 

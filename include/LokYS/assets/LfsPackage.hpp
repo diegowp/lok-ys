@@ -15,6 +15,7 @@ struct LfsManifest {
     std::string type{ "Scenery" };
     std::string identifier;
     std::string displayName;
+    std::string name;
     std::string author{ "LokYS Interop" };
     std::string fieldFile;
     std::string spawnFile;
@@ -27,6 +28,7 @@ public:
 
     // Load scenery package from a .lfs archive
     [[nodiscard]] bool LoadFromArchive(Vfs::ZipVfsReader& vfs);
+    [[nodiscard]] bool LoadFromMemory(std::span<const uint8_t> buffer);
     [[nodiscard]] bool LoadFromLfsFile(const std::string& lfsFilePath);
 
     // Load scenery package from a directory with loose .fld and .stp files
@@ -42,6 +44,7 @@ public:
     [[nodiscard]] const LfsManifest& GetManifest() const noexcept { return m_manifest; }
     [[nodiscard]] const SceneryField& GetField() const noexcept { return *m_field; }
     [[nodiscard]] const ScenerySpawnList& GetSpawns() const noexcept { return m_spawns; }
+    [[nodiscard]] const ScenerySpawnList& GetSpawnList() const noexcept { return m_spawns; }
     [[nodiscard]] const Scenery::AirportConfig& GetAirportConfig() const noexcept { return m_airport; }
 
 private:
