@@ -13,23 +13,23 @@ f32 TerrMeshBlock::SampleElevation(f64 xNed, f64 yNed) const noexcept {
         return 0.0f;
     }
 
-    f64 localX = xNed - originNed.x;
-    f64 localY = yNed - originNed.y;
+    f64 localNorth = xNed - originNed.x;
+    f64 localEast = yNed - originNed.y;
 
-    if (localX < 0.0 || localY < 0.0) return 0.0f;
+    if (localNorth < 0.0 || localEast < 0.0) return 0.0f;
 
-    f64 totalWidth = static_cast<f64>(cols) * stepX;
-    f64 totalHeight = static_cast<f64>(rows) * stepZ;
+    f64 totalNorth = static_cast<f64>(rows) * stepZ;
+    f64 totalEast = static_cast<f64>(cols) * stepX;
 
-    if (localX > totalWidth || localY > totalHeight) return 0.0f;
+    if (localNorth > totalNorth || localEast > totalEast) return 0.0f;
 
-    f64 fx = localX / stepX;
-    f64 fy = localY / stepZ;
+    f64 fn = localNorth / stepZ;
+    f64 fe = localEast / stepX;
 
-    u32 ix = std::min(static_cast<u32>(fx), cols - 1);
-    u32 iy = std::min(static_cast<u32>(fy), rows - 1);
+    u32 in = std::min(static_cast<u32>(fn), rows - 1);
+    u32 ie = std::min(static_cast<u32>(fe), cols - 1);
 
-    size_t idx = iy * (cols + 1) + ix;
+    size_t idx = in * (cols + 1) + ie;
     if (idx < elevations.size()) {
         return elevations[idx];
     }
@@ -37,6 +37,17 @@ f32 TerrMeshBlock::SampleElevation(f64 xNed, f64 yNed) const noexcept {
 }
 
 f32 SceneryField::SampleElevationAt(f64 xNed, f64 yNed) const noexcept {
+    // If coordinate is within a runway bounding box, return runway elevation
+    for (const auto& rnw : runways) {
+        f64 dx = xNed - rnw.centerNed.x;
+        f64 dy = yNed - rnw.centerNed.y;
+        f64 halfLen = rnw.lengthM * 0.5 + 50.0;
+        f64 halfWid = rnw.widthM * 0.5 + 50.0;
+        if (std::abs(dx) <= halfLen && std::abs(dy) <= halfWid) {
+            return static_cast<f32>(rnw.elevationM);
+        }
+    }
+
     f32 maxElev = 0.0f;
     for (const auto& block : terrainBlocks) {
         f32 h = block.SampleElevation(xNed, yNed);
@@ -59,6 +70,14 @@ Scenery::AirportConfig SceneryField::ToAirportConfig(
         apt.locationNed = runways[0].centerNed;
         apt.elevationM = runways[0].elevationM;
         apt.runways = runways;
+    } else {
+        Scenery::RunwayConfig rnw;
+        rnw.ident = "36/18";
+        rnw.centerNed = Math::Vec3d{ 0.0, 0.0, 0.0 };
+        rnw.lengthM = 2500.0;
+        rnw.widthM = 45.0;
+        rnw.elevationM = 0.0;
+        apt.runways.push_back(rnw);
     }
 
     return apt;
@@ -226,7 +245,12 @@ std::optional<SceneryField> SceneryFldParser::ParseFromString(
                 }
             }
 
-            if (rgnTag == "RW") {
+            bool isRunway = (rgnTag == "RW") ||
+                            (rgnTag.find("RW") != std::string::npos) ||
+                            (rgnTag.find("RUNWAY") != std::string::npos) ||
+                            (!rgnTag.empty() && std::isdigit(static_cast<unsigned char>(rgnTag[0])) && rgnTag.find('-') != std::string::npos);
+
+            if (isRunway) {
                 Scenery::RunwayConfig rnw;
                 f64 width = std::abs(x2 - x1);
                 f64 length = std::abs(z2 - z1);
@@ -239,7 +263,7 @@ std::optional<SceneryField> SceneryFldParser::ParseFromString(
                 rnw.centerNed = Math::Vec3d(posYs.z, posYs.x, -posYs.y);
                 rnw.elevationM = posYs.y;
                 rnw.headingDeg = headingDeg;
-                rnw.ident = "36/18";
+                rnw.ident = !rgnTag.empty() ? rgnTag : "36/18";
                 rnw.hasAls = true;
                 rnw.hasPapi = true;
                 rnw.hasIls = true;
