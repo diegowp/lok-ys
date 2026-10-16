@@ -59,13 +59,13 @@ Phase 5: Verification & Quality Assur.   [ Agent-QA ]
   - Ingests `.dnm` hierarchical scene graphs (`PCK` blocks, `CLA` animation classes, `STA` state keyframes, `POS` pivots).
   - Connects nodes directly to the LokYS articulated submesh scene graph solver.
 
-### Phase 2: Aircraft Ecosystem & Flight Dynamics (`Agent-Aircraft`)
-- [ ] **P2.1: Flight Model Parser (`AircraftDatParser`)**
+### Phase 2: Aircraft Ecosystem & Flight Dynamics (`Agent-Aircraft`) — COMPLETED
+- [x] **P2.1: Flight Model Parser (`AircraftDatParser`)**
   - Ingests `.dat` flight physics and maps to `AircraftConfig`, `AircraftMassConfig`, and `AeroDerivativesConfig`.
   - Computes lift curves, drag polars, stall angles, propulsion parameters, and gear geometry in SI units.
-- [ ] **P2.2: Cockpit Panel Parser (`CockpitIstParser`)**
+- [x] **P2.2: Cockpit Panel Parser (`CockpitIstParser`)**
   - Ingests `.ist` instrument panel definitions and maps coordinates to `SixPackGaugeRenderer`.
-- [ ] **P2.3: Aircraft Container Packager (`.acft.zip`)**
+- [x] **P2.3: Aircraft Container Packager (`.acft.zip`)**
   - Support bundling and loading `.acft.zip` archives with `manifest.json`.
 
 ### Phase 3: Scenery & World Pipeline (`Agent-Scenery`)

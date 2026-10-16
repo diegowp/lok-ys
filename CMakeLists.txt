@@ -82,6 +82,9 @@ set(LOKYS_SOURCES
     src/assets/AssetTokenizer.cpp
     src/assets/SrfParser.cpp
     src/assets/DnmParser.cpp
+    src/assets/AircraftDatParser.cpp
+    src/assets/CockpitIstParser.cpp
+    src/assets/AcftPackage.cpp
 )
 
 set(LOKYS_HEADERS
@@ -89,6 +92,9 @@ set(LOKYS_HEADERS
     include/LokYS/assets/AssetTokenizer.hpp
     include/LokYS/assets/SrfParser.hpp
     include/LokYS/assets/DnmParser.hpp
+    include/LokYS/assets/AircraftDatParser.hpp
+    include/LokYS/assets/CockpitIstParser.hpp
+    include/LokYS/assets/AcftPackage.hpp
     include/LokYS/core/EngineContext.hpp
     include/LokYS/core/GameState.hpp
     include/LokYS/core/Types.hpp
@@ -489,5 +495,30 @@ target_link_libraries(LokYSYsflightPhase1Tests PRIVATE
 )
 
 add_test(NAME YsflightPhase1Tests COMMAND LokYSYsflightPhase1Tests)
+
+add_executable(LokYSYsflightPhase2Tests
+    tests/unit/YsflightPhase2Tests.cpp
+    src/vfs/ZipVfsReader.cpp
+    src/assets/AssetTokenizer.cpp
+    src/assets/SrfParser.cpp
+    src/assets/DnmParser.cpp
+    src/assets/AircraftDatParser.cpp
+    src/assets/CockpitIstParser.cpp
+    src/assets/AcftPackage.cpp
+    src/graphics/Mesh.cpp
+    ${LOKYS_HEADERS}
+)
+
+target_include_directories(LokYSYsflightPhase2Tests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_link_libraries(LokYSYsflightPhase2Tests PRIVATE
+    d3d12.lib
+    dxgi.lib
+    d3dcompiler.lib
+)
+
+add_test(NAME YsflightPhase2Tests COMMAND LokYSYsflightPhase2Tests)
 
 
